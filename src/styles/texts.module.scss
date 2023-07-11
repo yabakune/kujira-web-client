@@ -12,3 +12,12 @@
   font-size: var(--twelvePixels);
   font-weight: var(--bold);
 }
+
+.primaryLink {
+  color: var(--peacockMain);
+  transition: var(--transition);
+
+  &:hover {
+    color: var(--peacockDarker);
+  }
+}
