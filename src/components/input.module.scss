@@ -1,0 +1,15 @@
+.article {
+  display: flex;
+  align-items: center;
+  gap: var(--sixteenPixels);
+  padding: 0rem var(--sixteenPixels);
+}
+
+.input {
+  font-size: var(--fourteenPixels);
+
+  &::placeholder {
+    color: var(--themeTen);
+    font-style: italic;
+  }
+}
