@@ -1,3 +1,11 @@
 .form {
-	
+  display: flex;
+  flex-direction: column;
+  gap: var(--thirtyTwoPixels);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  grid-area: var(--sixteenPixels);
 }

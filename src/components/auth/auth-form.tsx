@@ -7,6 +7,8 @@ export const AuthForm = (props: Types.AuthFormProps) => {
   return (
     <form className={Styles.form}>
       <AuthHeader type={props.type} />
+
+      <div className={Styles.body}></div>
     </form>
   );
 };
