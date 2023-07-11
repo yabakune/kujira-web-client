@@ -8,17 +8,25 @@ type Props = {
   placeholder: string;
   setValue: (event: Types.OnChange) => void;
   borderRadius?: number;
+  backgroundLevel?: number;
 };
 
 export const Input = (props: Props) => {
-  <article
-    className={Styles.article}
-    style={{ borderRadius: Helpers.setBorderRadius(props.borderRadius) }}
-  >
-    <input
-      onChange={props.setValue}
-      value={props.value}
-      placeholder={props.placeholder}
-    />
-  </article>;
+  return (
+    <article
+      className={`
+        ${Styles.article}
+        ${Helpers.setBackgroundLevel(props.backgroundLevel || 1)}`}
+      style={{
+        borderRadius: Helpers.setBorderRadius(props.borderRadius),
+      }}
+    >
+      <input
+        className={Styles.input}
+        onChange={props.setValue}
+        value={props.value}
+        placeholder={props.placeholder}
+      />
+    </article>
+  );
 };

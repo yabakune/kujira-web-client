@@ -29,3 +29,69 @@
 
   --shadowOne: 0px 8px 16px 0px #ebebeb;
 }
+
+@mixin determineBackgroundLevel($level) {
+  @if $level == two {
+    background-color: var(--themeTwo);
+  } @else if $level == three {
+    background-color: var(--themeThree);
+  } @else if $level == four {
+    background-color: var(--themeFour);
+  } @else if $level == five {
+    background-color: var(--themeFive);
+  } @else if $level == six {
+    background-color: var(--themeSix);
+  } @else if $level == seven {
+    background-color: var(--themeSeven);
+  } @else if $level == eight {
+    background-color: var(--themeEight);
+  } @else if $level == nine {
+    background-color: var(--themeNine);
+  } @else if $level == ten {
+    background-color: var(--themeTen);
+  } @else {
+    background-color: var(--themeOne);
+  }
+}
+
+.backgroundLevel {
+  &.one {
+    @include determineBackgroundLevel(one);
+  }
+
+  &.two {
+    @include determineBackgroundLevel(two);
+  }
+
+  &.three {
+    @include determineBackgroundLevel(three);
+  }
+
+  &.four {
+    @include determineBackgroundLevel(four);
+  }
+
+  &.five {
+    @include determineBackgroundLevel(five);
+  }
+
+  &.six {
+    background-color: var(--themeSix);
+  }
+
+  &.seven {
+    @include determineBackgroundLevel(seven);
+  }
+
+  &.eight {
+    @include determineBackgroundLevel(eight);
+  }
+
+  &.nine {
+    @include determineBackgroundLevel(nine);
+  }
+
+  &.ten {
+    @include determineBackgroundLevel(ten);
+  }
+}
