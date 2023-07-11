@@ -1,4 +1,305 @@
+:root {
+  color-scheme: dark light;
+
+  --debug: red solid 1px;
+
+  --transition: 0.1s ease-in;
+
+  --text: #e8e8e8;
+  --textButton: #ffffff;
+
+  --themeOne: #141414;
+  --themeTwo: #1a1a1a;
+  --themeThree: #1f1f1f;
+  --themeFour: #262626;
+  --themeFive: #2b2b2b;
+  --themeSix: #363636;
+  --themeSeven: #545454;
+  --themeEight: #616161;
+  --themeNine: #929292;
+  --themeTen: #a3a3a3;
+
+  --zirconDarker: #2b9c9a;
+  --zirconMain: #36bcba;
+  --zirconLighter: #50dfdd;
+
+  --pending: #a3b4c2;
+  --success: #117b68;
+  --failure: #d56363;
+  --warning: #e4a427;
+
+  --monthly: #e8dd76;
+  --need: #6cbc4f;
+  --planned: #67a8e4;
+  --impulse: #c8803e;
+  --regret: #c469a0;
+
+  --shadowOne: 0px 8px 16px 0px #090909;
+  --shadowThree: 0px 8px 16px 0px #101010;
+
+  --shadowOverlay: 0px 8px 16px 0px #000000;
+
+  --fourPixels: 0.25rem;
+  --sixPixels: 0.375rem;
+  --eightPixels: 0.5rem;
+  --tenPixels: 0.625rem;
+  --twelvePixels: 0.75rem;
+  --fourteenPixels: 0.875rem;
+  --sixteenPixels: 1rem;
+  --eighteenPixels: 1.125rem;
+  --twentyPixels: 1.25rem;
+  --twentyTwoPixels: 1.375rem;
+  --twentyFourPixels: 1.5rem;
+  --twentySixPixels: 1.625rem;
+  --twentyEightPixels: 1.75rem;
+  --thirtyPixels: 1.875rem;
+  --thirtyTwoPixels: 2rem;
+  --thirtyFourPixels: 2.125rem;
+  --thirtySixPixels: 2.25rem;
+  --thirtyEightPixels: 2.375rem;
+  --fortyPixels: 2.5rem;
+  --fortyTwoPixels: 2.625rem;
+  --fortyFourPixels: 2.75rem;
+  --fortySixPixels: 2.875rem;
+  --fortyEightPixels: 3rem;
+
+  --light: 300;
+  --regular: 400;
+  --medium: 500;
+  --semiBold: 600;
+  --bold: 700;
+  --extraBold: 800;
+  --black: 900;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  color: var(--text);
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+}
+
 html,
 body {
-  border: red solid 10px;
+  background-color: var(--themeOne);
+}
+
+body {
+  font-size: var(--fourteenPixels);
+  font-weight: var(--medium);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* body {
+  transition: 0.1s ease-in;
+} */
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+svg {
+  transition: var(--transition);
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Sets theme based on user's system theme setting. */
+@media (prefers-color-scheme: light) {
+  :root {
+    --text: #262626;
+
+    --themeOne: #ffffff;
+    --themeTwo: #fafafa;
+    --themeThree: #f5f5f5;
+    --themeFour: #ebebeb;
+    --themeFive: #e0e0e0;
+    --themeSix: #c7c7c7;
+    --themeSeven: #b8b8b8;
+    --themeEight: #adadad;
+    --themeNine: #858585;
+    --themeTen: #707070;
+
+    --pending: #46759d;
+    --success: #2cd379;
+    --failure: #f34747;
+    --warning: #f4bf58;
+
+    --monthly: #e0b61f;
+    --need: #4ec025;
+    --planned: #348ee0;
+    --impulse: #e77b18;
+    --regret: #ce3574;
+
+    --shadowOne: 0px 8px 16px 0px #ebebeb;
+  }
 }
