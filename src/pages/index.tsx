@@ -1,20 +1,13 @@
-import Head from "next/head";
-import { Mulish } from "next/font/google";
-import styles from "@/styles/home.module.scss";
+import * as Components from "@/components";
 
-const mulish = Mulish({ subsets: ["latin"] });
+import styles from "@/styles/home.module.scss";
 
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Kujira</title>
-        <meta name="description" content="Your spending habits made clear." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Components.PageHead title="Home" />
 
-      <main className={`${styles.main} ${mulish.className}`}></main>
+      <main className={styles.main}>Home</main>
     </>
   );
 }
