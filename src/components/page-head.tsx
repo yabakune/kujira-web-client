@@ -8,7 +8,7 @@ type Props = {
 export const PageHead = (props: Props) => {
   return (
     <Head>
-      <title>Kujira | {props.title}</title>
+      <title>{`Kujira | ${props.title}`}</title>
       <meta
         name="description"
         content={props.description || "Your spending habits made clear."}
