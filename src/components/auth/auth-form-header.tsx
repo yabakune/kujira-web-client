@@ -3,10 +3,10 @@ import Link from "next/link";
 import * as Constants from "@/constants";
 import * as Types from "@/types";
 
-import Styles from "./auth-header.module.scss";
+import Styles from "./auth-form-header.module.scss";
 import TextStyles from "@/styles/texts.module.scss";
 
-export const AuthHeader = (props: Types.AuthFormProps) => {
+export const AuthFormHeader = (props: Types.AuthFormProps) => {
   return (
     <section className={Styles.section}>
       <h1 className={TextStyles.titleText}>

@@ -2,7 +2,7 @@ import { useSignal } from "@preact/signals-react";
 
 import * as Components from "@/components";
 import * as Types from "@/types";
-import { AuthHeader } from "./auth-header";
+import { AuthFormHeader } from "./auth-form-header";
 
 import Styles from "./auth-form.module.scss";
 
@@ -24,7 +24,7 @@ export const AuthForm = (props: Types.AuthFormProps) => {
 
   return (
     <form className={Styles.form} onSubmit={submit}>
-      <AuthHeader type={props.type} />
+      <AuthFormHeader type={props.type} />
 
       <div className={Styles.body}>
         <Components.Input
