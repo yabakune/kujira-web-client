@@ -1,4 +1,4 @@
-import { useSignal } from "@preact/signals-react";
+import { Signal, useSignal } from "@preact/signals-react";
 import { useRef } from "react";
 
 import * as Helpers from "@/helpers";
@@ -7,22 +7,30 @@ import * as Types from "@/types";
 import Styles from "./input.module.scss";
 
 type Props = {
-  value: string;
+  userInput: Signal<string>;
   placeholder: string;
-  setValue: (event: Types.OnChange) => void;
   borderRadius?: number;
   backgroundLevel?: number;
 };
 
 export const Input = (props: Props) => {
-  const articleRef = useRef<any>(null);
+  const inputRef = useRef<any>(null);
   const focused = useSignal(false);
+
+  function setUserInput(event: Types.OnChange): void {
+    props.userInput.value = event.currentTarget.value;
+  }
 
   function setFocused(state: boolean): void {
     focused.value = state;
   }
 
-  console.log("active.value:", focused.value);
+  function focusInput(): void {
+    if (inputRef && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }
 
   return (
     <article
@@ -37,12 +45,14 @@ export const Input = (props: Props) => {
       }}
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
+      onClick={focusInput}
     >
       <input
         className={Styles.input}
-        onChange={props.setValue}
-        value={props.value}
+        onChange={setUserInput}
+        value={props.userInput.value}
         placeholder={props.placeholder}
+        ref={inputRef}
       />
     </article>
   );

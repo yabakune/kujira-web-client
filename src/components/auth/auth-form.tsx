@@ -28,11 +28,8 @@ export const AuthForm = (props: Types.AuthFormProps) => {
 
       <div className={Styles.body}>
         <Components.Input
-          value={email.value}
+          userInput={email}
           placeholder="Email"
-          setValue={(event: Types.OnChange) =>
-            (email.value = event.currentTarget.value)
-          }
           backgroundLevel={2}
         />
       </div>

@@ -5,6 +5,7 @@
   height: var(--fortyPixels);
   padding: 0rem var(--sixteenPixels);
   transition: var(--transition);
+  cursor: pointer;
 }
 
 .input {
@@ -12,6 +13,7 @@
   background-color: transparent;
   border: none;
   outline: none;
+  cursor: pointer;
 
   &::placeholder {
     color: var(--themeTen);
