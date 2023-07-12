@@ -16,7 +16,9 @@ export const Input = (props: Props) => {
     <article
       className={`
         ${Styles.article}
-        ${Helpers.setBackgroundLevel(props.backgroundLevel || 1)}`}
+        ${Helpers.setBackgroundLevel(props.backgroundLevel || 1)}
+        ${Helpers.setHoverLevel(props.backgroundLevel || 1)}
+      `}
       style={{
         borderRadius: Helpers.setBorderRadius(props.borderRadius),
       }}

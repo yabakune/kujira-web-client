@@ -28,3 +28,20 @@ export function setBackgroundLevel(level: number): string {
       return `${ThemeStyles.backgroundLevel} ${ThemeStyles.one}`;
   }
 }
+
+export function setHoverLevel(level: number): string {
+  switch (level) {
+    case 2:
+      return `${ThemeStyles.hoverLevel} ${ThemeStyles.two}`;
+    case 3:
+      return `${ThemeStyles.hoverLevel} ${ThemeStyles.three}`;
+    case 4:
+      return `${ThemeStyles.hoverLevel} ${ThemeStyles.four}`;
+    case 5:
+      return `${ThemeStyles.hoverLevel} ${ThemeStyles.five}`;
+    case 6:
+      return `${ThemeStyles.hoverLevel} ${ThemeStyles.six}`;
+    default:
+      return `${ThemeStyles.hoverLevel} ${ThemeStyles.seven}`;
+  }
+}

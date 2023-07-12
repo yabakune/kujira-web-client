@@ -95,3 +95,57 @@
     @include determineBackgroundLevel(ten);
   }
 }
+
+@mixin determineHoverLevel($backgroundLevel) {
+  @if $backgroundLevel == two {
+    &:hover {
+      background-color: var(--themeFive);
+    }
+  } @else if $backgroundLevel == three {
+    &:hover {
+      background-color: var(--themeSix);
+    }
+  } @else if $backgroundLevel == four {
+    &:hover {
+      background-color: var(--themeSeven);
+    }
+  } @else if $backgroundLevel == five {
+    &:hover {
+      background-color: var(--themeEight);
+    }
+  } @else if $backgroundLevel == six {
+    &:hover {
+      background-color: var(--themeNine);
+    }
+  } @else {
+    &:hover {
+      background-color: var(--themeTen);
+    }
+  }
+}
+
+.hoverLevel {
+  &.two {
+    @include determineHoverLevel(two);
+  }
+
+  &.three {
+    @include determineHoverLevel(three);
+  }
+
+  &.four {
+    @include determineHoverLevel(four);
+  }
+
+  &.five {
+    @include determineHoverLevel(five);
+  }
+
+  &.six {
+    @include determineHoverLevel(six);
+  }
+
+  &.seven {
+    @include determineHoverLevel(seven);
+  }
+}
