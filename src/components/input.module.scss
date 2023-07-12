@@ -1,11 +1,20 @@
-.article {
+.size {
   display: flex;
   align-items: center;
-  gap: var(--sixteenPixels);
-  height: var(--fortyPixels);
-  padding: 0rem var(--sixteenPixels);
   transition: var(--transition);
   cursor: pointer;
+
+  &.default {
+    gap: var(--sixteenPixels);
+    height: var(--fortyPixels);
+    padding: 0rem var(--sixteenPixels);
+  }
+
+  &.mini {
+    gap: var(--eightPixels);
+    height: auto;
+    padding: var(--fourPixels) var(--eightPixels);
+  }
 }
 
 .input {

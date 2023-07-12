@@ -12,6 +12,7 @@ type Props = {
   borderRadius?: number;
   backgroundLevel?: number;
   required?: true;
+  mini?: true;
 };
 
 export const Input = (props: Props) => {
@@ -36,7 +37,7 @@ export const Input = (props: Props) => {
   return (
     <article
       className={`
-        ${Styles.article}
+        ${Styles.size} ${props.mini ? Styles.mini : Styles.default}
         ${Helpers.setBackgroundLevel(props.backgroundLevel || 1, focused.value)}
         ${Helpers.setActiveLevel(props.backgroundLevel || 1)}
         ${Helpers.setHoverLevel(props.backgroundLevel || 1)}
