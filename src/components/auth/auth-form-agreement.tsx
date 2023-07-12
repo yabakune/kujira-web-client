@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Signal } from "@preact/signals-react";
 
+import * as Components from "@/components";
 import * as Constants from "@/constants";
 import * as Helpers from "@/helpers";
 import * as Types from "@/types";
@@ -17,6 +18,12 @@ export const AuthFormAgreement = (props: Props) => {
 
   return (
     <section className={Styles.section} onClick={toggleAgreement}>
+      {props.agreementChecked.value ? (
+        <Components.CheckboxActive width={20} fill={12} />
+      ) : (
+        <Components.Checkbox width={20} fill={10} />
+      )}
+
       {props.type === "Register" ? (
         <p>
           {"I agree to the "}
