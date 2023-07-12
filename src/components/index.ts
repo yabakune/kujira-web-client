@@ -1,6 +1,7 @@
 export * from "./layouts/auth-layout";
 
 export * from "./auth/auth-form";
+export * from "./auth/auth-verification";
 
 export * from "./icons/arrow-right";
 export * from "./icons/budget";
