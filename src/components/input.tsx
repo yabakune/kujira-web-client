@@ -1,3 +1,6 @@
+import { useSignal } from "@preact/signals-react";
+import { useRef } from "react";
+
 import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
@@ -12,17 +15,28 @@ type Props = {
 };
 
 export const Input = (props: Props) => {
+  const articleRef = useRef<any>(null);
+  const focused = useSignal(false);
+
+  function setFocused(state: boolean): void {
+    focused.value = state;
+  }
+
+  console.log("active.value:", focused.value);
+
   return (
     <article
       className={`
         ${Styles.article}
-        ${Helpers.setBackgroundLevel(props.backgroundLevel || 1)}
+        ${Helpers.setBackgroundLevel(props.backgroundLevel || 1, focused.value)}
         ${Helpers.setActiveLevel(props.backgroundLevel || 1)}
         ${Helpers.setHoverLevel(props.backgroundLevel || 1)}
       `}
       style={{
         borderRadius: Helpers.setBorderRadius(props.borderRadius),
       }}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
     >
       <input
         className={Styles.input}

@@ -4,28 +4,49 @@ export function setBorderRadius(borderRadius?: number): string {
   return borderRadius ? `${borderRadius}px` : "12px";
 }
 
-export function setBackgroundLevel(backgroundLevel: number): string {
+export function setBackgroundLevel(
+  backgroundLevel: number,
+  selected?: boolean
+): string {
   switch (backgroundLevel) {
     case 2:
-      return `${ThemeStyles.backgroundLevel} ${ThemeStyles.two}`;
+      return `${ThemeStyles.backgroundLevel} ${
+        selected ? ThemeStyles.three : ThemeStyles.two
+      }`;
     case 3:
-      return `${ThemeStyles.backgroundLevel} ${ThemeStyles.three}`;
+      return `${ThemeStyles.backgroundLevel} ${
+        selected ? ThemeStyles.four : ThemeStyles.three
+      }`;
     case 4:
-      return `${ThemeStyles.backgroundLevel} ${ThemeStyles.four}`;
+      return `${ThemeStyles.backgroundLevel} ${
+        selected ? ThemeStyles.five : ThemeStyles.four
+      }`;
     case 5:
-      return `${ThemeStyles.backgroundLevel} ${ThemeStyles.five}`;
+      return `${ThemeStyles.backgroundLevel} ${
+        selected ? ThemeStyles.six : ThemeStyles.five
+      }`;
     case 6:
-      return `${ThemeStyles.backgroundLevel} ${ThemeStyles.six}`;
+      return `${ThemeStyles.backgroundLevel} ${
+        selected ? ThemeStyles.seven : ThemeStyles.six
+      }`;
     case 7:
-      return `${ThemeStyles.backgroundLevel} ${ThemeStyles.seven}`;
+      return `${ThemeStyles.backgroundLevel} ${
+        selected ? ThemeStyles.eight : ThemeStyles.seven
+      }`;
     case 8:
-      return `${ThemeStyles.backgroundLevel} ${ThemeStyles.eight}`;
+      return `${ThemeStyles.backgroundLevel} ${
+        selected ? ThemeStyles.nine : ThemeStyles.eight
+      }`;
     case 9:
-      return `${ThemeStyles.backgroundLevel} ${ThemeStyles.nine}`;
+      return `${ThemeStyles.backgroundLevel} ${
+        selected ? ThemeStyles.ten : ThemeStyles.nine
+      }`;
     case 10:
       return `${ThemeStyles.backgroundLevel} ${ThemeStyles.ten}`;
     default:
-      return `${ThemeStyles.backgroundLevel} ${ThemeStyles.one}`;
+      return `${ThemeStyles.backgroundLevel} ${
+        selected ? ThemeStyles.two : ThemeStyles.one
+      }`;
   }
 }
 
