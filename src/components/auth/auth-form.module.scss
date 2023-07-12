@@ -9,6 +9,12 @@
 .body {
   display: flex;
   flex-direction: column;
+  gap: var(--sixteenPixels);
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
   gap: var(--fourPixels);
 }
 

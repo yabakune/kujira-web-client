@@ -127,78 +127,82 @@ export const AuthForm = (props: Types.AuthFormProps) => {
 
   return (
     <form className={Styles.form} onSubmit={submit}>
-      <AuthFormHeader type={props.type} />
-
       <section className={Styles.body}>
-        {emailError.value && (
-          <span className={Styles.error}>{emailError.value}</span>
-        )}
-        <Components.Input
-          key="Auth Form Email Input"
-          type="email"
-          userInput={email}
-          placeholder="Email"
-          backgroundLevel={2}
-          required
+        <AuthFormHeader type={props.type} />
+
+        <article className={Styles.inputs}>
+          {emailError.value && (
+            <span className={Styles.error}>{emailError.value}</span>
+          )}
+          <Components.Input
+            key="Auth Form Email Input"
+            type="email"
+            userInput={email}
+            placeholder="Email"
+            backgroundLevel={2}
+            required
+          />
+
+          {props.type === "Register" && (
+            <>
+              {usernameError.value && (
+                <span className={Styles.error}>{usernameError.value}</span>
+              )}
+              <Components.Input
+                key="Auth Form Username Input"
+                type="text"
+                userInput={username}
+                placeholder="Username"
+                backgroundLevel={2}
+                required
+              />
+            </>
+          )}
+
+          {passwordError.value && (
+            <span className={Styles.error}>{passwordError.value}</span>
+          )}
+          <Components.Input
+            key="Auth Form Password Input"
+            type="password"
+            userInput={password}
+            placeholder="Password"
+            backgroundLevel={2}
+            required
+          />
+
+          {props.type === "Register" && (
+            <>
+              {confirmPasswordError.value && (
+                <span className={Styles.error}>
+                  {confirmPasswordError.value}
+                </span>
+              )}
+              <Components.Input
+                key="Auth Form Confirm Password Input"
+                type="password"
+                userInput={confirmPassword}
+                placeholder="Confirm Password"
+                backgroundLevel={2}
+                required
+              />
+            </>
+          )}
+        </article>
+
+        <AuthFormAgreement
+          type={props.type}
+          agreementChecked={agreementChecked}
         />
 
-        {props.type === "Register" && (
-          <>
-            {usernameError.value && (
-              <span className={Styles.error}>{usernameError.value}</span>
-            )}
-            <Components.Input
-              key="Auth Form Username Input"
-              type="text"
-              userInput={username}
-              placeholder="Username"
-              backgroundLevel={2}
-              required
-            />
-          </>
-        )}
-
-        {passwordError.value && (
-          <span className={Styles.error}>{passwordError.value}</span>
-        )}
-        <Components.Input
-          key="Auth Form Password Input"
-          type="password"
-          userInput={password}
-          placeholder="Password"
-          backgroundLevel={2}
-          required
+        <Components.Button
+          type="submit"
+          text={props.type}
+          disabled={handleButtonDisable()}
+          centerContents
+          primary
         />
-
-        {props.type === "Register" && (
-          <>
-            {confirmPasswordError.value && (
-              <span className={Styles.error}>{confirmPasswordError.value}</span>
-            )}
-            <Components.Input
-              key="Auth Form Confirm Password Input"
-              type="password"
-              userInput={confirmPassword}
-              placeholder="Confirm Password"
-              backgroundLevel={2}
-              required
-            />
-          </>
-        )}
       </section>
-
-      <AuthFormAgreement
-        type={props.type}
-        agreementChecked={agreementChecked}
-      />
-
-      <Components.Button
-        type="submit"
-        text={props.type}
-        disabled={handleButtonDisable()}
-        centerContents
-        primary
-      />
     </form>
   );
 };
