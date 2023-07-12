@@ -7,5 +7,5 @@
 .body {
   display: flex;
   flex-direction: column;
-  grid-area: var(--sixteenPixels);
+  gap: var(--fourPixels);
 }

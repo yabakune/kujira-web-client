@@ -11,6 +11,7 @@ type Props = {
   placeholder: string;
   borderRadius?: number;
   backgroundLevel?: number;
+  required?: true;
 };
 
 export const Input = (props: Props) => {
@@ -43,8 +44,7 @@ export const Input = (props: Props) => {
       style={{
         borderRadius: Helpers.setBorderRadius(props.borderRadius),
       }}
-      onFocus={() => setFocused(true)}
-      onBlur={() => setFocused(false)}
+      tabIndex={-1}
       onClick={focusInput}
     >
       <input
@@ -53,6 +53,9 @@ export const Input = (props: Props) => {
         value={props.userInput.value}
         placeholder={props.placeholder}
         ref={inputRef}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        required={!!props.required}
       />
     </article>
   );

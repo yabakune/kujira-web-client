@@ -31,7 +31,33 @@ export const AuthForm = (props: Types.AuthFormProps) => {
           userInput={email}
           placeholder="Email"
           backgroundLevel={2}
+          required
         />
+
+        {props.type === "Register" && (
+          <Components.Input
+            userInput={username}
+            placeholder="Username"
+            backgroundLevel={2}
+            required
+          />
+        )}
+
+        <Components.Input
+          userInput={password}
+          placeholder="Password"
+          backgroundLevel={2}
+          required
+        />
+
+        {props.type === "Register" && (
+          <Components.Input
+            userInput={confirmPassword}
+            placeholder="Confirm Password"
+            backgroundLevel={2}
+            required
+          />
+        )}
       </div>
     </form>
   );
