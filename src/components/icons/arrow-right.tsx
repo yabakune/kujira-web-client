@@ -1,5 +1,6 @@
 import { useSignal } from "@preact/signals-react";
 
+import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
 export const ArrowRight = (props: Types.IconProps) => {
@@ -7,7 +8,11 @@ export const ArrowRight = (props: Types.IconProps) => {
 
   return (
     <svg
-      className={hovered.value ? props.hoverFill : props.fill}
+      className={
+        hovered.value
+          ? Helpers.setIconFill(props.hoverFill)
+          : Helpers.setIconFill(props.fill)
+      }
       width={props.width}
       height={props.width}
       viewBox="0 0 24 24"

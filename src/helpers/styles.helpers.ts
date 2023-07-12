@@ -85,3 +85,32 @@ export function setHoverLevel(backgroundLevel: number): string {
       return `${ThemeStyles.hoverLevel} ${ThemeStyles.seven}`;
   }
 }
+
+export function setIconFill(fillColor?: number): string {
+  switch (fillColor) {
+    case 1:
+      return ThemeStyles.fillOne;
+    case 2:
+      return ThemeStyles.fillTwo;
+    case 3:
+      return ThemeStyles.fillThree;
+    case 4:
+      return ThemeStyles.fillFour;
+    case 5:
+      return ThemeStyles.fillFive;
+    case 6:
+      return ThemeStyles.fillSix;
+    case 7:
+      return ThemeStyles.fillSeven;
+    case 8:
+      return ThemeStyles.fillEight;
+    case 9:
+      return ThemeStyles.fillNine;
+    case 10:
+      return ThemeStyles.fillTen;
+    case 11:
+      return ThemeStyles.fillText;
+    default:
+      return ThemeStyles.fillPrimary;
+  }
+}

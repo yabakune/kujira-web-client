@@ -1,7 +1,7 @@
 export type IconProps = {
   width: number;
-  fill: string;
-  hoverFill?: string;
+  fill: number;
+  hoverFill?: number;
   addHover?: true;
 };
 

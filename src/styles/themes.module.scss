@@ -261,3 +261,51 @@
     @include determineHoverLevel(seven);
   }
 }
+
+.fillOne {
+  fill: var(--themeOne);
+}
+
+.fillTwo {
+  fill: var(--themeTwo);
+}
+
+.fillThree {
+  fill: var(--themeThree);
+}
+
+.fillFour {
+  fill: var(--themeFour);
+}
+
+.fillFive {
+  fill: var(--themeFive);
+}
+
+.fillSix {
+  fill: var(--themeSix);
+}
+
+.fillSeven {
+  fill: var(--themeSeven);
+}
+
+.fillEight {
+  fill: var(--themeEight);
+}
+
+.fillNine {
+  fill: var(--themeNine);
+}
+
+.fillTen {
+  fill: var(--themeTen);
+}
+
+.fillText {
+  fill: var(--text);
+}
+
+.fillPrimary {
+  fill: var(--primaryMain);
+}
