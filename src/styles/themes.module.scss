@@ -30,24 +30,24 @@
   --shadowOne: 0px 8px 16px 0px #ebebeb;
 }
 
-@mixin determineBackgroundLevel($level) {
-  @if $level == two {
+@mixin determineBackgroundLevel($backgroundLevel) {
+  @if $backgroundLevel == two {
     background-color: var(--themeTwo);
-  } @else if $level == three {
+  } @else if $backgroundLevel == three {
     background-color: var(--themeThree);
-  } @else if $level == four {
+  } @else if $backgroundLevel == four {
     background-color: var(--themeFour);
-  } @else if $level == five {
+  } @else if $backgroundLevel == five {
     background-color: var(--themeFive);
-  } @else if $level == six {
+  } @else if $backgroundLevel == six {
     background-color: var(--themeSix);
-  } @else if $level == seven {
+  } @else if $backgroundLevel == seven {
     background-color: var(--themeSeven);
-  } @else if $level == eight {
+  } @else if $backgroundLevel == eight {
     background-color: var(--themeEight);
-  } @else if $level == nine {
+  } @else if $backgroundLevel == nine {
     background-color: var(--themeNine);
-  } @else if $level == ten {
+  } @else if $backgroundLevel == ten {
     background-color: var(--themeTen);
   } @else {
     background-color: var(--themeOne);

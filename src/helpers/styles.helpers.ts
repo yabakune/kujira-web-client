@@ -4,8 +4,8 @@ export function setBorderRadius(borderRadius?: number): string {
   return borderRadius ? `${borderRadius}px` : "12px";
 }
 
-export function setBackgroundLevel(level: number): string {
-  switch (level) {
+export function setBackgroundLevel(backgroundLevel: number): string {
+  switch (backgroundLevel) {
     case 2:
       return `${ThemeStyles.backgroundLevel} ${ThemeStyles.two}`;
     case 3:
@@ -29,8 +29,8 @@ export function setBackgroundLevel(level: number): string {
   }
 }
 
-export function setHoverLevel(level: number): string {
-  switch (level) {
+export function setHoverLevel(backgroundLevel: number): string {
+  switch (backgroundLevel) {
     case 2:
       return `${ThemeStyles.hoverLevel} ${ThemeStyles.two}`;
     case 3:
