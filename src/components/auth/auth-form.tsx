@@ -128,7 +128,7 @@ export const AuthForm = (props: Types.AuthFormProps) => {
     <form className={Styles.form} onSubmit={submit}>
       <AuthFormHeader type={props.type} />
 
-      <div className={Styles.body}>
+      <section className={Styles.body}>
         {emailError.value && (
           <span className={Styles.error}>{emailError.value}</span>
         )}
@@ -184,7 +184,7 @@ export const AuthForm = (props: Types.AuthFormProps) => {
             />
           </>
         )}
-      </div>
+      </section>
 
       <Components.Button
         type="submit"
