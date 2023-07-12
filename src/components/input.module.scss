@@ -18,9 +18,10 @@
 }
 
 .input {
-  font-size: var(--fourteenPixels);
+  width: 100%;
   background-color: transparent;
   border: none;
+  font-size: var(--fourteenPixels);
   outline: none;
   cursor: pointer;
 

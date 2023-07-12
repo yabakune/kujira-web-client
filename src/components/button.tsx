@@ -8,6 +8,7 @@ type Props = {
   type: "button" | "submit";
   size?: Size;
   text: string;
+  disabled?: boolean;
   onClick?: () => void;
 
   borderRadius?: number;
@@ -36,6 +37,7 @@ export const Button = (props: Props) => {
     <button
       className={`
 				${Styles.button}
+				${props.disabled && Styles.disabled}
 				${selectSize(props.size)}
 				${props.centerContents && Styles.centerContents}
 				${

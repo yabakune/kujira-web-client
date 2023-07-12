@@ -56,3 +56,9 @@
     background-color: var(--primaryDarker);
   }
 }
+
+.disabled {
+  opacity: 0.2;
+  pointer-events: none;
+  user-select: none;
+}
