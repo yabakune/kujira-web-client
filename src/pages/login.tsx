@@ -5,6 +5,7 @@ import { NextPageWithLayout } from "@/pages/_app";
 import { signalsStore } from "@/signals/signals";
 
 const Login: NextPageWithLayout = () => {
+  const email = useSignal("");
   const agreementChecked = useSignal(false);
   const { authVerificationCodeSent } = signalsStore;
 
@@ -13,12 +14,14 @@ const Login: NextPageWithLayout = () => {
       {authVerificationCodeSent.value ? (
         <Components.AuthVerification
           type="Log In"
+          email={email.value}
           authVerificationCodeSent={authVerificationCodeSent}
           agreementChecked={agreementChecked}
         />
       ) : (
         <Components.AuthForm
           type="Log In"
+          email={email}
           authVerificationCodeSent={authVerificationCodeSent}
           agreementChecked={agreementChecked}
         />

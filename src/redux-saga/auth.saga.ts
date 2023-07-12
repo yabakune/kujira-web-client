@@ -1,5 +1,6 @@
 import * as Saga from "redux-saga/effects";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 import * as Constants from "@/constants";
 import * as Types from "@/types";
@@ -84,9 +85,10 @@ function* verifyRegistration(
   action: Types.SagaAction<Types.AuthVerificationAction>
 ) {
   try {
-    const endpoint = Constants.APIRoutes.AUTH + "/verify-registration";
+    const endpoint = Constants.APIRoutes.AUTH + `/verify-registration`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
 
+		Cookies.set("token", data.response.accessToken);
     signalsStore.authVerificationCodeSent.value = false;
 
     console.log("Verify Registration Data:", data);
@@ -96,9 +98,40 @@ function* verifyRegistration(
   }
 }
 
+function* login(action: Types.SagaAction<Types.LoginAction>) {
+  try {
+    const endpoint = Constants.APIRoutes.AUTH + `/login`;
+    const { data } = yield Saga.call(axios.post, endpoint, action.payload);
+
+    signalsStore.authVerificationCodeSent.value = true;
+
+    console.log("Login Data:", data);
+  } catch (error: any) {
+    console.error(error);
+    alert(error.response.data.body);
+    alert(error.response.data.caption);
+  }
+}
+
+function* verifyLogin(action: Types.SagaAction<Types.AuthVerificationAction>) {
+  try {
+    const endpoint = Constants.APIRoutes.AUTH + `/verify-login`;
+    const { data } = yield Saga.call(axios.post, endpoint, action.payload);
+
+    Cookies.set("token", data.response.accessToken);
+    signalsStore.authVerificationCodeSent.value = false;
+
+    console.log("Verify Login Data:", data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export function* authSaga() {
   yield Saga.all([
     Saga.takeEvery(AuthActions.REGISTER, register),
     Saga.takeEvery(AuthActions.VERIFY_REGISTRATION, verifyRegistration),
+    Saga.takeEvery(AuthActions.LOGIN, login),
+    Saga.takeEvery(AuthActions.VERIFY_LOGIN, verifyLogin),
   ]);
 }
