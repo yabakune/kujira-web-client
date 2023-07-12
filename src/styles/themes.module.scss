@@ -99,32 +99,31 @@
 @mixin determineActiveLevel($backgroundLevel) {
   @if $backgroundLevel == two {
     &:active {
-      // background-color: var(--themeFour);
-      background-color: red;
+      background-color: var(--themeFour) !important;
     }
   } @else if $backgroundLevel == three {
     &:active {
-      background-color: var(--themeFive);
+      background-color: var(--themeFive) !important;
     }
   } @else if $backgroundLevel == four {
     &:active {
-      background-color: var(--themeSix);
+      background-color: var(--themeSix) !important;
     }
   } @else if $backgroundLevel == five {
     &:active {
-      background-color: var(--themeSeven);
+      background-color: var(--themeSeven) !important;
     }
   } @else if $backgroundLevel == six {
     &:active {
-      background-color: var(--themeEight);
+      background-color: var(--themeEight) !important;
     }
   } @else if $backgroundLevel == seven {
     &:active {
-      background-color: var(--themeNine);
+      background-color: var(--themeNine) !important;
     }
   } @else {
     &:active {
-      background-color: var(--themeTen);
+      background-color: var(--themeTen) !important;
     }
   }
 }
