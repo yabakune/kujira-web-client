@@ -14,10 +14,10 @@
 }
 
 .primaryLink {
-  color: var(--peacockMain);
+  color: var(--primaryMain);
   transition: var(--transition);
 
   &:hover {
-    color: var(--peacockDarker);
+    color: var(--primaryDarker);
   }
 }

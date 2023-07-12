@@ -1,0 +1,8 @@
+.primary {
+  color: var(--textButton);
+  background-color: var(--primaryMain);
+
+  &:hover {
+    background-color: var(--primaryDarker);
+  }
+}
