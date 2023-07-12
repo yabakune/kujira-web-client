@@ -1,3 +1,53 @@
+.button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: var(--bold);
+
+  &:active {
+    transform: scale(0.99);
+  }
+
+  &.centerContents {
+    justify-content: center;
+  }
+
+  &.large {
+    gap: var(--eighteenPixels);
+    height: var(--fortyEightPixels);
+    padding: 0rem var(--eighteenPixels);
+    font-size: var(--eighteenPixels);
+  }
+
+  &.medium {
+    gap: var(--sixteenPixels);
+    height: var(--fortyFourPixels);
+    padding: 0rem var(--sixteenPixels);
+    font-size: var(--sixteenPixels);
+  }
+
+  &.default {
+    gap: var(--fourteenPixels);
+    height: var(--fortyPixels);
+    padding: 0rem var(--fourteenPixels);
+    font-size: var(--fourteenPixels);
+  }
+
+  &.small {
+    gap: var(--twelvePixels);
+    height: var(--thirtySixPixels);
+    padding: 0rem var(--twelvePixels);
+    font-size: var(--twelvePixels);
+  }
+
+  &.smaller {
+    gap: var(--tenPixels);
+    height: var(--thirtyTwoPixels);
+    padding: 0rem var(--tenPixels);
+    font-size: var(--tenPixels);
+  }
+}
+
 .primary {
   color: var(--textButton);
   background-color: var(--primaryMain);

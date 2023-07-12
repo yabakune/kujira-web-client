@@ -7,8 +7,10 @@ import * as Types from "@/types";
 import Styles from "./input.module.scss";
 
 type Props = {
+  type: "text" | "email" | "password";
   userInput: Signal<string>;
   placeholder: string;
+  
   borderRadius?: number;
   backgroundLevel?: number;
   required?: true;
@@ -50,6 +52,7 @@ export const Input = (props: Props) => {
     >
       <input
         className={Styles.input}
+        type={props.type}
         onChange={setUserInput}
         value={props.userInput.value}
         placeholder={props.placeholder}

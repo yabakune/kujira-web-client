@@ -28,6 +28,8 @@ export const AuthForm = (props: Types.AuthFormProps) => {
 
       <div className={Styles.body}>
         <Components.Input
+          key="Auth Form Email Input"
+          type="email"
           userInput={email}
           placeholder="Email"
           backgroundLevel={2}
@@ -36,6 +38,8 @@ export const AuthForm = (props: Types.AuthFormProps) => {
 
         {props.type === "Register" && (
           <Components.Input
+            key="Auth Form Username Input"
+            type="text"
             userInput={username}
             placeholder="Username"
             backgroundLevel={2}
@@ -44,6 +48,8 @@ export const AuthForm = (props: Types.AuthFormProps) => {
         )}
 
         <Components.Input
+          key="Auth Form Password Input"
+          type="password"
           userInput={password}
           placeholder="Password"
           backgroundLevel={2}
@@ -52,6 +58,8 @@ export const AuthForm = (props: Types.AuthFormProps) => {
 
         {props.type === "Register" && (
           <Components.Input
+            key="Auth Form Confirm Password Input"
+            type="password"
             userInput={confirmPassword}
             placeholder="Confirm Password"
             backgroundLevel={2}
@@ -59,6 +67,13 @@ export const AuthForm = (props: Types.AuthFormProps) => {
           />
         )}
       </div>
+
+      <Components.Button
+        type="submit"
+        text={props.type}
+        centerContents
+        primary
+      />
     </form>
   );
 };
