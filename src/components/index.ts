@@ -3,6 +3,24 @@ export * from "./layouts/auth-layout";
 export * from "./auth/auth-form";
 
 export * from "./icons/arrow-right";
+export * from "./icons/budget";
+export * from "./icons/checkbox-active";
+export * from "./icons/checkbox";
+export * from "./icons/cookie";
+export * from "./icons/cross";
+export * from "./icons/drag";
+export * from "./icons/eye-hidden";
+export * from "./icons/eye-visible";
+export * from "./icons/key";
+export * from "./icons/lock";
+export * from "./icons/message";
+export * from "./icons/mode-auto";
+export * from "./icons/mode-dark";
+export * from "./icons/mode-light";
+export * from "./icons/mode-system";
+export * from "./icons/reviews";
+export * from "./icons/settings";
+export * from "./icons/user";
 
 export * from "./buttons/button";
 export * from "./buttons/button-icon";

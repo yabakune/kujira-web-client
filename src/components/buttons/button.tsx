@@ -1,3 +1,4 @@
+import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 
 import Styles from "./button.module.scss";
@@ -10,6 +11,9 @@ type Props = {
   text: string;
   disabled?: boolean;
   onClick?: () => void;
+
+  leftIcon?: JSX.Element;
+  rightIcon?: JSX.Element;
 
   borderRadius?: number;
   backgroundLevel?: number;
@@ -50,7 +54,15 @@ export const Button = (props: Props) => {
       type={props.type}
       onClick={props.onClick}
     >
+      {props.leftIcon && (
+        <Components.ButtonIcon>{props.leftIcon}</Components.ButtonIcon>
+      )}
+
       {props.text}
+
+      {props.rightIcon && (
+        <Components.ButtonIcon>{props.rightIcon}</Components.ButtonIcon>
+      )}
     </button>
   );
 };

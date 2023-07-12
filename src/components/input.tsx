@@ -12,8 +12,11 @@ type Props = {
   userInput: Signal<string>;
   placeholder: string;
 
+  leftIcon?: JSX.Element;
+
   borderRadius?: number;
   backgroundLevel?: number;
+  isPassword?: true;
   required?: true;
   mini?: true;
 };
@@ -21,6 +24,7 @@ type Props = {
 export const Input = (props: Props) => {
   const inputRef = useRef<any>(null);
   const focused = useSignal(false);
+  const inputType = useSignal(props.type);
 
   function setUserInput(event: Types.OnChange): void {
     props.userInput.value = event.currentTarget.value;
@@ -37,6 +41,11 @@ export const Input = (props: Props) => {
     }
   }
 
+  function togglePasswordVisibility(): void {
+    if (inputType.value === "password") inputType.value = "text";
+    else inputType.value = "password";
+  }
+
   return (
     <article
       className={`
@@ -51,13 +60,13 @@ export const Input = (props: Props) => {
       tabIndex={-1}
       onClick={focusInput}
     >
-      <Components.ButtonIcon>
-        <Components.ArrowRight width={16} fill={10} />
-      </Components.ButtonIcon>
+      {props.leftIcon && (
+        <Components.ButtonIcon>{props.leftIcon}</Components.ButtonIcon>
+      )}
 
       <input
         className={Styles.input}
-        type={props.type}
+        type={inputType.value}
         onChange={setUserInput}
         value={props.userInput.value}
         placeholder={props.placeholder}
@@ -67,9 +76,11 @@ export const Input = (props: Props) => {
         required={!!props.required}
       />
 
-      <Components.ButtonIcon>
-        <Components.ArrowRight width={16} fill={8} hoverFill={11} addHover />
-      </Components.ButtonIcon>
+      {props.isPassword && (
+        <Components.ButtonIcon onClick={togglePasswordVisibility}>
+          {<Components.EyeHidden width={16} fill={8} hoverFill={11} addHover />}
+        </Components.ButtonIcon>
+      )}
     </article>
   );
 };

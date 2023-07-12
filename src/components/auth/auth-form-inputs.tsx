@@ -99,6 +99,7 @@ export const AuthFormInputs = (props: Props) => {
         type="email"
         userInput={props.email}
         placeholder="Email"
+        leftIcon={<Components.Message width={16} fill={10} />}
         backgroundLevel={2}
         required
       />
@@ -113,6 +114,7 @@ export const AuthFormInputs = (props: Props) => {
             type="text"
             userInput={props.username}
             placeholder="Username"
+            leftIcon={<Components.User width={16} fill={10} />}
             backgroundLevel={2}
             required
           />
@@ -127,7 +129,9 @@ export const AuthFormInputs = (props: Props) => {
         type="password"
         userInput={props.password}
         placeholder="Password"
+        leftIcon={<Components.Lock width={16} fill={10} />}
         backgroundLevel={2}
+        isPassword
         required
       />
 
@@ -143,7 +147,9 @@ export const AuthFormInputs = (props: Props) => {
             type="password"
             userInput={props.confirmPassword}
             placeholder="Confirm Password"
+            leftIcon={<Components.Lock width={16} fill={10} />}
             backgroundLevel={2}
+            isPassword
             required
           />
         </>
