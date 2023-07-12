@@ -1,4 +1,4 @@
-export type Theme = "dark" | "light" | "system" | "auto";
+type Theme = "dark" | "light" | "system" | "auto";
 
 type Currency = "USD";
 
@@ -19,8 +19,63 @@ export type UserModel = {
   bugReportIds: number[];
 };
 
-export type OverviewModel = {};
-export type LogbookModel = {};
-export type EntryModel = {};
-export type PurchaseModel = {};
-export type BugReportModel = {};
+export type OverviewModel = {
+  id: number | null;
+  income: number | null;
+  savings: number | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  // Belongs To
+  ownerId: number | null;
+  // Has Many
+  entryIds: number[];
+};
+
+export type LogbookModel = {
+  id: number | null;
+  name: string | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  // Belongs To
+  ownerId: number | null;
+  // Has Many
+  entryIds: number[] | null;
+};
+
+export type EntryModel = {
+  id: number | null;
+  name: string | null;
+  totalSpent: number | null;
+  budget?: number | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  // Belongs To
+  overviewId?: number | null;
+  logbookId?: number | null;
+  // Has Many
+  purchaseIds: number[];
+};
+
+type PurchaseCategory = "monthly" | "need" | "planned" | "impulse" | "regret";
+
+export type PurchaseModel = {
+  id: number | null;
+  placement: number | null;
+  category: PurchaseCategory | null;
+  description: string | null;
+  cost?: number | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  // Belongs To
+  entryId: number | null;
+};
+
+export type BugReportModel = {
+  id: number | null;
+  issue: string | null;
+  details?: string | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  // Belongs To
+  ownerId: number | null;
+};
