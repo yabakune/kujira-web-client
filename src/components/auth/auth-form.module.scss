@@ -11,14 +11,3 @@
   flex-direction: column;
   gap: var(--sixteenPixels);
 }
-
-.inputs {
-  display: flex;
-  flex-direction: column;
-  gap: var(--fourPixels);
-}
-
-.error {
-  color: var(--failure);
-  font-weight: var(--bold);
-}
