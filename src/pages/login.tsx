@@ -9,9 +9,15 @@ const Login: NextPageWithLayout = () => {
   return (
     <>
       {verificationStep.value ? (
-        <Components.AuthVerification type="Log In" />
+        <Components.AuthVerification
+          type="Log In"
+          verificationStep={verificationStep}
+        />
       ) : (
-        <Components.AuthForm type="Log In" />
+        <Components.AuthForm
+          type="Log In"
+          verificationStep={verificationStep}
+        />
       )}
     </>
   );

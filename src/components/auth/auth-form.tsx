@@ -1,4 +1,4 @@
-import { useSignal } from "@preact/signals-react";
+import { Signal, useSignal } from "@preact/signals-react";
 
 import * as Components from "@/components";
 import * as Types from "@/types";
@@ -9,7 +9,9 @@ import { AuthFormAgreement } from "./auth-form-agreement";
 import Styles from "./auth-form.module.scss";
 import { AuthFormInputs } from "./auth-form-inputs";
 
-export const AuthForm = (props: Types.AuthFormProps) => {
+type Props = { verificationStep: Signal<boolean> } & Types.AuthFormProps;
+
+export const AuthForm = (props: Props) => {
   const email = useSignal("");
   const username = useSignal("");
   const password = useSignal("");
@@ -31,7 +33,8 @@ export const AuthForm = (props: Types.AuthFormProps) => {
         !!emailError.value ||
         !!usernameError.value ||
         !!passwordError.value ||
-        !!confirmPasswordError.value
+        !!confirmPasswordError.value ||
+        !agreementChecked.value
       );
     } else {
       return (
@@ -51,38 +54,39 @@ export const AuthForm = (props: Types.AuthFormProps) => {
     } else {
       alert("Submitted Login Form!");
     }
+
+    // If API returns successful 200
+    props.verificationStep.value = true;
   }
 
   return (
     <form className={Styles.form} onSubmit={submit}>
-      <section className={Styles.body}>
-        <AuthFormHeader type={props.type} />
+      <AuthFormHeader type={props.type} />
 
-        <AuthFormInputs
-          email={email}
-          username={username}
-          password={password}
-          confirmPassword={confirmPassword}
-          emailError={emailError}
-          usernameError={usernameError}
-          passwordError={passwordError}
-          confirmPasswordError={confirmPasswordError}
-          type={props.type}
-        />
+      <AuthFormInputs
+        email={email}
+        username={username}
+        password={password}
+        confirmPassword={confirmPassword}
+        emailError={emailError}
+        usernameError={usernameError}
+        passwordError={passwordError}
+        confirmPasswordError={confirmPasswordError}
+        type={props.type}
+      />
 
-        <AuthFormAgreement
-          type={props.type}
-          agreementChecked={agreementChecked}
-        />
+      <AuthFormAgreement
+        type={props.type}
+        agreementChecked={agreementChecked}
+      />
 
-        <Components.Button
-          type="submit"
-          text={props.type}
-          disabled={handleButtonDisable()}
-          centerContents
-          primary
-        />
-      </section>
+      <Components.Button
+        type="submit"
+        text={props.type}
+        disabled={handleButtonDisable()}
+        centerContents
+        primary
+      />
     </form>
   );
 };

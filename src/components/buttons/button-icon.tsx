@@ -5,11 +5,12 @@ import Styles from "./button-icon.module.scss";
 type Props = {
   children: React.ReactNode;
   onClick?: () => void;
+  continuePropagation?: true;
 };
 
 export const ButtonIcon = (props: Props) => {
   function onClick(event: Types.OnClick<HTMLButtonElement>): void {
-    event.stopPropagation();
+    !props.continuePropagation && event.stopPropagation();
     props.onClick && props.onClick();
   }
 

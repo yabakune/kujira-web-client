@@ -1,13 +1,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: var(--thirtyTwoPixels);
+  gap: var(--sixteenPixels);
   width: 100%;
   max-width: 25rem;
-}
-
-.body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sixteenPixels);
 }

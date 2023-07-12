@@ -9,9 +9,15 @@ const Register: NextPageWithLayout = () => {
   return (
     <>
       {verificationStep.value ? (
-        <Components.AuthVerification type="Register" />
+        <Components.AuthVerification
+          type="Register"
+          verificationStep={verificationStep}
+        />
       ) : (
-        <Components.AuthForm type="Register" />
+        <Components.AuthForm
+          type="Register"
+          verificationStep={verificationStep}
+        />
       )}
     </>
   );
