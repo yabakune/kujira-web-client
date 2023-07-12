@@ -84,12 +84,34 @@ export const AuthForm = (props: Types.AuthFormProps) => {
 
   effect(() => {
     handleEmailErrors();
-    handlePasswordErrors();
     if (props.type === "Register") {
       handleUsernameErrors();
+      handlePasswordErrors();
       handleConfirmPasswordErrors();
     }
   });
+
+  function handleButtonDisable(): boolean {
+    if (props.type === "Register") {
+      return (
+        email.value === "" ||
+        username.value === "" ||
+        password.value === "" ||
+        confirmPassword.value === "" ||
+        !!emailError.value ||
+        !!usernameError.value ||
+        !!passwordError.value ||
+        !!confirmPasswordError.value
+      );
+    } else {
+      return (
+        email.value === "" ||
+        password.value === "" ||
+        !!emailError.value ||
+        !!passwordError.value
+      );
+    }
+  }
 
   function submit(event: Types.OnSubmit) {
     event.preventDefault();
@@ -166,6 +188,7 @@ export const AuthForm = (props: Types.AuthFormProps) => {
       <Components.Button
         type="submit"
         text={props.type}
+        disabled={handleButtonDisable()}
         centerContents
         primary
       />
