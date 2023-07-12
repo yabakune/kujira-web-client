@@ -2,6 +2,7 @@ import { useSignal } from "@preact/signals-react";
 
 import * as Components from "@/components";
 import * as Types from "@/types";
+
 import { AuthFormHeader } from "./auth-form-header";
 
 import Styles from "./auth-form.module.scss";
