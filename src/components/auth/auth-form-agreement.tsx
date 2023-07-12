@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Signal } from "@preact/signals-react";
 
 import * as Constants from "@/constants";
+import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
 import Styles from "./auth-form-agreement.module.scss";
@@ -14,10 +15,6 @@ export const AuthFormAgreement = (props: Props) => {
     props.agreementChecked.value = !props.agreementChecked.value;
   }
 
-  function preventBubbling(event: Types.OnClick<HTMLAnchorElement>): void {
-    event.stopPropagation();
-  }
-
   return (
     <section className={Styles.section} onClick={toggleAgreement}>
       {props.type === "Register" ? (
@@ -27,7 +24,7 @@ export const AuthFormAgreement = (props: Props) => {
             className={TextStyles.primaryLink}
             href={Constants.ClientRoutes.TERMS_OF_SERVICE}
             target="_blank"
-            onClick={preventBubbling}
+            onClick={Helpers.preventBubbling}
           >
             Terms Of Service
           </Link>
@@ -36,7 +33,7 @@ export const AuthFormAgreement = (props: Props) => {
             className={TextStyles.primaryLink}
             href={Constants.ClientRoutes.PRIVACY_POLICY}
             target="_blank"
-            onClick={preventBubbling}
+            onClick={Helpers.preventBubbling}
           >
             Privacy Policy
           </Link>
@@ -45,7 +42,7 @@ export const AuthFormAgreement = (props: Props) => {
             className={TextStyles.primaryLink}
             href={Constants.ClientRoutes.COOKIE_POLICY}
             target="_blank"
-            onClick={preventBubbling}
+            onClick={Helpers.preventBubbling}
           >
             Cookie Policy
           </Link>

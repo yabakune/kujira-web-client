@@ -51,7 +51,9 @@ export const Input = (props: Props) => {
       tabIndex={-1}
       onClick={focusInput}
     >
-      <Components.ArrowRight width={16} fill={10} />
+      <Components.ButtonIcon>
+        <Components.ArrowRight width={16} fill={10} />
+      </Components.ButtonIcon>
 
       <input
         className={Styles.input}
@@ -65,7 +67,9 @@ export const Input = (props: Props) => {
         required={!!props.required}
       />
 
-      <Components.ArrowRight width={16} fill={8} hoverFill={11} addHover />
+      <Components.ButtonIcon>
+        <Components.ArrowRight width={16} fill={8} hoverFill={11} addHover />
+      </Components.ButtonIcon>
     </article>
   );
 };
