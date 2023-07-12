@@ -6,7 +6,7 @@ export enum ClientRoutes {
   COOKIE_POLICY = "/cookie-policy",
 }
 
-enum ApiRouteBases {
+export enum APIRoutes {
   AUTH = "/api/v1/auth",
   USERS = "/api/v1/users",
   OVERVIEWS = "/api/v1/overviews",

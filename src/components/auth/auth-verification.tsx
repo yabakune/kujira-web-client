@@ -1,33 +1,31 @@
 import { Signal, effect, useSignal } from "@preact/signals-react";
+import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
+import * as Sagas from "@/redux-saga";
 import * as Types from "@/types";
 
 import Styles from "./auth-verification.module.scss";
 import TextStyles from "@/styles/texts.module.scss";
 
-type Props = { verificationStep: Signal<boolean> } & Types.AuthFormProps;
+type Props = {
+  email: string;
+  authVerificationCodeSent: Signal<boolean>;
+  agreementChecked: Signal<boolean>;
+} & Types.AuthFormProps;
 
 export const AuthVerification = (props: Props) => {
+  const dispatch = useDispatch();
+
   const verificationCode = useSignal("");
   const verificationCodeError = useSignal("");
 
-  function setVerificationCode(event: Types.OnChange): void {
-    verificationCode.value = event.currentTarget.value;
-  }
-
   function goBack(): void {
-    props.verificationStep.value = false;
+    props.authVerificationCodeSent.value = false;
   }
 
   function resendCode(): void {
     alert("Resend Code");
-  }
-
-  function verifyCode(event: Types.OnSubmit): void {
-    event.preventDefault();
-
-    alert("Verify Code");
   }
 
   function handleButtonDisable(): boolean {
@@ -45,6 +43,29 @@ export const AuthVerification = (props: Props) => {
       }
     }
   });
+
+  function verifyCode(event: Types.OnSubmit): void {
+    event.preventDefault();
+
+    if (!handleButtonDisable()) {
+      if (props.type === "Register") {
+        dispatch(
+          Sagas.verifyRegistrationRequest({
+            email: props.email,
+            verificationCode: verificationCode.value,
+          })
+        );
+      } else {
+        dispatch(
+          Sagas.verifyLoginRequest({
+            email: props.email,
+            verificationCode: verificationCode.value,
+            thirtyDays: props.agreementChecked.value,
+          })
+        );
+      }
+    }
+  }
 
   return (
     <form className={Styles.form} onSubmit={verifyCode}>

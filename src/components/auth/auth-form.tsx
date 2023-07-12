@@ -1,22 +1,28 @@
 import { Signal, useSignal } from "@preact/signals-react";
+import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
+import * as Sagas from "@/redux-saga";
 import * as Types from "@/types";
 
 import { AuthFormHeader } from "./auth-form-header";
+import { AuthFormInputs } from "./auth-form-inputs";
 import { AuthFormAgreement } from "./auth-form-agreement";
 
 import Styles from "./auth-form.module.scss";
-import { AuthFormInputs } from "./auth-form-inputs";
 
-type Props = { verificationStep: Signal<boolean> } & Types.AuthFormProps;
+type Props = {
+  email: Signal<string>
+  authVerificationCodeSent: Signal<boolean>;
+  agreementChecked: Signal<boolean>;
+} & Types.AuthFormProps;
 
 export const AuthForm = (props: Props) => {
-  const email = useSignal("");
+  const dispatch = useDispatch();
+
   const username = useSignal("");
   const password = useSignal("");
   const confirmPassword = useSignal("");
-  const agreementChecked = useSignal(false);
 
   const emailError = useSignal("");
   const usernameError = useSignal("");
@@ -26,7 +32,7 @@ export const AuthForm = (props: Props) => {
   function handleButtonDisable(): boolean {
     if (props.type === "Register") {
       return (
-        email.value === "" ||
+        props.email.value === "" ||
         username.value === "" ||
         password.value === "" ||
         confirmPassword.value === "" ||
@@ -34,11 +40,11 @@ export const AuthForm = (props: Props) => {
         !!usernameError.value ||
         !!passwordError.value ||
         !!confirmPasswordError.value ||
-        !agreementChecked.value
+        !props.agreementChecked.value
       );
     } else {
       return (
-        email.value === "" ||
+        props.email.value === "" ||
         password.value === "" ||
         !!emailError.value ||
         !!passwordError.value
@@ -46,25 +52,35 @@ export const AuthForm = (props: Props) => {
     }
   }
 
-  function submit(event: Types.OnSubmit) {
+  function authInUser(event: Types.OnSubmit) {
     event.preventDefault();
 
-    if (props.type === "Register") {
-      alert("Submitted Registration Form!");
-    } else {
-      alert("Submitted Login Form!");
+    if (!handleButtonDisable()) {
+      if (props.type === "Register") {
+        dispatch(
+          Sagas.registerRequest({
+            email: props.email.value,
+            username: username.value,
+            password: password.value,
+          })
+        );
+      } else {
+        dispatch(
+          Sagas.loginRequest({
+            email: props.email.value,
+            password: password.value,
+          })
+        );
+      }
     }
-
-    // If API returns successful 200
-    props.verificationStep.value = true;
   }
 
   return (
-    <form className={Styles.form} onSubmit={submit}>
+    <form className={Styles.form} onSubmit={authInUser}>
       <AuthFormHeader type={props.type} />
 
       <AuthFormInputs
-        email={email}
+        email={props.email}
         username={username}
         password={password}
         confirmPassword={confirmPassword}
@@ -77,7 +93,7 @@ export const AuthForm = (props: Props) => {
 
       <AuthFormAgreement
         type={props.type}
-        agreementChecked={agreementChecked}
+        agreementChecked={props.agreementChecked}
       />
 
       <Components.Button

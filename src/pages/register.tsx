@@ -2,21 +2,28 @@ import { useSignal } from "@preact/signals-react";
 
 import * as Components from "@/components";
 import { NextPageWithLayout } from "@/pages/_app";
+import { signalsStore } from "@/signals/signals";
 
 const Register: NextPageWithLayout = () => {
-  const verificationStep = useSignal(false);
+  const email = useSignal("");
+  const agreementChecked = useSignal(false);
+  const { authVerificationCodeSent } = signalsStore;
 
   return (
     <>
-      {verificationStep.value ? (
+      {authVerificationCodeSent.value ? (
         <Components.AuthVerification
           type="Register"
-          verificationStep={verificationStep}
+          email={email.value}
+          authVerificationCodeSent={authVerificationCodeSent}
+          agreementChecked={agreementChecked}
         />
       ) : (
         <Components.AuthForm
           type="Register"
-          verificationStep={verificationStep}
+          email={email}
+          authVerificationCodeSent={authVerificationCodeSent}
+          agreementChecked={agreementChecked}
         />
       )}
     </>
