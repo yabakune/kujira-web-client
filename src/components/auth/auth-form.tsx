@@ -21,6 +21,7 @@ export const AuthForm = (props: Types.AuthFormProps) => {
   const password = useSignal("");
   const confirmPassword = useSignal("");
   const agreementChecked = useSignal(false);
+  const verificationStep = useSignal(false);
 
   const emailError = useSignal("");
   const usernameError = useSignal("");
