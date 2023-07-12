@@ -78,7 +78,16 @@ export const Input = (props: Props) => {
 
       {props.isPassword && (
         <Components.ButtonIcon onClick={togglePasswordVisibility}>
-          {<Components.EyeHidden width={16} fill={8} hoverFill={11} addHover />}
+          {inputType.value === "password" ? (
+            <Components.EyeHidden width={16} fill={8} hoverFill={11} addHover />
+          ) : (
+            <Components.EyeVisible
+              width={16}
+              fill={8}
+              hoverFill={11}
+              addHover
+            />
+          )}
         </Components.ButtonIcon>
       )}
     </article>
