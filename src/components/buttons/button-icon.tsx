@@ -6,8 +6,12 @@ type Props = { children: React.ReactNode };
 
 export const ButtonIcon = (props: Props) => {
   return (
-    <div className={Styles.div} onClick={Helpers.preventBubbling}>
+    <button
+      className={Styles.button}
+      tabIndex={-1}
+      onClick={Helpers.preventBubbling}
+    >
       {props.children}
-    </div>
+    </button>
   );
 };
