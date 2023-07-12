@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--thirtyTwoPixels);
+  width: 100%;
+  max-width: 25rem;
 }
 
 .body {
