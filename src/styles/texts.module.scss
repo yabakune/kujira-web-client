@@ -15,6 +15,7 @@
 
 .primaryLink {
   color: var(--primaryMain);
+  font-weight: var(--bold);
   transition: var(--transition);
 
   &:hover {

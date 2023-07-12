@@ -4,6 +4,7 @@ import * as Components from "@/components";
 import * as Types from "@/types";
 
 import { AuthFormHeader } from "./auth-form-header";
+import { AuthFormAgreement } from "./auth-form-agreement";
 
 import Styles from "./auth-form.module.scss";
 
@@ -185,6 +186,11 @@ export const AuthForm = (props: Types.AuthFormProps) => {
           </>
         )}
       </section>
+
+      <AuthFormAgreement
+        type={props.type}
+        agreementChecked={agreementChecked}
+      />
 
       <Components.Button
         type="submit"

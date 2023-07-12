@@ -1,4 +1,5 @@
 .section {
-	display: flex;
-	gap: var(--sixteenPixels)
+  display: flex;
+  align-items: center;
+  gap: var(--sixteenPixels);
 }
