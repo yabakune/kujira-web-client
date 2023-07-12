@@ -29,6 +29,25 @@ export function setBackgroundLevel(backgroundLevel: number): string {
   }
 }
 
+export function setActiveLevel(backgroundLevel: number): string {
+  switch (backgroundLevel) {
+    case 2:
+      return `${ThemeStyles.activeLevel} ${ThemeStyles.two}`;
+    case 3:
+      return `${ThemeStyles.activeLevel} ${ThemeStyles.three}`;
+    case 4:
+      return `${ThemeStyles.activeLevel} ${ThemeStyles.four}`;
+    case 5:
+      return `${ThemeStyles.activeLevel} ${ThemeStyles.five}`;
+    case 6:
+      return `${ThemeStyles.activeLevel} ${ThemeStyles.six}`;
+    case 7:
+      return `${ThemeStyles.activeLevel} ${ThemeStyles.seven}`;
+    default:
+      return `${ThemeStyles.activeLevel} ${ThemeStyles.eight}`;
+  }
+}
+
 export function setHoverLevel(backgroundLevel: number): string {
   switch (backgroundLevel) {
     case 2:

@@ -96,6 +96,69 @@
   }
 }
 
+@mixin determineActiveLevel($backgroundLevel) {
+  @if $backgroundLevel == two {
+    &:active {
+      // background-color: var(--themeFour);
+      background-color: red;
+    }
+  } @else if $backgroundLevel == three {
+    &:active {
+      background-color: var(--themeFive);
+    }
+  } @else if $backgroundLevel == four {
+    &:active {
+      background-color: var(--themeSix);
+    }
+  } @else if $backgroundLevel == five {
+    &:active {
+      background-color: var(--themeSeven);
+    }
+  } @else if $backgroundLevel == six {
+    &:active {
+      background-color: var(--themeEight);
+    }
+  } @else if $backgroundLevel == seven {
+    &:active {
+      background-color: var(--themeNine);
+    }
+  } @else {
+    &:active {
+      background-color: var(--themeTen);
+    }
+  }
+}
+
+.activeLevel {
+  &.two {
+    @include determineActiveLevel(two);
+  }
+
+  &.three {
+    @include determineActiveLevel(three);
+  }
+
+  &.four {
+    @include determineActiveLevel(four);
+  }
+
+  &.five {
+    @include determineActiveLevel(five);
+  }
+
+  &.six {
+    @include determineActiveLevel(six);
+  }
+
+  &.seven {
+    @include determineActiveLevel(seven);
+  }
+
+  &.eight {
+    @include determineActiveLevel(eight);
+  }
+}
+
 @mixin determineHoverLevel($backgroundLevel) {
   @if $backgroundLevel == two {
     &:hover {

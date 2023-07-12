@@ -17,6 +17,7 @@ export const Input = (props: Props) => {
       className={`
         ${Styles.article}
         ${Helpers.setBackgroundLevel(props.backgroundLevel || 1)}
+        ${Helpers.setActiveLevel(props.backgroundLevel || 1)}
         ${Helpers.setHoverLevel(props.backgroundLevel || 1)}
       `}
       style={{
