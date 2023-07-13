@@ -23,3 +23,7 @@ export type AuthVerificationAction = {
 export type SendNewVerificationCodeAction = {
   email: string;
 };
+
+export type LogoutAction = {
+  email: string;
+};

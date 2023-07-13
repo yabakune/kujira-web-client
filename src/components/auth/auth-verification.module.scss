@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--sixteenPixels);
+  width: 100%;
+  max-width: 25rem;
 }
 
 .group {

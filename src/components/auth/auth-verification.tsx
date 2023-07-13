@@ -25,7 +25,7 @@ export const AuthVerification = (props: Props) => {
   }
 
   function resendCode(): void {
-    alert("Resend Code");
+    dispatch(Sagas.sendNewVerificationCodeRequest({ email: props.email }));
   }
 
   function handleButtonDisable(): boolean {

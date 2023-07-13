@@ -13,6 +13,7 @@ enum AuthActions {
   LOGIN = "LOGIN",
   VERIFY_LOGIN = "VERIFY_LOGIN",
   SEND_NEW_VERIFICATION_CODE = "SEND_NEW_VERIFICATION_CODE",
+  LOGOUT = "LOGOUT",
 }
 
 // ========================================================================================= //
@@ -55,11 +56,20 @@ export function verifyLoginRequest(
   };
 }
 
-export function sendNewVerificationCode(
+export function sendNewVerificationCodeRequest(
   data: Types.SendNewVerificationCodeAction
 ): Types.SagaAction<Types.SendNewVerificationCodeAction> {
   return {
     type: AuthActions.SEND_NEW_VERIFICATION_CODE,
+    payload: data,
+  };
+}
+
+export function logoutRequest(
+  data: Types.LogoutAction
+): Types.SagaAction<Types.LogoutAction> {
+  return {
+    type: AuthActions.LOGOUT,
     payload: data,
   };
 }
@@ -122,12 +132,43 @@ function* verifyLogin(action: Types.SagaAction<Types.AuthVerificationAction>) {
     yield Saga.put(Redux.entitiesActions.loginUser(data.response.safeUser));
 
     Cookies.set("userId", data.response.safeUser.id);
-
     signalsStore.authVerificationCodeSent.value = false;
 
     console.log("Verify Login Data:", data);
+  } catch (error: any) {
+    console.error(error);
+    alert(error.response.data.body);
+    alert(error.response.data.caption);
+  }
+}
+
+function* sendNewVerificationCode(
+  action: Types.SagaAction<Types.SendNewVerificationCodeAction>
+) {
+  try {
+    const endpoint = Constants.APIRoutes.AUTH + `/send-new-verification-code`;
+    const { data } = yield Saga.call(axios.post, endpoint, action.payload);
+
+    alert(data.body);
+  } catch (error: any) {
+    console.error(error);
+    alert(error.response.data.body);
+    alert(error.response.data.caption);
+  }
+}
+
+function* logout(action: Types.SagaAction<Types.LogoutAction>) {
+  try {
+    const endpoint = Constants.APIRoutes.AUTH + `/logout`;
+    const { data } = yield Saga.call(axios.patch, endpoint, action.payload);
+    yield Saga.put(Redux.entitiesActions.logoutUser);
+
+    Cookies.remove("userId");
+
+    console.log("Logout Data:", data.body);
   } catch (error) {
     console.error(error);
+    alert(error);
   }
 }
 
@@ -137,5 +178,10 @@ export function* authSaga() {
     Saga.takeEvery(AuthActions.VERIFY_REGISTRATION, verifyRegistration),
     Saga.takeEvery(AuthActions.LOGIN, login),
     Saga.takeEvery(AuthActions.VERIFY_LOGIN, verifyLogin),
+    Saga.takeEvery(
+      AuthActions.SEND_NEW_VERIFICATION_CODE,
+      sendNewVerificationCode
+    ),
+    Saga.takeEvery(AuthActions.LOGOUT, logout),
   ]);
 }
