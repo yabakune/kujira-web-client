@@ -28,7 +28,6 @@ const Layout = (props: Props) => {
 
   useEffect(() => {
     if (userId && Number(userId) && !currentUser) {
-      console.log("Fetching current user:", userId);
       dispatch(Sagas.fetchUserRequest({ userId: Number(userId) }));
     }
   }, [currentUser]);

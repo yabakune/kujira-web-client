@@ -49,7 +49,9 @@ export const Notification = () => {
 
               <p>{body}</p>
 
-              {caption && <p className={TextStyles.caption}>{caption}</p>}
+              {caption && (
+                <p className={TextStyles.captionEmphasis}>{caption}</p>
+              )}
             </article>
 
             <Components.Cross width={16} fill={8} hoverFill={11} addHover />

@@ -58,8 +58,6 @@ export function deleteUserRequest(
 // ========================================================================================= //
 
 function* fetchUser(action: Types.SagaPayload<Types.FetchUserPayload>) {
-  console.log("Fetch User payload:", action.payload);
-
   try {
     const endpoint = Helpers.generateGatedEndpoint(
       Constants.APIRoutes.USERS,
@@ -68,11 +66,17 @@ function* fetchUser(action: Types.SagaPayload<Types.FetchUserPayload>) {
     );
 
     const { data } = yield Saga.call(axios.get, endpoint);
-    // yield Saga.put(Redux.entitiesActions.loginUser(data.response.safeUser));
-
-    console.log("Fetch User Data:", data);
-  } catch (error) {
+    yield Saga.put(Redux.entitiesActions.loginUser(data.response));
+  } catch (error: any) {
     console.error(error);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 5000,
+      })
+    );
   }
 }
 
