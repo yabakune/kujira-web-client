@@ -78,7 +78,11 @@ function* fetchUser(action: Types.SagaPayload<Types.FetchUserPayload>) {
 
 function* updateUser(action: Types.SagaPayload<Types.UpdateUserPayload>) {
   try {
-    const endpoint = Constants.APIRoutes.USERS + `/${action.payload.userId}`;
+    const endpoint = Helpers.generateEndpoint(
+      Constants.APIRoutes.USERS,
+      `/${action.payload.userId}`,
+      action.payload.userId
+    );
     const { data } = yield Saga.call(axios.patch, endpoint, action.payload);
 
     console.log("Update User Data:", data);
@@ -91,8 +95,11 @@ function* updateUserPassword(
   action: Types.SagaPayload<Types.UpdateUserPasswordPayload>
 ) {
   try {
-    const endpoint =
-      Constants.APIRoutes.USERS + `/${action.payload.userId}/update-password`;
+    const endpoint = Helpers.generateEndpoint(
+      Constants.APIRoutes.USERS,
+      `/${action.payload.userId}/update-password`,
+      action.payload.userId
+    );
     const { data } = yield Saga.call(axios.patch, endpoint, action.payload);
 
     console.log("Update User Password:", data);
@@ -103,7 +110,11 @@ function* updateUserPassword(
 
 function* deleteUser(action: Types.SagaPayload<Types.DeleteUserPayload>) {
   try {
-    const endpoint = Constants.APIRoutes.AUTH + `/${action.payload.userId}`;
+    const endpoint = Helpers.generateEndpoint(
+      Constants.APIRoutes.USERS,
+      `/${action.payload.userId}`,
+      action.payload.userId
+    );
     const { data } = yield Saga.call(axios.delete, endpoint);
 
     console.log("Delete User Data:", data);
