@@ -117,11 +117,25 @@ function* login(action: Types.SagaPayload<Types.LoginPayload>) {
 
     signalsStore.authVerificationCodeSent.value = true;
 
-    console.log("Login Data:", data);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        title: data.title,
+        body: data.body,
+        caption: data.caption,
+        status: "success",
+        timeout: 10000,
+      })
+    );
   } catch (error: any) {
     console.error(error);
-    alert(error.response.data.body);
-    alert(error.response.data.caption);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 5000,
+      })
+    );
   }
 }
 
@@ -136,11 +150,25 @@ function* verifyLogin(
     Cookies.set("userId", data.response.safeUser.id);
     signalsStore.authVerificationCodeSent.value = false;
 
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+
     console.log("Verify Login Data:", data);
   } catch (error: any) {
     console.error(error);
-    alert(error.response.data.body);
-    alert(error.response.data.caption);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 5000,
+      })
+    );
   }
 }
 
