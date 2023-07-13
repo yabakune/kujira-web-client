@@ -85,10 +85,25 @@ function* register(action: Types.SagaPayload<Types.RegistrationPayload>) {
 
     signalsStore.authVerificationCodeSent.value = true;
 
-    console.log("Register Data:", data);
-  } catch (error) {
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        title: data.title,
+        body: data.body,
+        caption: data.caption,
+        status: "success",
+        timeout: 10000,
+      })
+    );
+  } catch (error: any) {
     console.error(error);
-    alert(error);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 10000,
+      })
+    );
   }
 }
 
@@ -103,10 +118,24 @@ function* verifyRegistration(
     Cookies.set("userId", data.response.safeUser.id);
     signalsStore.authVerificationCodeSent.value = false;
 
-    console.log("Verify Registration Data:", data);
-  } catch (error) {
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        caption: data.caption,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error: any) {
     console.error(error);
-    alert(error);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 10000,
+      })
+    );
   }
 }
 
