@@ -5,13 +5,12 @@ export type FetchUserPayload = {
 };
 
 export type UpdateUserPayload = Partial<{
-  userId: number;
   email: string;
   username: string;
   currency: Currency;
   theme: Theme;
   mobileNumber: string;
-}>;
+}> & { userId: number };
 
 export type UpdateUserPasswordPayload = {
   userId: number;
