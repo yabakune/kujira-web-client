@@ -1,10 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-type Notification = {
+export type Notification = {
   title?: string;
   body: string;
   caption?: string;
   response?: string;
+  status?: "success" | "failure" | "pending";
 };
 
 export type UIState = {

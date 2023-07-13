@@ -1,7 +1,34 @@
 .section {
   position: absolute;
   top: var(--sixteenPixels);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sixteenPixels);
   width: 100%;
   max-width: 62.5rem;
   margin: 0 auto;
+  padding: var(--sixteenPixels);
+  transition: var(--transition);
+
+  &.default {
+    border: transparent solid 2px;
+  }
+
+  &.success {
+    border: var(--success) solid 2px;
+  }
+
+  &.failure {
+    border: var(--failure) solid 2px;
+  }
+
+  &.pending {
+    border: var(--pending) solid 2px;
+  }
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
 }
