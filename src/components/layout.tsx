@@ -31,6 +31,25 @@ const Layout = (props: Props) => {
     if (userId && Number(userId) && !currentUser) {
       dispatch(Sagas.fetchUserRequest({ userId: Number(userId) }));
     }
+
+    if (typeof window !== "undefined") {
+      if (currentUser) {
+        const localStorageTheme = localStorage.getItem("theme");
+        if (localStorageTheme && localStorageTheme === "light") {
+          document
+            .getElementsByTagName("body")[0]
+            .classList.add(ThemeStyles.lightTheme);
+        } else {
+          document
+            .getElementsByTagName("body")[0]
+            .classList.remove(ThemeStyles.lightTheme);
+        }
+        
+        if (currentUser.theme && localStorageTheme !== currentUser.theme) {
+          localStorage.setItem("theme", currentUser.theme);
+        }
+      }
+    }
   }, [dispatch, currentUser]);
 
   return (
@@ -38,9 +57,6 @@ const Layout = (props: Props) => {
       className={`
         ${Styles.responsiveSidePadding}
         ${mulish.className}
-        ${
-          currentUser && currentUser.theme === "light" && ThemeStyles.lightTheme
-        }
       `}
     >
       <Components.Notification />
