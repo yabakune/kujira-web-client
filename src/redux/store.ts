@@ -8,7 +8,7 @@ import { entitiesReducer } from "./entities-slice";
 import { uiReducer } from "./ui-slice";
 
 function* rootSaga() {
-  yield Saga.all([Sagas.authSaga()]);
+  yield Saga.all([Sagas.authSaga(), Sagas.usersSaga()]);
 }
 const sagaMiddleware = createSagaMiddleware();
 

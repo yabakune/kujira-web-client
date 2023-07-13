@@ -1,6 +1,6 @@
-type Theme = "dark" | "light" | "system" | "auto";
+export type Theme = "dark" | "light" | "system" | "auto";
 
-type Currency = "USD";
+export type Currency = "USD";
 
 export type UserModel = {
   id: number | null;

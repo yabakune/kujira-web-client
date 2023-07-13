@@ -21,56 +21,56 @@ enum AuthActions {
 // ========================================================================================= //
 
 export function registerRequest(
-  data: Types.RegistrationAction
-): Types.SagaAction<Types.RegistrationAction> {
+  payload: Types.RegistrationPayload
+): Types.SagaPayload<Types.RegistrationPayload> {
   return {
     type: AuthActions.REGISTER,
-    payload: data,
+    payload,
   };
 }
 
 export function verifyRegistrationRequest(
-  data: Types.AuthVerificationAction
-): Types.SagaAction<Types.AuthVerificationAction> {
+  payload: Types.AuthVerificationPayload
+): Types.SagaPayload<Types.AuthVerificationPayload> {
   return {
     type: AuthActions.VERIFY_REGISTRATION,
-    payload: data,
+    payload,
   };
 }
 
 export function loginRequest(
-  data: Types.LoginAction
-): Types.SagaAction<Types.LoginAction> {
+  payload: Types.LoginPayload
+): Types.SagaPayload<Types.LoginPayload> {
   return {
     type: AuthActions.LOGIN,
-    payload: data,
+    payload,
   };
 }
 
 export function verifyLoginRequest(
-  data: Types.AuthVerificationAction
-): Types.SagaAction<Types.AuthVerificationAction> {
+  payload: Types.AuthVerificationPayload
+): Types.SagaPayload<Types.AuthVerificationPayload> {
   return {
     type: AuthActions.VERIFY_LOGIN,
-    payload: data,
+    payload,
   };
 }
 
 export function sendNewVerificationCodeRequest(
-  data: Types.SendNewVerificationCodeAction
-): Types.SagaAction<Types.SendNewVerificationCodeAction> {
+  payload: Types.SendNewVerificationCodePayload
+): Types.SagaPayload<Types.SendNewVerificationCodePayload> {
   return {
     type: AuthActions.SEND_NEW_VERIFICATION_CODE,
-    payload: data,
+    payload,
   };
 }
 
 export function logoutRequest(
-  data: Types.LogoutAction
-): Types.SagaAction<Types.LogoutAction> {
+  payload: Types.LogoutPayload
+): Types.SagaPayload<Types.LogoutPayload> {
   return {
     type: AuthActions.LOGOUT,
-    payload: data,
+    payload,
   };
 }
 
@@ -78,7 +78,7 @@ export function logoutRequest(
 // [ SAGAS ] =============================================================================== //
 // ========================================================================================= //
 
-function* register(action: Types.SagaAction<Types.RegistrationAction>) {
+function* register(action: Types.SagaPayload<Types.RegistrationPayload>) {
   try {
     const endpoint = Constants.APIRoutes.AUTH + "/register";
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
@@ -93,7 +93,7 @@ function* register(action: Types.SagaAction<Types.RegistrationAction>) {
 }
 
 function* verifyRegistration(
-  action: Types.SagaAction<Types.AuthVerificationAction>
+  action: Types.SagaPayload<Types.AuthVerificationPayload>
 ) {
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/verify-registration`;
@@ -110,7 +110,7 @@ function* verifyRegistration(
   }
 }
 
-function* login(action: Types.SagaAction<Types.LoginAction>) {
+function* login(action: Types.SagaPayload<Types.LoginPayload>) {
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/login`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
@@ -125,7 +125,9 @@ function* login(action: Types.SagaAction<Types.LoginAction>) {
   }
 }
 
-function* verifyLogin(action: Types.SagaAction<Types.AuthVerificationAction>) {
+function* verifyLogin(
+  action: Types.SagaPayload<Types.AuthVerificationPayload>
+) {
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/verify-login`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
@@ -143,7 +145,7 @@ function* verifyLogin(action: Types.SagaAction<Types.AuthVerificationAction>) {
 }
 
 function* sendNewVerificationCode(
-  action: Types.SagaAction<Types.SendNewVerificationCodeAction>
+  action: Types.SagaPayload<Types.SendNewVerificationCodePayload>
 ) {
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/send-new-verification-code`;
@@ -157,7 +159,7 @@ function* sendNewVerificationCode(
   }
 }
 
-function* logout(action: Types.SagaAction<Types.LogoutAction>) {
+function* logout(action: Types.SagaPayload<Types.LogoutPayload>) {
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/logout`;
     const { data } = yield Saga.call(axios.patch, endpoint, action.payload);

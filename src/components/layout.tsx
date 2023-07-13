@@ -1,8 +1,12 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Mulish } from "next/font/google";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
+import * as Saga from "@/redux-saga";
+import { ReduxState } from "@/redux";
 
 import Styles from "./layout.module.scss";
 
@@ -19,6 +23,16 @@ type Props = { children: React.ReactNode };
 const mulish = Mulish({ subsets: ["latin"] });
 
 const Layout = (props: Props) => {
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state: ReduxState) => state.entities);
+
+  useEffect(() => {
+    if (userId && Number(userId) && !currentUser) {
+      console.log("Fetching current user:", userId);
+      dispatch(Saga.fetchUserRequest({ userId: Number(userId) }));
+    }
+  }, [currentUser]);
+
   return (
     <div className={`${Styles.responsiveSidePadding} ${mulish.className}`}>
       <Components.Notification />
