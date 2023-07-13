@@ -133,7 +133,7 @@ function* login(action: Types.SagaPayload<Types.LoginPayload>) {
         body: error.response.data.body,
         caption: error.response.data.caption,
         status: "failure",
-        timeout: 5000,
+        timeout: 10000,
       })
     );
   }
@@ -166,7 +166,7 @@ function* verifyLogin(
         body: error.response.data.body,
         caption: error.response.data.caption,
         status: "failure",
-        timeout: 5000,
+        timeout: 10000,
       })
     );
   }
@@ -209,7 +209,7 @@ function* logout(action: Types.SagaPayload<Types.LogoutPayload>) {
         body: error.response.data.body,
         caption: error.response.data.caption,
         status: "failure",
-        timeout: 5000,
+        timeout: 10000,
       })
     );
   }

@@ -24,6 +24,14 @@ export default function Home() {
         >
           Log Out
         </button>
+        <br />
+        <br />
+        <button
+          type="button"
+          onClick={() => dispatch(Sagas.deleteUserRequest({ userId: 16 }))}
+        >
+          Delete Account
+        </button>
       </main>
     </>
   );

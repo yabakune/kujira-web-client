@@ -1,5 +1,6 @@
 import * as Saga from "redux-saga/effects";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 import * as Constants from "@/constants";
 import * as Helpers from "@/helpers";
@@ -74,7 +75,7 @@ function* fetchUser(action: Types.SagaPayload<Types.FetchUserPayload>) {
         body: error.response.data.body,
         caption: error.response.data.caption,
         status: "failure",
-        timeout: 5000,
+        timeout: 10000,
       })
     );
   }
@@ -120,10 +121,27 @@ function* deleteUser(action: Types.SagaPayload<Types.DeleteUserPayload>) {
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.delete, endpoint);
+    yield Saga.put(Redux.entitiesActions.logoutUser);
 
-    console.log("Delete User Data:", data);
-  } catch (error) {
+    Cookies.remove("userId");
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error: any) {
     console.error(error);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 10000,
+      })
+    );
   }
 }
 
