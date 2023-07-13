@@ -4,26 +4,22 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import * as Sagas from "@/sagas";
 
-import { entitiesReducer } from "./entities-slice";
-import { uiReducer } from "./ui-slice";
-
-function* rootSaga() {
-  yield Saga.all([Sagas.authSaga(), Sagas.usersSaga()]);
-}
+import { entitiesReducer as entities } from "./entities-slice";
+import { uiReducer as ui } from "./ui-slice";
 
 const sagaMiddleware = createSagaMiddleware();
 
 export const reduxStore = configureStore({
-  reducer: {
-    entities: entitiesReducer,
-    ui: uiReducer,
+  reducer: { entities, ui },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(sagaMiddleware);
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(sagaMiddleware),
   devTools: process.env.NODE_ENV === "development",
 });
 
-sagaMiddleware.run(rootSaga);
-
 export type ReduxState = ReturnType<typeof reduxStore.getState>;
 export type AppDispatch = typeof reduxStore.dispatch;
+
+sagaMiddleware.run(function* () {
+  yield Saga.all([Sagas.authSaga()]);
+});
