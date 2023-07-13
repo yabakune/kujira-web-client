@@ -168,9 +168,16 @@ function* logout(action: Types.SagaPayload<Types.LogoutPayload>) {
     Cookies.remove("userId");
 
     console.log("Logout Data:", data.body);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
-    alert(error);
+    // yield Saga.put(
+    //   Redux.uiActions.setNotification({
+    //     body: error.response.data.body,
+    //     caption: error.response.data.caption,
+    //     status: "failure",
+    //     timeout: 5000,
+    //   })
+    // );
   }
 }
 

@@ -9,6 +9,7 @@ import * as Sagas from "@/sagas";
 import { ReduxState } from "@/redux";
 
 import Styles from "./layout.module.scss";
+import ThemeStyles from "@/styles/themes.module.scss";
 
 if (process.env.NODE_ENV === "development") {
   axios.defaults.baseURL = "http://localhost:8000";
@@ -30,10 +31,18 @@ const Layout = (props: Props) => {
     if (userId && Number(userId) && !currentUser) {
       dispatch(Sagas.fetchUserRequest({ userId: Number(userId) }));
     }
-  }, [currentUser]);
+  }, [dispatch, currentUser]);
 
   return (
-    <div className={`${Styles.responsiveSidePadding} ${mulish.className}`}>
+    <div
+      className={`
+        ${Styles.responsiveSidePadding}
+        ${mulish.className}
+        ${
+          currentUser && currentUser.theme === "light" && ThemeStyles.lightTheme
+        }
+      `}
+    >
       <Components.Notification />
 
       {props.children}
