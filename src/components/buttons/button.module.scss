@@ -52,8 +52,10 @@
   color: var(--textButton);
   background-color: var(--primaryMain);
 
-  &:hover {
-    background-color: var(--primaryDarker);
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--primaryDarker);
+    }
   }
 }
 

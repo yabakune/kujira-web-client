@@ -210,28 +210,40 @@
 
 @mixin determineHoverLevel($backgroundLevel) {
   @if $backgroundLevel == two {
-    &:hover {
-      background-color: var(--themeFive);
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--themeFive);
+      }
     }
   } @else if $backgroundLevel == three {
-    &:hover {
-      background-color: var(--themeSix);
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--themeSix);
+      }
     }
   } @else if $backgroundLevel == four {
-    &:hover {
-      background-color: var(--themeSeven);
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--themeSeven);
+      }
     }
   } @else if $backgroundLevel == five {
-    &:hover {
-      background-color: var(--themeEight);
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--themeEight);
+      }
     }
   } @else if $backgroundLevel == six {
-    &:hover {
-      background-color: var(--themeNine);
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--themeNine);
+      }
     }
   } @else {
-    &:hover {
-      background-color: var(--themeTen);
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--themeTen);
+      }
     }
   }
 }

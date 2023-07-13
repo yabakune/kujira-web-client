@@ -18,7 +18,9 @@
   font-weight: var(--bold);
   transition: var(--transition);
 
-  &:hover {
-    color: var(--primaryDarker);
+  @media (hover: hover) {
+    &:hover {
+      color: var(--primaryDarker);
+    }
   }
 }
