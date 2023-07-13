@@ -208,11 +208,23 @@ function* sendNewVerificationCode(
     const endpoint = Constants.APIRoutes.AUTH + `/send-new-verification-code`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
 
-    alert(data.body);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
   } catch (error: any) {
     console.error(error);
-    alert(error.response.data.body);
-    alert(error.response.data.caption);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 10000,
+      })
+    );
   }
 }
 
