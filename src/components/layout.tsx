@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import { Mulish } from "next/font/google";
 
 import Styles from "./layout.module.scss";
@@ -9,11 +10,7 @@ if (process.env.NODE_ENV === "development") {
   // axios.defaults.baseURL = "https://production-endpoint";
 }
 
-// const userId = Cookies.get("id");
-// const jwtAccessToken = Cookies.get("token");
-// if (jwtAccessToken) {
-//   axios.defaults.headers.common["Authorization"] = jwtAccessToken;
-// }
+const userId = Cookies.get("userId");
 
 type Props = { children: React.ReactNode };
 

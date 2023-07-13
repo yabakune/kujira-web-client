@@ -1,9 +1,13 @@
 export enum ClientRoutes {
+  LANDING = "/",
   REGISTER = "/register",
   LOGIN = "/login",
   TERMS_OF_SERVICE = "/terms-of-service",
   PRIVACY_POLICY = "/privacy-policy",
   COOKIE_POLICY = "/cookie-policy",
+  LOGBOOKS = "/dashboard/logbooks",
+  REVIEWS = "/dashboard/reviews",
+  SETTINGS = "/dashboard/settings",
 }
 
 export enum APIRoutes {

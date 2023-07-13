@@ -3,6 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 import * as Constants from "@/constants";
+import * as Redux from "@/redux";
 import * as Types from "@/types";
 import { signalsStore } from "@/signals/signals";
 
@@ -87,8 +88,9 @@ function* verifyRegistration(
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/verify-registration`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
+    yield Saga.put(Redux.entitiesActions.loginUser(data.response.safeUser));
 
-		Cookies.set("token", data.response.accessToken);
+    Cookies.set("userId", data.response.safeUser.id);
     signalsStore.authVerificationCodeSent.value = false;
 
     console.log("Verify Registration Data:", data);
@@ -117,8 +119,10 @@ function* verifyLogin(action: Types.SagaAction<Types.AuthVerificationAction>) {
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/verify-login`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
+    yield Saga.put(Redux.entitiesActions.loginUser(data.response.safeUser));
 
-    Cookies.set("token", data.response.accessToken);
+    Cookies.set("userId", data.response.safeUser.id);
+
     signalsStore.authVerificationCodeSent.value = false;
 
     console.log("Verify Login Data:", data);
