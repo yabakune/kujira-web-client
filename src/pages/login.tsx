@@ -5,9 +5,10 @@ import { NextPageWithLayout } from "@/pages/_app";
 import { signalsStore } from "@/signals/signals";
 
 const Login: NextPageWithLayout = () => {
+  const { authVerificationCodeSent } = signalsStore;
+
   const email = useSignal("");
   const agreementChecked = useSignal(false);
-  const { authVerificationCodeSent } = signalsStore;
 
   return (
     <>
