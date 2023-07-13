@@ -21,7 +21,7 @@ export const Reviews = (props: Types.IconProps) => {
       onMouseEnter={() => props.addHover && (hovered.value = true)}
       onMouseLeave={() => props.addHover && (hovered.value = false)}
     >
-      <g clip-path="url(#clip0_621_2)">
+      <g clipPath="url(#clip0_621_2)">
         <path
           fill-rule="evenodd"
           clip-rule="evenodd"

@@ -21,7 +21,7 @@ export const ModeDark = (props: Types.IconProps) => {
       onMouseEnter={() => props.addHover && (hovered.value = true)}
       onMouseLeave={() => props.addHover && (hovered.value = false)}
     >
-      <g clip-path="url(#clip0_1302_7)">
+      <g clipPath="url(#clip0_1302_7)">
         <circle cx="12" cy="12" r="12" />
       </g>
       <defs>
