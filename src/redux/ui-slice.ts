@@ -6,6 +6,7 @@ export type Notification = {
   caption?: string;
   response?: string;
   status?: "success" | "failure" | "pending";
+  timeout: number;
 };
 
 export type UIState = {
@@ -13,13 +14,30 @@ export type UIState = {
 };
 
 const initialState: UIState = {
-  notification: { body: "" },
+  notification: {
+    title: "",
+    body: "",
+    caption: "",
+    response: "",
+    status: "pending",
+    timeout: 0,
+  },
 };
 
 export const uiSlice = createSlice({
   name: "uiSlice",
   initialState,
   reducers: {
+    resetNotification: (state: UIState) => {
+      state.notification = {
+        title: "",
+        body: "",
+        caption: "",
+        response: "",
+        status: "pending",
+        timeout: 0,
+      };
+    },
     setNotification: (state: UIState, action: PayloadAction<Notification>) => {
       state.notification = action.payload;
     },

@@ -2,6 +2,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { Mulish } from "next/font/google";
 
+import * as Components from "@/components";
+
 import Styles from "./layout.module.scss";
 
 if (process.env.NODE_ENV === "development") {
@@ -19,6 +21,8 @@ const mulish = Mulish({ subsets: ["latin"] });
 const Layout = (props: Props) => {
   return (
     <div className={`${Styles.responsiveSidePadding} ${mulish.className}`}>
+      <Components.Notification />
+
       {props.children}
     </div>
   );
