@@ -2,8 +2,6 @@ import * as Saga from "redux-saga/effects";
 import createSagaMiddleware from "redux-saga";
 import { configureStore } from "@reduxjs/toolkit";
 
-import * as Sagas from "@/sagas";
-
 import authSaga from "@/sagas/auth.saga";
 import usersSaga from "@/sagas/users.saga";
 import { entitiesReducer as entities } from "./entities-slice";
