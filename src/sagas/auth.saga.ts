@@ -167,17 +167,23 @@ function* logout(action: Types.SagaPayload<Types.LogoutPayload>) {
 
     Cookies.remove("userId");
 
-    console.log("Logout Data:", data.body);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
   } catch (error: any) {
     console.error(error);
-    // yield Saga.put(
-    //   Redux.uiActions.setNotification({
-    //     body: error.response.data.body,
-    //     caption: error.response.data.caption,
-    //     status: "failure",
-    //     timeout: 5000,
-    //   })
-    // );
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 5000,
+      })
+    );
   }
 }
 
