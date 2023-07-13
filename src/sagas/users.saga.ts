@@ -61,7 +61,7 @@ function* fetchUser(action: Types.SagaPayload<Types.FetchUserPayload>) {
   console.log("Fetch User payload:", action.payload);
 
   try {
-    const endpoint = Helpers.generateEndpoint(
+    const endpoint = Helpers.generateGatedEndpoint(
       Constants.APIRoutes.USERS,
       `/${action.payload.userId}`,
       action.payload.userId
@@ -78,7 +78,7 @@ function* fetchUser(action: Types.SagaPayload<Types.FetchUserPayload>) {
 
 function* updateUser(action: Types.SagaPayload<Types.UpdateUserPayload>) {
   try {
-    const endpoint = Helpers.generateEndpoint(
+    const endpoint = Helpers.generateGatedEndpoint(
       Constants.APIRoutes.USERS,
       `/${action.payload.userId}`,
       action.payload.userId
@@ -95,7 +95,7 @@ function* updateUserPassword(
   action: Types.SagaPayload<Types.UpdateUserPasswordPayload>
 ) {
   try {
-    const endpoint = Helpers.generateEndpoint(
+    const endpoint = Helpers.generateGatedEndpoint(
       Constants.APIRoutes.USERS,
       `/${action.payload.userId}/update-password`,
       action.payload.userId
@@ -110,7 +110,7 @@ function* updateUserPassword(
 
 function* deleteUser(action: Types.SagaPayload<Types.DeleteUserPayload>) {
   try {
-    const endpoint = Helpers.generateEndpoint(
+    const endpoint = Helpers.generateGatedEndpoint(
       Constants.APIRoutes.USERS,
       `/${action.payload.userId}`,
       action.payload.userId
