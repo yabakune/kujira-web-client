@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
-import * as Saga from "@/redux-saga";
+import * as Sagas from "@/sagas";
 import { ReduxState } from "@/redux";
 
 import Styles from "./layout.module.scss";
@@ -29,7 +29,7 @@ const Layout = (props: Props) => {
   useEffect(() => {
     if (userId && Number(userId) && !currentUser) {
       console.log("Fetching current user:", userId);
-      dispatch(Saga.fetchUserRequest({ userId: Number(userId) }));
+      dispatch(Sagas.fetchUserRequest({ userId: Number(userId) }));
     }
   }, [currentUser]);
 

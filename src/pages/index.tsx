@@ -3,7 +3,7 @@ import * as Components from "@/components";
 import styles from "@/styles/home.module.scss";
 
 import * as Redux from "@/redux";
-import * as Sagas from "@/redux-saga";
+import * as Sagas from "@/sagas";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 

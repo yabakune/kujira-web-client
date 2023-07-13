@@ -2,7 +2,7 @@ import { Signal, useSignal } from "@preact/signals-react";
 import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
-import * as Sagas from "@/redux-saga";
+import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
 import { AuthFormHeader } from "./auth-form-header";
