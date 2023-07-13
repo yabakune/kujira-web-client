@@ -28,7 +28,7 @@ export const Notification = () => {
     else return Styles.default;
   }
 
-  function exitNotification(): void {
+  function closeNotification(): void {
     dispatch(Redux.uiActions.resetNotification());
   }
 
@@ -38,7 +38,7 @@ export const Notification = () => {
         <LazyMotion features={domAnimation}>
           <m.section
             className={`${Styles.section} ${setStatusBorder()}`}
-            onClick={exitNotification}
+            onClick={closeNotification}
             initial={{ opacity: 0, top: "0px" }}
             animate={{ opacity: 1, top: "16px" }}
             exit={{ opacity: 0, top: "-100px" }}
