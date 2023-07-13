@@ -2,6 +2,7 @@ import * as Saga from "redux-saga/effects";
 import axios from "axios";
 
 import * as Constants from "@/constants";
+import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Types from "@/types";
 
@@ -57,8 +58,15 @@ export function deleteUserRequest(
 // ========================================================================================= //
 
 function* fetchUser(action: Types.SagaPayload<Types.FetchUserPayload>) {
+  console.log("Fetch User payload:", action.payload);
+
   try {
-    const endpoint = Constants.APIRoutes.USERS + `/${action.payload.userId}`;
+    const endpoint = Helpers.generateEndpoint(
+      Constants.APIRoutes.USERS,
+      `/${action.payload.userId}`,
+      action.payload.userId
+    );
+
     const { data } = yield Saga.call(axios.get, endpoint);
     // yield Saga.put(Redux.entitiesActions.loginUser(data.response.safeUser));
 
@@ -104,7 +112,7 @@ function* deleteUser(action: Types.SagaPayload<Types.DeleteUserPayload>) {
   }
 }
 
-export function* usersSaga() {
+export default function* usersSaga() {
   yield Saga.all([
     Saga.takeEvery(UsersActions.FETCH_USER, fetchUser),
     Saga.takeEvery(UsersActions.UPDATE_USER, updateUser),

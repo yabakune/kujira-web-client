@@ -174,16 +174,13 @@ function* logout(action: Types.SagaPayload<Types.LogoutPayload>) {
   }
 }
 
-export function* authSaga() {
+export default function* authSaga() {
   yield Saga.all([
-    Saga.takeEvery(AuthActions.REGISTER, register),
-    Saga.takeEvery(AuthActions.VERIFY_REGISTRATION, verifyRegistration),
-    Saga.takeEvery(AuthActions.LOGIN, login),
-    Saga.takeEvery(AuthActions.VERIFY_LOGIN, verifyLogin),
-    Saga.takeEvery(
-      AuthActions.SEND_NEW_VERIFICATION_CODE,
-      sendNewVerificationCode
-    ),
-    Saga.takeEvery(AuthActions.LOGOUT, logout),
+    Saga.takeEvery("REGISTER", register),
+    Saga.takeEvery("VERIFY_REGISTRATION", verifyRegistration),
+    Saga.takeEvery("LOGIN", login),
+    Saga.takeEvery("VERIFY_LOGIN", verifyLogin),
+    Saga.takeEvery("SEND_NEW_VERIFICATION_CODE", sendNewVerificationCode),
+    Saga.takeEvery("LOGOUT", logout),
   ]);
 }

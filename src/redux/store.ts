@@ -4,6 +4,8 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import * as Sagas from "@/sagas";
 
+import authSaga from "@/sagas/auth.saga";
+import usersSaga from "@/sagas/users.saga";
 import { entitiesReducer as entities } from "./entities-slice";
 import { uiReducer as ui } from "./ui-slice";
 
@@ -11,15 +13,16 @@ const sagaMiddleware = createSagaMiddleware();
 
 export const reduxStore = configureStore({
   reducer: { entities, ui },
-  middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(sagaMiddleware);
-  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(sagaMiddleware),
   devTools: process.env.NODE_ENV === "development",
 });
 
 export type ReduxState = ReturnType<typeof reduxStore.getState>;
 export type AppDispatch = typeof reduxStore.dispatch;
 
-sagaMiddleware.run(function* () {
-  yield Saga.all([Sagas.authSaga()]);
-});
+function* rootSaga() {
+  yield Saga.all([authSaga(), usersSaga()]);
+}
+
+sagaMiddleware.run(rootSaga);
