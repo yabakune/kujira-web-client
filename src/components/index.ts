@@ -32,3 +32,4 @@ export * from "./buttons/button-icon";
 export * from "./page-head";
 export * from "./input";
 export * from "./notification";
+export * from "./navbar";

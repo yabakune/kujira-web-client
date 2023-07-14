@@ -1,0 +1,26 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--eightPixels) var(--sixteenPixels);
+  border-bottom: var(--themeFour) solid 1px;
+}
+
+.links {
+  display: flex;
+  gap: var(--sixteenPixels);
+}
+
+.dashboardNavigation {
+  display: flex;
+}
+
+.linkButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--fortyPixels);
+  height: var(--fortyPixels);
+  background-color: transparent;
+  border-radius: var(--twelvePixels);
+}
