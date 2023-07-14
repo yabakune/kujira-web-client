@@ -35,14 +35,16 @@ const Layout = (props: Props) => {
     if (typeof window !== "undefined") {
       if (currentUser) {
         const localStorageTheme = localStorage.getItem("theme");
-        if (localStorageTheme && localStorageTheme === "light") {
-          document
-            .getElementsByTagName("body")[0]
-            .classList.add(ThemeStyles.lightTheme);
-        } else {
-          document
-            .getElementsByTagName("body")[0]
-            .classList.remove(ThemeStyles.lightTheme);
+        if (localStorageTheme) {
+          if (localStorageTheme === "light") {
+            document
+              .getElementsByTagName("body")[0]
+              .classList.add(ThemeStyles.lightTheme);
+          } else {
+            document
+              .getElementsByTagName("body")[0]
+              .classList.remove(ThemeStyles.darkTheme);
+          }
         }
 
         if (currentUser.theme && localStorageTheme !== currentUser.theme) {

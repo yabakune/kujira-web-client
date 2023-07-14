@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
+import * as Components from "@/components";
 import * as Constants from "@/constants";
 import * as Redux from "@/redux";
 
 import Styles from "./auth-layout.module.scss";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
 
 export const AuthLayout = (props: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -18,5 +19,12 @@ export const AuthLayout = (props: { children: React.ReactNode }) => {
     if (currentUser) router.push(Constants.ClientRoutes.LOGBOOKS);
   }, [router, currentUser]);
 
-  return <main className={Styles.main}>{props.children}</main>;
+  return (
+    <div className={Styles.container}>
+      <main className={Styles.main}>
+        <Components.LogoFullHorizontal width={160} />
+        {props.children}
+      </main>
+    </div>
+  );
 };

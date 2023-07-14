@@ -1,8 +1,14 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+}
+
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: var(--thirtyTwoPixels);
-  height: 100dvh;
+  width: 100%;
+  max-width: 25rem;
 }

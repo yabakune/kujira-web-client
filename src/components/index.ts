@@ -3,6 +3,9 @@ export * from "./layouts/auth-layout";
 export * from "./auth/auth-form";
 export * from "./auth/auth-verification";
 
+export * from "./logos/logo";
+export * from "./logos/logo-full-horizontal";
+
 export * from "./icons/arrow-right";
 export * from "./icons/budget";
 export * from "./icons/checkbox-active";
