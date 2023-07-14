@@ -1,9 +1,11 @@
 import { effect, useSignal } from "@preact/signals-react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
+import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
 import { SettingsSection } from "./settings-section";
@@ -11,6 +13,7 @@ import { SettingsSection } from "./settings-section";
 import TextStyles from "@/styles/texts.module.scss";
 
 export const SettingsPersonalInformation = () => {
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state: Redux.ReduxState) => {
     return state.entities;
   });
@@ -19,6 +22,13 @@ export const SettingsPersonalInformation = () => {
   const username = useSignal("");
   const emailError = useSignal("");
   const usernameError = useSignal("");
+
+  useEffect(() => {
+    if (currentUser) {
+      email.value = currentUser.email;
+      username.value = currentUser.username;
+    }
+  }, [currentUser]);
 
   function handleEmailErrors(): void {
     if (email.value.length === 0) {
@@ -64,6 +74,15 @@ export const SettingsPersonalInformation = () => {
 
   function submitPersonalInformation(event: Types.OnSubmit): void {
     event.preventDefault();
+    if (currentUser) {
+      dispatch(
+        Sagas.updateUserRequest({
+          userId: currentUser.id,
+          email: email.value,
+          username: username.value,
+        })
+      );
+    }
 
     console.log("Submitted Personal Information");
   }

@@ -3,16 +3,16 @@ export type Theme = "dark" | "light" | "system" | "auto";
 export type Currency = "USD";
 
 export type UserModel = {
-  id: number | null;
-  email: string | null;
-  username: string | null;
-  currency: Currency | string | null;
-  theme: Theme | null;
+  id: number;
+  email: string;
+  username: string;
+  currency: Currency | string;
+  theme: Theme;
   mobileNumber?: string | null;
-  emailVerified: boolean | null;
-  onboarded: boolean | null;
-  createdAt: Date | null;
-  updatedAt: Date | null;
+  emailVerified: boolean;
+  onboarded: boolean;
+  createdAt: Date;
+  updatedAt: Date;
   // Has Many
   overviewIds: number[];
   logbookIds: number[];
@@ -20,35 +20,35 @@ export type UserModel = {
 };
 
 export type OverviewModel = {
-  id: number | null;
-  income: number | null;
-  savings: number | null;
-  createdAt: Date | null;
-  updatedAt: Date | null;
+  id: number;
+  income: number;
+  savings: number;
+  createdAt: Date;
+  updatedAt: Date;
   // Belongs To
-  ownerId: number | null;
+  ownerId: number;
   // Has Many
   entryIds: number[];
 };
 
 export type LogbookModel = {
-  id: number | null;
-  name: string | null;
-  createdAt: Date | null;
-  updatedAt: Date | null;
+  id: number;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
   // Belongs To
-  ownerId: number | null;
+  ownerId: number;
   // Has Many
-  entryIds: number[] | null;
+  entryIds: number[];
 };
 
 export type EntryModel = {
-  id: number | null;
-  name: string | null;
-  totalSpent: number | null;
+  id: number;
+  name: string;
+  totalSpent: number;
   budget?: number | null;
-  createdAt: Date | null;
-  updatedAt: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
   // Belongs To
   overviewId?: number | null;
   logbookId?: number | null;
@@ -59,23 +59,23 @@ export type EntryModel = {
 type PurchaseCategory = "monthly" | "need" | "planned" | "impulse" | "regret";
 
 export type PurchaseModel = {
-  id: number | null;
-  placement: number | null;
-  category: PurchaseCategory | null;
-  description: string | null;
+  id: number;
+  placement: number;
+  category: PurchaseCategory;
+  description: string;
   cost?: number | null;
-  createdAt: Date | null;
-  updatedAt: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
   // Belongs To
-  entryId: number | null;
+  entryId: number;
 };
 
 export type BugReportModel = {
-  id: number | null;
-  issue: string | null;
+  id: number;
+  issue: string;
   details?: string | null;
-  createdAt: Date | null;
-  updatedAt: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
   // Belongs To
-  ownerId: number | null;
+  ownerId: number;
 };
