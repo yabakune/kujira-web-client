@@ -83,8 +83,6 @@ export const SettingsPersonalInformation = () => {
         })
       );
     }
-
-    console.log("Submitted Personal Information");
   }
 
   return (
