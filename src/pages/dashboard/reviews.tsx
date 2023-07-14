@@ -2,7 +2,7 @@ import * as Components from "@/components";
 import { NextPageWithLayout } from "../_app";
 
 const Reviews: NextPageWithLayout = () => {
-  return <div>Reviews</div>;
+  return <Components.DashboardReviews />;
 };
 
 Reviews.getLayout = function getLayout(page: React.ReactElement) {

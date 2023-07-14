@@ -38,3 +38,5 @@ export * from "./notification";
 export * from "./navbar";
 
 export * from "./dashboard/page-sidebar";
+export * from "./dashboard/settings";
+export * from "./dashboard/reviews";
