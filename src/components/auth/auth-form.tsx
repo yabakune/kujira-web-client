@@ -101,6 +101,7 @@ export const AuthForm = (props: Props) => {
         text={props.type}
         disabled={handleButtonDisable()}
         centerContents
+        addClick
         primary
       />
     </form>

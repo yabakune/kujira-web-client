@@ -17,7 +17,9 @@ type Props = {
 
   borderRadius?: number;
   backgroundLevel?: number;
+  selected?: boolean;
   centerContents?: true;
+  addClick?: true;
   primary?: true;
 };
 
@@ -42,14 +44,18 @@ export const Button = (props: Props) => {
       aria-label={`${props.text} Button`}
       className={`
 				${Styles.button}
+        ${props.addClick && Styles.addClick}
 				${props.disabled && Styles.disabled}
+        ${props.selected && Styles.selected}
 				${selectSize(props.size)}
 				${props.centerContents && Styles.centerContents}
-				${
-          props.primary
-            ? Styles.primary
-            : Helpers.setBackgroundLevel(props.backgroundLevel || 1)
+				${props.primary && Styles.primary}
+        ${
+          !props.primary &&
+          Helpers.setBackgroundLevel(props.backgroundLevel || 1, props.selected)
         }
+        ${!props.primary && Helpers.setClickLevel(props.backgroundLevel || 1)}
+        ${!props.primary && Helpers.setHoverLevel(props.backgroundLevel || 1)}
 			`}
       style={{ borderRadius: Helpers.setBorderRadius(props.borderRadius) }}
       type={props.type}

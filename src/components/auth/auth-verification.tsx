@@ -118,6 +118,7 @@ export const AuthVerification = (props: Props) => {
           text="Verify"
           disabled={handleButtonDisable()}
           centerContents
+          addClick
           primary
         />
       </article>

@@ -8,8 +8,9 @@ export const DashboardReviews = () => {
       <Components.PageSidebar
         title="Reviews"
         caption="Select a logbook below to review your purchasing habits."
-      />
-      Reviews
+      >
+        Reviews
+      </Components.PageSidebar>
     </div>
   );
 };

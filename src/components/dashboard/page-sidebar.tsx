@@ -4,6 +4,7 @@ import TextStyles from "@/styles/texts.module.scss";
 type Props = {
   title: string;
   caption: string;
+  children: React.ReactNode;
 };
 
 export const PageSidebar = (props: Props) => {
@@ -13,6 +14,8 @@ export const PageSidebar = (props: Props) => {
         <h1 className={TextStyles.titleText}>{props.title}</h1>
         <p className={Styles.caption}>{props.caption}</p>
       </section>
+
+      <section className={Styles.navigation}>{props.children}</section>
     </aside>
   );
 };

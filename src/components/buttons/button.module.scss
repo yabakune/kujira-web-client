@@ -2,10 +2,14 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  width: 100%;
+  color: var(--themeEight);
   font-weight: var(--bold);
 
-  &:active {
-    transform: scale(0.99);
+  &.addClick {
+    &:active {
+      transform: scale(0.99);
+    }
   }
 
   &.centerContents {
@@ -45,6 +49,10 @@
     height: var(--thirtyTwoPixels);
     padding: 0rem var(--tenPixels);
     font-size: var(--tenPixels);
+  }
+
+  &.selected {
+    color: var(--text);
   }
 }
 
