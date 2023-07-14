@@ -186,8 +186,6 @@ function* verifyLogin(
         timeout: 5000,
       })
     );
-
-    console.log("Verify Login Data:", data);
   } catch (error: any) {
     console.error(error);
     yield Saga.put(

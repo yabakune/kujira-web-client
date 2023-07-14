@@ -89,8 +89,6 @@ function* updateUser(action: Types.SagaPayload<Types.UpdateUserPayload>) {
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.patch, endpoint, action.payload);
-
-    console.log("Update User Data:", data);
   } catch (error) {
     console.error(error);
   }
@@ -106,8 +104,6 @@ function* updateUserPassword(
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.patch, endpoint, action.payload);
-
-    console.log("Update User Password:", data);
   } catch (error) {
     console.error(error);
   }
