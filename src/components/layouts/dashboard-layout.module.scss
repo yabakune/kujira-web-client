@@ -1,5 +1,10 @@
 .main {
+  display: flex;
+  flex-direction: column;
   height: 100dvh;
+}
 
-  border: red solid 1px;
+.body {
+  display: flex;
+  height: 100%;
 }

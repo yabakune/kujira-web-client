@@ -36,3 +36,5 @@ export * from "./page-head";
 export * from "./input";
 export * from "./notification";
 export * from "./navbar";
+
+export * from "./dashboard/page-sidebar";
