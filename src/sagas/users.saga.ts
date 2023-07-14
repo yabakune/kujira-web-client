@@ -89,8 +89,26 @@ function* updateUser(action: Types.SagaPayload<Types.UpdateUserPayload>) {
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.patch, endpoint, action.payload);
-  } catch (error) {
+
+    // data.response = updated user for Redux
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error: any) {
     console.error(error);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 10000,
+      })
+    );
   }
 }
 
@@ -104,8 +122,24 @@ function* updateUserPassword(
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.patch, endpoint, action.payload);
-  } catch (error) {
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error: any) {
     console.error(error);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 10000,
+      })
+    );
   }
 }
 
