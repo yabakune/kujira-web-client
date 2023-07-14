@@ -6,9 +6,9 @@ import { LegalSection } from "@/types";
 const Section = (props: LegalSection) => {
   return (
     <section className={Styles.section}>
-      <h1 className={`${Styles.title} ${TextStyles.titleText}`}>
+      <h3 className={`${Styles.title} ${TextStyles.titleText}`}>
         {props.topic}
-      </h1>
+      </h3>
       {props.statements.map((statement: string, index: number) => {
         return (
           <p key={`${statement}-${index}`} className={`${Styles.statement}`}>

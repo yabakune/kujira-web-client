@@ -10,7 +10,7 @@ export const Header = (props: Props) => {
   return (
     <header className={Styles.header}>
       <h1 className={Styles.title}>{props.title}</h1>
-      <h5 className={Styles.updatedAt}>Updated: {props.updatedAt}</h5>
+      <h2 className={Styles.updatedAt}>Updated: {props.updatedAt}</h2>
       <p className={Styles.caption}>{props.caption}</p>
     </header>
   );
