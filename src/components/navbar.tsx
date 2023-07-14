@@ -6,6 +6,7 @@ import * as Constants from "@/constants";
 import * as Helpers from "@/helpers";
 
 import Styles from "./navbar.module.scss";
+import ResponsiveStyles from "@/styles/responsives.module.scss";
 
 const links = [
   Constants.ClientRoutes.LOGBOOKS,
@@ -30,7 +31,7 @@ export const Navbar = () => {
   const { pathname } = useRouter();
 
   return (
-    <nav className={Styles.nav}>
+    <nav className={`${Styles.nav} ${ResponsiveStyles.responsiveSidePadding}`}>
       <Components.Logo width={28} />
 
       <section className={Styles.links}>

@@ -8,7 +8,6 @@ import * as Components from "@/components";
 import * as Sagas from "@/sagas";
 import { ReduxState } from "@/redux";
 
-import Styles from "./layout.module.scss";
 import ThemeStyles from "@/styles/themes.module.scss";
 
 if (process.env.NODE_ENV === "development") {
@@ -55,12 +54,7 @@ const Layout = (props: Props) => {
   }, [dispatch, currentUser]);
 
   return (
-    <div
-      className={`
-        ${Styles.responsiveSidePadding}
-        ${mulish.className}
-      `}
-    >
+    <div className={mulish.className}>
       <Components.Notification />
 
       {props.children}
