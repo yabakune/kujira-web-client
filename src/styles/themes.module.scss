@@ -96,58 +96,12 @@
   }
 }
 
-@mixin determineSelectedLevel($backgroundLevel) {
-  @if $backgroundLevel == two {
-    background-color: var(--themeThree);
-  } @else if $backgroundLevel == three {
-    background-color: var(--themeFour);
-  } @else if $backgroundLevel == four {
-    background-color: var(--themeFive);
-  } @else if $backgroundLevel == five {
-    background-color: var(--sixPixels);
-  } @else if $backgroundLevel == six {
-    background-color: var(--themeSeven);
-  } @else if $backgroundLevel == seven {
-    background-color: var(--eightPixels);
-  } @else if $backgroundLevel == eight {
-    background-color: var(--themeNine);
-  } @else {
-    background-color: var(--themeTen);
-  }
-}
-
-.selectedLevel {
-  &.two {
-    @include determineSelectedLevel(two);
-  }
-
-  &.three {
-    @include determineSelectedLevel(three);
-  }
-
-  &.four {
-    @include determineSelectedLevel(four);
-  }
-
-  &.five {
-    @include determineSelectedLevel(five);
-  }
-
-  &.six {
-    @include determineSelectedLevel(six);
-  }
-
-  &.seven {
-    @include determineSelectedLevel(seven);
-  }
-
-  &.eight {
-    @include determineSelectedLevel(eight);
-  }
-}
-
-@mixin determineActiveLevel($backgroundLevel) {
-  @if $backgroundLevel == two {
+@mixin determineClickLevel($backgroundLevel) {
+  @if $backgroundLevel == one {
+    &:active {
+      background-color: var(--themeThree) !important;
+    }
+  } @else if $backgroundLevel == two {
     &:active {
       background-color: var(--themeFour) !important;
     }
@@ -178,38 +132,48 @@
   }
 }
 
-.activeLevel {
+.clickLevel {
+  &.one {
+    @include determineClickLevel(one);
+  }
+
   &.two {
-    @include determineActiveLevel(two);
+    @include determineClickLevel(two);
   }
 
   &.three {
-    @include determineActiveLevel(three);
+    @include determineClickLevel(three);
   }
 
   &.four {
-    @include determineActiveLevel(four);
+    @include determineClickLevel(four);
   }
 
   &.five {
-    @include determineActiveLevel(five);
+    @include determineClickLevel(five);
   }
 
   &.six {
-    @include determineActiveLevel(six);
+    @include determineClickLevel(six);
   }
 
   &.seven {
-    @include determineActiveLevel(seven);
+    @include determineClickLevel(seven);
   }
 
   &.eight {
-    @include determineActiveLevel(eight);
+    @include determineClickLevel(eight);
   }
 }
 
 @mixin determineHoverLevel($backgroundLevel) {
-  @if $backgroundLevel == two {
+  @if $backgroundLevel == one {
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--themeFour);
+      }
+    }
+  } @else if $backgroundLevel == two {
     @media (hover: hover) {
       &:hover {
         background-color: var(--themeFive);
@@ -249,6 +213,10 @@
 }
 
 .hoverLevel {
+  &.one {
+    @include determineHoverLevel(one);
+  }
+
   &.two {
     @include determineHoverLevel(two);
   }

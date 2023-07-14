@@ -28,8 +28,8 @@ export const Navbar = () => {
                 key={`navbar-link-${link}`}
                 className={`
 								${Styles.linkButton}
-								${Helpers.setBackgroundLevel(1)}
-								${Helpers.setActiveLevel(1)}
+								${Helpers.setBackgroundLevel(1, link === pathname)}
+								${Helpers.setClickLevel(1)}
 								${Helpers.setHoverLevel(1)}
 							`}
                 href={link}

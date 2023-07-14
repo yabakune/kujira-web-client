@@ -21,6 +21,6 @@
   align-items: center;
   width: var(--fortyPixels);
   height: var(--fortyPixels);
-  background-color: transparent;
   border-radius: var(--twelvePixels);
+  transition: var(--transition);
 }

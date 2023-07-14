@@ -50,27 +50,31 @@ export function setBackgroundLevel(
   }
 }
 
-export function setActiveLevel(backgroundLevel: number): string {
+export function setClickLevel(backgroundLevel: number): string {
   switch (backgroundLevel) {
+    case 1:
+      return `${ThemeStyles.clickLevel} ${ThemeStyles.one}`;
     case 2:
-      return `${ThemeStyles.activeLevel} ${ThemeStyles.two}`;
+      return `${ThemeStyles.clickLevel} ${ThemeStyles.two}`;
     case 3:
-      return `${ThemeStyles.activeLevel} ${ThemeStyles.three}`;
+      return `${ThemeStyles.clickLevel} ${ThemeStyles.three}`;
     case 4:
-      return `${ThemeStyles.activeLevel} ${ThemeStyles.four}`;
+      return `${ThemeStyles.clickLevel} ${ThemeStyles.four}`;
     case 5:
-      return `${ThemeStyles.activeLevel} ${ThemeStyles.five}`;
+      return `${ThemeStyles.clickLevel} ${ThemeStyles.five}`;
     case 6:
-      return `${ThemeStyles.activeLevel} ${ThemeStyles.six}`;
+      return `${ThemeStyles.clickLevel} ${ThemeStyles.six}`;
     case 7:
-      return `${ThemeStyles.activeLevel} ${ThemeStyles.seven}`;
+      return `${ThemeStyles.clickLevel} ${ThemeStyles.seven}`;
     default:
-      return `${ThemeStyles.activeLevel} ${ThemeStyles.eight}`;
+      return `${ThemeStyles.clickLevel} ${ThemeStyles.eight}`;
   }
 }
 
 export function setHoverLevel(backgroundLevel: number): string {
   switch (backgroundLevel) {
+    case 1:
+      return `${ThemeStyles.hoverLevel} ${ThemeStyles.one}`;
     case 2:
       return `${ThemeStyles.hoverLevel} ${ThemeStyles.two}`;
     case 3:

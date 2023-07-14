@@ -51,7 +51,7 @@ export const Input = (props: Props) => {
       className={`
         ${Styles.size} ${props.mini ? Styles.mini : Styles.default}
         ${Helpers.setBackgroundLevel(props.backgroundLevel || 1, focused.value)}
-        ${Helpers.setActiveLevel(props.backgroundLevel || 1)}
+        ${Helpers.setClickLevel(props.backgroundLevel || 1)}
         ${Helpers.setHoverLevel(props.backgroundLevel || 1)}
       `}
       style={{
