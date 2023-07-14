@@ -61,10 +61,25 @@ const Layout = (props: Props) => {
           localStorage.setItem("theme", currentUser.theme);
         }
 
-        if (currentUser.theme === "light") {
-          document.body.classList.add(ThemeStyles.lightTheme);
-        } else {
+        if (currentUser.theme === "dark") {
           document.body.classList.remove(ThemeStyles.lightTheme);
+          document.body.classList.remove(ThemeStyles.systemTheme);
+        } else if (currentUser.theme === "light") {
+          document.body.classList.remove(ThemeStyles.systemTheme);
+          document.body.classList.add(ThemeStyles.lightTheme);
+        } else if (currentUser.theme === "system") {
+          document.body.classList.remove(ThemeStyles.lightTheme);
+          document.body.classList.add(ThemeStyles.systemTheme);
+        } else {
+          const date = new Date();
+          const beforeSixPM = date.getHours() < 18;
+          if (beforeSixPM) {
+            document.body.classList.remove(ThemeStyles.systemTheme);
+            document.body.classList.add(ThemeStyles.lightTheme);
+          } else {
+            document.body.classList.remove(ThemeStyles.lightTheme);
+            document.body.classList.remove(ThemeStyles.systemTheme);
+          }
         }
       }
     }

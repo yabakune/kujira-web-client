@@ -8,23 +8,18 @@ import { ReduxState } from "@/redux";
 
 import { SettingsSection } from "./settings-section";
 
-// const themes: Types.Theme[] = ["dark", "light", "system", "auto"];
-const themes: Types.Theme[] = ["dark", "light"];
+const themes: Types.Theme[] = ["dark", "light", "system", "auto"];
 
 function generateThemeComponent(theme: Types.Theme, selected: boolean) {
   if (theme === "dark") {
     return <Components.ModeDark width={14} fill={selected ? 11 : 8} />;
-  } else {
+  } else if (theme === "light") {
     return <Components.ModeLight width={14} fill={selected ? 11 : 8} />;
+  } else if (theme === "system") {
+    return <Components.ModeSystem width={14} fill={selected ? 11 : 8} />;
+  } else {
+    return <Components.ModeAuto width={14} fill={selected ? 11 : 8} />;
   }
-
-  // else if (theme === "light") {
-  //   return <Components.ModeLight width={14} fill={selected ? 11 : 8} />;
-  // }else if (theme === "system") {
-  //   return <Components.ModeSystem width={14} fill={selected ? 11 : 8} />;
-  // } else {
-  //   return <Components.ModeAuto width={14} fill={selected ? 11 : 8} />;
-  // }
 }
 
 export const SettingsTheme = () => {

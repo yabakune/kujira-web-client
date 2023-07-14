@@ -30,6 +30,73 @@
   --shadowOne: 0px 8px 16px 0px #ebebeb;
 }
 
+.systemTheme {
+  @media (prefers-color-scheme: dark) {
+    --text: #e8e8e8;
+
+    --themeOne: #141414;
+    --themeTwo: #1a1a1a;
+    --themeThree: #1f1f1f;
+    --themeFour: #262626;
+    --themeFive: #2b2b2b;
+    --themeSix: #363636;
+    --themeSeven: #545454;
+    --themeEight: #616161;
+    --themeNine: #929292;
+    --themeTen: #a3a3a3;
+
+    --primaryDarker: #2b9c9a;
+    --primaryMain: #36bcba;
+    --primaryLighter: #50dfdd;
+
+    --pending: #a3b4c2;
+    --success: #117b68;
+    --failure: #d56363;
+    --warning: #e4a427;
+
+    --monthly: #e8dd76;
+    --need: #6cbc4f;
+    --planned: #67a8e4;
+    --impulse: #c8803e;
+    --regret: #c469a0;
+
+    --shadowOne: 0px 8px 16px 0px #090909;
+    --shadowThree: 0px 8px 16px 0px #101010;
+  }
+
+  @media (prefers-color-scheme: light) {
+    --text: #262626;
+
+    --themeOne: #ffffff;
+    --themeTwo: #fafafa;
+    --themeThree: #f5f5f5;
+    --themeFour: #ebebeb;
+    --themeFive: #e0e0e0;
+    --themeSix: #c7c7c7;
+    --themeSeven: #b8b8b8;
+    --themeEight: #adadad;
+    --themeNine: #858585;
+    --themeTen: #707070;
+
+    --primaryDarker: #29c0be;
+    --primaryMain: #36d4d2;
+    --primaryLighter: #52ebe9;
+
+    --pending: #46759d;
+    --success: #2cd379;
+    --failure: #f34747;
+    --warning: #f4bf58;
+
+    --monthly: #e0b61f;
+    --need: #4ec025;
+    --planned: #348ee0;
+    --impulse: #e77b18;
+    --regret: #ce3574;
+
+    --shadowOne: 0px 8px 16px 0px #ebebeb;
+  }
+}
+
 @mixin determineBackgroundLevel($backgroundLevel) {
   @if $backgroundLevel == two {
     background-color: var(--themeTwo);
