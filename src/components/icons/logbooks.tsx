@@ -3,7 +3,7 @@ import { useSignal } from "@preact/signals-react";
 import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
-export const Reviews = (props: Types.IconProps) => {
+export const Logbooks = (props: Types.IconProps) => {
   const hovered = useSignal(false);
 
   return (
@@ -21,15 +21,15 @@ export const Reviews = (props: Types.IconProps) => {
       onMouseEnter={() => props.addHover && (hovered.value = true)}
       onMouseLeave={() => props.addHover && (hovered.value = false)}
     >
-      <g clipPath="url(#clip0_621_2)">
+      <g clipPath="url(#clip0_7_20)">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
-          d="M21.3333 21.3333V2.66666H2.66666V21.3333H21.3333ZM2.66666 0H21.3333C22.8 0 24 1.2 24 2.66666V21.3333C24 22.8 22.8 24 21.3333 24H2.66666C1.2 24 0 22.8 0 21.3333V2.66666C0 1.2 1.2 0 2.66666 0ZM5.33345 18.6667H14.6668V16H5.33345V18.6667ZM5.33345 13.3333H18.6668V10.6667H5.33345V13.3333ZM5.33345 7.99999H18.6668V5.33333H5.33345V7.99999Z"
+          d="M22.56 0H1.44C0.64471 0 0 0.64471 0 1.44V4.32C0 5.11529 0.64471 5.76 1.44 5.76H22.56C23.3553 5.76 24 5.11529 24 4.32V1.44C24 0.64471 23.3553 0 22.56 0ZM22.56 9.12H1.44C0.64471 9.12 0 9.76471 0 10.56V13.44C0 14.2353 0.64471 14.88 1.44 14.88H22.56C23.3553 14.88 24 14.2353 24 13.44V10.56C24 9.76471 23.3553 9.12 22.56 9.12ZM1.44 18.24H22.56C23.3553 18.24 24 18.8847 24 19.68V22.56C24 23.3553 23.3553 24 22.56 24H1.44C0.64471 24 0 23.3553 0 22.56V19.68C0 18.8847 0.64471 18.24 1.44 18.24Z"
         />
       </g>
       <defs>
-        <clipPath id="clip0_621_2">
+        <clipPath id="clip0_7_20">
           <rect width="24" height="24" fill="white" />
         </clipPath>
       </defs>

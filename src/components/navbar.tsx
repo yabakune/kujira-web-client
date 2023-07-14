@@ -13,6 +13,19 @@ const links = [
   Constants.ClientRoutes.SETTINGS,
 ];
 
+function generateLinkComponent(
+  route: Constants.ClientRoutes,
+  selected: boolean
+) {
+  if (route === Constants.ClientRoutes.LOGBOOKS) {
+    return <Components.Logbooks width={16} fill={selected ? 11 : 8} />;
+  } else if (route === Constants.ClientRoutes.REVIEWS) {
+    return <Components.Reviews width={16} fill={selected ? 11 : 8} />;
+  } else {
+    return <Components.Settings width={16} fill={selected ? 11 : 8} />;
+  }
+}
+
 export const Navbar = () => {
   const { pathname } = useRouter();
 
@@ -34,10 +47,7 @@ export const Navbar = () => {
 							`}
                 href={link}
               >
-                <Components.Settings
-                  width={16}
-                  fill={pathname === link ? 11 : 8}
-                />
+                {generateLinkComponent(link, link === pathname)}
               </Link>
             );
           })}

@@ -18,6 +18,7 @@ export * from "./icons/eye-hidden";
 export * from "./icons/eye-visible";
 export * from "./icons/key";
 export * from "./icons/lock";
+export * from "./icons/logbooks";
 export * from "./icons/message";
 export * from "./icons/mode-auto";
 export * from "./icons/mode-dark";
