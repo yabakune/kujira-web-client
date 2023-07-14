@@ -8,6 +8,7 @@ export enum ClientRoutes {
   LOGBOOKS = "/dashboard/logbooks",
   REVIEWS = "/dashboard/reviews",
   SETTINGS = "/dashboard/settings",
+  BUG_REPORT = "/bug-report",
 }
 
 export enum APIRoutes {

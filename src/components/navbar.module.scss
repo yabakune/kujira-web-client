@@ -2,7 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--eightPixels) 0rem;
+  padding-top: var(--eightPixels);
+  padding-bottom: var(--eightPixels);
   border-bottom: var(--themeFour) solid 1px;
 }
 

@@ -6,7 +6,7 @@ import * as Constants from "@/constants";
 import * as Helpers from "@/helpers";
 
 import Styles from "./navbar.module.scss";
-import ResponsiveStyles from "@/styles/responsives.module.scss";
+import ResponsiveStyles from "@/styles/responsive.module.scss";
 
 const links = [
   Constants.ClientRoutes.LOGBOOKS,
@@ -36,23 +36,40 @@ export const Navbar = () => {
 
       <section className={Styles.links}>
         <article className={Styles.dashboardNavigation}>
-          {links.map((link: Constants.ClientRoutes) => {
+          {links.map((link: Constants.ClientRoutes, index: number) => {
             return (
               <Link
-                key={`navbar-link-${link}`}
+                key={`navbar-${link}-link-${index}`}
                 className={`
 								${Styles.linkButton}
-								${Helpers.setBackgroundLevel(1, link === pathname)}
+								${Helpers.setBackgroundLevel(1, pathname === link)}
 								${Helpers.setClickLevel(1)}
 								${Helpers.setHoverLevel(1)}
 							`}
                 href={link}
               >
-                {generateLinkComponent(link, link === pathname)}
+                {generateLinkComponent(link, pathname === link)}
               </Link>
             );
           })}
         </article>
+
+        <Link
+          key="navbar-bug-report-link"
+          className={`
+								${Styles.linkButton}
+								${Helpers.setBackgroundLevel(1, pathname === Constants.ClientRoutes.BUG_REPORT)}
+								${Helpers.setClickLevel(1)}
+								${Helpers.setHoverLevel(1)}
+							`}
+          href={Constants.ClientRoutes.BUG_REPORT}
+          target="_blank"
+        >
+          <Components.Budget
+            width={16}
+            fill={pathname === Constants.ClientRoutes.BUG_REPORT ? 11 : 8}
+          />
+        </Link>
       </section>
     </nav>
   );
