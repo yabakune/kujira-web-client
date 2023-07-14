@@ -52,26 +52,23 @@ const Layout = (props: Props) => {
     } else {
       if (ungatedRoutes.includes(router.pathname)) {
         router.push(Constants.ClientRoutes.LOGBOOKS);
-      } else if (typeof window !== "undefined") {
+      }
+
+      if (typeof window !== "undefined") {
         const localStorageTheme = localStorage.getItem("theme");
-        if (localStorageTheme) {
-          if (localStorageTheme === "light") {
-            document
-              .getElementsByTagName("body")[0]
-              .classList.add(ThemeStyles.lightTheme);
-          } else {
-            document
-              .getElementsByTagName("body")[0]
-              .classList.remove(ThemeStyles.darkTheme);
-          }
-        }
 
         if (currentUser.theme && localStorageTheme !== currentUser.theme) {
           localStorage.setItem("theme", currentUser.theme);
         }
+
+        if (currentUser.theme === "light") {
+          document.body.classList.add(ThemeStyles.lightTheme);
+        } else {
+          document.body.classList.remove(ThemeStyles.lightTheme);
+        }
       }
     }
-  }, [dispatch, currentUser]);
+  }, [currentUser]);
 
   return (
     <div className={mulish.className}>

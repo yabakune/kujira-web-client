@@ -92,6 +92,8 @@ function* updateUser(action: Types.SagaPayload<Types.UpdateUserPayload>) {
     const { data } = yield Saga.call(axios.patch, endpoint, payloadWithUserId);
     yield Saga.put(Redux.entitiesActions.loginUser(data.response));
 
+    
+
     yield Saga.put(
       Redux.uiActions.setNotification({
         body: data.body,

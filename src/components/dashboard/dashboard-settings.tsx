@@ -6,6 +6,7 @@ import { SettingsPersonalInformation } from "./settings-personal-information";
 import { SettingsSession } from "./settings-session";
 import { SettingsDangerous } from "./settings-dangerous";
 import { SettingsPassword } from "./settings-password";
+import { SettingsTheme } from "./settings-theme";
 
 import Styles from "./dashboard-settings.module.scss";
 
@@ -49,7 +50,7 @@ export const DashboardSettings = () => {
         ) : currentState.value === "Security" ? (
           <SettingsPassword />
         ) : (
-          <SettingsPersonalInformation />
+          <SettingsTheme />
         )}
       </section>
     </div>

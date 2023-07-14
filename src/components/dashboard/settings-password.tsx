@@ -96,7 +96,7 @@ export const SettingsPassword = () => {
 
   return (
     <SettingsSection
-      key="dashboard-settings-account-session"
+      key="dashboard-settings-security-session"
       title="Password"
       onSubmit={updatePassword}
     >

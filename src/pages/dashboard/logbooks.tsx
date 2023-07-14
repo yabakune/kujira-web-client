@@ -2,7 +2,12 @@ import * as Components from "@/components";
 import { NextPageWithLayout } from "../_app";
 
 const Logbooks: NextPageWithLayout = () => {
-  return <div>Logbooks</div>;
+  return (
+    <>
+      <Components.PageHead title="Logbooks" />
+      Logbooks
+    </>
+  );
 };
 
 Logbooks.getLayout = function getLayout(page: React.ReactElement) {

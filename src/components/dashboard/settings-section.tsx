@@ -5,7 +5,7 @@ import TextStyles from "@/styles/texts.module.scss";
 
 type Props = {
   title: string;
-  onSubmit: (event: Types.OnSubmit) => void;
+  onSubmit?: (event: Types.OnSubmit) => void;
   children: React.ReactNode;
 };
 
