@@ -1,9 +1,9 @@
 import { Mulish } from "next/font/google";
 
-const mulish = Mulish({ subsets: ["latin"] });
-
 import "@/styles/globals.scss";
 import Styles from "./layout.module.scss";
+
+const mulish = Mulish({ subsets: ["latin"] });
 
 type Props = { children: React.ReactNode };
 

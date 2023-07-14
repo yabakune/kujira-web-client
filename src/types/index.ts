@@ -3,4 +3,6 @@ export * from "./buttons.types";
 export * from "./forms.types";
 export * from "./icons.types";
 export * from "./api-models.types";
+export * from "./legals.types";
+
 export * from "./sagas";

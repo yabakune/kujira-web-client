@@ -1,0 +1,19 @@
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fortyPixels);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--eightPixels);
+}
+
+.title {
+  color: var(--themeTen);
+}
+
+.statement {
+  color: var(--text);
+}

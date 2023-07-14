@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--eightPixels);
+  color: var(--text);
+}
+
+.title {
+  font-size: var(--thirtySixPixels);
+  font-weight: var(--black);
+}
+
+.updatedAt {
+  color: var(--themeTen);
+  font-size: var(--thirtyTwoPixels);
+  font-weight: var(--bold);
+}
+
+.caption {
+  font-size: var(--sixteenPixels);
+}
