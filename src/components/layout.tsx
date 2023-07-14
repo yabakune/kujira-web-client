@@ -43,7 +43,7 @@ const Layout = (props: Props) => {
 
     if (!currentUser) {
       if (gatedRoutes.includes(router.pathname)) {
-        router.push(Constants.ClientRoutes.LANDING);
+        // router.push(Constants.ClientRoutes.LANDING);
       }
     } else {
       if (typeof window !== "undefined") {

@@ -230,7 +230,7 @@ function* logout(action: Types.SagaPayload<Types.LogoutPayload>) {
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/logout`;
     const { data } = yield Saga.call(axios.patch, endpoint, action.payload);
-    yield Saga.put(Redux.entitiesActions.logoutUser);
+    yield Saga.put(Redux.entitiesActions.logoutUser());
 
     Cookies.remove("userId");
 

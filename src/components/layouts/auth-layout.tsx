@@ -19,7 +19,7 @@ export const AuthLayout = (props: Props) => {
 
   useEffect(() => {
     if (currentUser) router.push(Constants.ClientRoutes.LOGBOOKS);
-  }, [router, currentUser]);
+  }, [currentUser]);
 
   return (
     <div className={Styles.container}>

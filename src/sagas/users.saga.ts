@@ -151,7 +151,7 @@ function* deleteUser(action: Types.SagaPayload<Types.DeleteUserPayload>) {
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.delete, endpoint);
-    yield Saga.put(Redux.entitiesActions.logoutUser);
+    yield Saga.put(Redux.entitiesActions.logoutUser());
 
     Cookies.remove("userId");
 
