@@ -72,7 +72,7 @@ export const SettingsPersonalInformation = () => {
 
   function updatePersonalInformation(event: Types.OnSubmit): void {
     event.preventDefault();
-    if (currentUser && !disableSubmitOnErrors) {
+    if (currentUser && !disableSubmitOnErrors()) {
       dispatch(
         Sagas.updateUserRequest({
           userId: currentUser.id,
