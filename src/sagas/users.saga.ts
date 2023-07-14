@@ -121,7 +121,8 @@ function* updateUserPassword(
       `/${action.payload.userId}/update-password`,
       action.payload.userId
     );
-    const { data } = yield Saga.call(axios.patch, endpoint, action.payload);
+    const { userId, ...payloadWithUserId } = action.payload;
+    const { data } = yield Saga.call(axios.patch, endpoint, payloadWithUserId);
 
     yield Saga.put(
       Redux.uiActions.setNotification({

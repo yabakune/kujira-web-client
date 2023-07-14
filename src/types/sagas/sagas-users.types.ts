@@ -14,7 +14,8 @@ export type UpdateUserPayload = Partial<{
 
 export type UpdateUserPasswordPayload = {
   userId: number;
-  password: string;
+  oldPassword: string;
+  newPassword: string;
 };
 
 export type DeleteUserPayload = {

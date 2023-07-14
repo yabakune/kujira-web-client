@@ -5,6 +5,7 @@ import * as Components from "@/components";
 import { SettingsPersonalInformation } from "./settings-personal-information";
 import { SettingsSession } from "./settings-session";
 import { SettingsDangerous } from "./settings-dangerous";
+import { SettingsPassword } from "./settings-password";
 
 import Styles from "./dashboard-settings.module.scss";
 
@@ -46,7 +47,7 @@ export const DashboardSettings = () => {
             <SettingsDangerous />
           </>
         ) : currentState.value === "Security" ? (
-          <SettingsPersonalInformation />
+          <SettingsPassword />
         ) : (
           <SettingsPersonalInformation />
         )}

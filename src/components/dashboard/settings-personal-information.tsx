@@ -61,7 +61,7 @@ export const SettingsPersonalInformation = () => {
     handleUsernameErrors();
   });
 
-  function handlePersonalInformationDisabled(): boolean {
+  function disableSubmitOnErrors(): boolean {
     return (
       email.value === "" ||
       username.value === "" ||
@@ -70,9 +70,9 @@ export const SettingsPersonalInformation = () => {
     );
   }
 
-  function submitPersonalInformation(event: Types.OnSubmit): void {
+  function updatePersonalInformation(event: Types.OnSubmit): void {
     event.preventDefault();
-    if (currentUser) {
+    if (currentUser && !disableSubmitOnErrors) {
       dispatch(
         Sagas.updateUserRequest({
           userId: currentUser.id,
@@ -87,7 +87,7 @@ export const SettingsPersonalInformation = () => {
     <SettingsSection
       key="dashboard-settings-account-personal-information"
       title="Personal Information"
-      onSubmit={submitPersonalInformation}
+      onSubmit={updatePersonalInformation}
     >
       {emailError.value && (
         <p className={TextStyles.formError}>{emailError.value}</p>
@@ -116,7 +116,7 @@ export const SettingsPersonalInformation = () => {
       <Components.Button
         type="submit"
         text="Update"
-        disabled={handlePersonalInformationDisabled()}
+        disabled={disableSubmitOnErrors()}
         borderRadius={10}
         centerContents
         addClick

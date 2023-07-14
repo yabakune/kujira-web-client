@@ -18,10 +18,6 @@ type Props = {
   confirmPasswordError: Signal<string>;
 } & Types.AuthFormProps;
 
-function checkValidPassword(password: string): boolean {
-  return /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@%#]).*$/.test(password);
-}
-
 export const AuthFormInputs = (props: Props) => {
   function handleEmailErrors(): void {
     if (props.email.value.length === 0) {
@@ -55,7 +51,7 @@ export const AuthFormInputs = (props: Props) => {
     if (props.password.value.length === 0) {
       props.passwordError.value = "";
     } else {
-      if (!checkValidPassword(props.password.value)) {
+      if (!Helpers.checkValidPassword(props.password.value)) {
         props.passwordError.value =
           "Password must contain at least one capital and lowercase letter and at least one of the following special characters: @, !, %, #.";
       } else if (props.password.value.length < 12) {
