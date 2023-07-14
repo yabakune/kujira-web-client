@@ -1,7 +1,9 @@
-import { useSignal } from "@preact/signals-react";
+import { effect, useSignal } from "@preact/signals-react";
+import { useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
+import * as Redux from "@/redux";
 import * as Types from "@/types";
 
 import { SettingsSection } from "./settings-section";
@@ -9,6 +11,10 @@ import { SettingsSection } from "./settings-section";
 import TextStyles from "@/styles/texts.module.scss";
 
 export const SettingsPersonalInformation = () => {
+  const { currentUser } = useSelector((state: Redux.ReduxState) => {
+    return state.entities;
+  });
+
   const email = useSignal("");
   const username = useSignal("");
   const emailError = useSignal("");
@@ -42,8 +48,18 @@ export const SettingsPersonalInformation = () => {
     }
   }
 
+  effect(() => {
+    handleEmailErrors();
+    handleUsernameErrors();
+  });
+
   function handlePersonalInformationDisabled(): boolean {
-    return false;
+    return (
+      email.value === "" ||
+      username.value === "" ||
+      !!emailError.value ||
+      !!usernameError.value
+    );
   }
 
   function submitPersonalInformation(event: Types.OnSubmit): void {
@@ -58,6 +74,9 @@ export const SettingsPersonalInformation = () => {
       title="Personal Information"
       onSubmit={submitPersonalInformation}
     >
+      {emailError.value && (
+        <p className={TextStyles.formError}>{emailError.value}</p>
+      )}
       <Components.Input
         type="text"
         userInput={email}
@@ -67,6 +86,9 @@ export const SettingsPersonalInformation = () => {
         backgroundLevel={4}
         required
       />
+      {usernameError.value && (
+        <p className={TextStyles.formError}>{usernameError.value}</p>
+      )}
       <Components.Input
         type="text"
         userInput={username}
