@@ -12,6 +12,8 @@ const Login: NextPageWithLayout = () => {
 
   return (
     <>
+      <Components.PageHead title="Log In" />
+
       {authVerificationCodeSent.value ? (
         <Components.AuthVerification
           type="Log In"

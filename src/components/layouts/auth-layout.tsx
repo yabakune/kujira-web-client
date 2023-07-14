@@ -16,7 +16,7 @@ export const AuthLayout = (props: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (currentUser) router.push(Constants.ClientRoutes.LOGBOOKS);
-  }, [currentUser]);
+  }, [router, currentUser]);
 
   return <main className={Styles.main}>{props.children}</main>;
 };

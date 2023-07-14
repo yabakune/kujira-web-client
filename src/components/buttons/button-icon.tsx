@@ -16,6 +16,7 @@ export const ButtonIcon = (props: Props) => {
 
   return (
     <button
+      aria-label="Icon Button"
       className={Styles.button}
       type="button"
       tabIndex={-1}

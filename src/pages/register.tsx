@@ -12,6 +12,8 @@ const Register: NextPageWithLayout = () => {
 
   return (
     <>
+      <Components.PageHead title="Register" />
+
       {authVerificationCodeSent.value ? (
         <Components.AuthVerification
           type="Register"

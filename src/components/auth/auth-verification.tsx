@@ -75,6 +75,7 @@ export const AuthVerification = (props: Props) => {
         </h1>
 
         <button
+          aria-label="Go Back Button"
           className={TextStyles.primaryLink}
           type="button"
           onClick={goBack}
@@ -90,6 +91,7 @@ export const AuthVerification = (props: Props) => {
         <p>
           {"Didn't receive a code? "}
           <button
+            aria-label="Resend Code Button"
             className={TextStyles.primaryLink}
             type="button"
             onClick={resendCode}

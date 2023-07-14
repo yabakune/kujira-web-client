@@ -12,7 +12,7 @@ import { AuthFormAgreement } from "./auth-form-agreement";
 import Styles from "./auth-form.module.scss";
 
 type Props = {
-  email: Signal<string>
+  email: Signal<string>;
   authVerificationCodeSent: Signal<boolean>;
   agreementChecked: Signal<boolean>;
 } & Types.AuthFormProps;

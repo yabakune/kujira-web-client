@@ -14,7 +14,7 @@ import ThemeStyles from "@/styles/themes.module.scss";
 if (process.env.NODE_ENV === "development") {
   axios.defaults.baseURL = "http://localhost:8000";
 } else if (process.env.NODE_ENV === "production") {
-  // axios.defaults.baseURL = "https://production-endpoint";
+  axios.defaults.baseURL = "http://localhost:8000";
 }
 
 const userId = Cookies.get("userId");
@@ -44,7 +44,7 @@ const Layout = (props: Props) => {
             .getElementsByTagName("body")[0]
             .classList.remove(ThemeStyles.lightTheme);
         }
-        
+
         if (currentUser.theme && localStorageTheme !== currentUser.theme) {
           localStorage.setItem("theme", currentUser.theme);
         }

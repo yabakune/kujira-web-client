@@ -39,6 +39,7 @@ export const Button = (props: Props) => {
 
   return (
     <button
+      aria-label={`${props.text} Button`}
       className={`
 				${Styles.button}
 				${props.disabled && Styles.disabled}
