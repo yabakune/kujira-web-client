@@ -65,7 +65,7 @@ export const Navbar = () => {
           href={Constants.ClientRoutes.BUG_REPORT}
           target="_blank"
         >
-          <Components.Budget
+          <Components.BugReport
             width={16}
             fill={pathname === Constants.ClientRoutes.BUG_REPORT ? 11 : 8}
           />

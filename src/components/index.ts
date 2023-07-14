@@ -9,6 +9,7 @@ export * from "./logos/logo-full-horizontal";
 
 export * from "./icons/arrow-right";
 export * from "./icons/budget";
+export * from "./icons/bug-report";
 export * from "./icons/checkbox-active";
 export * from "./icons/checkbox";
 export * from "./icons/cookie";
