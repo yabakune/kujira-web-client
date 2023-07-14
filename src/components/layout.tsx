@@ -39,11 +39,9 @@ const Layout = (props: Props) => {
   useEffect(() => {
     if (userId && Number(userId) && !currentUser) {
       dispatch(Sagas.fetchUserRequest({ userId: Number(userId) }));
-    }
-
-    if (!currentUser) {
+    } else if (!currentUser) {
       if (gatedRoutes.includes(router.pathname)) {
-        // router.push(Constants.ClientRoutes.LANDING);
+        router.push(Constants.ClientRoutes.LANDING);
       }
     } else {
       if (typeof window !== "undefined") {
