@@ -32,6 +32,8 @@ export const DashboardSettings = () => {
           );
         })}
       </Components.PageSidebar>
+
+      <section className={Styles.body}>Body</section>
     </div>
   );
 };
