@@ -4,12 +4,12 @@ import Styles from "./settings.module.scss";
 import { useSignal } from "@preact/signals-react";
 
 const states = ["Account", "Security", "Customization"] as const;
-type States = (typeof states)[number];
+type State = (typeof states)[number];
 
 export const DashboardSettings = () => {
-  const currentState = useSignal<States>("Account");
+  const currentState = useSignal<State>("Account");
 
-  function setCurrentState(state: States): void {
+  function setCurrentState(state: State): void {
     currentState.value = state;
   }
 
@@ -19,7 +19,7 @@ export const DashboardSettings = () => {
         title="Settings"
         caption="Navigate your settings below."
       >
-        {states.map((state: States) => {
+        {states.map((state: State) => {
           return (
             <Components.Button
               key={`dashboard-settings-${state}-button`}
