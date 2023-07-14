@@ -1,6 +1,6 @@
 import * as Components from "@/components";
 
-import Styles from "./settings.module.scss";
+import Styles from "./dashboard-settings.module.scss";
 import { useSignal } from "@preact/signals-react";
 
 const states = ["Account", "Security", "Customization"] as const;

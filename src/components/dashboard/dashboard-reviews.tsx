@@ -1,6 +1,6 @@
 import * as Components from "@/components";
 
-import Styles from "./settings.module.scss";
+import Styles from "./dashboard-reviews.module.scss";
 
 export const DashboardReviews = () => {
   return (
