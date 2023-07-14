@@ -1,10 +1,12 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Mulish } from "next/font/google";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
+import * as Constants from "@/constants";
 import * as Sagas from "@/sagas";
 import { ReduxState } from "@/redux";
 
@@ -22,8 +24,16 @@ type Props = { children: React.ReactNode };
 
 const mulish = Mulish({ subsets: ["latin"] });
 
+const gatedRoutes: string[] = [
+  Constants.ClientRoutes.LOGBOOKS,
+  Constants.ClientRoutes.REVIEWS,
+  Constants.ClientRoutes.SETTINGS,
+  Constants.ClientRoutes.BUG_REPORT,
+];
+
 const Layout = (props: Props) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const { currentUser } = useSelector((state: ReduxState) => state.entities);
 
   useEffect(() => {
@@ -31,8 +41,12 @@ const Layout = (props: Props) => {
       dispatch(Sagas.fetchUserRequest({ userId: Number(userId) }));
     }
 
-    if (typeof window !== "undefined") {
-      if (currentUser) {
+    if (!currentUser) {
+      if (gatedRoutes.includes(router.pathname)) {
+        router.push(Constants.ClientRoutes.LANDING);
+      }
+    } else {
+      if (typeof window !== "undefined") {
         const localStorageTheme = localStorage.getItem("theme");
         if (localStorageTheme) {
           if (localStorageTheme === "light") {

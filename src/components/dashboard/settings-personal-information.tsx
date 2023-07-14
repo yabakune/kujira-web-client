@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
-import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
+import { ReduxState } from "@/redux";
 
 import { SettingsSection } from "./settings-section";
 
@@ -14,9 +14,7 @@ import TextStyles from "@/styles/texts.module.scss";
 
 export const SettingsPersonalInformation = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state: Redux.ReduxState) => {
-    return state.entities;
-  });
+  const { currentUser } = useSelector((state: ReduxState) => state.entities);
 
   const email = useSignal("");
   const username = useSignal("");
