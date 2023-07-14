@@ -2,6 +2,7 @@ import * as Components from "@/components";
 
 import Styles from "./dashboard-settings.module.scss";
 import { useSignal } from "@preact/signals-react";
+import { SettingsAccount } from "./settings-account";
 
 const states = ["Account", "Security", "Customization"] as const;
 type State = (typeof states)[number];
@@ -33,7 +34,13 @@ export const DashboardSettings = () => {
         })}
       </Components.PageSidebar>
 
-      <section className={Styles.body}>Body</section>
+      {currentState.value === "Account" ? (
+        <SettingsAccount />
+      ) : currentState.value === "Security" ? (
+        <SettingsAccount />
+      ) : (
+        <SettingsAccount />
+      )}
     </div>
   );
 };
