@@ -3,3 +3,12 @@
   height: 100%;
   border-right: var(--themeFour) solid 1px;
 }
+
+.header {
+  padding: var(--sixteenPixels);
+  border-bottom: var(--themeFour) solid 1px;
+}
+
+.caption {
+  color: var(--themeTen);
+}
