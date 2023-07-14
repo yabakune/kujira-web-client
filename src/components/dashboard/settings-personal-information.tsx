@@ -5,7 +5,7 @@ import * as Types from "@/types";
 
 import { SettingsSection } from "./settings-section";
 
-export const SettingsAccount = () => {
+export const SettingsPersonalInformation = () => {
   const email = useSignal("");
   const username = useSignal("");
 

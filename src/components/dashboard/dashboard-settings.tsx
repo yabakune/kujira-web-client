@@ -1,8 +1,12 @@
+import { useSignal } from "@preact/signals-react";
+
 import * as Components from "@/components";
 
+import { SettingsPersonalInformation } from "./settings-personal-information";
+import { SettingsSession } from "./settings-session";
+import { SettingsDangerous } from "./settings-dangerous";
+
 import Styles from "./dashboard-settings.module.scss";
-import { useSignal } from "@preact/signals-react";
-import { SettingsAccount } from "./settings-personal-information";
 
 const states = ["Account", "Security", "Customization"] as const;
 type State = (typeof states)[number];
@@ -36,11 +40,15 @@ export const DashboardSettings = () => {
 
       <section className={Styles.body}>
         {currentState.value === "Account" ? (
-          <SettingsAccount />
+          <>
+            <SettingsPersonalInformation />
+            <SettingsSession />
+            <SettingsDangerous />
+          </>
         ) : currentState.value === "Security" ? (
-          <SettingsAccount />
+          <SettingsPersonalInformation />
         ) : (
-          <SettingsAccount />
+          <SettingsPersonalInformation />
         )}
       </section>
     </div>

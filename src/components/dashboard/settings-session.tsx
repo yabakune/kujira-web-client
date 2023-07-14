@@ -2,7 +2,7 @@ import * as Types from "@/types";
 
 import { SettingsSection } from "./settings-section";
 
-export const SettingsSecurity = () => {
+export const SettingsSession = () => {
   function logout(event: Types.OnSubmit): void {
     event.preventDefault();
 

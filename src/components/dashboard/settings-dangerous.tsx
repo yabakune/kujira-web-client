@@ -2,7 +2,7 @@ import * as Types from "@/types";
 
 import { SettingsSection } from "./settings-section";
 
-export const SettingsCustomization = () => {
+export const SettingsDangerous = () => {
   function deleteAccount(event: Types.OnSubmit): void {
     event.preventDefault();
 
