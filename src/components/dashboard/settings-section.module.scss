@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  gap: var(--sixteenPixels);
+  padding: var(--sixteenPixels);
+  background-color: var(--themeThree);
+  border-radius: var(--twelvePixels);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fourPixels);
+}
