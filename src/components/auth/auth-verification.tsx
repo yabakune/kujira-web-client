@@ -103,7 +103,7 @@ export const AuthVerification = (props: Props) => {
 
       <article className={Styles.group}>
         {verificationCodeError.value && (
-          <p className={Styles.error}>{verificationCodeError.value}</p>
+          <p className={TextStyles.formError}>{verificationCodeError.value}</p>
         )}
         <Components.Input
           type="text"

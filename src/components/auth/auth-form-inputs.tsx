@@ -1,9 +1,11 @@
 import { Signal, effect } from "@preact/signals-react";
 
 import * as Components from "@/components";
+import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
 import Styles from "./auth-form-inputs.module.scss";
+import TextStyles from "@/styles/texts.module.scss";
 
 type Props = {
   email: Signal<string>;
@@ -15,10 +17,6 @@ type Props = {
   passwordError: Signal<string>;
   confirmPasswordError: Signal<string>;
 } & Types.AuthFormProps;
-
-function checkValidUsername(username: string): boolean {
-  return /^[a-zA-Z0-9](?:[a-zA-Z0-9_.-]*[a-zA-Z0-9])?$/.test(username);
-}
 
 function checkValidPassword(password: string): boolean {
   return /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@%#]).*$/.test(password);
@@ -43,7 +41,7 @@ export const AuthFormInputs = (props: Props) => {
     if (props.username.value.length === 0) {
       props.usernameError.value = "";
     } else {
-      if (!checkValidUsername(props.username.value)) {
+      if (!Helpers.checkValidUsername(props.username.value)) {
         props.usernameError.value = "Invalid username.";
       } else if (props.username.value.length > 14) {
         props.usernameError.value = "Username too long.";
@@ -92,7 +90,7 @@ export const AuthFormInputs = (props: Props) => {
   return (
     <article className={Styles.inputs}>
       {props.emailError.value && (
-        <span className={Styles.error}>{props.emailError.value}</span>
+        <span className={TextStyles.formError}>{props.emailError.value}</span>
       )}
       <Components.Input
         key="Auth Form Email Input"
@@ -107,7 +105,9 @@ export const AuthFormInputs = (props: Props) => {
       {props.type === "Register" && (
         <>
           {props.usernameError.value && (
-            <span className={Styles.error}>{props.usernameError.value}</span>
+            <span className={TextStyles.formError}>
+              {props.usernameError.value}
+            </span>
           )}
           <Components.Input
             key="Auth Form Username Input"
@@ -122,7 +122,9 @@ export const AuthFormInputs = (props: Props) => {
       )}
 
       {props.passwordError.value && (
-        <span className={Styles.error}>{props.passwordError.value}</span>
+        <span className={TextStyles.formError}>
+          {props.passwordError.value}
+        </span>
       )}
       <Components.Input
         key="Auth Form Password Input"
@@ -138,7 +140,7 @@ export const AuthFormInputs = (props: Props) => {
       {props.type === "Register" && (
         <>
           {props.confirmPasswordError.value && (
-            <span className={Styles.error}>
+            <span className={TextStyles.formError}>
               {props.confirmPasswordError.value}
             </span>
           )}

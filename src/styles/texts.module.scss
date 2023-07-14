@@ -24,3 +24,8 @@
     }
   }
 }
+
+.formError {
+  color: var(--failure);
+  font-weight: var(--bold);
+}
