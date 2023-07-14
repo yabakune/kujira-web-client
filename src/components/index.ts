@@ -1,4 +1,5 @@
 export * from "./layouts/auth-layout";
+export * from "./layouts/dashboard-layout";
 
 export * from "./auth/auth-form";
 export * from "./auth/auth-verification";

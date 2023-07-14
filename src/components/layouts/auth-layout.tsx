@@ -8,7 +8,9 @@ import * as Redux from "@/redux";
 
 import Styles from "./auth-layout.module.scss";
 
-export const AuthLayout = (props: { children: React.ReactNode }) => {
+type Props = { children: React.ReactNode };
+
+export const AuthLayout = (props: Props) => {
   const router = useRouter();
 
   const { currentUser } = useSelector(

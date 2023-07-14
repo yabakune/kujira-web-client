@@ -1,10 +1,11 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
+
 import * as Components from "@/components";
 import * as Constants from "@/constants";
 import * as Helpers from "@/helpers";
 
 import Styles from "./navbar.module.scss";
-import Link from "next/link";
-import { useRouter } from "next/router";
 
 const links = [
   Constants.ClientRoutes.LOGBOOKS,
