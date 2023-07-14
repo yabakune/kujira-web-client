@@ -31,6 +31,12 @@ const gatedRoutes: string[] = [
   Constants.ClientRoutes.BUG_REPORT,
 ];
 
+const ungatedRoutes: string[] = [
+  Constants.ClientRoutes.LANDING,
+  Constants.ClientRoutes.REGISTER,
+  Constants.ClientRoutes.LOGIN,
+];
+
 const Layout = (props: Props) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -44,7 +50,9 @@ const Layout = (props: Props) => {
         router.push(Constants.ClientRoutes.LANDING);
       }
     } else {
-      if (typeof window !== "undefined") {
+      if (ungatedRoutes.includes(router.pathname)) {
+        router.push(Constants.ClientRoutes.LOGBOOKS);
+      } else if (typeof window !== "undefined") {
         const localStorageTheme = localStorage.getItem("theme");
         if (localStorageTheme) {
           if (localStorageTheme === "light") {
