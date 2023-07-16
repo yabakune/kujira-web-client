@@ -65,7 +65,6 @@ function* fetchUser(action: Types.SagaPayload<Types.FetchUserPayload>) {
       `/${action.payload.userId}`,
       action.payload.userId
     );
-
     const { data } = yield Saga.call(axios.get, endpoint);
     yield Saga.put(Redux.entitiesActions.loginUser(data.response));
   } catch (error: any) {

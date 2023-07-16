@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import * as Types from "@/types";
 
 import { usersReducers } from "./users-reducers";
+import { logbooksReducers } from "./logbooks-reducers";
 
 export type EntitiesState = {
   currentUser: Types.UserModel | null;
@@ -25,7 +26,7 @@ const initialState: EntitiesState = {
 export const entitiesSlice = createSlice({
   name: "entitiesSlice",
   initialState,
-  reducers: { ...usersReducers },
+  reducers: { ...usersReducers, ...logbooksReducers },
 });
 
 export const entitiesActions = entitiesSlice.actions;

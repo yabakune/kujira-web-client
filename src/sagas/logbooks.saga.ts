@@ -19,10 +19,12 @@ enum LogbooksActions {
 // [ ACTIONS ] ============================================================================= //
 // ========================================================================================= //
 
-export function fetchLogbooksRequest(): Types.SagaPayload<null> {
+export function fetchLogbooksRequest(
+  payload: Types.FetchLogbooksPayload
+): Types.SagaPayload<Types.FetchLogbooksPayload> {
   return {
     type: LogbooksActions.FETCH_LOGBOOKS,
-    payload: null,
+    payload,
   };
 }
 
@@ -66,14 +68,15 @@ export function deleteLogbookRequest(
 // [ SAGAS ] =============================================================================== //
 // ========================================================================================= //
 
-function* fetchLogbooks() {
+function* fetchLogbooks(action: Types.SagaPayload<Types.FetchLogbooksPayload>) {
   try {
     const endpoint = Helpers.generateGatedEndpoint(
       Constants.APIRoutes.LOGBOOKS,
-      `/`
+      `/`,
+      action.payload.userId
     );
-
-		
+    const { data } = yield Saga.call(axios.get, endpoint);
+    yield Saga.put(Redux.entitiesActions.setLogbooks(data.response));
   } catch (error: any) {
     console.error(error);
     yield Saga.put(

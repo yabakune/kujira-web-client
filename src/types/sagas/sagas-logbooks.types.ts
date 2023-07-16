@@ -1,5 +1,7 @@
 import { GatedRoutePayload } from "./sagas.types";
 
+export type FetchLogbooksPayload = {} & GatedRoutePayload;
+
 export type FetchLogbookPayload = {
   logbookId: number;
 } & GatedRoutePayload;

@@ -4,5 +4,5 @@ export type SagaPayload<Payload> = {
 };
 
 export type GatedRoutePayload = {
-  userId: Number;
+  userId: number;
 };
