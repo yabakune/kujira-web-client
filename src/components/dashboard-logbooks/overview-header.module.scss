@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--twelvePixels);
+  padding: var(--sixteenPixels);
+  border-bottom: var(--themeFour) solid 1px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.caption {
+  color: var(--themeTen);
+}
