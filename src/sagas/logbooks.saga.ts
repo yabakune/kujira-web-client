@@ -65,3 +65,24 @@ export function deleteLogbookRequest(
 // ========================================================================================= //
 // [ SAGAS ] =============================================================================== //
 // ========================================================================================= //
+
+function* fetchLogbooks() {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.LOGBOOKS,
+      `/`
+    );
+
+		
+  } catch (error: any) {
+    console.error(error);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 10000,
+      })
+    );
+  }
+}
