@@ -90,8 +90,126 @@ function* fetchLogbooks(action: Types.SagaPayload<Types.FetchLogbooksPayload>) {
   }
 }
 
+function* fetchLogbook(action: Types.SagaPayload<Types.FetchLogbookPayload>) {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.LOGBOOKS,
+      `/${action.payload.logbookId}`,
+      action.payload.userId
+    );
+    const { data } = yield Saga.call(axios.get, endpoint);
+    yield Saga.put(Redux.entitiesActions.setLogbook(data.response));
+  } catch (error: any) {
+    console.error(error);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 10000,
+      })
+    );
+  }
+}
+
+function* createLogbook(action: Types.SagaPayload<Types.CreateLogbookPayload>) {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.LOGBOOKS,
+      `/`,
+      action.payload.userId
+    );
+    const { userId, ...createPayload } = action.payload;
+    const { data } = yield Saga.call(axios.post, endpoint, createPayload);
+    yield Saga.put(Redux.entitiesActions.setLogbook(data.response));
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error: any) {
+    console.error(error);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 10000,
+      })
+    );
+  }
+}
+
+function* updateLogbook(action: Types.SagaPayload<Types.UpdateLogbookPayload>) {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.LOGBOOKS,
+      `/${action.payload.logbookId}`,
+      action.payload.userId
+    );
+    const { userId, logbookId, ...updatePayload } = action.payload;
+    const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
+    yield Saga.put(Redux.entitiesActions.setLogbook(data.response));
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error: any) {
+    console.error(error);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 10000,
+      })
+    );
+  }
+}
+
+function* deleteLogbook(action: Types.SagaPayload<Types.DeleteLogbookPayload>) {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.LOGBOOKS,
+      `/${action.payload.logbookId}`,
+      action.payload.userId
+    );
+    const { data } = yield Saga.call(axios.delete, endpoint);
+    yield Saga.put(Redux.entitiesActions.deleteLogbook(data.response));
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error: any) {
+    console.error(error);
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: error.response.data.body,
+        caption: error.response.data.caption,
+        status: "failure",
+        timeout: 10000,
+      })
+    );
+  }
+}
+
 export default function* logbooksSaga() {
   yield Saga.all([
     Saga.takeEvery(LogbooksActions.FETCH_LOGBOOKS, fetchLogbooks),
+    Saga.takeEvery(LogbooksActions.FETCH_LOGBOOK, fetchLogbook),
+    Saga.takeEvery(LogbooksActions.CREATE_LOGBOOK, createLogbook),
+    Saga.takeEvery(LogbooksActions.UPDATE_LOGBOOK, updateLogbook),
+    Saga.takeEvery(LogbooksActions.DELETE_LOGBOOK, createLogbook),
   ]);
 }

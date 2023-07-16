@@ -87,8 +87,8 @@ function* updateUser(action: Types.SagaPayload<Types.UpdateUserPayload>) {
       `/${action.payload.userId}`,
       action.payload.userId
     );
-    const { userId, ...payloadWithUserId } = action.payload;
-    const { data } = yield Saga.call(axios.patch, endpoint, payloadWithUserId);
+    const { userId, ...updatePayload } = action.payload;
+    const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
     yield Saga.put(Redux.entitiesActions.loginUser(data.response));
 
     yield Saga.put(
@@ -120,8 +120,8 @@ function* updateUserPassword(
       `/${action.payload.userId}/update-password`,
       action.payload.userId
     );
-    const { userId, ...payloadWithUserId } = action.payload;
-    const { data } = yield Saga.call(axios.patch, endpoint, payloadWithUserId);
+    const { userId, ...updatePayload } = action.payload;
+    const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
 
     yield Saga.put(Redux.entitiesActions.logoutUser());
 
