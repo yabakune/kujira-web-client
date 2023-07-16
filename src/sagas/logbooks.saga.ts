@@ -89,3 +89,9 @@ function* fetchLogbooks(action: Types.SagaPayload<Types.FetchLogbooksPayload>) {
     );
   }
 }
+
+export default function* logbooksSaga() {
+  yield Saga.all([
+    Saga.takeEvery(LogbooksActions.FETCH_LOGBOOKS, fetchLogbooks),
+  ]);
+}
