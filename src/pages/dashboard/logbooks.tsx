@@ -5,7 +5,7 @@ const Logbooks: NextPageWithLayout = () => {
   return (
     <>
       <Components.PageHead title="Logbooks" />
-      Logbooks
+      <Components.DashboardLogbooks />
     </>
   );
 };

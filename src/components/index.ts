@@ -38,5 +38,6 @@ export * from "./notification";
 export * from "./navbar";
 
 export * from "./dashboard/page-sidebar";
+export * from "./dashboard-logbooks/dashboard-logbooks";
 export * from "./dashboard-reviews/dashboard-reviews";
 export * from "./dashboard-settings/dashboard-settings";
