@@ -39,4 +39,4 @@ export * from "./navbar";
 
 export * from "./dashboard/page-sidebar";
 export * from "./dashboard/dashboard-reviews";
-export * from "./dashboard/dashboard-settings";
+export * from "./dashboard-settings/dashboard-settings";
