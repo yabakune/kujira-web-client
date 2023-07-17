@@ -20,6 +20,7 @@
     "framer-motion": "^10.12.20",
     "js-cookie": "^3.0.5",
     "next": "13.4.8",
+    "normalizr": "^3.6.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.1.1",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.3",
+    "@types/normalizr": "^2.0.18",
     "next-redux-wrapper": "^8.1.0",
     "sass": "^1.63.6"
   }
