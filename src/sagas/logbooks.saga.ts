@@ -145,14 +145,6 @@ function* fetchUserLogbooks(
         logbookIds: normalizedData.result,
       })
     );
-
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: data.body,
-        status: "success",
-        timeout: 5000,
-      })
-    );
   } catch (error: any) {
     yield Helpers.handleError(error);
   }
