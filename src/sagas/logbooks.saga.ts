@@ -100,15 +100,7 @@ function* fetchLogbook(action: Types.SagaPayload<Types.FetchLogbookPayload>) {
     const { data } = yield Saga.call(axios.get, endpoint);
     yield Saga.put(Redux.entitiesActions.setLogbook(data.response));
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
@@ -131,15 +123,7 @@ function* createLogbook(action: Types.SagaPayload<Types.CreateLogbookPayload>) {
       })
     );
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
@@ -162,15 +146,7 @@ function* updateLogbook(action: Types.SagaPayload<Types.UpdateLogbookPayload>) {
       })
     );
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
@@ -192,15 +168,7 @@ function* deleteLogbook(action: Types.SagaPayload<Types.DeleteLogbookPayload>) {
       })
     );
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 

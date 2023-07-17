@@ -68,15 +68,7 @@ function* fetchUser(action: Types.SagaPayload<Types.FetchUserPayload>) {
     const { data } = yield Saga.call(axios.get, endpoint);
     yield Saga.put(Redux.entitiesActions.loginUser(data.response));
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
@@ -99,15 +91,7 @@ function* updateUser(action: Types.SagaPayload<Types.UpdateUserPayload>) {
       })
     );
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
@@ -135,15 +119,7 @@ function* updateUserPassword(
       })
     );
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
@@ -167,15 +143,7 @@ function* deleteUser(action: Types.SagaPayload<Types.DeleteUserPayload>) {
       })
     );
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 

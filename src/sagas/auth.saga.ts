@@ -3,6 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 import * as Constants from "@/constants";
+import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Types from "@/types";
 import { signalsStore } from "@/signals/signals";
@@ -95,15 +96,7 @@ function* register(action: Types.SagaPayload<Types.RegistrationPayload>) {
       })
     );
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
@@ -127,15 +120,7 @@ function* verifyRegistration(
       })
     );
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
@@ -156,15 +141,7 @@ function* login(action: Types.SagaPayload<Types.LoginPayload>) {
       })
     );
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
@@ -187,15 +164,7 @@ function* verifyLogin(
       })
     );
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
@@ -214,15 +183,7 @@ function* sendNewVerificationCode(
       })
     );
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
@@ -242,15 +203,7 @@ function* logout(action: Types.SagaPayload<Types.LogoutPayload>) {
       })
     );
   } catch (error: any) {
-    console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
