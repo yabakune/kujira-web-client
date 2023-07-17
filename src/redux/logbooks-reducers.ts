@@ -20,6 +20,8 @@ export const logbooksReducers = {
       // state.currentUser = userWithLogbookIds;
 
       // state.currentUser.logbookIds = action.payload.logbookIds;
+
+      console.log("userWithLogbookIds:", userWithLogbookIds);
     }
   },
   setLogbook: (

@@ -10,6 +10,7 @@ import * as Types from "@/types";
 enum LogbooksActions {
   FETCH_LOGBOOKS = "FETCH_LOGBOOKS",
   FETCH_LOGBOOK = "FETCH_LOGBOOK",
+  FETCH_USER_LOGBOOKS = "FETCH_USER_LOGBOOKS",
   CREATE_LOGBOOK = "CREATE_LOGBOOK",
   UPDATE_LOGBOOK = "UPDATE_LOGBOOK",
   DELETE_LOGBOOK = "DELETE_LOGBOOK",
@@ -33,6 +34,15 @@ export function fetchLogbookRequest(
 ): Types.SagaPayload<Types.FetchLogbookPayload> {
   return {
     type: LogbooksActions.FETCH_LOGBOOK,
+    payload,
+  };
+}
+
+export function fetchUserLogbooksRequest(
+  payload: Types.FetchUserLogbooksPayload
+): Types.SagaPayload<Types.FetchUserLogbooksPayload> {
+  return {
+    type: LogbooksActions.FETCH_USER_LOGBOOKS,
     payload,
   };
 }
@@ -116,6 +126,38 @@ function* fetchLogbook(action: Types.SagaPayload<Types.FetchLogbookPayload>) {
   }
 }
 
+function* fetchUserLogbooks(
+  action: Types.SagaPayload<Types.FetchUserLogbooksPayload>
+) {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.LOGBOOKS,
+      `/`,
+      action.payload.userId
+    );
+    const { data } = yield Saga.call(axios.post, endpoint, {
+      ownerId: action.payload.userId,
+    });
+    const normalizedData = normalize(data.response, logbooksSchema);
+    yield Saga.put(
+      Redux.entitiesActions.setLogbooks({
+        logbooks: normalizedData.entities as any,
+        logbookIds: normalizedData.result,
+      })
+    );
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error: any) {
+    yield Helpers.handleError(error);
+  }
+}
+
 function* createLogbook(action: Types.SagaPayload<Types.CreateLogbookPayload>) {
   try {
     const endpoint = Helpers.generateGatedEndpoint(
@@ -190,6 +232,7 @@ export default function* logbooksSaga() {
   yield Saga.all([
     Saga.takeEvery(LogbooksActions.FETCH_LOGBOOKS, fetchLogbooks),
     Saga.takeEvery(LogbooksActions.FETCH_LOGBOOK, fetchLogbook),
+    Saga.takeEvery(LogbooksActions.FETCH_USER_LOGBOOKS, fetchUserLogbooks),
     Saga.takeEvery(LogbooksActions.CREATE_LOGBOOK, createLogbook),
     Saga.takeEvery(LogbooksActions.UPDATE_LOGBOOK, updateLogbook),
     Saga.takeEvery(LogbooksActions.DELETE_LOGBOOK, deleteLogbook),

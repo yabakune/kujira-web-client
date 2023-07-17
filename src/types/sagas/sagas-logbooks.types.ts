@@ -6,6 +6,8 @@ export type FetchLogbookPayload = {
   logbookId: number;
 } & GatedRoutePayload;
 
+export type FetchUserLogbooksPayload = {} & GatedRoutePayload;
+
 export type CreateLogbookPayload = {
   name: string;
   ownerId: number;

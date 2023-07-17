@@ -16,7 +16,7 @@ export const DashboardLogbooks = () => {
 
   useEffect(() => {
     if (currentUser) {
-      dispatch(Saga.fetchLogbooksRequest({ userId: currentUser.id }));
+      dispatch(Saga.fetchUserLogbooksRequest({ userId: currentUser.id }));
     }
   }, [currentUser]);
 
