@@ -7,11 +7,11 @@ import { logbooksReducers } from "./logbooks-reducers";
 
 export type EntitiesState = {
   currentUser: Types.UserModel | null;
-  overviews: Types.OverviewModel | null;
-  logbooks: Types.LogbookModel | null;
-  entries: Types.EntryModel | null;
-  purchases: Types.PurchaseModel | null;
-  bugReports: Types.BugReportModel | null;
+  overviews: Types.NormalizedOverviews | null;
+  logbooks: Types.NormalizedLogbooks | null;
+  entries: Types.NormalizedEntries | null;
+  purchases: Types.NormalizedPurchases | null;
+  bugReports: Types.NormalizedBugReports | null;
 };
 
 const initialState: EntitiesState = {

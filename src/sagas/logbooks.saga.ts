@@ -1,6 +1,6 @@
 import * as Saga from "redux-saga/effects";
 import axios from "axios";
-import Cookies from "js-cookie";
+import { normalize, schema } from "normalizr";
 
 import * as Constants from "@/constants";
 import * as Helpers from "@/helpers";
@@ -68,6 +68,9 @@ export function deleteLogbookRequest(
 // [ SAGAS ] =============================================================================== //
 // ========================================================================================= //
 
+const logbookSchema = new schema.Entity("logbook");
+const logbooksSchema = new schema.Array(logbookSchema);
+
 function* fetchLogbooks(action: Types.SagaPayload<Types.FetchLogbooksPayload>) {
   try {
     const endpoint = Helpers.generateGatedEndpoint(
@@ -76,7 +79,15 @@ function* fetchLogbooks(action: Types.SagaPayload<Types.FetchLogbooksPayload>) {
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.get, endpoint);
-    yield Saga.put(Redux.entitiesActions.setLogbooks(data.response));
+    const normalizedData = normalize(data.response, logbooksSchema);
+    yield Saga.put(
+      Redux.entitiesActions.setLogbooks({
+        logbooks: normalizedData.entities as any,
+        logbookIds: normalizedData.result,
+      })
+    );
+
+    console.log("normalizedData:", normalizedData);
   } catch (error: any) {
     console.error(error);
     yield Saga.put(
@@ -98,7 +109,8 @@ function* fetchLogbook(action: Types.SagaPayload<Types.FetchLogbookPayload>) {
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.get, endpoint);
-    yield Saga.put(Redux.entitiesActions.setLogbook(data.response));
+    const normalizedData = normalize(data.response, logbookSchema);
+    yield Saga.put(Redux.entitiesActions.setLogbook(normalizedData.result));
   } catch (error: any) {
     yield Helpers.handleError(error);
   }
@@ -113,7 +125,8 @@ function* createLogbook(action: Types.SagaPayload<Types.CreateLogbookPayload>) {
     );
     const { userId, ...createPayload } = action.payload;
     const { data } = yield Saga.call(axios.post, endpoint, createPayload);
-    yield Saga.put(Redux.entitiesActions.setLogbook(data.response));
+    const normalizedData = normalize(data.response, logbookSchema);
+    yield Saga.put(Redux.entitiesActions.setLogbook(normalizedData.result));
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -136,7 +149,8 @@ function* updateLogbook(action: Types.SagaPayload<Types.UpdateLogbookPayload>) {
     );
     const { userId, logbookId, ...updatePayload } = action.payload;
     const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
-    yield Saga.put(Redux.entitiesActions.setLogbook(data.response));
+    const normalizedData = normalize(data.response, logbookSchema);
+    yield Saga.put(Redux.entitiesActions.setLogbook(normalizedData.result));
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -178,6 +192,6 @@ export default function* logbooksSaga() {
     Saga.takeEvery(LogbooksActions.FETCH_LOGBOOK, fetchLogbook),
     Saga.takeEvery(LogbooksActions.CREATE_LOGBOOK, createLogbook),
     Saga.takeEvery(LogbooksActions.UPDATE_LOGBOOK, updateLogbook),
-    Saga.takeEvery(LogbooksActions.DELETE_LOGBOOK, createLogbook),
+    Saga.takeEvery(LogbooksActions.DELETE_LOGBOOK, deleteLogbook),
   ]);
 }

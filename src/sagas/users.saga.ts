@@ -66,7 +66,7 @@ function* fetchUser(action: Types.SagaPayload<Types.FetchUserPayload>) {
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.get, endpoint);
-    yield Saga.put(Redux.entitiesActions.loginUser(data.response));
+    yield Saga.put(Redux.entitiesActions.setCurrentUser(data.response));
   } catch (error: any) {
     yield Helpers.handleError(error);
   }
@@ -81,7 +81,7 @@ function* updateUser(action: Types.SagaPayload<Types.UpdateUserPayload>) {
     );
     const { userId, ...updatePayload } = action.payload;
     const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
-    yield Saga.put(Redux.entitiesActions.loginUser(data.response));
+    yield Saga.put(Redux.entitiesActions.setCurrentUser(data.response));
 
     yield Saga.put(
       Redux.uiActions.setNotification({

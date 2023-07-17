@@ -106,7 +106,9 @@ function* verifyRegistration(
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/verify-registration`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
-    yield Saga.put(Redux.entitiesActions.loginUser(data.response.safeUser));
+    yield Saga.put(
+      Redux.entitiesActions.setCurrentUser(data.response.safeUser)
+    );
 
     Cookies.set("userId", data.response.safeUser.id);
     signalsStore.authVerificationCodeSent.value = false;
@@ -151,7 +153,9 @@ function* verifyLogin(
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/verify-login`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
-    yield Saga.put(Redux.entitiesActions.loginUser(data.response.safeUser));
+    yield Saga.put(
+      Redux.entitiesActions.setCurrentUser(data.response.safeUser)
+    );
 
     Cookies.set("userId", data.response.safeUser.id);
     signalsStore.authVerificationCodeSent.value = false;
