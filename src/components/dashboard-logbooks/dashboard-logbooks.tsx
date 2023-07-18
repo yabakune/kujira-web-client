@@ -3,16 +3,13 @@ import { useDispatch } from "react-redux";
 
 import * as Constants from "@/constants";
 import * as Saga from "@/sagas";
-import { signalsStore } from "@/signals/signals";
 
 import { Overview } from "./overview";
-import { OverviewSelector } from "./overview-selector";
+import { LogbookEntries } from "./logbook-entries";
 
 import Styles from "./dashboard-logbooks.module.scss";
 
 export const DashboardLogbooks = () => {
-  const { selectedLogbookId } = signalsStore;
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,14 +21,7 @@ export const DashboardLogbooks = () => {
   return (
     <div className={Styles.container}>
       <Overview />
-
-      <section className={Styles.body}>
-        {!selectedLogbookId.value ? (
-          <OverviewSelector />
-        ) : (
-          <>Dashboard Logbooks</>
-        )}
-      </section>
+      <LogbookEntries />
     </div>
   );
 };
