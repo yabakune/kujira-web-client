@@ -1,9 +1,9 @@
 import Cookies from "js-cookie";
-import { useSignal } from "@preact/signals-react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import * as Saga from "@/sagas";
+import { signalsStore } from "@/signals/signals";
 
 import { Overview } from "./overview";
 import { OverviewSelector } from "./overview-selector";
@@ -13,7 +13,7 @@ import Styles from "./dashboard-logbooks.module.scss";
 const userId = Cookies.get("userId");
 
 export const DashboardLogbooks = () => {
-  const selectedLogbook = useSignal("");
+  const { selectedLogbook } = signalsStore;
 
   const dispatch = useDispatch();
 
