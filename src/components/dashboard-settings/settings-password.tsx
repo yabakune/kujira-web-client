@@ -5,7 +5,7 @@ import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
-import { ReduxState } from "@/redux";
+import { ReduxStore } from "@/redux";
 
 import { SettingsSection } from "./settings-section";
 
@@ -13,7 +13,7 @@ import TextStyles from "@/styles/texts.module.scss";
 
 export const SettingsPassword = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state: ReduxState) => state.entities);
+  const { currentUser } = useSelector((state: ReduxStore) => state.entities);
 
   const currentPassword = useSignal("");
   const newPassword = useSignal("");

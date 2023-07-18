@@ -18,7 +18,7 @@ export const reduxStore = configureStore({
   devTools: process.env.NODE_ENV === "development",
 });
 
-export type ReduxState = ReturnType<typeof reduxStore.getState>;
+export type ReduxStore = ReturnType<typeof reduxStore.getState>;
 export type AppDispatch = typeof reduxStore.dispatch;
 
 function* rootSaga() {

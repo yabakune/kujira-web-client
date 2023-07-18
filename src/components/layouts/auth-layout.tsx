@@ -14,7 +14,7 @@ export const AuthLayout = (props: Props) => {
   const router = useRouter();
 
   const { currentUser } = useSelector(
-    (state: Redux.ReduxState) => state.entities
+    (state: Redux.ReduxStore) => state.entities
   );
 
   useEffect(() => {

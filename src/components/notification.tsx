@@ -10,7 +10,7 @@ import TextStyles from "@/styles/texts.module.scss";
 
 export const Notification = () => {
   const dispatch = useDispatch();
-  const { notification } = useSelector((state: Redux.ReduxState) => state.ui);
+  const { notification } = useSelector((state: Redux.ReduxStore) => state.ui);
   const { title, body, caption, status, timeout } = notification;
 
   useEffect(() => {

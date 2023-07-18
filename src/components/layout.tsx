@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Components from "@/components";
 import * as Constants from "@/constants";
 import * as Sagas from "@/sagas";
-import { ReduxState } from "@/redux";
+import { ReduxStore } from "@/redux";
 
 import ThemeStyles from "@/styles/themes.module.scss";
 
@@ -40,7 +40,7 @@ const ungatedRoutes: string[] = [
 const Layout = (props: Props) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { currentUser } = useSelector((state: ReduxState) => state.entities);
+  const { currentUser } = useSelector((state: ReduxStore) => state.entities);
 
   useEffect(() => {
     if (userId && Number(userId) && !currentUser) {

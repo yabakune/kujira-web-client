@@ -15,7 +15,7 @@ import TextStyles from "@/styles/texts.module.scss";
 export const SettingsPersonalInformation = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector(
-    (state: Redux.ReduxState) => state.entities
+    (state: Redux.ReduxStore) => state.entities
   );
 
   useEffect(() => {

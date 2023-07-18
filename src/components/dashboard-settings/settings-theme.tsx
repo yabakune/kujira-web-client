@@ -25,7 +25,7 @@ function generateThemeComponent(theme: Types.Theme, selected: boolean) {
 export const SettingsTheme = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector(
-    (state: Redux.ReduxState) => state.entities
+    (state: Redux.ReduxStore) => state.entities
   );
 
   function setTheme(theme: Types.Theme): void {
