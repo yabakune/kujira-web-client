@@ -17,6 +17,8 @@ export const logbooksReducers = {
   ) => {
     if (state.logbooks) {
       state.logbooks[action.payload.id] = action.payload;
+    } else {
+      state.logbooks = { [action.payload.id]: action.payload };
     }
   },
   deleteLogbook: (

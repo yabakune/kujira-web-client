@@ -13,7 +13,10 @@ export const entriesReducer = {
   },
   setEntry: (state: EntitiesState, action: PayloadAction<Types.EntryModel>) => {
     if (state.entries) {
+      console.log("Entry Payload:", action.payload);
       state.entries[action.payload.id] = action.payload;
+    } else {
+      state.entries = { [action.payload.id]: action.payload };
     }
   },
   deleteEntry: (
