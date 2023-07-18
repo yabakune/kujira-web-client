@@ -5,3 +5,29 @@
   padding: var(--sixteenPixels);
   border-bottom: var(--themeFour) solid 1px;
 }
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  color: var(--text);
+  font-size: var(--sixteenPixels);
+  font-weight: var(--extraBold);
+}
+
+.saving {
+  color: var(--themeTen);
+}
+
+.calculation {
+  color: var(--primaryMain);
+  font-weight: var(--bold);
+}
+
+.infoCells {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fourPixels);
+}
