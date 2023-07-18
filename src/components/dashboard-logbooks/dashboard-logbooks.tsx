@@ -1,24 +1,25 @@
+import Cookies from "js-cookie";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import * as Redux from "@/redux";
 import * as Saga from "@/sagas";
 
 import { Overview } from "./overview";
 
 import Styles from "./dashboard-logbooks.module.scss";
 
+const userId = Cookies.get("userId");
+
 export const DashboardLogbooks = () => {
+  console.log("Dashboard logbooks rendered");
+
   const dispatch = useDispatch();
-  const { currentUser } = useSelector(
-    (state: Redux.ReduxState) => state.entities
-  );
 
   useEffect(() => {
-    if (currentUser) {
-      dispatch(Saga.fetchUserLogbooksRequest({ userId: currentUser.id }));
+    if (Number(userId)) {
+      dispatch(Saga.fetchUserLogbooksRequest({ userId: Number(userId) }));
     }
-  }, [currentUser]);
+  }, []);
 
   return (
     <div className={Styles.container}>
