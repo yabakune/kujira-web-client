@@ -9,7 +9,11 @@ export const logbooksReducers = {
     state: EntitiesState,
     action: PayloadAction<Types.NormalizedLogbooks>
   ) => {
-    state.logbooks = action.payload;
+    if (state.logbooks) {
+      state.logbooks = { ...state.logbooks, ...action.payload };
+    } else {
+      state.logbooks = action.payload;
+    }
   },
   setLogbook: (
     state: EntitiesState,
