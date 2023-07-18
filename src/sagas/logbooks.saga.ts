@@ -141,7 +141,7 @@ function* fetchUserLogbooks(
     const normalizedData = normalize(data.response, logbooksSchema);
     yield Saga.put(
       Redux.entitiesActions.setLogbooks({
-        logbooks: normalizedData.entities as any,
+        logbooks: normalizedData.entities.logbook as any,
         logbookIds: normalizedData.result,
       })
     );
