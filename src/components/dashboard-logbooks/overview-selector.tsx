@@ -1,11 +1,12 @@
+import { Signal } from "@preact/signals-react";
+import { useSelector } from "react-redux";
+
 import * as Components from "@/components";
 import * as Redux from "@/redux";
 import * as Types from "@/types";
 
 import Styles from "./overview-selector.module.scss";
 import TextStyles from "@/styles/texts.module.scss";
-import { useSelector } from "react-redux";
-import { Signal } from "@preact/signals-react";
 
 type Props = {
   selectedLogbook: Signal<string>;
