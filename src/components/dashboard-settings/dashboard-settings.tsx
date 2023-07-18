@@ -10,14 +10,14 @@ import { SettingsTheme } from "./settings-theme";
 
 import Styles from "./dashboard-settings.module.scss";
 
-const states = ["Account", "Security", "Customization"] as const;
-type State = (typeof states)[number];
+const tabs = ["Account", "Security", "Customization"] as const;
+type Tab = (typeof tabs)[number];
 
 export const DashboardSettings = () => {
-  const currentState = useSignal<State>("Account");
+  const currentTab = useSignal<Tab>("Account");
 
-  function setCurrentState(state: State): void {
-    currentState.value = state;
+  function setCurrentTab(tab: Tab): void {
+    currentTab.value = tab;
   }
 
   return (
@@ -26,14 +26,14 @@ export const DashboardSettings = () => {
         title="Settings"
         caption="Navigate your settings below."
       >
-        {states.map((state: State) => {
+        {tabs.map((tab: Tab) => {
           return (
             <Components.Button
-              key={`dashboard-settings-${state}-button`}
+              key={`dashboard-settings-${tab}-button`}
               type="button"
-              text={state}
-              onClick={() => setCurrentState(state)}
-              selected={currentState.value === state}
+              text={tab}
+              onClick={() => setCurrentTab(tab)}
+              selected={currentTab.value === tab}
               addClick
             />
           );
@@ -41,13 +41,13 @@ export const DashboardSettings = () => {
       </Components.PageSidebar>
 
       <section className={Styles.body}>
-        {currentState.value === "Account" ? (
+        {currentTab.value === "Account" ? (
           <>
             <SettingsPersonalInformation />
             <SettingsSession />
             <SettingsDangerous />
           </>
-        ) : currentState.value === "Security" ? (
+        ) : currentTab.value === "Security" ? (
           <SettingsPassword />
         ) : (
           <SettingsTheme />

@@ -1,3 +1,5 @@
+"use client";
+
 import { Signal, signal } from "@preact/signals-react";
 
 type SignalsStore = {
