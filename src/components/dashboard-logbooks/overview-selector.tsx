@@ -8,9 +8,7 @@ import * as Types from "@/types";
 import Styles from "./overview-selector.module.scss";
 import TextStyles from "@/styles/texts.module.scss";
 
-type Props = {
-  selectedLogbook: Signal<string>;
-};
+type Props = { selectedLogbook: Signal<string> };
 
 export const OverviewSelector = (props: Props) => {
   const { logbooks } = useSelector((state: Redux.ReduxStore) => state.entities);

@@ -13,8 +13,6 @@ import Styles from "./dashboard-logbooks.module.scss";
 const userId = Cookies.get("userId");
 
 export const DashboardLogbooks = () => {
-  console.log("Dashboard logbooks rendered");
-
   const selectedLogbook = useSignal("");
 
   const dispatch = useDispatch();
@@ -28,8 +26,13 @@ export const DashboardLogbooks = () => {
   return (
     <div className={Styles.container}>
       <Overview />
+
       <section className={Styles.body}>
-        <OverviewSelector selectedLogbook={selectedLogbook} />
+        {!selectedLogbook.value ? (
+          <OverviewSelector selectedLogbook={selectedLogbook} />
+        ) : (
+          <>Dashboard Logbooks</>
+        )}
       </section>
     </div>
   );

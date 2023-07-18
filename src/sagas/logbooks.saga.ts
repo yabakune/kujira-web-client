@@ -96,8 +96,6 @@ function* fetchLogbooks(action: Types.SagaPayload<Types.FetchLogbooksPayload>) {
         logbookIds: normalizedData.result,
       })
     );
-
-    console.log("normalizedData:", normalizedData);
   } catch (error: any) {
     console.error(error);
     yield Saga.put(
