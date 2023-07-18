@@ -30,8 +30,13 @@ export const OverviewHeader = () => {
 
       <Components.Button
         type="button"
-        text="Create Logbook Entry"
+        text={
+          selectedLogbook.value === ""
+            ? "Select a Logbook"
+            : "Create Logbook Entry"
+        }
         onClick={createLogbookEntry}
+        disabled={selectedLogbook.value === ""}
         centerContents
         addClick
         primary
