@@ -121,7 +121,7 @@ function* fetchUserLogbooks(
   try {
     const endpoint = Helpers.generateGatedEndpoint(
       Constants.APIRoutes.LOGBOOKS,
-      `/`,
+      `/fetch-user-logbooks`,
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.post, endpoint, {
