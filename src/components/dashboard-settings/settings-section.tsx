@@ -12,7 +12,7 @@ type Props = {
 export const SettingsSection = (props: Props) => {
   return (
     <form className={Styles.container} onSubmit={props.onSubmit}>
-      <h5 className={TextStyles.titleText}>{props.title}</h5>
+      <h2 className={TextStyles.titleText}>{props.title}</h2>
       <article className={Styles.body}>{props.children}</article>
     </form>
   );

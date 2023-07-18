@@ -40,6 +40,7 @@ export const Navbar = () => {
             return (
               <Link
                 key={`navbar-${link}-link-${index}`}
+                aria-label={`Navbar ${link} Link Button`}
                 className={`
 								${Styles.linkButton}
 								${Helpers.setBackgroundLevel(1, pathname === link)}
@@ -56,6 +57,7 @@ export const Navbar = () => {
 
         <Link
           key="navbar-bug-report-link"
+          aria-label={"Navbar Bug Report Link Button"}
           className={`
 								${Styles.linkButton}
 								${Helpers.setBackgroundLevel(1, pathname === Constants.ClientRoutes.BUG_REPORT)}
