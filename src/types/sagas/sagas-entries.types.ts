@@ -6,6 +6,14 @@ export type FetchEntryPayload = {
   entryId: number;
 } & GatedRoutePayload;
 
+export type FetchOverviewEntriesPayload = {
+  overviewId: number;
+} & GatedRoutePayload;
+
+export type FetchLogbookEntriesPayload = {
+  logbookId: number;
+} & GatedRoutePayload;
+
 export type CreateEntryPayload = {
   name: string;
   totalSpent?: number;

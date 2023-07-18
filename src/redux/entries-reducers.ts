@@ -9,7 +9,11 @@ export const entriesReducer = {
     state: EntitiesState,
     action: PayloadAction<Types.NormalizedEntries>
   ) => {
-    state.entries = action.payload;
+    if (state.entries) {
+      state.entries = { ...state.entries, ...action.payload };
+    } else {
+      state.entries = action.payload;
+    }
   },
   setEntry: (state: EntitiesState, action: PayloadAction<Types.EntryModel>) => {
     if (state.entries) {

@@ -10,6 +10,8 @@ import * as Types from "@/types";
 enum EntriesActions {
   FETCH_ENTRIES = "FETCH_ENTRIES",
   FETCH_ENTRY = "FETCH_ENTRY",
+  FETCH_OVERVIEW_ENTRIES = "FETCH_OVERVIEW_ENTRIES",
+  FETCH_LOGBOOK_ENTRIES = "FETCH_LOGBOOK_ENTRIES",
   CREATE_ENTRY = "CREATE_ENTRY",
   UPDATE_ENTRY = "UPDATE_ENTRY",
   DELETE_ENTRY = "DELETE_ENTRY",
@@ -33,6 +35,24 @@ export function fetchEntryRequest(
 ): Types.SagaPayload<Types.FetchEntryPayload> {
   return {
     type: EntriesActions.FETCH_ENTRY,
+    payload,
+  };
+}
+
+export function fetchOverviewEntriesRequest(
+  payload: Types.FetchOverviewEntriesPayload
+): Types.SagaPayload<Types.FetchOverviewEntriesPayload> {
+  return {
+    type: EntriesActions.FETCH_OVERVIEW_ENTRIES,
+    payload,
+  };
+}
+
+export function fetchLogbookEntriesRequest(
+  payload: Types.FetchLogbookEntriesPayload
+): Types.SagaPayload<Types.FetchLogbookEntriesPayload> {
+  return {
+    type: EntriesActions.FETCH_LOGBOOK_ENTRIES,
     payload,
   };
 }
@@ -102,6 +122,54 @@ function* fetchEntry(action: Types.SagaPayload<Types.FetchEntryPayload>) {
     const { data } = yield Saga.call(axios.get, endpoint);
 
     yield Saga.put(Redux.entitiesActions.setEntry(data.response));
+  } catch (error: any) {
+    console.error(error);
+    yield Helpers.handleError(error);
+  }
+}
+
+function* fetchOverviewEntries(
+  action: Types.SagaPayload<Types.FetchOverviewEntriesPayload>
+) {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.ENTRIES,
+      `/fetch-overview-entries`,
+      action.payload.userId
+    );
+    const { userId, ...fetchPayload } = action.payload;
+    const { data } = yield Saga.call(axios.post, endpoint, fetchPayload);
+    const normalizedData = normalize(data.response, entriesSchema);
+
+    yield Saga.put(
+      Redux.entitiesActions.setEntries(
+        normalizedData.entities.entry as Types.NormalizedEntries
+      )
+    );
+  } catch (error: any) {
+    console.error(error);
+    yield Helpers.handleError(error);
+  }
+}
+
+function* fetchLogbookEntries(
+  action: Types.SagaPayload<Types.FetchLogbookEntriesPayload>
+) {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.ENTRIES,
+      `/fetch-logbook-entries`,
+      action.payload.userId
+    );
+    const { userId, ...fetchPayload } = action.payload;
+    const { data } = yield Saga.call(axios.post, endpoint, fetchPayload);
+    const normalizedData = normalize(data.response, entriesSchema);
+
+    yield Saga.put(
+      Redux.entitiesActions.setEntries(
+        normalizedData.entities.entry as Types.NormalizedEntries
+      )
+    );
   } catch (error: any) {
     console.error(error);
     yield Helpers.handleError(error);
@@ -183,6 +251,8 @@ export default function* entriesSaga() {
   yield Saga.all([
     Saga.takeEvery(EntriesActions.FETCH_ENTRIES, fetchEntries),
     Saga.takeEvery(EntriesActions.FETCH_ENTRY, fetchEntry),
+    Saga.takeEvery(EntriesActions.FETCH_OVERVIEW_ENTRIES, fetchOverviewEntries),
+    Saga.takeEvery(EntriesActions.FETCH_LOGBOOK_ENTRIES, fetchLogbookEntries),
     Saga.takeEvery(EntriesActions.CREATE_ENTRY, createEntry),
     Saga.takeEvery(EntriesActions.UPDATE_ENTRY, updateEntry),
     Saga.takeEvery(EntriesActions.DELETE_ENTRY, deleteEntry),
