@@ -17,6 +17,7 @@ export * from "./icons/cross";
 export * from "./icons/drag";
 export * from "./icons/eye-hidden";
 export * from "./icons/eye-visible";
+export * from "./icons/filter";
 export * from "./icons/key";
 export * from "./icons/lock";
 export * from "./icons/logbooks";
