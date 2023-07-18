@@ -4,3 +4,4 @@ export * from "./sagas.helpers";
 export * from "./metadata.helpers";
 export * from "./strings.helpers";
 export * from "./data-structure.helpers";
+export * from "./dates.helpers";

@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 import { Mulish } from "next/font/google";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -17,8 +16,6 @@ if (process.env.NODE_ENV === "development") {
 } else if (process.env.NODE_ENV === "production") {
   axios.defaults.baseURL = "http://localhost:8000";
 }
-
-const userId = Cookies.get("userId");
 
 type Props = { children: React.ReactNode };
 
@@ -43,8 +40,8 @@ const Layout = (props: Props) => {
   const { currentUser } = useSelector((state: ReduxStore) => state.entities);
 
   useEffect(() => {
-    if (userId && Number(userId) && !currentUser) {
-      dispatch(Sagas.fetchUserRequest({ userId: Number(userId) }));
+    if (Constants.userId && !currentUser) {
+      dispatch(Sagas.fetchUserRequest({ userId: Constants.userId }));
     } else if (!currentUser) {
       if (gatedRoutes.includes(router.pathname)) {
         router.push(Constants.ClientRoutes.LANDING);

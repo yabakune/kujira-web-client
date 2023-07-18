@@ -1,21 +1,19 @@
-import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
+import * as Constants from "@/constants";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
 import { SettingsSection } from "./settings-section";
-
-const userId = Cookies.get("userId");
 
 export const SettingsDangerous = () => {
   const dispatch = useDispatch();
 
   function deleteAccount(event: Types.OnSubmit): void {
     event.preventDefault();
-    if (Number(userId)) {
-      dispatch(Sagas.deleteUserRequest({ userId: Number(userId) }));
+    if (Constants.userId) {
+      dispatch(Sagas.deleteUserRequest({ userId: Constants.userId }));
     }
   }
 

@@ -8,14 +8,14 @@ export type FetchEntryPayload = {
 
 export type CreateEntryPayload = {
   name: string;
-  totalSpent: number;
+  totalSpent?: number;
   budget?: number;
   overviewId?: number;
   logbookId?: number;
 } & GatedRoutePayload;
 
 export type UpdateEntryPayload = Partial<{
-	entryId: number;
+  entryId: number;
   totalSpent: number;
   budget: number | null;
 }> &

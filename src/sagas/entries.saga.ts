@@ -179,7 +179,7 @@ function* deleteEntry(action: Types.SagaPayload<Types.DeleteEntryPayload>) {
   }
 }
 
-export default function* logbooksSaga() {
+export default function* entriesSaga() {
   yield Saga.all([
     Saga.takeEvery(EntriesActions.FETCH_ENTRIES, fetchEntries),
     Saga.takeEvery(EntriesActions.FETCH_ENTRY, fetchEntry),

@@ -1,10 +1,15 @@
+import { useDispatch } from "react-redux";
+
 import * as Components from "@/components";
+import * as Constants from "@/constants";
+import * as Sagas from "@/sagas";
 import { signalsStore } from "@/signals/signals";
 
 import Styles from "./overview-header.module.scss";
 import TextStyles from "@/styles/texts.module.scss";
 
 export const OverviewHeader = () => {
+  const dispatch = useDispatch();
   const { selectedLogbookId } = signalsStore;
 
   function openLogbookSelector(): void {
@@ -12,7 +17,20 @@ export const OverviewHeader = () => {
   }
 
   function createLogbookEntry(): void {
-    alert("Create logbook entry");
+    if (selectedLogbookId.value && Constants.userId) {
+      const today = new Date();
+      const month = today.toLocaleString("default", { month: "long" });
+      const day = today.getDate();
+      const year = today.getFullYear();
+
+      dispatch(
+        Sagas.createEntryRequest({
+          name: `${month} ${day}, ${year}`,
+          logbookId: selectedLogbookId.value,
+          userId: Constants.userId,
+        })
+      );
+    }
   }
 
   return (

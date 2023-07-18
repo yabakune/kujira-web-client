@@ -5,6 +5,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authSaga from "@/sagas/auth.saga";
 import usersSaga from "@/sagas/users.saga";
 import logbooksSaga from "@/sagas/logbooks.saga";
+import entriesSaga from "@/sagas/entries.saga";
 
 import { entitiesReducer as entities } from "./entities-slice";
 import { uiReducer as ui } from "./ui-slice";
@@ -22,7 +23,7 @@ export type ReduxStore = ReturnType<typeof reduxStore.getState>;
 export type AppDispatch = typeof reduxStore.dispatch;
 
 function* rootSaga() {
-  yield Saga.all([authSaga(), usersSaga(), logbooksSaga()]);
+  yield Saga.all([authSaga(), usersSaga(), logbooksSaga(), entriesSaga()]);
 }
 
 sagaMiddleware.run(rootSaga);
