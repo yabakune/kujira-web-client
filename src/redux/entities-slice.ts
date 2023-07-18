@@ -4,6 +4,7 @@ import * as Types from "@/types";
 
 import { usersReducers } from "./users-reducers";
 import { logbooksReducers } from "./logbooks-reducers";
+import { entriesReducer } from "./entries-reducers";
 
 export type EntitiesState = {
   currentUser: Types.UserModel | null;
@@ -26,7 +27,7 @@ const initialState: EntitiesState = {
 export const entitiesSlice = createSlice({
   name: "entitiesSlice",
   initialState,
-  reducers: { ...usersReducers, ...logbooksReducers },
+  reducers: { ...usersReducers, ...logbooksReducers, ...entriesReducer },
 });
 
 export const entitiesActions = entitiesSlice.actions;

@@ -91,21 +91,13 @@ function* fetchLogbooks(action: Types.SagaPayload<Types.FetchLogbooksPayload>) {
     const { data } = yield Saga.call(axios.get, endpoint);
     const normalizedData = normalize(data.response, logbooksSchema);
     yield Saga.put(
-      Redux.entitiesActions.setLogbooks({
-        logbooks: normalizedData.entities as any,
-        logbookIds: normalizedData.result,
-      })
+      Redux.entitiesActions.setLogbooks(
+        normalizedData.entities.logbook as Types.NormalizedLogbooks
+      )
     );
   } catch (error: any) {
     console.error(error);
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: error.response.data.body,
-        caption: error.response.data.caption,
-        status: "failure",
-        timeout: 10000,
-      })
-    );
+    yield Helpers.handleError(error);
   }
 }
 
@@ -117,8 +109,7 @@ function* fetchLogbook(action: Types.SagaPayload<Types.FetchLogbookPayload>) {
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.get, endpoint);
-    const normalizedData = normalize(data.response, logbookSchema);
-    yield Saga.put(Redux.entitiesActions.setLogbook(normalizedData.result));
+    yield Saga.put(Redux.entitiesActions.setLogbook(data.response));
   } catch (error: any) {
     yield Helpers.handleError(error);
   }
@@ -157,8 +148,7 @@ function* createLogbook(action: Types.SagaPayload<Types.CreateLogbookPayload>) {
     );
     const { userId, ...createPayload } = action.payload;
     const { data } = yield Saga.call(axios.post, endpoint, createPayload);
-    const normalizedData = normalize(data.response, logbookSchema);
-    yield Saga.put(Redux.entitiesActions.setLogbook(normalizedData.result));
+    yield Saga.put(Redux.entitiesActions.setLogbook(data.response));
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -181,8 +171,7 @@ function* updateLogbook(action: Types.SagaPayload<Types.UpdateLogbookPayload>) {
     );
     const { userId, logbookId, ...updatePayload } = action.payload;
     const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
-    const normalizedData = normalize(data.response, logbookSchema);
-    yield Saga.put(Redux.entitiesActions.setLogbook(normalizedData.result));
+    yield Saga.put(Redux.entitiesActions.setLogbook(data.response));
 
     yield Saga.put(
       Redux.uiActions.setNotification({
