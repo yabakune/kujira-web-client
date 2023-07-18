@@ -5,10 +5,10 @@ import TextStyles from "@/styles/texts.module.scss";
 import { signalsStore } from "@/signals/signals";
 
 export const OverviewHeader = () => {
-  const { selectedLogbook } = signalsStore;
+  const { selectedLogbookId } = signalsStore;
 
   function openLogbookSelector(): void {
-    selectedLogbook.value = "";
+    selectedLogbookId.value = null;
   }
 
   function createLogbookEntry(): void {
@@ -31,12 +31,10 @@ export const OverviewHeader = () => {
       <Components.Button
         type="button"
         text={
-          selectedLogbook.value === ""
-            ? "Select a Logbook"
-            : "Create Logbook Entry"
+          selectedLogbookId.value ? "Create Logbook Entry" : "Select a Logbook"
         }
         onClick={createLogbookEntry}
-        disabled={selectedLogbook.value === ""}
+        disabled={!selectedLogbookId.value}
         centerContents
         addClick
         primary

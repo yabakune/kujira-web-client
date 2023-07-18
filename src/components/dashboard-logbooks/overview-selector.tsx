@@ -1,17 +1,16 @@
-import { Signal } from "@preact/signals-react";
 import { useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Redux from "@/redux";
 import * as Types from "@/types";
+import { signalsStore } from "@/signals/signals";
 
 import Styles from "./overview-selector.module.scss";
 import TextStyles from "@/styles/texts.module.scss";
 
-type Props = { selectedLogbook: Signal<string> };
-
-export const OverviewSelector = (props: Props) => {
+export const OverviewSelector = () => {
   const { logbooks } = useSelector((state: Redux.ReduxStore) => state.entities);
+  const { selectedLogbookId } = signalsStore;
 
   return (
     <section className={Styles.container}>
@@ -24,10 +23,10 @@ export const OverviewSelector = (props: Props) => {
                 key={`dashboard-logbooks-${logbook.name}-button`}
                 type="button"
                 text={logbook.name}
-                onClick={() => (props.selectedLogbook.value = logbook.name)}
+                onClick={() => (selectedLogbookId.value = logbook.id)}
                 borderRadius={10}
                 backgroundLevel={1}
-                selected={logbook.name === props.selectedLogbook.value}
+                selected={logbook.id === selectedLogbookId.value}
                 addClick
               />
             );

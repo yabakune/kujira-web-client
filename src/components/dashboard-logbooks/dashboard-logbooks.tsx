@@ -13,7 +13,7 @@ import Styles from "./dashboard-logbooks.module.scss";
 const userId = Cookies.get("userId");
 
 export const DashboardLogbooks = () => {
-  const { selectedLogbook } = signalsStore;
+  const { selectedLogbookId } = signalsStore;
 
   const dispatch = useDispatch();
 
@@ -28,8 +28,8 @@ export const DashboardLogbooks = () => {
       <Overview />
 
       <section className={Styles.body}>
-        {!selectedLogbook.value ? (
-          <OverviewSelector selectedLogbook={selectedLogbook} />
+        {!selectedLogbookId.value ? (
+          <OverviewSelector />
         ) : (
           <>Dashboard Logbooks</>
         )}
