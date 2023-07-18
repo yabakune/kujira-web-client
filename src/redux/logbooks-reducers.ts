@@ -1,6 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 
-import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
 import { EntitiesState } from "./entities-slice";
@@ -8,21 +7,9 @@ import { EntitiesState } from "./entities-slice";
 export const logbooksReducers = {
   setLogbooks: (
     state: EntitiesState,
-    action: PayloadAction<{
-      logbooks: Types.NormalizedLogbooks;
-      logbookIds: number[];
-    }>
+    action: PayloadAction<Types.NormalizedLogbooks>
   ) => {
-    state.logbooks = action.payload.logbooks;
-    if (state.currentUser) {
-      const userWithLogbookIds = Helpers.deepCopy(state.currentUser);
-      userWithLogbookIds.logbookIds = action.payload.logbookIds;
-      // state.currentUser = userWithLogbookIds;
-
-      // state.currentUser.logbookIds = action.payload.logbookIds;
-
-      console.log("userWithLogbookIds:", userWithLogbookIds);
-    }
+    state.logbooks = action.payload;
   },
   setLogbook: (
     state: EntitiesState,

@@ -139,11 +139,11 @@ function* fetchUserLogbooks(
       ownerId: action.payload.userId,
     });
     const normalizedData = normalize(data.response, logbooksSchema);
+
     yield Saga.put(
-      Redux.entitiesActions.setLogbooks({
-        logbooks: normalizedData.entities.logbook as any,
-        logbookIds: normalizedData.result,
-      })
+      Redux.entitiesActions.setLogbooks(
+        normalizedData.entities.logbook as Types.NormalizedLogbooks
+      )
     );
   } catch (error: any) {
     yield Helpers.handleError(error);

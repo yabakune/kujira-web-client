@@ -14,7 +14,7 @@ export const DashboardLogbooks = () => {
   console.log("Dashboard logbooks rendered");
 
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     if (Number(userId)) {
       dispatch(Saga.fetchUserLogbooksRequest({ userId: Number(userId) }));
