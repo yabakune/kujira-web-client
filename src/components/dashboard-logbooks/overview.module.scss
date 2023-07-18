@@ -2,5 +2,6 @@
   display: flex;
   flex-direction: column;
   width: var(--fourHundredPixels);
-  border: var(--themeFour) solid 1px;
+  background-color: var(--themeOne);
+  border-right: var(--themeFour) solid 1px;
 }
