@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
+import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
-import { ReduxState } from "@/redux";
 
 import { SettingsSection } from "./settings-section";
 
@@ -14,12 +14,9 @@ import TextStyles from "@/styles/texts.module.scss";
 
 export const SettingsPersonalInformation = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state: ReduxState) => state.entities);
-
-  const email = useSignal("");
-  const username = useSignal("");
-  const emailError = useSignal("");
-  const usernameError = useSignal("");
+  const { currentUser } = useSelector(
+    (state: Redux.ReduxState) => state.entities
+  );
 
   useEffect(() => {
     if (currentUser) {
@@ -27,6 +24,12 @@ export const SettingsPersonalInformation = () => {
       username.value = currentUser.username;
     }
   }, [currentUser]);
+
+  const email = useSignal("");
+  const username = useSignal("");
+
+  const emailError = useSignal("");
+  const usernameError = useSignal("");
 
   function handleEmailErrors(): void {
     if (email.value.length === 0) {
@@ -101,6 +104,7 @@ export const SettingsPersonalInformation = () => {
         backgroundLevel={4}
         required
       />
+
       {usernameError.value && (
         <p className={TextStyles.formError}>{usernameError.value}</p>
       )}
@@ -113,6 +117,7 @@ export const SettingsPersonalInformation = () => {
         backgroundLevel={4}
         required
       />
+
       <Components.Button
         type="submit"
         text="Update"

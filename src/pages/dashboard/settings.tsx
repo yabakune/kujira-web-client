@@ -5,7 +5,7 @@ const Settings: NextPageWithLayout = () => {
   return (
     <>
       <Components.PageHead title="Settings" />
-      <Components.DashboardSettings />;
+      <Components.DashboardSettings />
     </>
   );
 };

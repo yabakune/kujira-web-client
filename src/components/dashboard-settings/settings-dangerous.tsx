@@ -1,20 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
-import { ReduxState } from "@/redux";
 
 import { SettingsSection } from "./settings-section";
 
+const userId = Cookies.get("userId");
+
 export const SettingsDangerous = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state: ReduxState) => state.entities);
 
   function deleteAccount(event: Types.OnSubmit): void {
     event.preventDefault();
-    if (currentUser) {
-      dispatch(Sagas.deleteUserRequest({ userId: currentUser.id }));
+    if (Number(userId)) {
+      dispatch(Sagas.deleteUserRequest({ userId: Number(userId) }));
     }
   }
 

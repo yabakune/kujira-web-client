@@ -1,20 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
-import { ReduxState } from "@/redux";
 
 import { SettingsSection } from "./settings-section";
 
+const userId = Cookies.get("userId");
+
 export const SettingsSession = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state: ReduxState) => state.entities);
 
   function logout(event: Types.OnSubmit): void {
     event.preventDefault();
-    if (currentUser) {
-      dispatch(Sagas.logoutRequest({ email: currentUser.email }));
+    if (Number(userId)) {
+      dispatch(Sagas.logoutRequest({ userId: Number(userId) }));
     }
   }
 

@@ -2,9 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
+import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
-import { ReduxState } from "@/redux";
 
 import { SettingsSection } from "./settings-section";
 
@@ -24,7 +24,9 @@ function generateThemeComponent(theme: Types.Theme, selected: boolean) {
 
 export const SettingsTheme = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state: ReduxState) => state.entities);
+  const { currentUser } = useSelector(
+    (state: Redux.ReduxState) => state.entities
+  );
 
   function setTheme(theme: Types.Theme): void {
     if (currentUser) {

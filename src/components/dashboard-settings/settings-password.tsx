@@ -90,7 +90,6 @@ export const SettingsPassword = () => {
           newPassword: newPassword.value,
         })
       );
-      console.log("Updated Password");
     }
   }
 

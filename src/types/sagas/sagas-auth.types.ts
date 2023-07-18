@@ -20,5 +20,5 @@ export type SendNewVerificationCodePayload = {
 };
 
 export type LogoutPayload = {
-  email: string;
+  userId: number;
 };
