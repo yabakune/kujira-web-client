@@ -1,8 +1,8 @@
 import * as Components from "@/components";
+import { signalsStore } from "@/signals/signals";
 
 import Styles from "./overview-header.module.scss";
 import TextStyles from "@/styles/texts.module.scss";
-import { signalsStore } from "@/signals/signals";
 
 export const OverviewHeader = () => {
   const { selectedLogbookId } = signalsStore;
