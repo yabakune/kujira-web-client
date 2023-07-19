@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Constants from "@/constants";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
+import * as Selectors from "@/selectors";
 import { signalsStore } from "@/signals/signals";
 
 import Styles from "./overview-info.module.scss";
@@ -12,6 +13,12 @@ import Styles from "./overview-info.module.scss";
 export const OverviewInfo = () => {
   const dispatch = useDispatch();
   const { selectedLogbookId } = signalsStore;
+
+  const currentOverview = useSelector((state: Redux.ReduxStore) => {
+    return Selectors.selectLogbookOverview(state, selectedLogbookId.value);
+  });
+
+  console.log("currentOverview:", currentOverview);
 
   const income = useSignal("");
   const savings = useSignal("");
