@@ -10,7 +10,11 @@ export const AuthFormHeader = (props: Types.AuthFormProps) => {
   return (
     <section className={Styles.section}>
       <h1 className={TextStyles.titleText}>
-        {props.type === "Register" ? "Welcome!" : "Welcome back!"}
+        {props.type === "Register"
+          ? "Welcome!"
+          : props.type === "Log In"
+          ? "Welcome back!"
+          : "Reset your password"}
       </h1>
 
       <p className={Styles.caption}>Please fill in all fields below.</p>
@@ -25,16 +29,34 @@ export const AuthFormHeader = (props: Types.AuthFormProps) => {
             Log In
           </Link>
         </p>
+      ) : props.type === "Log In" ? (
+        <>
+          <p>
+            {"Don't have an account? "}
+            <Link
+              className={TextStyles.primaryLink}
+              href={Constants.ClientRoutes.REGISTER}
+            >
+              Register
+            </Link>
+          </p>
+          <p>
+            {"Forgot your password? "}
+            <Link
+              className={TextStyles.primaryLink}
+              href={Constants.ClientRoutes.RESET_PASSWORD}
+            >
+              Reset Password
+            </Link>
+          </p>
+        </>
       ) : (
-        <p>
-          {"Don't have an account? "}
-          <Link
-            className={TextStyles.primaryLink}
-            href={Constants.ClientRoutes.REGISTER}
-          >
-            Register
-          </Link>
-        </p>
+        <Link
+          className={TextStyles.primaryLink}
+          href={Constants.ClientRoutes.LOGIN}
+        >
+          Log In
+        </Link>
       )}
     </section>
   );

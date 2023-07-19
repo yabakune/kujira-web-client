@@ -16,6 +16,7 @@ type Props = {
   usernameError: Signal<string>;
   passwordError: Signal<string>;
   confirmPasswordError: Signal<string>;
+  authVerificationCodeSent: Signal<boolean>;
 } & Types.AuthFormProps;
 
 export const AuthFormInputs = (props: Props) => {
@@ -78,6 +79,7 @@ export const AuthFormInputs = (props: Props) => {
     handleEmailErrors();
     if (props.type === "Register") {
       handleUsernameErrors();
+    } else if (props.type !== "Log In") {
       handlePasswordErrors();
       handleConfirmPasswordErrors();
     }
@@ -117,23 +119,31 @@ export const AuthFormInputs = (props: Props) => {
         </>
       )}
 
-      {props.passwordError.value && (
-        <span className={TextStyles.formError}>
-          {props.passwordError.value}
-        </span>
+      {(props.type !== "Password Reset" ||
+        (props.type === "Password Reset" &&
+          props.authVerificationCodeSent.value)) && (
+        <>
+          {props.passwordError.value && (
+            <span className={TextStyles.formError}>
+              {props.passwordError.value}
+            </span>
+          )}
+          <Components.Input
+            key="Auth Form Password Input"
+            type="password"
+            userInput={props.password}
+            placeholder="Password"
+            leftIcon={<Components.Lock width={16} fill={10} />}
+            backgroundLevel={2}
+            isPassword
+            required
+          />
+        </>
       )}
-      <Components.Input
-        key="Auth Form Password Input"
-        type="password"
-        userInput={props.password}
-        placeholder="Password"
-        leftIcon={<Components.Lock width={16} fill={10} />}
-        backgroundLevel={2}
-        isPassword
-        required
-      />
 
-      {props.type === "Register" && (
+      {(props.type === "Register" ||
+        (props.type === "Password Reset" &&
+          props.authVerificationCodeSent.value)) && (
         <>
           {props.confirmPasswordError.value && (
             <span className={TextStyles.formError}>

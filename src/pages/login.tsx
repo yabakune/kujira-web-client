@@ -8,7 +8,6 @@ const Login: NextPageWithLayout = () => {
   const { authVerificationCodeSent } = signalsStore;
 
   const email = useSignal("");
-  const agreementChecked = useSignal(false);
 
   return (
     <>
@@ -19,14 +18,12 @@ const Login: NextPageWithLayout = () => {
           type="Log In"
           email={email.value}
           authVerificationCodeSent={authVerificationCodeSent}
-          agreementChecked={agreementChecked}
         />
       ) : (
         <Components.AuthForm
           type="Log In"
           email={email}
           authVerificationCodeSent={authVerificationCodeSent}
-          agreementChecked={agreementChecked}
         />
       )}
     </>

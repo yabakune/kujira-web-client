@@ -14,7 +14,6 @@ import Styles from "./auth-form.module.scss";
 type Props = {
   email: Signal<string>;
   authVerificationCodeSent: Signal<boolean>;
-  agreementChecked: Signal<boolean>;
 } & Types.AuthFormProps;
 
 export const AuthForm = (props: Props) => {
@@ -23,13 +22,14 @@ export const AuthForm = (props: Props) => {
   const username = useSignal("");
   const password = useSignal("");
   const confirmPassword = useSignal("");
+  const agreementChecked = useSignal(false);
 
   const emailError = useSignal("");
   const usernameError = useSignal("");
   const passwordError = useSignal("");
   const confirmPasswordError = useSignal("");
 
-  function handleButtonDisable(): boolean {
+  function disableButtonOnError(): boolean {
     if (props.type === "Register") {
       return (
         props.email.value === "" ||
@@ -40,22 +40,33 @@ export const AuthForm = (props: Props) => {
         !!usernameError.value ||
         !!passwordError.value ||
         !!confirmPasswordError.value ||
-        !props.agreementChecked.value
+        !agreementChecked.value
       );
-    } else {
+    } else if (props.type === "Log In") {
       return (
         props.email.value === "" ||
         password.value === "" ||
         !!emailError.value ||
         !!passwordError.value
       );
+    } else {
+      if (!props.authVerificationCodeSent.value) {
+        return props.email.value === "" || !!emailError.value;
+      } else {
+        return (
+          password.value === "" ||
+          confirmPassword.value === "" ||
+          !!passwordError.value ||
+          !!confirmPasswordError.value
+        );
+      }
     }
   }
 
-  function authInUser(event: Types.OnSubmit) {
+  function submit(event: Types.OnSubmit) {
     event.preventDefault();
 
-    if (!handleButtonDisable()) {
+    if (!disableButtonOnError()) {
       if (props.type === "Register") {
         dispatch(
           Sagas.registerRequest({
@@ -64,19 +75,39 @@ export const AuthForm = (props: Props) => {
             password: password.value,
           })
         );
-      } else {
+      } else if (props.type === "Log In") {
         dispatch(
           Sagas.loginRequest({
             email: props.email.value,
             password: password.value,
           })
         );
+      } else {
+        if (!props.authVerificationCodeSent.value) {
+          // dispatch send password reset verification code
+          console.log("Send password reset verification code");
+        } else {
+          // dispatch reset password
+          console.log("Reset password");
+        }
       }
     }
   }
 
+  function generateButtonText(): string {
+    if (props.type === "Password Reset") {
+      if (props.authVerificationCodeSent.value) {
+        return "Reset Password";
+      } else {
+        return "Request Password Reset";
+      }
+    } else {
+      return props.type;
+    }
+  }
+
   return (
-    <form className={Styles.form} onSubmit={authInUser}>
+    <form className={Styles.form} onSubmit={submit}>
       <AuthFormHeader type={props.type} />
 
       <AuthFormInputs
@@ -89,17 +120,21 @@ export const AuthForm = (props: Props) => {
         passwordError={passwordError}
         confirmPasswordError={confirmPasswordError}
         type={props.type}
+        authVerificationCodeSent={props.authVerificationCodeSent}
       />
 
-      <AuthFormAgreement
-        type={props.type}
-        agreementChecked={props.agreementChecked}
-      />
+      {props.type === "Register" && (
+        <AuthFormAgreement
+          type="Register"
+          agreementChecked={agreementChecked}
+        />
+      )}
 
       <Components.Button
         type="submit"
-        text={props.type}
-        disabled={handleButtonDisable()}
+        text={generateButtonText()}
+        disabled={disableButtonOnError()}
+        rightIcon={<Components.ArrowRight width={14} fill={12} />}
         centerContents
         addClick
         primary

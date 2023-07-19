@@ -4,37 +4,34 @@ import * as Components from "@/components";
 import { NextPageWithLayout } from "@/pages/_app";
 import { signalsStore } from "@/signals/signals";
 
-const Register: NextPageWithLayout = () => {
+const ResetPassword: NextPageWithLayout = () => {
   const { authVerificationCodeSent } = signalsStore;
 
   const email = useSignal("");
-  const agreementChecked = useSignal(false);
 
   return (
     <>
-      <Components.PageHead title="Register" />
+      <Components.PageHead title="Reset Password" />
 
       {authVerificationCodeSent.value ? (
         <Components.AuthVerification
-          type="Register"
+          type="Password Reset"
           email={email.value}
           authVerificationCodeSent={authVerificationCodeSent}
-          agreementChecked={agreementChecked}
         />
       ) : (
         <Components.AuthForm
-          type="Register"
+          type="Password Reset"
           email={email}
           authVerificationCodeSent={authVerificationCodeSent}
-          agreementChecked={agreementChecked}
         />
       )}
     </>
   );
 };
 
-Register.getLayout = function getLayout(page: React.ReactElement) {
+ResetPassword.getLayout = function getLayout(page: React.ReactElement) {
   return <Components.AuthLayout>{page}</Components.AuthLayout>;
 };
 
-export default Register;
+export default ResetPassword;

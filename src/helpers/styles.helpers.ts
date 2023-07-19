@@ -114,6 +114,8 @@ export function setIconFill(fillColor?: number): string {
       return ThemeStyles.fillTen;
     case 11:
       return ThemeStyles.fillText;
+    case 12:
+      return ThemeStyles.fillButtonText;
     default:
       return ThemeStyles.fillPrimary;
   }

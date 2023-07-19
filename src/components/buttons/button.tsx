@@ -61,15 +61,11 @@ export const Button = (props: Props) => {
       type={props.type}
       onClick={props.onClick}
     >
-      {props.leftIcon && (
-        <Components.ButtonIcon>{props.leftIcon}</Components.ButtonIcon>
-      )}
+      {props.leftIcon && <div className={Styles.icon}>{props.leftIcon}</div>}
 
       {props.text}
 
-      {props.rightIcon && (
-        <Components.ButtonIcon>{props.rightIcon}</Components.ButtonIcon>
-      )}
+      {props.rightIcon && <div className={Styles.icon}>{props.rightIcon}</div>}
     </button>
   );
 };

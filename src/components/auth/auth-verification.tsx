@@ -5,19 +5,22 @@ import * as Components from "@/components";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
+import { AuthFormAgreement } from "./auth-form-agreement";
+
 import Styles from "./auth-verification.module.scss";
 import TextStyles from "@/styles/texts.module.scss";
 
 type Props = {
   email: string;
   authVerificationCodeSent: Signal<boolean>;
-  agreementChecked: Signal<boolean>;
 } & Types.AuthFormProps;
 
 export const AuthVerification = (props: Props) => {
   const dispatch = useDispatch();
 
   const verificationCode = useSignal("");
+  const agreementChecked = useSignal(false);
+
   const verificationCodeError = useSignal("");
 
   function goBack(): void {
@@ -60,7 +63,7 @@ export const AuthVerification = (props: Props) => {
           Sagas.verifyLoginRequest({
             email: props.email,
             verificationCode: verificationCode.value,
-            thirtyDays: props.agreementChecked.value,
+            thirtyDays: agreementChecked.value,
           })
         );
       }
@@ -113,6 +116,14 @@ export const AuthVerification = (props: Props) => {
           backgroundLevel={2}
           required
         />
+
+        {props.type === "Log In" && (
+          <AuthFormAgreement
+            type="Log In"
+            agreementChecked={agreementChecked}
+          />
+        )}
+
         <Components.Button
           type="submit"
           text="Verify"
