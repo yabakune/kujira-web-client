@@ -1,4 +1,3 @@
-import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 
 import Styles from "./button.module.scss";
