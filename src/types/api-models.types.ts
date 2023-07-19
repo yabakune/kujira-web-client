@@ -57,7 +57,12 @@ export type EntryModel = {
   purchaseIds: number[];
 };
 
-type PurchaseCategory = "monthly" | "need" | "planned" | "impulse" | "regret";
+export type PurchaseCategory =
+  | "monthly"
+  | "need"
+  | "planned"
+  | "impulse"
+  | "regret";
 
 export type PurchaseModel = {
   id: number;

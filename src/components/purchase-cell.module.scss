@@ -1,3 +1,12 @@
 .container {
-  border: var(--debug);
+  display: flex;
+  align-items: center;
+  gap: var(--eightPixels);
+  padding: var(--sixPixels) var(--eightPixels);
+}
+
+.categoryButtons {
+  display: flex;
+  align-items: center;
+  gap: var(--fourPixels);
 }
