@@ -36,6 +36,9 @@ export const OverviewInfo = () => {
     if (currentOverview) {
       income.value = currentOverview.income.toString();
       savings.value = currentOverview.savings.toString();
+    } else {
+      income.value = "";
+      savings.value = "";
     }
   }, [currentOverview]);
 
