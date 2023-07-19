@@ -2,7 +2,6 @@ import { useSignal } from "@preact/signals-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import * as Components from "@/components";
 import * as Constants from "@/constants";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
@@ -52,7 +51,7 @@ export const OverviewInfo = () => {
         </p>
       </header>
 
-      <article className={Styles.infoCells}>
+      <article className={Styles.overviewCells}>
         <div>Income: {income.value}</div>
         <div>Savings: {savings.value}</div>
       </article>
