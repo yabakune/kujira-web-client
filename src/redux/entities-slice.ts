@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import * as Types from "@/types";
 
 import { usersReducers } from "./users-reducers";
+import { overviewsReducers } from "./overviews-reducers";
 import { logbooksReducers } from "./logbooks-reducers";
 import { entriesReducer } from "./entries-reducers";
 
@@ -27,7 +28,12 @@ const initialState: EntitiesState = {
 export const entitiesSlice = createSlice({
   name: "entitiesSlice",
   initialState,
-  reducers: { ...usersReducers, ...logbooksReducers, ...entriesReducer },
+  reducers: {
+    ...usersReducers,
+    ...overviewsReducers,
+    ...logbooksReducers,
+    ...entriesReducer,
+  },
 });
 
 export const entitiesActions = entitiesSlice.actions;
