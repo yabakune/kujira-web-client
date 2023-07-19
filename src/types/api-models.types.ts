@@ -14,7 +14,6 @@ export type UserModel = {
   createdAt: Date;
   updatedAt: Date;
   // Has Many
-  overviewIds: number[];
   logbookIds: number[];
   bugReportIds: number[];
 };
@@ -25,8 +24,8 @@ export type OverviewModel = {
   savings: number;
   createdAt: Date;
   updatedAt: Date;
-  // Belongs To
-  ownerId: number;
+  // One To One
+  logbookId: number;
   // Has Many
   entryIds: number[];
 };
@@ -38,6 +37,8 @@ export type LogbookModel = {
   updatedAt: Date;
   // Belongs To
   ownerId: number;
+  // One to One
+  overview: { id: number };
   // Has Many
   entryIds: number[];
 };

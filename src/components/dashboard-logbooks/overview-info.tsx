@@ -2,6 +2,7 @@ import { useSignal } from "@preact/signals-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import * as Constants from "@/constants";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
 import { signalsStore } from "@/signals/signals";
@@ -11,18 +12,20 @@ import Styles from "./overview-info.module.scss";
 export const OverviewInfo = () => {
   const dispatch = useDispatch();
   const { selectedLogbookId } = signalsStore;
-  const { overviews } = useSelector(
-    (state: Redux.ReduxStore) => state.entities
-  );
 
   const income = useSignal("");
   const savings = useSignal("");
 
   useEffect(() => {
-    if (selectedLogbookId.value) {
-      // dispatch(Sagas.fetchlog)
+    if (selectedLogbookId.value && Constants.userId) {
+      dispatch(
+        Sagas.fetchLogbookOverviewRequest({
+          logbookId: selectedLogbookId.value,
+          userId: Constants.userId,
+        })
+      );
     }
-  }, [selectedLogbookId.value, overviews]);
+  }, [selectedLogbookId.value]);
 
   return (
     <section className={Styles.container}>

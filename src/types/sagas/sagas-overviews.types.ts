@@ -6,15 +6,19 @@ export type FetchOverviewPayload = {
   overviewId: number;
 } & GatedRoutePayload;
 
-export type FetchUserOverviewsPayload = {} & GatedRoutePayload;
+export type FetchLogbookOverviewPayload = {
+  logbookId: number;
+} & GatedRoutePayload;
 
 export type CreateOverviewPayload = {
-  name: string;
-  ownerId: number;
+  income: number;
+  savings?: number;
+  logbookId: number;
 } & GatedRoutePayload;
 
 export type UpdateOverviewPayload = Partial<{
-  name: string;
+  income: number;
+  savings: number;
 }> & { overviewId: number } & GatedRoutePayload;
 
 export type DeleteOverviewPayload = {
