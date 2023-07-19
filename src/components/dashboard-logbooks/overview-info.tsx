@@ -2,6 +2,7 @@ import { useSignal } from "@preact/signals-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import * as Components from "@/components";
 import * as Constants from "@/constants";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
@@ -9,10 +10,11 @@ import * as Selectors from "@/selectors";
 import { signalsStore } from "@/signals/signals";
 
 import Styles from "./overview-info.module.scss";
+import { OverviewCell } from "./overview-cell";
 
 export const OverviewInfo = () => {
   const dispatch = useDispatch();
-  const { selectedLogbookId } = signalsStore;
+  const { selectedLogbookId, totalSpent, remaining } = signalsStore;
 
   const currentOverview = useSelector((state: Redux.ReduxStore) => {
     return Selectors.selectLogbookOverview(state, selectedLogbookId.value);
@@ -52,8 +54,47 @@ export const OverviewInfo = () => {
       </header>
 
       <article className={Styles.overviewCells}>
-        <div>Income: {income.value}</div>
-        <div>Savings: {savings.value}</div>
+        <OverviewCell
+          key={`overview-cell-income`}
+          label="Income ($)"
+          value={
+            <Components.Input
+              type="text"
+              userInput={income}
+              placeholder="Income"
+              borderRadius={6}
+              backgroundLevel={3}
+              mini
+            />
+          }
+        />
+
+        <OverviewCell
+          key={`overview-cell-savings`}
+          label="Savings (%)"
+          value={
+            <Components.Input
+              type="text"
+              userInput={savings}
+              placeholder="Savings"
+              borderRadius={6}
+              backgroundLevel={3}
+              mini
+            />
+          }
+        />
+
+        <OverviewCell
+          key={`overview-cell-total-spent`}
+          label="Total Spent ($)"
+          value={totalSpent.value}
+        />
+
+        <OverviewCell
+          key={`overview-cell-remaining`}
+          label="Remaining ($)"
+          value={remaining.value}
+        />
       </article>
     </section>
   );

@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--eightPixels);
+  padding: var(--sixPixels) var(--eightPixels);
+  background-color: var(--themeTwo);
+  border-radius: 12px;
+
+  > * {
+    flex: 1;
+  }
+
+  &.totalSpent {
+    font-weight: bold;
+  }
+
+  &.remaining {
+    font-weight: bold;
+    color: var(--primaryMain);
+  }
+}
