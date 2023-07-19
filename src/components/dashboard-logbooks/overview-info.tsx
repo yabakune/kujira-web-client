@@ -18,8 +18,6 @@ export const OverviewInfo = () => {
     return Selectors.selectLogbookOverview(state, selectedLogbookId.value);
   });
 
-  console.log("currentOverview:", currentOverview);
-
   const income = useSignal("");
   const savings = useSignal("");
 
@@ -34,6 +32,13 @@ export const OverviewInfo = () => {
     }
   }, [selectedLogbookId.value]);
 
+  useEffect(() => {
+    if (currentOverview) {
+      income.value = currentOverview.income.toString();
+      savings.value = currentOverview.savings.toString();
+    }
+  }, [currentOverview]);
+
   return (
     <section className={Styles.container}>
       <header className={Styles.header}>
@@ -43,7 +48,10 @@ export const OverviewInfo = () => {
         </p>
       </header>
 
-      <article className={Styles.infoCells}></article>
+      <article className={Styles.infoCells}>
+        <div>Income: {income.value}</div>
+        <div>Savings: {savings.value}</div>
+      </article>
     </section>
   );
 };
