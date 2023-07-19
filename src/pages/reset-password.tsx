@@ -18,12 +18,14 @@ const ResetPassword: NextPageWithLayout = () => {
           type="Password Reset"
           email={email}
           authVerificationCodeSent={authVerificationCodeSent}
+          arrow={!resetPassword.value}
         />
       ) : (
         <Components.AuthVerification
           type="Password Reset"
           email={email.value}
           authVerificationCodeSent={authVerificationCodeSent}
+          arrow
         />
       )}
     </>

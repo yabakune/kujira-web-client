@@ -14,6 +14,7 @@ import Styles from "./auth-form.module.scss";
 type Props = {
   email: Signal<string>;
   authVerificationCodeSent: Signal<boolean>;
+  arrow?: boolean;
 } & Types.AuthFormProps;
 
 export const AuthForm = (props: Props) => {
@@ -141,7 +142,11 @@ export const AuthForm = (props: Props) => {
         type="submit"
         text={generateButtonText()}
         disabled={disableButtonOnError()}
-        rightIcon={<Components.ArrowRight width={14} fill={12} />}
+        rightIcon={
+          props.arrow ? (
+            <Components.ArrowRight width={14} fill={12} />
+          ) : undefined
+        }
         centerContents
         addClick
         primary

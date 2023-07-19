@@ -24,6 +24,7 @@ const Register: NextPageWithLayout = () => {
           type="Register"
           email={email}
           authVerificationCodeSent={authVerificationCodeSent}
+          arrow={true}
         />
       )}
     </>

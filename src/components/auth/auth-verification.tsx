@@ -13,6 +13,7 @@ import TextStyles from "@/styles/texts.module.scss";
 type Props = {
   email: string;
   authVerificationCodeSent: Signal<boolean>;
+  arrow?: true;
 } & Types.AuthFormProps;
 
 export const AuthVerification = (props: Props) => {
@@ -133,6 +134,9 @@ export const AuthVerification = (props: Props) => {
         type="submit"
         text="Verify"
         disabled={handleButtonDisable()}
+        rightIcon={
+          props.arrow && <Components.ArrowRight width={14} fill={12} />
+        }
         centerContents
         addClick
         primary

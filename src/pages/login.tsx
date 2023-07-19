@@ -24,6 +24,7 @@ const Login: NextPageWithLayout = () => {
           type="Log In"
           email={email}
           authVerificationCodeSent={authVerificationCodeSent}
+          arrow={true}
         />
       )}
     </>
