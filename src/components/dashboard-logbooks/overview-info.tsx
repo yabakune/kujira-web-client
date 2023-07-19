@@ -54,47 +54,35 @@ export const OverviewInfo = () => {
       </header>
 
       <article className={Styles.overviewCells}>
-        <OverviewCell
-          key={`overview-cell-income`}
-          label="Income ($)"
-          value={
-            <Components.Input
-              type="text"
-              userInput={income}
-              placeholder="Income"
-              borderRadius={6}
-              backgroundLevel={3}
-              mini
-            />
-          }
-        />
+        <OverviewCell key={`overview-cell-income`} label="Income ($)">
+          <Components.Input
+            type="text"
+            userInput={income}
+            placeholder="Income"
+            borderRadius={6}
+            backgroundLevel={3}
+            mini
+          />
+        </OverviewCell>
 
-        <OverviewCell
-          key={`overview-cell-savings`}
-          label="Savings (%)"
-          value={
-            <Components.Input
-              type="text"
-              userInput={savings}
-              placeholder="Savings"
-              borderRadius={6}
-              backgroundLevel={3}
-              mini
-            />
-          }
-        />
+        <OverviewCell key={`overview-cell-savings`} label="Savings (%)">
+          <Components.Input
+            type="text"
+            userInput={savings}
+            placeholder="Savings"
+            borderRadius={6}
+            backgroundLevel={3}
+            mini
+          />
+        </OverviewCell>
 
-        <OverviewCell
-          key={`overview-cell-total-spent`}
-          label="Total Spent ($)"
-          value={totalSpent.value}
-        />
+        <OverviewCell key={`overview-cell-total-spent`} label="Total Spent ($)">
+          <div className={Styles.overviewCellValue}>{totalSpent.value}</div>
+        </OverviewCell>
 
-        <OverviewCell
-          key={`overview-cell-remaining`}
-          label="Remaining ($)"
-          value={remaining.value}
-        />
+        <OverviewCell key={`overview-cell-remaining`} label="Remaining ($)">
+          <div className={Styles.overviewCellValue}>{remaining.value}</div>
+        </OverviewCell>
       </article>
     </section>
   );

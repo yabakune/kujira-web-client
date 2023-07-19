@@ -31,3 +31,7 @@
   flex-direction: column;
   gap: var(--fourPixels);
 }
+
+.overviewCellValue {
+  padding: var(--fourPixels) var(--eightPixels);
+}
