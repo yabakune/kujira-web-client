@@ -20,11 +20,56 @@ enum OverviewsActions {
 // [ ACTIONS ] ============================================================================= //
 // ========================================================================================= //
 
+export function fetchOverviewsRequest(
+  payload: Types.FetchOverviewsPayload
+): Types.SagaPayload<Types.FetchOverviewsPayload> {
+  return {
+    type: OverviewsActions.FETCH_OVERVIEWS,
+    payload,
+  };
+}
+
+export function fetchOverviewRequest(
+  payload: Types.FetchOverviewPayload
+): Types.SagaPayload<Types.FetchOverviewPayload> {
+  return {
+    type: OverviewsActions.FETCH_OVERVIEW,
+    payload,
+  };
+}
+
 export function fetchLogbookOverviewRequest(
   payload: Types.FetchLogbookOverviewPayload
 ): Types.SagaPayload<Types.FetchLogbookOverviewPayload> {
   return {
     type: OverviewsActions.FETCH_LOGBOOK_OVERVIEW,
+    payload,
+  };
+}
+
+export function createOverviewRequest(
+  payload: Types.CreateOverviewPayload
+): Types.SagaPayload<Types.CreateOverviewPayload> {
+  return {
+    type: OverviewsActions.CREATE_OVERVIEW,
+    payload,
+  };
+}
+
+export function updateOverviewRequest(
+  payload: Types.UpdateOverviewPayload
+): Types.SagaPayload<Types.UpdateOverviewPayload> {
+  return {
+    type: OverviewsActions.UPDATE_OVERVIEW,
+    payload,
+  };
+}
+
+export function deleteOverviewRequest(
+  payload: Types.DeleteOverviewPayload
+): Types.SagaPayload<Types.DeleteOverviewPayload> {
+  return {
+    type: OverviewsActions.DELETE_OVERVIEW,
     payload,
   };
 }
