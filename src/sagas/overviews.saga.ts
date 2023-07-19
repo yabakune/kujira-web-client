@@ -79,7 +79,46 @@ export function deleteOverviewRequest(
 // ========================================================================================= //
 
 const overviewSchema = new schema.Entity("overview");
-const overviewSchemas = new schema.Array(overviewSchema);
+const overviewsSchema = new schema.Array(overviewSchema);
+
+function* fetchOverviews(
+  action: Types.SagaPayload<Types.FetchOverviewsPayload>
+) {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.OVERVIEWS,
+      `/`,
+      action.payload.userId
+    );
+    const { data } = yield Saga.call(axios.get, endpoint);
+    const normalizedData = normalize(data.response, overviewsSchema);
+
+    yield Saga.put(
+      Redux.entitiesActions.setOverviews(
+        normalizedData.entities.overview as Types.NormalizedOverviews
+      )
+    );
+  } catch (error) {
+    console.error(error);
+    yield Helpers.handleError(error);
+  }
+}
+
+function* fetchOverview(action: Types.SagaPayload<Types.FetchOverviewPayload>) {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.OVERVIEWS,
+      `/${action.payload.overviewId}`,
+      action.payload.userId
+    );
+    const { data } = yield Saga.call(axios.post, endpoint);
+
+    yield Saga.put(Redux.entitiesActions.setOverview(data.response));
+  } catch (error) {
+    console.error(error);
+    yield Helpers.handleError(error);
+  }
+}
 
 function* fetchLogbookOverview(
   action: Types.SagaPayload<Types.FetchLogbookOverviewPayload>
@@ -105,11 +144,96 @@ function* fetchLogbookOverview(
   }
 }
 
+function* createOverview(
+  action: Types.SagaPayload<Types.CreateOverviewPayload>
+) {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.OVERVIEWS,
+      `/`,
+      action.payload.userId
+    );
+    const { userId, ...createPayload } = action.payload;
+    const { data } = yield Saga.call(axios.post, endpoint, createPayload);
+
+    yield Saga.put(Redux.entitiesActions.setOverview(data.response));
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error) {
+    console.error(error);
+    yield Helpers.handleError(error);
+  }
+}
+
+function* updateOverview(
+  action: Types.SagaPayload<Types.UpdateOverviewPayload>
+) {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.OVERVIEWS,
+      `/${action.payload.overviewId}`,
+      action.payload.userId
+    );
+    const { userId, ...updatePayload } = action.payload;
+    const { data } = yield Saga.call(axios.post, endpoint, updatePayload);
+
+    yield Saga.put(Redux.entitiesActions.setOverview(data.response));
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error) {
+    console.error(error);
+    yield Helpers.handleError(error);
+  }
+}
+
+function* deleteOverview(
+  action: Types.SagaPayload<Types.DeleteOverviewPayload>
+) {
+  try {
+    const endpoint = Helpers.generateGatedEndpoint(
+      Constants.APIRoutes.OVERVIEWS,
+      `/${action.payload.overviewId}`,
+      action.payload.userId
+    );
+    const { data } = yield Saga.call(axios.delete, endpoint);
+
+    yield Saga.put(Redux.entitiesActions.deleteOverview(data.response));
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error) {
+    console.error(error);
+    yield Helpers.handleError(error);
+  }
+}
+
 export default function* overviewsSaga() {
   yield Saga.all([
+    Saga.takeEvery(OverviewsActions.FETCH_OVERVIEWS, fetchOverviews),
+    Saga.takeEvery(OverviewsActions.FETCH_OVERVIEW, fetchOverview),
     Saga.takeEvery(
       OverviewsActions.FETCH_LOGBOOK_OVERVIEW,
       fetchLogbookOverview
     ),
+    Saga.takeEvery(OverviewsActions.CREATE_OVERVIEW, createOverview),
+    Saga.takeEvery(OverviewsActions.UPDATE_OVERVIEW, updateOverview),
+    Saga.takeEvery(OverviewsActions.DELETE_OVERVIEW, deleteOverview),
   ]);
 }
