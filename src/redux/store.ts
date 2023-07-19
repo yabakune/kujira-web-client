@@ -4,12 +4,12 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import authSaga from "@/sagas/auth.saga";
 import usersSaga from "@/sagas/users.saga";
+import overviewsSaga from "@/sagas/overviews.saga";
 import logbooksSaga from "@/sagas/logbooks.saga";
 import entriesSaga from "@/sagas/entries.saga";
 
 import { entitiesReducer as entities } from "./entities-slice";
 import { uiReducer as ui } from "./ui-slice";
-import overviewsSaga from "@/sagas/overviews.saga";
 
 const sagaMiddleware = createSagaMiddleware();
 
