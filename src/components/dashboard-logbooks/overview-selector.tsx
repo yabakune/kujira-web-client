@@ -9,8 +9,8 @@ import Styles from "./overview-selector.module.scss";
 import TextStyles from "@/styles/texts.module.scss";
 
 export const OverviewSelector = () => {
-  const { logbooks } = useSelector((state: Redux.ReduxStore) => state.entities);
   const { selectedLogbookId } = signalsStore;
+  const { logbooks } = useSelector((state: Redux.ReduxStore) => state.entities);
 
   return (
     <section className={Styles.container}>

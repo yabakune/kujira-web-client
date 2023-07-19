@@ -1,12 +1,16 @@
 import { useSignal } from "@preact/signals-react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as Redux from "@/redux";
+import * as Sagas from "@/sagas";
+import { signalsStore } from "@/signals/signals";
 
 import Styles from "./overview-info.module.scss";
 
 export const OverviewInfo = () => {
+  const dispatch = useDispatch();
+  const { selectedLogbookId } = signalsStore;
   const { overviews } = useSelector(
     (state: Redux.ReduxStore) => state.entities
   );
@@ -14,7 +18,11 @@ export const OverviewInfo = () => {
   const income = useSignal("");
   const savings = useSignal("");
 
-  useEffect(() => {}, [overviews]);
+  useEffect(() => {
+    if (selectedLogbookId.value) {
+      // dispatch(Sagas.fetchlog)
+    }
+  }, [selectedLogbookId.value, overviews]);
 
   return (
     <section className={Styles.container}>

@@ -8,7 +8,7 @@ import { Overview } from "./overview";
 import { LogbookEntries } from "./logbook-entries";
 
 import Styles from "./dashboard-logbooks.module.scss";
-
+ 
 export const DashboardLogbooks = () => {
   const dispatch = useDispatch();
 
