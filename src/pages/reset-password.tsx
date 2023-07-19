@@ -5,7 +5,7 @@ import { NextPageWithLayout } from "@/pages/_app";
 import { signalsStore } from "@/signals/signals";
 
 const ResetPassword: NextPageWithLayout = () => {
-  const { authVerificationCodeSent } = signalsStore;
+  const { authVerificationCodeSent, resetPassword } = signalsStore;
 
   const email = useSignal("");
 
@@ -13,16 +13,16 @@ const ResetPassword: NextPageWithLayout = () => {
     <>
       <Components.PageHead title="Reset Password" />
 
-      {authVerificationCodeSent.value ? (
-        <Components.AuthVerification
-          type="Password Reset"
-          email={email.value}
-          authVerificationCodeSent={authVerificationCodeSent}
-        />
-      ) : (
+      {!authVerificationCodeSent.value || resetPassword.value ? (
         <Components.AuthForm
           type="Password Reset"
           email={email}
+          authVerificationCodeSent={authVerificationCodeSent}
+        />
+      ) : (
+        <Components.AuthVerification
+          type="Password Reset"
+          email={email.value}
           authVerificationCodeSent={authVerificationCodeSent}
         />
       )}

@@ -20,7 +20,7 @@ export const AuthFormAgreement = (props: Props) => {
     <section className={Styles.section} onClick={toggleAgreement}>
       {props.agreementChecked.value ? (
         <Components.ButtonIcon continuePropagation>
-          <Components.CheckboxActive width={18} fill={12} />
+          <Components.CheckboxActive width={18} fill={13} />
         </Components.ButtonIcon>
       ) : (
         <Components.ButtonIcon continuePropagation>

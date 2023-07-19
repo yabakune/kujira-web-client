@@ -19,6 +19,20 @@ export type SendNewVerificationCodePayload = {
   email: string;
 };
 
+export type RequestPasswordResetPayload = {
+  email: string;
+};
+
+export type VerifyPasswordResetRequestPayload = {
+  email: string;
+  verificationCode: string;
+};
+
+export type ResetPasswordPayload = {
+  email: string;
+  newPassword: string;
+};
+
 export type LogoutPayload = {
   userId: number;
 };

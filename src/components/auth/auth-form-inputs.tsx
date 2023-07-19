@@ -3,6 +3,7 @@ import { Signal, effect } from "@preact/signals-react";
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Types from "@/types";
+import { signalsStore } from "@/signals/signals";
 
 import Styles from "./auth-form-inputs.module.scss";
 import TextStyles from "@/styles/texts.module.scss";
@@ -20,6 +21,8 @@ type Props = {
 } & Types.AuthFormProps;
 
 export const AuthFormInputs = (props: Props) => {
+  const { resetPassword } = signalsStore;
+
   function handleEmailErrors(): void {
     if (props.email.value.length === 0) {
       props.emailError.value = "";
@@ -87,18 +90,24 @@ export const AuthFormInputs = (props: Props) => {
 
   return (
     <article className={Styles.inputs}>
-      {props.emailError.value && (
-        <span className={TextStyles.formError}>{props.emailError.value}</span>
+      {!resetPassword.value && (
+        <>
+          {props.emailError.value && (
+            <span className={TextStyles.formError}>
+              {props.emailError.value}
+            </span>
+          )}
+          <Components.Input
+            key="Auth Form Email Input"
+            type="email"
+            userInput={props.email}
+            placeholder="Email"
+            leftIcon={<Components.Message width={16} fill={10} />}
+            backgroundLevel={2}
+            required
+          />
+        </>
       )}
-      <Components.Input
-        key="Auth Form Email Input"
-        type="email"
-        userInput={props.email}
-        placeholder="Email"
-        leftIcon={<Components.Message width={16} fill={10} />}
-        backgroundLevel={2}
-        required
-      />
 
       {props.type === "Register" && (
         <>

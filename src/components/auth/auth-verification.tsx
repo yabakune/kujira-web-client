@@ -58,12 +58,19 @@ export const AuthVerification = (props: Props) => {
             verificationCode: verificationCode.value,
           })
         );
-      } else {
+      } else if (props.type === "Log In") {
         dispatch(
           Sagas.verifyLoginRequest({
             email: props.email,
             verificationCode: verificationCode.value,
             thirtyDays: agreementChecked.value,
+          })
+        );
+      } else {
+        dispatch(
+          Sagas.verifyPasswordResetRequest({
+            email: props.email,
+            verificationCode: verificationCode.value,
           })
         );
       }
@@ -104,7 +111,7 @@ export const AuthVerification = (props: Props) => {
         </p>
       </header>
 
-      <article className={Styles.group}>
+      <article className={Styles.inputs}>
         {verificationCodeError.value && (
           <p className={TextStyles.formError}>{verificationCodeError.value}</p>
         )}
@@ -116,23 +123,20 @@ export const AuthVerification = (props: Props) => {
           backgroundLevel={2}
           required
         />
-
-        {props.type === "Log In" && (
-          <AuthFormAgreement
-            type="Log In"
-            agreementChecked={agreementChecked}
-          />
-        )}
-
-        <Components.Button
-          type="submit"
-          text="Verify"
-          disabled={handleButtonDisable()}
-          centerContents
-          addClick
-          primary
-        />
       </article>
+
+      {props.type === "Log In" && (
+        <AuthFormAgreement type="Log In" agreementChecked={agreementChecked} />
+      )}
+
+      <Components.Button
+        type="submit"
+        text="Verify"
+        disabled={handleButtonDisable()}
+        centerContents
+        addClick
+        primary
+      />
     </form>
   );
 };

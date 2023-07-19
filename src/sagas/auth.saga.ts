@@ -14,6 +14,9 @@ enum AuthActions {
   LOGIN = "LOGIN",
   VERIFY_LOGIN = "VERIFY_LOGIN",
   SEND_NEW_VERIFICATION_CODE = "SEND_NEW_VERIFICATION_CODE",
+  REQUEST_PASSWORD_RESET = "REQUEST_PASSWORD_RESET",
+  VERIFY_PASSWORD_RESET = "VERIFY_PASSWORD_RESET",
+  PASSWORD_RESET = "PASSWORD_RESET",
   LOGOUT = "LOGOUT",
 }
 
@@ -62,6 +65,33 @@ export function sendNewVerificationCodeRequest(
 ): Types.SagaPayload<Types.SendNewVerificationCodePayload> {
   return {
     type: AuthActions.SEND_NEW_VERIFICATION_CODE,
+    payload,
+  };
+}
+
+export function requestPasswordResetRequest(
+  payload: Types.RequestPasswordResetPayload
+): Types.SagaPayload<Types.RequestPasswordResetPayload> {
+  return {
+    type: AuthActions.REQUEST_PASSWORD_RESET,
+    payload,
+  };
+}
+
+export function verifyPasswordResetRequest(
+  payload: Types.VerifyPasswordResetRequestPayload
+): Types.SagaPayload<Types.VerifyPasswordResetRequestPayload> {
+  return {
+    type: AuthActions.VERIFY_PASSWORD_RESET,
+    payload,
+  };
+}
+
+export function resetPasswordRequest(
+  payload: Types.ResetPasswordPayload
+): Types.SagaPayload<Types.ResetPasswordPayload> {
+  return {
+    type: AuthActions.PASSWORD_RESET,
     payload,
   };
 }
@@ -191,6 +221,66 @@ function* sendNewVerificationCode(
   }
 }
 
+function* requestPasswordReset(
+  action: Types.SagaPayload<Types.RequestPasswordResetPayload>
+) {
+  try {
+    const endpoint = Constants.APIRoutes.AUTH + `/request-password-reset`;
+    const { data } = yield Saga.call(axios.post, endpoint, action.payload);
+    signalsStore.authVerificationCodeSent.value = true;
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error: any) {
+    yield Helpers.handleError(error);
+  }
+}
+
+function* verifyPasswordReset(
+  action: Types.SagaPayload<Types.VerifyPasswordResetRequestPayload>
+) {
+  try {
+    const endpoint =
+      Constants.APIRoutes.AUTH + `/verify-password-reset-request`;
+    const { data } = yield Saga.call(axios.post, endpoint, action.payload);
+    signalsStore.resetPassword.value = true;
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error: any) {
+    yield Helpers.handleError(error);
+  }
+}
+
+function* resetPassword(action: Types.SagaPayload<Types.ResetPasswordPayload>) {
+  try {
+    const endpoint = Constants.APIRoutes.AUTH + `/reset-password`;
+    const { data } = yield Saga.call(axios.post, endpoint, action.payload);
+    signalsStore.authVerificationCodeSent.value = false;
+    signalsStore.resetPassword.value = false;
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
+  } catch (error: any) {
+    yield Helpers.handleError(error);
+  }
+}
+
 function* logout(action: Types.SagaPayload<Types.LogoutPayload>) {
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/logout`;
@@ -218,6 +308,9 @@ export default function* authSaga() {
     Saga.takeEvery("LOGIN", login),
     Saga.takeEvery("VERIFY_LOGIN", verifyLogin),
     Saga.takeEvery("SEND_NEW_VERIFICATION_CODE", sendNewVerificationCode),
+    Saga.takeEvery("REQUEST_PASSWORD_RESET", requestPasswordReset),
+    Saga.takeEvery("VERIFY_PASSWORD_RESET", verifyPasswordReset),
+    Saga.takeEvery("PASSWORD_RESET", resetPassword),
     Saga.takeEvery("LOGOUT", logout),
   ]);
 }

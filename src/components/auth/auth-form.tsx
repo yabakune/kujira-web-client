@@ -84,11 +84,18 @@ export const AuthForm = (props: Props) => {
         );
       } else {
         if (!props.authVerificationCodeSent.value) {
-          // dispatch send password reset verification code
-          console.log("Send password reset verification code");
+          dispatch(
+            Sagas.requestPasswordResetRequest({
+              email: props.email.value,
+            })
+          );
         } else {
-          // dispatch reset password
-          console.log("Reset password");
+          dispatch(
+            Sagas.resetPasswordRequest({
+              email: props.email.value,
+              newPassword: password.value,
+            })
+          );
         }
       }
     }
