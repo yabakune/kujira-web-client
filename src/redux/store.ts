@@ -9,6 +9,7 @@ import entriesSaga from "@/sagas/entries.saga";
 
 import { entitiesReducer as entities } from "./entities-slice";
 import { uiReducer as ui } from "./ui-slice";
+import overviewsSaga from "@/sagas/overviews.saga";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -23,7 +24,13 @@ export type ReduxStore = ReturnType<typeof reduxStore.getState>;
 export type AppDispatch = typeof reduxStore.dispatch;
 
 function* rootSaga() {
-  yield Saga.all([authSaga(), usersSaga(), logbooksSaga(), entriesSaga()]);
+  yield Saga.all([
+    authSaga(),
+    usersSaga(),
+    overviewsSaga(),
+    logbooksSaga(),
+    entriesSaga(),
+  ]);
 }
 
 sagaMiddleware.run(rootSaga);
