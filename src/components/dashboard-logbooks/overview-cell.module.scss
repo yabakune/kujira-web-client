@@ -34,6 +34,20 @@
   }
 }
 
+.inputRegular {
+  color: var(--text);
+  font-weight: var(--medium);
+}
+
+.inputTotalSpent {
+  font-weight: var(--bold);
+}
+
+.inputRemaining {
+  color: var(--primaryMain);
+  font-weight: var(--bold);
+}
+
 .costSymbol {
   color: var(--themeTen);
   font-weight: bold;

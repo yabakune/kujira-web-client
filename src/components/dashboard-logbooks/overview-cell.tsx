@@ -9,10 +9,9 @@ import TextStyles from "@/styles/texts.module.scss";
 import InterfaceStyles from "@/styles/interface.module.scss";
 
 type Props = {
-  label: string;
+  label: "Income" | "Savings" | "Total Spent" | "Remaining";
   value: Signal<string>;
   valueError?: Signal<string>;
-  updateField?: (type: "Income" | "Savings", value: string) => void;
   cost?: true;
   frozen?: true;
 };
@@ -82,7 +81,16 @@ export const OverviewCell = (props: Props) => {
           <span className={Styles.costSymbol}>%</span>
         )}
         <input
-          className={Styles.input}
+          className={`
+            ${Styles.input}
+            ${
+              props.label === "Total Spent"
+                ? Styles.inputTotalSpent
+                : props.label === "Remaining"
+                ? Styles.inputRemaining
+                : Styles.inputRegular
+            }
+          `}
           type="text"
           onChange={setValue}
           value={props.value.value}
