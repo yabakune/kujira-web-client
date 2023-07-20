@@ -32,12 +32,7 @@ export const OverviewCell = (props: Props) => {
   }
 
   return (
-    <div
-      className={`
-				${Styles.container}
-			`}
-      onClick={focusInput}
-    >
+    <div className={Styles.container} onClick={focusInput}>
       <span className={Styles.label}>{props.label}</span>
 
       <button
