@@ -5,3 +5,4 @@ export * from "./metadata.helpers";
 export * from "./strings.helpers";
 export * from "./data-structure.helpers";
 export * from "./dates.helpers";
+export * from "./performance.helpers";

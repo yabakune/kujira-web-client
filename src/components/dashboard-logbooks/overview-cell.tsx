@@ -1,15 +1,18 @@
-import { Signal, useSignal } from "@preact/signals-react";
+import { Signal, effect, useSignal } from "@preact/signals-react";
 import { useRef } from "react";
 
 import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
 import Styles from "./overview-cell.module.scss";
+import TextStyles from "@/styles/texts.module.scss";
 import InterfaceStyles from "@/styles/interface.module.scss";
 
 type Props = {
   label: string;
   value: Signal<string>;
+  valueError?: Signal<string>;
+  updateField?: (type: "Income" | "Savings", value: string) => void;
   cost?: true;
   frozen?: true;
 };
@@ -33,14 +36,33 @@ export const OverviewCell = (props: Props) => {
     }
   }
 
+  effect(() => {
+    if (props.valueError) {
+      if (props.value.value.length === 0) {
+        props.valueError.value = "";
+      } else {
+        if (!Number(props.value.value)) {
+          props.valueError.value = "Must be a number.";
+        } else {
+          props.valueError.value = "";
+        }
+      }
+    }
+  });
+
   return (
-    <div
+    <article
       className={`${Styles.container} ${
         props.frozen && InterfaceStyles.noInteraction
       }`}
       onClick={focusInput}
     >
-      <span className={Styles.label}>{props.label}</span>
+      <div className={Styles.label}>
+        <span>{props.label}</span>
+        {props.valueError && props.valueError.value && (
+          <span className={TextStyles.formError}>{props.valueError.value}</span>
+        )}
+      </div>
 
       <button
         className={`
@@ -49,6 +71,7 @@ export const OverviewCell = (props: Props) => {
           ${Helpers.setClickLevel(3)}
           ${Helpers.setHoverLevel(3)}
           ${props.frozen && Styles.frozen}
+          ${props.valueError && props.valueError.value && Styles.error}
         `}
         type="button"
         tabIndex={-1}
@@ -69,6 +92,6 @@ export const OverviewCell = (props: Props) => {
           onBlur={() => setFocused(false)}
         />
       </button>
-    </div>
+    </article>
   );
 };

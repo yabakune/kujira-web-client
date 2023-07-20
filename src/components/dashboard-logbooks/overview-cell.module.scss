@@ -8,7 +8,10 @@
 }
 
 .label {
+  display: flex;
   flex: 1;
+  flex-direction: column;
+  gap: var(--fourPixels);
   padding: var(--fourPixels) var(--eightPixels);
 }
 
@@ -25,6 +28,10 @@
 
   &.frozen {
     background-color: transparent;
+  }
+
+  &.error {
+    border: var(--failure) solid 1px;
   }
 }
 

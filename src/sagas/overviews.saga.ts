@@ -180,8 +180,8 @@ function* updateOverview(
       `/${action.payload.overviewId}`,
       action.payload.userId
     );
-    const { userId, ...updatePayload } = action.payload;
-    const { data } = yield Saga.call(axios.post, endpoint, updatePayload);
+    const { userId, overviewId, ...updatePayload } = action.payload;
+    const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
 
     yield Saga.put(Redux.entitiesActions.setOverview(data.response));
 
