@@ -78,8 +78,8 @@ export function deleteOverviewRequest(
 // [ SAGAS ] =============================================================================== //
 // ========================================================================================= //
 
-const overviewSchema = new schema.Entity("overview");
-const overviewsSchema = new schema.Array(overviewSchema);
+const overviewsSchema = new schema.Entity("overviews");
+const overviewsSchemaList = new schema.Array(overviewsSchema);
 
 function* fetchOverviews(
   action: Types.SagaPayload<Types.FetchOverviewsPayload>
@@ -91,11 +91,11 @@ function* fetchOverviews(
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.get, endpoint);
-    const normalizedData = normalize(data.response, overviewsSchema);
+    const normalizedData = normalize(data.response, overviewsSchemaList);
 
     yield Saga.put(
       Redux.entitiesActions.setOverviews(
-        normalizedData.entities.overview as Types.NormalizedOverviews
+        normalizedData.entities.overviews as Types.NormalizedOverviews
       )
     );
   } catch (error) {
@@ -131,11 +131,11 @@ function* fetchLogbookOverview(
     );
     const { userId, ...fetchPayload } = action.payload;
     const { data } = yield Saga.call(axios.post, endpoint, fetchPayload);
-    const normalizedData = normalize(data.response, overviewSchema);
+    const normalizedData = normalize(data.response, overviewsSchema);
 
     yield Saga.put(
       Redux.entitiesActions.setOverviews(
-        normalizedData.entities.overview as Types.NormalizedOverviews
+        normalizedData.entities.overviews as Types.NormalizedOverviews
       )
     );
   } catch (error) {

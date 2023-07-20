@@ -78,8 +78,8 @@ export function deleteLogbookRequest(
 // [ SAGAS ] =============================================================================== //
 // ========================================================================================= //
 
-const logbookSchema = new schema.Entity("logbook");
-const logbooksSchema = new schema.Array(logbookSchema);
+const logbooksSchema = new schema.Entity("logbooks");
+const logbooksSchemaList = new schema.Array(logbooksSchema);
 
 function* fetchLogbooks(action: Types.SagaPayload<Types.FetchLogbooksPayload>) {
   try {
@@ -89,10 +89,10 @@ function* fetchLogbooks(action: Types.SagaPayload<Types.FetchLogbooksPayload>) {
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.get, endpoint);
-    const normalizedData = normalize(data.response, logbooksSchema);
+    const normalizedData = normalize(data.response, logbooksSchemaList);
     yield Saga.put(
       Redux.entitiesActions.setLogbooks(
-        normalizedData.entities.logbook as Types.NormalizedLogbooks
+        normalizedData.entities.logbooks as Types.NormalizedLogbooks
       )
     );
   } catch (error: any) {
@@ -127,11 +127,11 @@ function* fetchUserLogbooks(
     const { data } = yield Saga.call(axios.post, endpoint, {
       ownerId: action.payload.userId,
     });
-    const normalizedData = normalize(data.response, logbooksSchema);
+    const normalizedData = normalize(data.response, logbooksSchemaList);
 
     yield Saga.put(
       Redux.entitiesActions.setLogbooks(
-        normalizedData.entities.logbook as Types.NormalizedLogbooks
+        normalizedData.entities.logbooks as Types.NormalizedLogbooks
       )
     );
   } catch (error: any) {

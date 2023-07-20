@@ -88,8 +88,8 @@ export function deleteEntryRequest(
 // [ SAGAS ] =============================================================================== //
 // ========================================================================================= //
 
-const entrySchema = new schema.Entity("entry");
-const entriesSchema = new schema.Array(entrySchema);
+const entriesSchema = new schema.Entity("entries");
+const entriesSchemaList = new schema.Array(entriesSchema);
 
 function* fetchEntries(action: Types.SagaPayload<Types.FetchEntriesPayload>) {
   try {
@@ -99,11 +99,11 @@ function* fetchEntries(action: Types.SagaPayload<Types.FetchEntriesPayload>) {
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.get, endpoint);
-    const normalizedData = normalize(data.response, entriesSchema);
+    const normalizedData = normalize(data.response, entriesSchemaList);
 
     yield Saga.put(
       Redux.entitiesActions.setEntries(
-        normalizedData.entities.entry as Types.NormalizedEntries
+        normalizedData.entities.entries as Types.NormalizedEntries
       )
     );
   } catch (error: any) {
@@ -139,11 +139,11 @@ function* fetchOverviewEntries(
     );
     const { userId, ...fetchPayload } = action.payload;
     const { data } = yield Saga.call(axios.post, endpoint, fetchPayload);
-    const normalizedData = normalize(data.response, entriesSchema);
+    const normalizedData = normalize(data.response, entriesSchemaList);
 
     yield Saga.put(
       Redux.entitiesActions.setEntries(
-        normalizedData.entities.entry as Types.NormalizedEntries
+        normalizedData.entities.entries as Types.NormalizedEntries
       )
     );
   } catch (error: any) {
@@ -163,11 +163,11 @@ function* fetchLogbookEntries(
     );
     const { userId, ...fetchPayload } = action.payload;
     const { data } = yield Saga.call(axios.post, endpoint, fetchPayload);
-    const normalizedData = normalize(data.response, entriesSchema);
+    const normalizedData = normalize(data.response, entriesSchemaList);
 
     yield Saga.put(
       Redux.entitiesActions.setEntries(
-        normalizedData.entities.entry as Types.NormalizedEntries
+        normalizedData.entities.entries as Types.NormalizedEntries
       )
     );
   } catch (error: any) {
