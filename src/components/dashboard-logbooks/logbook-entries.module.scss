@@ -4,5 +4,17 @@
   align-items: flex-start;
   width: 100%;
   padding: var(--sixteenPixels);
-  padding-right: var(--fourHundredPixels);
+
+  &.logbookSelected {
+    padding-right: var(--fourHundredPixels);
+  }
+}
+
+.logbookEntries {
+  display: flex;
+  flex-direction: column;
+  gap: var(--eightPixels);
+  width: 100%;
+
+  border: var(--debug);
 }

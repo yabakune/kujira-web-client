@@ -18,18 +18,23 @@ export const LogbookEntries = () => {
       dispatch(
         Sagas.fetchLogbookEntriesRequest({
           logbookId: selectedLogbookId.value,
-					userId: Constants.userId
+          userId: Constants.userId,
         })
       );
     }
   }, [selectedLogbookId.value]);
 
   return (
-    <section className={Styles.container}>
+    <section
+      className={`
+        ${Styles.container}
+        ${selectedLogbookId.value && Styles.logbookSelected}
+      `}
+    >
       {!selectedLogbookId.value ? (
         <OverviewSelector />
       ) : (
-        <>Dashboard Logbooks</>
+        <section className={Styles.logbookEntries}>Logbook Entries</section>
       )}
     </section>
   );
