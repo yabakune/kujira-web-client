@@ -12,8 +12,13 @@ import Styles from "./overview-entries.module.scss";
 export const OverviewEntries = () => {
   const dispatch = useDispatch();
   const { selectedLogbookId } = signalsStore;
+
   const currentLogbook = useSelector((state: Redux.ReduxStore) => {
     return Selectors.selectLogbook(state, selectedLogbookId.value);
+  });
+
+  const currentOverview = useSelector((state: Redux.ReduxStore) => {
+    return Selectors.selectLogbookOverview(state, selectedLogbookId.value);
   });
 
   useEffect(() => {

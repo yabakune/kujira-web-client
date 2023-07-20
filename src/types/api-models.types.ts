@@ -14,8 +14,7 @@ export type UserModel = {
   createdAt: Date;
   updatedAt: Date;
   // Has Many
-  logbookIds: number[];
-  bugReportIds: number[];
+  bugReports: { id: number }[];
 };
 
 export type OverviewModel = {
@@ -27,7 +26,7 @@ export type OverviewModel = {
   // One To One
   logbookId: number;
   // Has Many
-  entryIds: number[];
+  entries: { id: number }[];
 };
 
 export type LogbookModel = {
@@ -40,7 +39,7 @@ export type LogbookModel = {
   // One to One
   overview: { id: number };
   // Has Many
-  entryIds: number[];
+  entries: { id: number }[];
 };
 
 export type EntryModel = {
@@ -54,7 +53,7 @@ export type EntryModel = {
   overviewId?: number | null;
   logbookId?: number | null;
   // Has Many
-  purchaseIds: { id: number }[];
+  purchases: { id: number }[];
 };
 
 export type PurchaseCategory =
