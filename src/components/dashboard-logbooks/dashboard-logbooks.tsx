@@ -1,3 +1,4 @@
+import { signalsStore } from "@/signals/signals";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -8,9 +9,10 @@ import { Overview } from "./overview";
 import { LogbookEntries } from "./logbook-entries";
 
 import Styles from "./dashboard-logbooks.module.scss";
- 
+
 export const DashboardLogbooks = () => {
   const dispatch = useDispatch();
+  const { selectedLogbookId } = signalsStore;
 
   useEffect(() => {
     if (Constants.userId) {
@@ -22,6 +24,12 @@ export const DashboardLogbooks = () => {
     <div className={Styles.container}>
       <Overview />
       <LogbookEntries />
+      <div
+        className={`
+        ${Styles.logbookSelectionSpacer}
+        ${!selectedLogbookId.value && Styles.hide}
+      `}
+      />
     </div>
   );
 };

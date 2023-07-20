@@ -2,3 +2,12 @@
   display: flex;
   height: 100%;
 }
+
+.logbookSelectionSpacer {
+  flex-shrink: 0;
+  width: var(--fourHundredPixels);
+
+  &.hide {
+    display: none;
+  }
+}

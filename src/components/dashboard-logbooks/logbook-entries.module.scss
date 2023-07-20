@@ -5,9 +5,7 @@
   width: 100%;
   padding: var(--sixteenPixels);
 
-  &.logbookSelected {
-    padding-right: var(--fourHundredPixels);
-  }
+  border: blue solid 1px;
 }
 
 .logbookEntries {

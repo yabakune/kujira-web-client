@@ -25,12 +25,7 @@ export const LogbookEntries = () => {
   }, [selectedLogbookId.value]);
 
   return (
-    <section
-      className={`
-        ${Styles.container}
-        ${selectedLogbookId.value && Styles.logbookSelected}
-      `}
-    >
+    <section className={Styles.container}>
       {!selectedLogbookId.value ? (
         <LogbookSelector />
       ) : (
