@@ -25,10 +25,10 @@ export const entriesReducer = {
   },
   deleteEntry: (
     state: EntitiesState,
-    action: PayloadAction<{ logbookId: number }>
+    action: PayloadAction<{ entryId: number }>
   ) => {
     if (state.entries) {
-      delete state.entries[action.payload.logbookId];
+      delete state.entries[action.payload.entryId];
     }
   },
 };
