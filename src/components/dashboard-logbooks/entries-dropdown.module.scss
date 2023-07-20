@@ -3,6 +3,7 @@
   flex-direction: column;
   border: var(--themeFour) solid 1px;
   border-radius: 12px;
+  overflow: hidden;
   transition: var(--transition);
 
   &.open {
@@ -12,12 +13,18 @@
 
 .header {
   background-color: var(--themeOne);
-  border-bottom: var(--themeFour) solid 1px;
+  border-bottom: transparent solid 1px;
+  cursor: pointer;
+  transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {
       background-color: var(--themeTwo);
     }
+  }
+
+  &.open {
+    border-bottom: var(--themeFour) solid 1px;
   }
 }
 

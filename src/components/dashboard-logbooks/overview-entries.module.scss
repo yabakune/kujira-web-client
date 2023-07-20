@@ -15,8 +15,9 @@
   justify-content: space-between;
   gap: var(--twelvePixels);
   padding: var(--eightPixels) var(--twelvePixels);
+  font-size: var(--sixteenPixels);
+}
 
-  &.totalCost {
-    font-weight: bold;
-  }
+.totalCost {
+  font-weight: var(--extraBold);
 }

@@ -2,15 +2,15 @@ import { Signal, useSignal } from "@preact/signals-react";
 
 import * as Components from "@/components";
 
-import Styles from "./purchase-dropdown.module.scss";
+import Styles from "./entries-dropdown.module.scss";
 
 type Props = {
-  total: Signal<number>;
+  // total: Signal<number>;
   children: React.ReactNode;
 };
 
-export const PurchaseDropdown = (props: Props) => {
-  const open = useSignal(false);
+export const EntriesDropdown = (props: Props) => {
+  const open = useSignal(true);
   const selectedPurchases = useSignal<{ [key: string]: number }>({});
 
   function toggleOpen(): void {
@@ -31,7 +31,10 @@ export const PurchaseDropdown = (props: Props) => {
 
   return (
     <section className={`${Styles.container} ${open.value && Styles.open}`}>
-      <header className={Styles.header} onClick={toggleOpen}>
+      <header
+        className={`${Styles.header} ${open.value && Styles.open}`}
+        onClick={toggleOpen}
+      >
         {props.children}
       </header>
 
