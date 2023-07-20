@@ -59,21 +59,35 @@ export const OverviewInfo = () => {
     }
   }, [selectedLogbookId.value]);
 
+  function calculateTotalSpent(income: number, savings: number): string {
+    const savedIncome = Helpers.truncateCost((income * savings) / 100);
+    return Helpers.truncateCostToString(savedIncome);
+  }
+
+  function calculateRemaining(income: number, savings: number): string {
+    const savedIncome = Helpers.truncateCost((income * savings) / 100);
+    return Helpers.truncateCostToString(income - savedIncome);
+  }
+
   useEffect(() => {
     if (currentOverview) {
       income.value = Helpers.truncateCostToString(currentOverview.income);
       savings.value = Helpers.truncateCostToString(currentOverview.savings);
 
-      totalSpent.value = Helpers.truncateCostToString(
-        currentOverview.income - currentOverview.savings
+      totalSpent.value = calculateTotalSpent(
+        currentOverview.income,
+        currentOverview.savings
       );
 
-      remaining.value = Helpers.truncateCostToString(
-        currentOverview.income - currentOverview.savings
+      remaining.value = calculateRemaining(
+        currentOverview.income,
+        currentOverview.savings
       );
     } else {
       income.value = "";
       savings.value = "";
+      totalSpent.value = "...";
+      savings.value = "...";
     }
   }, [currentOverview]);
 
