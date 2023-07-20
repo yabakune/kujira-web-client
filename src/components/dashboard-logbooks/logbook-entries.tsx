@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import * as Constants from "@/constants";
 import * as Sagas from "@/sagas";
 
-import { OverviewSelector } from "./overview-selector";
+import { LogbookSelector } from "./logbook-selector";
 
 import Styles from "./logbook-entries.module.scss";
 
@@ -32,7 +32,7 @@ export const LogbookEntries = () => {
       `}
     >
       {!selectedLogbookId.value ? (
-        <OverviewSelector />
+        <LogbookSelector />
       ) : (
         <section className={Styles.logbookEntries}>Logbook Entries</section>
       )}

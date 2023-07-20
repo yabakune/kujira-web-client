@@ -5,10 +5,10 @@ import * as Redux from "@/redux";
 import * as Types from "@/types";
 import { signalsStore } from "@/signals/signals";
 
-import Styles from "./overview-selector.module.scss";
+import Styles from "./logbook-selector.module.scss";
 import TextStyles from "@/styles/texts.module.scss";
 
-export const OverviewSelector = () => {
+export const LogbookSelector = () => {
   const { selectedLogbookId } = signalsStore;
   const { logbooks } = useSelector((state: Redux.ReduxStore) => state.entities);
 
