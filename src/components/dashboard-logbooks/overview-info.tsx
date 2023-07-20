@@ -62,7 +62,7 @@ export const OverviewInfo = () => {
 
         <OverviewCell
           key="overview-cell-savings"
-          label="Savings (%)"
+          label="Savings"
           value={savings}
         />
 

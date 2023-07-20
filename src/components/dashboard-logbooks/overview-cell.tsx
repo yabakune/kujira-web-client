@@ -48,7 +48,11 @@ export const OverviewCell = (props: Props) => {
         type="button"
         tabIndex={-1}
       >
-        {props.cost && <span className={Styles.costSymbol}>$</span>}
+        {props.cost ? (
+          <span className={Styles.costSymbol}>$</span>
+        ) : (
+          <span className={Styles.costSymbol}>%</span>
+        )}
         <input
           className={Styles.input}
           type="text"
