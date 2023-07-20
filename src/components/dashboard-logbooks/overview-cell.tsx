@@ -53,6 +53,7 @@ export const OverviewCell = (props: Props) => {
           className={Styles.input}
           type="text"
           onChange={setValue}
+          value={props.value.value}
           placeholder={props.label}
           ref={inputRef}
           onFocus={() => setFocused(true)}
