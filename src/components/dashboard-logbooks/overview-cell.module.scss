@@ -9,8 +9,7 @@
 
 .label {
   flex: 1;
-
-  border: var(--debug);
+  padding: var(--fourPixels) var(--eightPixels);
 }
 
 .inputContainer {
@@ -23,8 +22,6 @@
   border-radius: 6px;
   transition: var(--transition);
   cursor: pointer;
-
-  border: var(--debug);
 }
 
 .costSymbol {
@@ -33,6 +30,7 @@
 }
 
 .input {
+  width: 100%;
   background-color: transparent;
   border: none;
   outline: none;

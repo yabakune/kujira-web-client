@@ -1,4 +1,8 @@
 .container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   width: 100%;
   padding: var(--sixteenPixels);
+  padding-right: var(--fourHundredPixels);
 }
