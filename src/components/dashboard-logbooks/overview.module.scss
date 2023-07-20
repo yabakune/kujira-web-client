@@ -1,10 +1,12 @@
 .container {
   display: flex;
-  flex-shrink: 0;
   flex-direction: column;
+  flex-shrink: 0;
   width: var(--fourHundredPixels);
   background-color: var(--themeOne);
   border-right: var(--themeFour) solid 1px;
+  height: 100%;
+  overflow-y: auto;
 
   &.hide {
     display: none;
