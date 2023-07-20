@@ -8,8 +8,9 @@ import * as Sagas from "@/sagas";
 import * as Selectors from "@/selectors";
 import { signalsStore } from "@/signals/signals";
 
-import Styles from "./overview-info.module.scss";
 import { OverviewCell } from "./overview-cell";
+
+import Styles from "./overview-info.module.scss";
 
 export const OverviewInfo = () => {
   const dispatch = useDispatch();
