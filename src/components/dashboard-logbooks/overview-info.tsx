@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as Constants from "@/constants";
+import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
 import * as Selectors from "@/selectors";
@@ -36,8 +37,16 @@ export const OverviewInfo = () => {
 
   useEffect(() => {
     if (currentOverview) {
-      income.value = currentOverview.income.toString();
-      savings.value = currentOverview.savings.toString();
+      income.value = Helpers.truncateCost(currentOverview.income);
+      savings.value = Helpers.truncateCost(currentOverview.savings);
+
+      totalSpent.value = Helpers.truncateCost(
+        currentOverview.income - currentOverview.savings
+      );
+
+      remaining.value = Helpers.truncateCost(
+        currentOverview.income - currentOverview.savings
+      );
     } else {
       income.value = "";
       savings.value = "";
@@ -72,6 +81,7 @@ export const OverviewInfo = () => {
           label="Total Spent"
           value={totalSpent}
           cost
+          frozen
         />
 
         <OverviewCell
@@ -79,6 +89,7 @@ export const OverviewInfo = () => {
           label="Remaining"
           value={remaining}
           cost
+          frozen
         />
       </article>
     </section>

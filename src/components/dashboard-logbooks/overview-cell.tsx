@@ -5,11 +5,13 @@ import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
 import Styles from "./overview-cell.module.scss";
+import InterfaceStyles from "@/styles/interface.module.scss";
 
 type Props = {
   label: string;
   value: Signal<string>;
   cost?: true;
+  frozen?: true;
 };
 
 export const OverviewCell = (props: Props) => {
@@ -32,14 +34,22 @@ export const OverviewCell = (props: Props) => {
   }
 
   return (
-    <div className={Styles.container} onClick={focusInput}>
+    <div
+      className={`${Styles.container} ${
+        props.frozen && InterfaceStyles.noInteraction
+      }`}
+      onClick={focusInput}
+    >
       <span className={Styles.label}>{props.label}</span>
 
       <button
-        className={`${Styles.inputContainer} 
-				${Helpers.setBackgroundLevel(3)}
-				${Helpers.setClickLevel(3)}
-				${Helpers.setHoverLevel(3)}`}
+        className={`
+          ${Styles.inputContainer} 
+          ${Helpers.setBackgroundLevel(3)}
+          ${Helpers.setClickLevel(3)}
+          ${Helpers.setHoverLevel(3)}
+          ${props.frozen && Styles.frozen}
+        `}
         type="button"
         tabIndex={-1}
       >

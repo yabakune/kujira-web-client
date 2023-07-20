@@ -22,6 +22,10 @@
   border-radius: 6px;
   transition: var(--transition);
   cursor: pointer;
+
+  &.static {
+    background-color: transparent;
+  }
 }
 
 .costSymbol {

@@ -14,6 +14,6 @@ export const signalsStore: SignalsStore = {
   authVerificationCodeSent: signal(false),
   resetPassword: signal(false),
   selectedLogbookId: signal(null),
-  totalSpent: signal(""),
-  remaining: signal(""),
+  totalSpent: signal("..."),
+  remaining: signal("..."),
 };
