@@ -1,8 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Constants from "@/constants";
+import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
+import * as Selectors from "@/selectors";
 import { signalsStore } from "@/signals/signals";
 
 import Styles from "./overview-header.module.scss";
@@ -11,6 +13,10 @@ import TextStyles from "@/styles/texts.module.scss";
 export const OverviewHeader = () => {
   const dispatch = useDispatch();
   const { selectedLogbookId } = signalsStore;
+
+  const currentLogbook = useSelector((state: Redux.ReduxStore) => {
+    return Selectors.selectLogbook(state, selectedLogbookId.value);
+  });
 
   function openLogbookSelector(): void {
     selectedLogbookId.value = null;
@@ -38,7 +44,7 @@ export const OverviewHeader = () => {
       <header className={Styles.header}>
         <div className={Styles.text}>
           <h1 className={TextStyles.titleText}>Logbooks</h1>
-          <p className={Styles.caption}>Date</p>
+          <p className={Styles.caption}>{currentLogbook?.name}</p>
         </div>
 
         <Components.ButtonIcon onClick={openLogbookSelector}>
