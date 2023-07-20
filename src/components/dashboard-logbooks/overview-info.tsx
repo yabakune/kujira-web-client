@@ -128,8 +128,6 @@ export const OverviewInfo = () => {
           addClick
           primary
         />
-
-        <button type="submit" style={{ display: "none" }} />
       </form>
     </section>
   );
