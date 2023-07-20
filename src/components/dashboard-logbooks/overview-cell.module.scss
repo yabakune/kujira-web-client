@@ -35,4 +35,9 @@
   border: none;
   outline: none;
   cursor: pointer;
+
+  &::placeholder {
+    color: var(--themeTen);
+    font-style: italic;
+  }
 }

@@ -46,6 +46,7 @@ export const OverviewCell = (props: Props) => {
 				${Helpers.setClickLevel(3)}
 				${Helpers.setHoverLevel(3)}`}
         type="button"
+        tabIndex={-1}
       >
         {props.cost && <span className={Styles.costSymbol}>$</span>}
         <input
