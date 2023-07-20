@@ -29,6 +29,20 @@ export const OverviewInfo = () => {
   const incomeError = useSignal("");
   const savingsError = useSignal("");
 
+  function calculateSavedIncome(income: number, savings: number): number {
+    return Helpers.truncateCost((income * savings) / 100);
+  }
+
+  function calculateTotalSpent(income: number, savings: number): string {
+    const savedIncome = calculateSavedIncome(income, savings);
+    return Helpers.truncateCostToString(savedIncome);
+  }
+
+  function calculateRemaining(income: number, savings: number): string {
+    const savedIncome = calculateSavedIncome(income, savings);
+    return Helpers.truncateCostToString(income - savedIncome);
+  }
+
   function updateOverview(event: Types.OnSubmit) {
     event.preventDefault();
     if (
@@ -59,16 +73,6 @@ export const OverviewInfo = () => {
     }
   }, [selectedLogbookId.value]);
 
-  function calculateTotalSpent(income: number, savings: number): string {
-    const savedIncome = Helpers.truncateCost((income * savings) / 100);
-    return Helpers.truncateCostToString(savedIncome);
-  }
-
-  function calculateRemaining(income: number, savings: number): string {
-    const savedIncome = Helpers.truncateCost((income * savings) / 100);
-    return Helpers.truncateCostToString(income - savedIncome);
-  }
-
   useEffect(() => {
     if (currentOverview) {
       income.value = Helpers.truncateCostToString(currentOverview.income);
@@ -96,7 +100,15 @@ export const OverviewInfo = () => {
       <header className={Styles.header}>
         <h2 className={Styles.title}>My Overview</h2>
         <p className={Styles.saving}>
-          Saving <span className={Styles.calculation}>$400.00</span>
+          Saving{" "}
+          <span className={Styles.calculation}>
+            $
+            {currentOverview &&
+              calculateSavedIncome(
+                currentOverview.income,
+                currentOverview.savings
+              ).toFixed(2)}
+          </span>
         </p>
       </header>
 
