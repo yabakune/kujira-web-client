@@ -11,6 +11,8 @@ export const DashboardReviews = () => {
       >
         Reviews
       </Components.PageSidebar>
+
+      <section className={Styles.body}>Reviews</section>
     </div>
   );
 };

@@ -2,3 +2,12 @@
   display: flex;
   height: 100%;
 }
+
+.body {
+  display: flex;
+  flex: 1;
+  gap: var(--eightPixels);
+  padding: var(--sixteenPixels);
+
+  border: green solid 1px;
+}

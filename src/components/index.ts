@@ -39,6 +39,7 @@ export * from "./dashboard-reviews/dashboard-reviews";
 export * from "./dashboard-settings/dashboard-settings";
 
 export * from "./page-head";
+export * from "./spacer";
 export * from "./input";
 export * from "./notification";
 export * from "./navbar";

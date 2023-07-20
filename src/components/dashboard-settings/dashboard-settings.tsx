@@ -53,6 +53,8 @@ export const DashboardSettings = () => {
           <SettingsTheme />
         )}
       </section>
+
+      <Components.Spacer width={16.25} show={true} />
     </div>
   );
 };
