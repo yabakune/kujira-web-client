@@ -9,6 +9,7 @@ import { Overview } from "./overview";
 import { LogbookEntries } from "./logbook-entries";
 
 import Styles from "./dashboard-logbooks.module.scss";
+import { Spacer } from "../spacer";
 
 export const DashboardLogbooks = () => {
   const dispatch = useDispatch();
@@ -24,12 +25,8 @@ export const DashboardLogbooks = () => {
     <div className={Styles.container}>
       <Overview />
       <LogbookEntries />
-      <div
-        className={`
-        ${Styles.logbookSelectionSpacer}
-        ${!selectedLogbookId.value && Styles.hide}
-      `}
-      />
+
+      <Spacer width={25} show={!!selectedLogbookId.value} />
     </div>
   );
 };
