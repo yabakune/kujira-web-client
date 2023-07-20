@@ -2,6 +2,7 @@ import { signalsStore } from "@/signals/signals";
 
 import { OverviewHeader } from "./overview-header";
 import { OverviewInfo } from "./overview-info";
+import { OverviewEntries } from "./overview-entries";
 
 import Styles from "./overview.module.scss";
 
@@ -17,6 +18,7 @@ export const Overview = () => {
     >
       <OverviewHeader />
       <OverviewInfo />
+      <OverviewEntries />
     </aside>
   );
 };
