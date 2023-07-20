@@ -5,17 +5,36 @@
   padding: var(--sixPixels) var(--eightPixels);
   background-color: var(--themeTwo);
   border-radius: 12px;
+}
 
-  > * {
-    flex: 1;
-  }
+.label {
+  flex: 1;
 
-  &.totalSpent {
-    font-weight: bold;
-  }
+  border: var(--debug);
+}
 
-  &.remaining {
-    font-weight: bold;
-    color: var(--primaryMain);
-  }
+.inputContainer {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--fourPixels);
+  padding: var(--fourPixels) var(--eightPixels);
+  background-color: var(--themeThree);
+  border-radius: 6px;
+  transition: var(--transition);
+  cursor: pointer;
+
+  border: var(--debug);
+}
+
+.costSymbol {
+  color: var(--themeTen);
+  font-weight: bold;
+}
+
+.input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
