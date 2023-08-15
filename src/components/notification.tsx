@@ -53,8 +53,6 @@ export const Notification = () => {
                 <p className={TextStyles.captionEmphasis}>{caption}</p>
               )}
             </article>
-
-            <Components.Cross width={16} fill={8} hoverFill={11} addHover />
           </m.section>
         </LazyMotion>
       )}
