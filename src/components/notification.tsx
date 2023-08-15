@@ -6,7 +6,7 @@ import * as Components from "@/components";
 import * as Redux from "@/redux";
 
 import Styles from "./notification.module.scss";
-import TextStyles from "@/styles/texts.module.scss";
+import TextStyles from "@/styles/snippets.module.scss";
 
 export const Notification = () => {
   const dispatch = useDispatch();

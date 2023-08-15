@@ -1,3 +1,3 @@
 export * from "./store";
-export * from "./entities-slice";
-export * from "./ui-slice";
+export * from "./slices/entities-slice";
+export * from "./slices/ui-slice";

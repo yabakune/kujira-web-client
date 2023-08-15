@@ -1,5 +1,5 @@
 import Styles from "./sections.module.scss";
-import TextStyles from "@/styles/texts.module.scss";
+import TextStyles from "@/styles/snippets.module.scss";
 
 import { LegalSection } from "@/types";
 

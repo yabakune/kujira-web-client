@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { Provider as ReduxProvider } from "react-redux";
 
-import Layout from "@/components/layout";
+import { AppLayout } from "@/components/layouts/app-layout";
 import { reduxStore } from "@/redux";
 
 import "@/styles/globals.scss";
@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <ReduxProvider store={reduxStore}>
-      <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
+      <AppLayout>{getLayout(<Component {...pageProps} />)}</AppLayout>
     </ReduxProvider>
   );
 }

@@ -34,7 +34,7 @@ const ungatedRoutes: string[] = [
   Constants.ClientRoutes.LOGIN,
 ];
 
-const Layout = (props: Props) => {
+export const AppLayout = (props: Props) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { currentUser } = useSelector((state: ReduxStore) => state.entities);
@@ -90,5 +90,3 @@ const Layout = (props: Props) => {
     </div>
   );
 };
-
-export default Layout;

@@ -1,3 +1,25 @@
+.responsiveSidePadding {
+  padding-right: var(--twentyFourPixels);
+  padding-left: var(--twentyFourPixels);
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    padding-right: var(--twentyPixels);
+    padding-left: var(--twentyPixels);
+  }
+
+  /* Mobile */
+  @media (max-width: 500px) {
+    padding-right: var(--sixteenPixels);
+    padding-left: var(--sixteenPixels);
+  }
+}
+
+.noInteraction {
+  pointer-events: none;
+  user-select: none;
+}
+
 .titleText {
   font-size: var(--eighteenPixels);
   font-weight: var(--extraBold);
