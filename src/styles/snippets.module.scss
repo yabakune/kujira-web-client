@@ -31,13 +31,13 @@
 }
 
 .primaryLink {
-  color: var(--primaryMain);
+  color: var(--primary);
   font-weight: var(--bold);
   transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {
-      color: var(--primaryDarker);
+      color: var(--primaryHover);
     }
   }
 }

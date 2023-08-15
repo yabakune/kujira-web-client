@@ -53,9 +53,9 @@ export const Input = (props: Props) => {
       <div
         className={`
 					${Styles.inputContainer}
-					${Helpers.setBackgroundLevel(props.backgroundLevel || 1)}
-					${Helpers.setClickLevel(props.backgroundLevel || 1)}
-					${Helpers.setHoverLevel(props.backgroundLevel || 1)}
+					${Helpers.setBackgroundLevel(props.backgroundLevel)}
+					${Helpers.setClickLevel(props.backgroundLevel)}
+					${Helpers.setHoverLevel(props.backgroundLevel)}
 				`}
         onClick={focusInput}
       >

@@ -1,3 +1,5 @@
+import * as Types from "@/types";
+
 import ThemeStyles from "@/styles/themes.module.scss";
 
 export function setBorderRadius(borderRadius?: number): string {
@@ -5,7 +7,7 @@ export function setBorderRadius(borderRadius?: number): string {
 }
 
 export function setBackgroundLevel(
-  backgroundLevel: number,
+  backgroundLevel?: number,
   selected?: boolean
 ): string {
   switch (backgroundLevel) {
@@ -50,10 +52,8 @@ export function setBackgroundLevel(
   }
 }
 
-export function setClickLevel(backgroundLevel: number): string {
+export function setClickLevel(backgroundLevel?: number): string {
   switch (backgroundLevel) {
-    case 1:
-      return `${ThemeStyles.clickLevel} ${ThemeStyles.one}`;
     case 2:
       return `${ThemeStyles.clickLevel} ${ThemeStyles.two}`;
     case 3:
@@ -66,15 +66,15 @@ export function setClickLevel(backgroundLevel: number): string {
       return `${ThemeStyles.clickLevel} ${ThemeStyles.six}`;
     case 7:
       return `${ThemeStyles.clickLevel} ${ThemeStyles.seven}`;
-    default:
+    case 8:
       return `${ThemeStyles.clickLevel} ${ThemeStyles.eight}`;
+    default:
+      return `${ThemeStyles.clickLevel} ${ThemeStyles.one}`;
   }
 }
 
-export function setHoverLevel(backgroundLevel: number): string {
+export function setHoverLevel(backgroundLevel?: number): string {
   switch (backgroundLevel) {
-    case 1:
-      return `${ThemeStyles.hoverLevel} ${ThemeStyles.one}`;
     case 2:
       return `${ThemeStyles.hoverLevel} ${ThemeStyles.two}`;
     case 3:
@@ -85,8 +85,10 @@ export function setHoverLevel(backgroundLevel: number): string {
       return `${ThemeStyles.hoverLevel} ${ThemeStyles.five}`;
     case 6:
       return `${ThemeStyles.hoverLevel} ${ThemeStyles.six}`;
-    default:
+    case 7:
       return `${ThemeStyles.hoverLevel} ${ThemeStyles.seven}`;
+    default:
+      return `${ThemeStyles.hoverLevel} ${ThemeStyles.one}`;
   }
 }
 
@@ -119,4 +121,12 @@ export function setIconFill(fillColor?: number): string {
     default:
       return ThemeStyles.fillPrimary;
   }
+}
+
+export function setIconSize(size?: Types.ButtonSize): number {
+  if (size === "large") return 18;
+  else if (size === "medium") return 16;
+  else if (size === "small") return 12;
+  else if (size === "smaller") return 10;
+  else return 14;
 }

@@ -12,8 +12,8 @@
   --themeNine: #948ed4;
   --themeTen: #8381ca;
 
-  --primaryMain: #1e6dca;
-  --primaryDarker: #155aaa;
+  --primary: #1e6dca;
+  --primaryHover: #155aaa;
 
   --hpLow: #ff689e;
   --hpModerate: #f3b004;
@@ -49,8 +49,8 @@
     --themeNine: #8884a6;
     --themeTen: #a6a1ce;
 
-    --primaryMain: #5e94d4;
-    --primaryDarker: #4184d4;
+    --primary: #5e94d4;
+    --primaryHover: #4184d4;
 
     --hpLow: #db618d;
     --hpModerate: #d8b968;
@@ -85,8 +85,8 @@
     --themeNine: #948ed4;
     --themeTen: #8381ca;
 
-    --primaryMain: #1e6dca;
-    --primaryDarker: #155aaa;
+    --primary: #1e6dca;
+    --primaryHover: #155aaa;
 
     --hpLow: #ff689e;
     --hpModerate: #f3b004;
@@ -369,5 +369,5 @@
 }
 
 .fillPrimary {
-  fill: var(--primaryMain);
+  fill: var(--primary);
 }

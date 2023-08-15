@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  align-items: center;
+  color: var(--text);
+  border-radius: var(--fourPixels);
+  font-weight: var(--bold);
+
+  &.primary {
+    color: var(--textButton);
+    background-color: var(--primary);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--primaryHover);
+      }
+    }
+  }
+}
+
+.large {
+  gap: var(--eighteenPixels);
+  padding: var(--sixteenPixels) var(--eighteenPixels);
+  font-size: var(--eighteenPixels);
+}
+
+.medium {
+  gap: var(--sixteenPixels);
+  padding: var(--fourteenPixels) var(--sixteenPixels);
+  font-size: var(--sixteenPixels);
+}
+
+.default {
+  gap: var(--fourteenPixels);
+  padding: var(--twelvePixels) var(--fourteenPixels);
+  font-size: var(--fourteenPixels);
+}
+
+.small {
+  gap: var(--twelvePixels);
+  padding: var(--tenPixels) var(--twelvePixels);
+  font-size: var(--twelvePixels);
+}
+
+.smaller {
+  gap: var(--tenPixels);
+  padding: var(--eightPixels) var(--tenPixels);
+  font-size: var(--tenPixels);
+}
