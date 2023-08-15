@@ -21,7 +21,6 @@ export const EyeVisible = (props: Types.IconProps) => {
       onMouseEnter={() => props.hoverFill && (hovered.value = true)}
       onMouseLeave={() => props.hoverFill && (hovered.value = false)}
     >
-      <rect width="24" height="24" fill="white" fill-opacity="0.01" />
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"
