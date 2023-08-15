@@ -1,19 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: var(--fourPixels);
-}
-
-.error {
-  color: var(--failure);
-  font-size: var(--twelvePixels);
-  font-weight: var(--bold);
-}
-
-.inputContainer {
-  display: flex;
-  align-items: center;
-  gap: var(--sixteenPixels);
+  gap: var(--eightPixels);
   padding: var(--twelvePixels) var(--sixteenPixels);
   border: transparent solid 1px;
   border-radius: var(--fourPixels);
@@ -23,6 +11,27 @@
   &.error {
     border: var(--failure) solid 1px;
   }
+}
+
+.placeholderAndError {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--twelvePixels);
+  font-weight: var(--bold);
+}
+
+.placeholder {
+  color: var(--themeTen);
+}
+
+.error {
+  color: var(--failure);
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--sixteenPixels);
 }
 
 .input {

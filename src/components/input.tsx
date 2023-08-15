@@ -8,10 +8,8 @@ import * as Types from "@/types";
 import Styles from "./input.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
-type UserInputType = "text" | "email" | "password";
-
 type Props = {
-  type: UserInputType;
+  type: Types.UserInputType;
   placeholder: string;
   userInput: Signal<string>;
   errorMessage: string;
@@ -24,16 +22,16 @@ export const Input = (props: Props) => {
   const inputType = useSignal(props.type);
   const inputRef = useRef<any>(null);
 
-  function setUserInput(event: Types.OnChange): void {
-    const userInput = event.currentTarget.value;
-    props.userInput.value = userInput;
-  }
-
   function focusInput(): void {
     if (inputRef && inputRef.current) {
       inputRef.current.focus();
       inputRef.current.select();
     }
+  }
+
+  function setUserInput(event: Types.OnChange): void {
+    const userInput = event.currentTarget.value;
+    props.userInput.value = userInput;
   }
 
   function togglePasswordInput(event: Types.OnClick<HTMLButtonElement>): void {
@@ -53,6 +51,7 @@ export const Input = (props: Props) => {
       <div
         className={`
 					${Styles.inputContainer}
+          ${props.errorMessage && Styles.error}
 					${Helpers.setBackgroundLevel(props.backgroundLevel)}
 					${Helpers.setClickLevel(props.backgroundLevel)}
 					${Helpers.setHoverLevel(props.backgroundLevel)}
@@ -75,7 +74,11 @@ export const Input = (props: Props) => {
             onClick={togglePasswordInput}
             type="button"
           >
-            <Components.EyeHidden width={14} fill={10} hoverFill={11} />
+            {inputType.value === "password" ? (
+              <Components.EyeHidden width={16} fill={10} hoverFill={11} />
+            ) : (
+              <Components.EyeVisible width={16} fill={10} hoverFill={11} />
+            )}
           </button>
         )}
       </div>
