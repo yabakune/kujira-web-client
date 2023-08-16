@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100dvw;
+  height: 100dvh;
+}
+
+.form {
+  width: 100%;
+  max-width: var(--fourHundredPixels);
+}
