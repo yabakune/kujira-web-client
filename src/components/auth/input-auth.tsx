@@ -97,6 +97,7 @@ export const InputAuth = (props: Props) => {
             className={Snippets.iconButton}
             onClick={togglePasswordInput}
             type="button"
+            tabIndex={-1}
           >
             {inputType.value === "password" ? (
               <Components.EyeHidden width={16} fill={10} hoverFill={11} />
