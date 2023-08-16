@@ -11,7 +11,7 @@ function generateCaptions(pageType: Types.AuthPageType): JSX.Element {
       return (
         <p>
           Already have an account?{" "}
-          <Link className={Snippets.primaryLink} href="/login" target="_blank">
+          <Link className={Snippets.primaryLink} href="/login">
             Log In
           </Link>
         </p>
@@ -22,21 +22,13 @@ function generateCaptions(pageType: Types.AuthPageType): JSX.Element {
         <>
           <p>
             {"Don't have an account? "}
-            <Link
-              className={Snippets.primaryLink}
-              href="/register"
-              target="_blank"
-            >
+            <Link className={Snippets.primaryLink} href="/register">
               Register
             </Link>
           </p>
           <p>
             {"Forgot your password? "}
-            <Link
-              className={Snippets.primaryLink}
-              href="/password-reset"
-              target="_blank"
-            >
+            <Link className={Snippets.primaryLink} href="/password-reset">
               Reset Password
             </Link>
           </p>
@@ -48,21 +40,13 @@ function generateCaptions(pageType: Types.AuthPageType): JSX.Element {
         <>
           <p>
             {"Don't have an account? "}
-            <Link
-              className={Snippets.primaryLink}
-              href="/register"
-              target="_blank"
-            >
+            <Link className={Snippets.primaryLink} href="/register">
               Register
             </Link>
           </p>
           <p>
             {"Remembered your password? "}
-            <Link
-              className={Snippets.primaryLink}
-              href="/login"
-              target="_blank"
-            >
+            <Link className={Snippets.primaryLink} href="/login">
               Log In
             </Link>
           </p>

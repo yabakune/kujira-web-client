@@ -11,10 +11,10 @@ import Styles from "./inputs.module.scss";
 type Props = {
   pageType: Types.AuthPageType;
   email: Signal<string>;
-  username: Signal<string>;
+  username?: Signal<string>;
   password: Signal<string>;
-  confirmPassword: Signal<string>;
-  agreementChecked: Signal<boolean>;
+  confirmPassword?: Signal<string>;
+  agreementChecked?: Signal<boolean>;
   disabled: Signal<boolean>;
 };
 
@@ -37,17 +37,19 @@ export const AuthInputs = (props: Props) => {
       }
     }
 
-    if (props.username.value === "") {
-      usernameError.value = "";
-    } else {
-      if (props.username.value.length < 6) {
-        usernameError.value = "Username too short.";
-      } else if (props.username.value.length > 14) {
-        usernameError.value = "Username too long.";
-      } else if (!Helpers.checkValidUsername(props.username.value)) {
-        usernameError.value = "Invalid username.";
-      } else {
+    if (props.username) {
+      if (props.username.value === "") {
         usernameError.value = "";
+      } else {
+        if (props.username.value.length < 6) {
+          usernameError.value = "Username too short.";
+        } else if (props.username.value.length > 14) {
+          usernameError.value = "Username too long.";
+        } else if (!Helpers.checkValidUsername(props.username.value)) {
+          usernameError.value = "Invalid username.";
+        } else {
+          usernameError.value = "";
+        }
       }
     }
 
@@ -64,26 +66,28 @@ export const AuthInputs = (props: Props) => {
       }
     }
 
-    if (props.confirmPassword.value === "") {
-      confirmPasswordError.value = "";
-    } else {
-      if (props.confirmPassword.value !== props.password.value) {
-        confirmPasswordError.value = "Passwords don't match.";
-      } else {
+    if (props.confirmPassword) {
+      if (props.confirmPassword.value === "") {
         confirmPasswordError.value = "";
+      } else {
+        if (props.confirmPassword.value !== props.password.value) {
+          confirmPasswordError.value = "Passwords don't match.";
+        } else {
+          confirmPasswordError.value = "";
+        }
       }
     }
 
     props.disabled.value =
+      (props.agreementChecked && props.agreementChecked.value === false) ||
       props.email.value === "" ||
-      props.username.value === "" ||
+      (props.username && props.username.value === "") ||
       props.password.value === "" ||
-      props.confirmPassword.value === "" ||
+      (props.confirmPassword && props.confirmPassword.value === "") ||
       emailError.value != "" ||
       usernameError.value != "" ||
       passwordError.value != "" ||
-      confirmPasswordError.value != "" ||
-      props.agreementChecked.value === false;
+      confirmPasswordError.value != "";
   });
 
   return (
@@ -96,7 +100,7 @@ export const AuthInputs = (props: Props) => {
         errorMessage={emailError.value}
       />
 
-      {props.pageType === "Registration" && (
+      {props.pageType === "Registration" && props.username && (
         <AuthInput
           key="Auth Username Input"
           type="text"
@@ -123,16 +127,17 @@ export const AuthInputs = (props: Props) => {
         )}
 
       {(props.pageType === "Registration" ||
-        props.pageType === "Password Reset") && (
-        <AuthInput
-          key="Auth Confirm Password Input"
-          type="password"
-          placeholder="Confirm Password"
-          userInput={props.confirmPassword}
-          errorMessage={confirmPasswordError.value}
-          password
-        />
-      )}
+        props.pageType === "Password Reset") &&
+        props.confirmPassword && (
+          <AuthInput
+            key="Auth Confirm Password Input"
+            type="password"
+            placeholder="Confirm Password"
+            userInput={props.confirmPassword}
+            errorMessage={confirmPasswordError.value}
+            password
+          />
+        )}
     </section>
   );
 };
