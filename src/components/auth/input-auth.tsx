@@ -77,6 +77,7 @@ export const InputAuth = (props: Props) => {
             className={Snippets.iconButton}
             onClick={togglePasswordInput}
             type="button"
+            tabIndex={-1}
           >
             <Components.CheckRounded width={16} fill={11} />
           </button>
