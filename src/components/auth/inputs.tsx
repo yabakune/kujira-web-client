@@ -74,6 +74,10 @@ export const AuthInputs = (props: Props) => {
     }
 
     props.disabled.value =
+      props.email.value === "" ||
+      props.username.value === "" ||
+      props.password.value === "" ||
+      props.confirmPassword.value === "" ||
       emailError.value != "" ||
       usernameError.value != "" ||
       passwordError.value != "" ||
