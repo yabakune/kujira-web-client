@@ -1,5 +1,6 @@
 import { Signal, effect, useSignal } from "@preact/signals-react";
 
+import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
@@ -113,6 +114,13 @@ export const AuthInputs = (props: Props) => {
         errorMessage={passwordError.value}
         password
       />
+
+      {(props.pageType === "Registration" ||
+        props.pageType === "Password Reset") &&
+        props.password.value.length > 0 &&
+        passwordError.value === "" && (
+          <Components.PasswordStrength password={props.password} />
+        )}
 
       {(props.pageType === "Registration" ||
         props.pageType === "Password Reset") && (
