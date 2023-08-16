@@ -33,7 +33,7 @@ export const RequestReset = () => {
       />
 
       <Components.Button
-        text="Create Account"
+        text="Request Reset"
         rightIcon={<Components.ArrowRight width={14} fill={12} />}
         disabled={disabled.value}
         submit
