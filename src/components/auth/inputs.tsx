@@ -78,7 +78,7 @@ export const AuthInputs = (props: Props) => {
       usernameError.value != "" ||
       passwordError.value != "" ||
       confirmPasswordError.value != "" ||
-      !props.agreementChecked.value;
+      props.agreementChecked.value === false;
   });
 
   return (

@@ -55,11 +55,13 @@ export const Agreement = (props: Props) => {
 
   return (
     <button className={Styles.container} type="button" onClick={toggleChecked}>
-      {props.checked.value ? (
-        <Components.CheckboxFilled width={24} fill={13} />
-      ) : (
-        <Components.Checkbox width={24} fill={8} />
-      )}
+      <div className={Snippets.iconButton}>
+        {props.checked.value ? (
+          <Components.CheckboxFilled width={18} fill={13} />
+        ) : (
+          <Components.Checkbox width={18} fill={8} />
+        )}
+      </div>
 
       {props.pageType === "Registration" ? (
         <RegistrationAgreement />
