@@ -44,6 +44,7 @@ export const Button = (props: Props) => {
     <button
       className={`
 				${Styles.container}
+        ${props.disabled && `${Styles.disabled} ${Snippets.noInteraction}`}
 				${props.centered && Styles.centered}
 				${setButtonSize(props.size)}
 				${setButtonBackgroundStyles(props.primary, props.backgroundLevel)}

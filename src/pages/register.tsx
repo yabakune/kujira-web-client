@@ -10,8 +10,8 @@ const Register: NextPageWithLayout = () => {
   const username = useSignal("");
   const password = useSignal("");
   const confirmPassword = useSignal("");
-
   const agreementChecked = useSignal(false);
+  const disabled = useSignal(true);
 
   function register(event: Types.OnSubmit): void {
     event.preventDefault();
@@ -45,6 +45,7 @@ const Register: NextPageWithLayout = () => {
         <Components.Button
           text="Create Account"
           rightIcon={<Components.ArrowRight width={14} fill={12} />}
+          disabled={disabled.value}
           submit
           centered
           primary

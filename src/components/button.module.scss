@@ -51,3 +51,7 @@
   padding: var(--eightPixels) var(--tenPixels);
   font-size: var(--tenPixels);
 }
+
+.disabled {
+  opacity: 0.2;
+}
