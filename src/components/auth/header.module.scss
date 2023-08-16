@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--eightPixels);
+}
+
+.title {
+  color: var(--text);
+  font-size: var(--eighteenPixels);
+  font-weight: var(--bold);
+}
+
+.captions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fourPixels);
+  color: var(--text);
+  font-size: var(--fourteenPixels);
+  font-weight: var(--medium);
+
+  &.instruction {
+    color: var(--themeTen);
+  }
+}

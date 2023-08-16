@@ -57,7 +57,7 @@ export const Agreement = (props: Props) => {
         <Components.Checkbox width={24} fill={8} />
       )}
 
-      {props.pageType === "registration" ? (
+      {props.pageType === "Registration" ? (
         <RegistrationAgreement />
       ) : (
         <p>Stay logged in for 30 days.</p>

@@ -1,5 +1,7 @@
 export type AuthPageType =
-  | "registration"
-  | "login"
-  | "password reset"
-  | "verification";
+  | "Registration"
+  | "Login"
+  | "Password Reset"
+  | "Verify Registration"
+  | "Verify Login"
+  | "Verify Password Reset";
