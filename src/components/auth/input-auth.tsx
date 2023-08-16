@@ -1,5 +1,4 @@
 import { Signal, useSignal } from "@preact/signals-react";
-import { AnimatePresence, motion } from "framer-motion";
 import { useRef } from "react";
 
 import * as Components from "@/components";
@@ -8,11 +7,6 @@ import * as Types from "@/types";
 
 import Styles from "./input-auth.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
-
-const initial = { opacity: 0 };
-const animate = { opacity: 1 };
-const exit = { opacity: 0 };
-const transition = { duration: 0.2, delay: 0 };
 
 type Props = {
   type: Types.UserInputType;
@@ -61,54 +55,32 @@ export const InputAuth = (props: Props) => {
 			`}
       onClick={focusInput}
     >
-      <AnimatePresence>
-        {(props.userInput.value.length > 0 || props.errorMessage) && (
-          <section className={Styles.placeholderAndError}>
-            {props.userInput.value.length > 0 && (
-              <motion.p
-                key="Placeholder"
-                className={Styles.placeholder}
-                initial={initial}
-                animate={animate}
-                exit={exit}
-                transition={transition}
-              >
-                {props.placeholder}
-              </motion.p>
-            )}
-            {props.errorMessage && (
-              <motion.p
-                key="Error Message"
-                className={Styles.error}
-                initial={initial}
-                animate={animate}
-                exit={exit}
-                transition={transition}
-              >
-                {props.errorMessage}
-              </motion.p>
-            )}
-          </section>
-        )}
-      </AnimatePresence>
+      {(props.userInput.value.length > 0 || props.errorMessage) && (
+        <section className={Styles.placeholderAndError}>
+          {props.userInput.value.length > 0 && (
+            <p key="Placeholder" className={Styles.placeholder}>
+              {props.placeholder}
+            </p>
+          )}
+          {props.errorMessage && (
+            <p key="Error Message" className={Styles.error}>
+              {props.errorMessage}
+            </p>
+          )}
+        </section>
+      )}
 
       <section className={Styles.inputContainer}>
-        <AnimatePresence>
-          {userInputIsValid() && (
-            <motion.button
-              key="User Input Is Valid"
-              className={Snippets.iconButton}
-              onClick={togglePasswordInput}
-              type="button"
-              initial={initial}
-              animate={animate}
-              exit={exit}
-              transition={transition}
-            >
-              <Components.CheckRounded width={16} fill={11} />
-            </motion.button>
-          )}
-        </AnimatePresence>
+        {userInputIsValid() && (
+          <button
+            key="User Input Is Valid"
+            className={Snippets.iconButton}
+            onClick={togglePasswordInput}
+            type="button"
+          >
+            <Components.CheckRounded width={16} fill={11} />
+          </button>
+        )}
 
         <input
           className={Styles.input}

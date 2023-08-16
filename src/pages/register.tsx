@@ -15,7 +15,11 @@ const Register: NextPageWithLayout = () => {
 
   function register(event: Types.OnSubmit): void {
     event.preventDefault();
-    alert("Register");
+
+    console.log("Email:", email.value);
+    console.log("Username:", username.value);
+    console.log("Password:", password.value);
+    console.log("Confirm Password:", confirmPassword.value);
   }
 
   return (

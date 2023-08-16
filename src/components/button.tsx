@@ -33,6 +33,7 @@ type Props = {
   text: string;
   rightIcon?: JSX.Element;
   backgroundLevel?: number;
+  disabled?: boolean;
   centered?: true;
   primary?: true;
   submit?: true;

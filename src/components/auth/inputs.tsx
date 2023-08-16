@@ -1,4 +1,4 @@
-import { Signal, useSignal } from "@preact/signals-react";
+import { Signal, effect, useSignal } from "@preact/signals-react";
 
 import * as Types from "@/types";
 
@@ -19,6 +19,20 @@ export const AuthInputs = (props: Props) => {
   const usernameError = useSignal("");
   const passwordError = useSignal("");
   const confirmPasswordError = useSignal("");
+
+  effect(() => {
+    if (props.email.value === "") {
+      emailError.value = "";
+    } else {
+      if (!props.email.value.includes("@")) {
+        emailError.value = `Email must contain "@".`;
+      } else if (!props.email.value.includes(".com")) {
+        emailError.value = `Email must contain ".com".`;
+      } else {
+        emailError.value = "";
+      }
+    }
+  });
 
   return (
     <section className={Styles.container}>
