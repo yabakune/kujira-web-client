@@ -6,6 +6,11 @@ import * as Types from "@/types";
 import { NextPageWithLayout } from "./_app";
 
 const Register: NextPageWithLayout = () => {
+  const email = useSignal("");
+  const username = useSignal("");
+  const password = useSignal("");
+  const confirmPassword = useSignal("");
+
   const agreementChecked = useSignal(false);
 
   function register(event: Types.OnSubmit): void {
@@ -19,10 +24,20 @@ const Register: NextPageWithLayout = () => {
 
       <form onSubmit={register}>
         <Components.AuthHeader pageType="Registration" />
+
+        <Components.AuthInputs
+          pageType="Registration"
+          email={email}
+          username={username}
+          password={password}
+          confirmPassword={confirmPassword}
+        />
+
         <Components.Agreement
           checked={agreementChecked}
           pageType="Registration"
         />
+
         <Components.Button
           text="Create Account"
           rightIcon={<Components.ArrowRight width={14} fill={12} />}
