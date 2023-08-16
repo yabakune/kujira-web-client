@@ -5,7 +5,7 @@ import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
-import Styles from "./input-auth.module.scss";
+import Styles from "./auth-input.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
   password?: true;
 };
 
-export const InputAuth = (props: Props) => {
+export const AuthInput = (props: Props) => {
   const inputType = useSignal(props.type);
   const inputRef = useRef<any>(null);
 

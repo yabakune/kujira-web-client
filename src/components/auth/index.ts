@@ -1,4 +1,4 @@
 export * from "./agreement";
+export * from "./auth-input";
 export * from "./header";
-export * from "./input-auth";
 export * from "./inputs";

@@ -3,7 +3,7 @@ import { Signal, effect, useSignal } from "@preact/signals-react";
 import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
-import { InputAuth } from "./input-auth";
+import { AuthInput } from "./auth-input";
 
 import Styles from "./inputs.module.scss";
 
@@ -83,7 +83,7 @@ export const AuthInputs = (props: Props) => {
 
   return (
     <section className={Styles.container}>
-      <InputAuth
+      <AuthInput
         key="Auth Email Input"
         type="email"
         placeholder="Email"
@@ -92,7 +92,7 @@ export const AuthInputs = (props: Props) => {
       />
 
       {props.pageType === "Registration" && (
-        <InputAuth
+        <AuthInput
           key="Auth Username Input"
           type="text"
           placeholder="Username"
@@ -101,7 +101,7 @@ export const AuthInputs = (props: Props) => {
         />
       )}
 
-      <InputAuth
+      <AuthInput
         key="Auth Password Input"
         type="password"
         placeholder="Password"
@@ -112,7 +112,7 @@ export const AuthInputs = (props: Props) => {
 
       {(props.pageType === "Registration" ||
         props.pageType === "Password Reset") && (
-        <InputAuth
+        <AuthInput
           key="Auth Confirm Password Input"
           type="password"
           placeholder="Confirm Password"
