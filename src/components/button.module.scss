@@ -1,9 +1,14 @@
 .container {
   display: flex;
   align-items: center;
+  width: 100%;
   color: var(--text);
   border-radius: var(--fourPixels);
   font-weight: var(--bold);
+
+  &.centered {
+    justify-content: center;
+  }
 
   &.primary {
     color: var(--textButton);

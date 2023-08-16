@@ -17,8 +17,8 @@
   color: var(--text);
   font-size: var(--fourteenPixels);
   font-weight: var(--medium);
+}
 
-  &.instruction {
-    color: var(--themeTen);
-  }
+.instruction {
+  color: var(--themeTen);
 }

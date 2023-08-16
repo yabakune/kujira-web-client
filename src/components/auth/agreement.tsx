@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Signal } from "@preact/signals-react";
 
 import * as Components from "@/components";
+import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
 import Styles from "./agreement.module.scss";
@@ -9,12 +10,13 @@ import Snippets from "@/styles/snippets.module.scss";
 
 const RegistrationAgreement = () => {
   return (
-    <p>
+    <p className={Styles.registrationAgreement}>
       I have read and understood the{" "}
       <Link
         className={Snippets.primaryLink}
         href="/terms-of-service"
         target="_blank"
+        onClick={Helpers.preventBubbling}
       >
         Terms and Conditions
       </Link>
@@ -23,6 +25,7 @@ const RegistrationAgreement = () => {
         className={Snippets.primaryLink}
         href="/privacy-policy"
         target="_blank"
+        onClick={Helpers.preventBubbling}
       >
         Privacy Policy
       </Link>
@@ -31,6 +34,7 @@ const RegistrationAgreement = () => {
         className={Snippets.primaryLink}
         href="/cookie-policy"
         target="_blank"
+        onClick={Helpers.preventBubbling}
       >
         Cookie Policy
       </Link>
@@ -50,7 +54,7 @@ export const Agreement = (props: Props) => {
   }
 
   return (
-    <button className={Styles.container} onClick={toggleChecked}>
+    <button className={Styles.container} type="button" onClick={toggleChecked}>
       {props.checked.value ? (
         <Components.CheckboxFilled width={24} fill={13} />
       ) : (

@@ -32,9 +32,10 @@ type Props = {
   leftIcon?: JSX.Element;
   text: string;
   rightIcon?: JSX.Element;
-  submit?: true;
-  primary?: true;
   backgroundLevel?: number;
+  centered?: true;
+  primary?: true;
+  submit?: true;
 };
 
 export const Button = (props: Props) => {
@@ -42,6 +43,7 @@ export const Button = (props: Props) => {
     <button
       className={`
 				${Styles.container}
+				${props.centered && Styles.centered}
 				${setButtonSize(props.size)}
 				${setButtonBackgroundStyles(props.primary, props.backgroundLevel)}
 			`}
