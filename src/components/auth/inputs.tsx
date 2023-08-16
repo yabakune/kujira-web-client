@@ -13,6 +13,8 @@ type Props = {
   username: Signal<string>;
   password: Signal<string>;
   confirmPassword: Signal<string>;
+  agreementChecked: Signal<boolean>;
+  disabled: Signal<boolean>;
 };
 
 export const AuthInputs = (props: Props) => {
@@ -70,6 +72,13 @@ export const AuthInputs = (props: Props) => {
         confirmPasswordError.value = "";
       }
     }
+
+    props.disabled.value =
+      emailError.value != "" ||
+      usernameError.value != "" ||
+      passwordError.value != "" ||
+      confirmPasswordError.value != "" ||
+      !props.agreementChecked.value;
   });
 
   return (

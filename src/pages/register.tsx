@@ -16,10 +16,12 @@ const Register: NextPageWithLayout = () => {
   function register(event: Types.OnSubmit): void {
     event.preventDefault();
 
-    console.log("Email:", email.value);
-    console.log("Username:", username.value);
-    console.log("Password:", password.value);
-    console.log("Confirm Password:", confirmPassword.value);
+    if (!disabled.value) {
+      console.log("Email:", email.value);
+      console.log("Username:", username.value);
+      console.log("Password:", password.value);
+      console.log("Confirm Password:", confirmPassword.value);
+    }
   }
 
   return (
@@ -35,6 +37,8 @@ const Register: NextPageWithLayout = () => {
           username={username}
           password={password}
           confirmPassword={confirmPassword}
+          agreementChecked={agreementChecked}
+          disabled={disabled}
         />
 
         <Components.Agreement
