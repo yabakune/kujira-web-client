@@ -91,13 +91,15 @@ export const AuthInputs = (props: Props) => {
         errorMessage={emailError.value}
       />
 
-      <InputAuth
-        key="Auth Username Input"
-        type="text"
-        placeholder="Username"
-        userInput={props.username}
-        errorMessage={usernameError.value}
-      />
+      {props.pageType === "Registration" && (
+        <InputAuth
+          key="Auth Username Input"
+          type="text"
+          placeholder="Username"
+          userInput={props.username}
+          errorMessage={usernameError.value}
+        />
+      )}
 
       <InputAuth
         key="Auth Password Input"
@@ -108,14 +110,17 @@ export const AuthInputs = (props: Props) => {
         password
       />
 
-      <InputAuth
-        key="Auth Confirm Password Input"
-        type="password"
-        placeholder="Confirm Password"
-        userInput={props.confirmPassword}
-        errorMessage={confirmPasswordError.value}
-        password
-      />
+      {(props.pageType === "Registration" ||
+        props.pageType === "Password Reset") && (
+        <InputAuth
+          key="Auth Confirm Password Input"
+          type="password"
+          placeholder="Confirm Password"
+          userInput={props.confirmPassword}
+          errorMessage={confirmPasswordError.value}
+          password
+        />
+      )}
     </section>
   );
 };
