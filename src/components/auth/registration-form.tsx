@@ -1,4 +1,4 @@
-import { Signal, useSignal } from "@preact/signals-react";
+import { useSignal } from "@preact/signals-react";
 
 import * as Components from "@/components";
 import * as Sagas from "@/sagas";
@@ -9,11 +9,7 @@ import { Agreement } from "./agreement";
 import { AuthHeader } from "./header";
 import { AuthInputs } from "./inputs";
 
-type Props = {
-  disabled: Signal<boolean>;
-};
-
-export const RegistrationForm = (props: Props) => {
+export const RegistrationForm = () => {
   const { authStep } = signalsStore;
 
   const email = useSignal("");
@@ -21,11 +17,12 @@ export const RegistrationForm = (props: Props) => {
   const password = useSignal("");
   const confirmPassword = useSignal("");
   const agreementChecked = useSignal(false);
+  const disabled = useSignal(true);
 
   function register(event: Types.OnSubmit): void {
     event.preventDefault();
 
-    if (!props.disabled.value) {
+    if (!disabled.value) {
       authStep.value = "Verification";
 
       // dispatch(
@@ -54,7 +51,7 @@ export const RegistrationForm = (props: Props) => {
         password={password}
         confirmPassword={confirmPassword}
         agreementChecked={agreementChecked}
-        disabled={props.disabled}
+        disabled={disabled}
       />
 
       <Agreement checked={agreementChecked} pageType="Registration" />
@@ -62,7 +59,7 @@ export const RegistrationForm = (props: Props) => {
       <Components.Button
         text="Create Account"
         rightIcon={<Components.ArrowRight width={14} fill={12} />}
-        disabled={props.disabled.value}
+        disabled={disabled.value}
         submit
         centered
         primary
