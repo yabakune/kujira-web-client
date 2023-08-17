@@ -1,11 +1,15 @@
 import { useSignal } from "@preact/signals-react";
 import { ReactElement } from "react";
+import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
+import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 import { NextPageWithLayout } from "./_app";
 
 const Register: NextPageWithLayout = () => {
+  const dispatch = useDispatch();
+
   const email = useSignal("");
   const username = useSignal("");
   const password = useSignal("");
@@ -17,6 +21,14 @@ const Register: NextPageWithLayout = () => {
     event.preventDefault();
 
     if (!disabled.value) {
+      // dispatch(
+      //   Sagas.registerRequest({
+      //     email: email.value,
+      //     username: username.value,
+      //     password: password.value,
+      //   })
+      // );
+
       console.log("Email:", email.value);
       console.log("Username:", username.value);
       console.log("Password:", password.value);
