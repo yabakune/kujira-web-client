@@ -45,7 +45,7 @@ const RegistrationAgreement = () => {
 
 type Props = {
   checked: Signal<boolean>;
-  pageType: Types.AuthPageType;
+  pageType: Types.AuthPageStep;
 };
 
 export const Agreement = (props: Props) => {

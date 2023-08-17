@@ -5,7 +5,7 @@ import * as Types from "@/types";
 import Styles from "./header.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
-function generateCaptions(pageType: Types.AuthPageType): JSX.Element {
+function generateCaptions(pageType: Types.AuthPageStep): JSX.Element {
   switch (pageType) {
     case "Registration":
       return (
@@ -59,7 +59,7 @@ function generateCaptions(pageType: Types.AuthPageType): JSX.Element {
 }
 
 type Props = {
-  pageType: Types.AuthPageType;
+  pageType: Types.AuthPageStep;
   title: string;
 };
 

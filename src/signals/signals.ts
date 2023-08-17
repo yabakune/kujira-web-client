@@ -6,7 +6,7 @@ import * as Types from "@/types";
 
 type SignalsStore = {
   authVerificationCodeSent: Signal<boolean>;
-  authStep: Signal<Types.AuthPageType>;
+  authStep: Signal<Types.AuthPageStep>;
   passwordResetStep: Signal<
     "Request Reset" | "Verify Email" | "Reset Password"
   >;

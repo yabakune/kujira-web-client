@@ -1,4 +1,4 @@
-export type AuthPageType =
+export type AuthPageStep =
   | "Registration"
   | "Login"
   | "Password Reset Request"

@@ -9,7 +9,7 @@ import { PasswordStrength } from "./password-strength";
 import Styles from "./inputs.module.scss";
 
 type Props = {
-  pageType: Types.AuthPageType;
+  pageType: Types.AuthPageStep;
   email: Signal<string>;
   username?: Signal<string>;
   password: Signal<string>;
