@@ -114,7 +114,6 @@ function* register(action: Types.SagaPayload<Types.RegistrationPayload>) {
     const endpoint = Constants.APIRoutes.AUTH + "/register";
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
 
-    signalsStore.authVerificationCodeSent.value = true;
     signalsStore.authStep.value = "Verify Registration";
 
     yield Saga.put(
@@ -142,7 +141,7 @@ function* verifyRegistration(
     );
 
     Cookies.set("userId", data.response.safeUser.id);
-    signalsStore.authVerificationCodeSent.value = false;
+
     signalsStore.authStep.value = "";
 
     yield Saga.put(
@@ -163,7 +162,6 @@ function* login(action: Types.SagaPayload<Types.LoginPayload>) {
     const endpoint = Constants.APIRoutes.AUTH + `/login`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
 
-    signalsStore.authVerificationCodeSent.value = true;
     signalsStore.authStep.value = "Verify Login";
 
     yield Saga.put(
@@ -191,7 +189,7 @@ function* verifyLogin(
     );
 
     Cookies.set("userId", data.response.safeUser.id);
-    signalsStore.authVerificationCodeSent.value = false;
+
     signalsStore.authStep.value = "";
 
     yield Saga.put(
@@ -231,7 +229,6 @@ function* requestPasswordReset(
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/request-password-reset`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
-    signalsStore.authVerificationCodeSent.value = true;
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -270,7 +267,7 @@ function* resetPassword(action: Types.SagaPayload<Types.ResetPasswordPayload>) {
   try {
     const endpoint = Constants.APIRoutes.AUTH + `/reset-password`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
-    signalsStore.authVerificationCodeSent.value = false;
+
     signalsStore.resetPassword.value = false;
 
     yield Saga.put(
