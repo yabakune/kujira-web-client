@@ -17,8 +17,10 @@ const Login: NextPageWithLayout = () => {
 
       {authStep.value === "Login" ? (
         <Components.LoginForm />
+      ) : authStep.value === "Verify Login" ? (
+        <Components.VerificationForm pageType="Verify Login" />
       ) : (
-        <Components.VerificationForm title="Verify Login" pageType="Login" />
+        <></>
       )}
     </>
   );

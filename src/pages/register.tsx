@@ -17,11 +17,10 @@ const Register: NextPageWithLayout = () => {
 
       {authStep.value === "Registration" ? (
         <Components.RegistrationForm />
+      ) : authStep.value === "Verify Registration" ? (
+        <Components.VerificationForm pageType="Verify Registration" />
       ) : (
-        <Components.VerificationForm
-          title="Verify Registration"
-          pageType="Registration"
-        />
+        <></>
       )}
     </>
   );

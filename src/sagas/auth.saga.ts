@@ -115,6 +115,7 @@ function* register(action: Types.SagaPayload<Types.RegistrationPayload>) {
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
 
     signalsStore.authVerificationCodeSent.value = true;
+    signalsStore.authStep.value = "Verify Registration";
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -142,6 +143,7 @@ function* verifyRegistration(
 
     Cookies.set("userId", data.response.safeUser.id);
     signalsStore.authVerificationCodeSent.value = false;
+    signalsStore.authStep.value = "";
 
     yield Saga.put(
       Redux.uiActions.setNotification({

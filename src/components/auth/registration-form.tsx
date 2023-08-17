@@ -1,16 +1,16 @@
 import { useSignal } from "@preact/signals-react";
+import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
-import { signalsStore } from "@/signals/signals";
 
 import { Agreement } from "./agreement";
 import { AuthHeader } from "./header";
 import { AuthInputs } from "./inputs";
 
 export const RegistrationForm = () => {
-  const { authStep } = signalsStore;
+  const dispatch = useDispatch();
 
   const email = useSignal("");
   const username = useSignal("");
@@ -21,28 +21,20 @@ export const RegistrationForm = () => {
 
   function register(event: Types.OnSubmit): void {
     event.preventDefault();
-
     if (!disabled.value) {
-      authStep.value = "Verification";
-
-      // dispatch(
-      //   Sagas.registerRequest({
-      //     email: email.value,
-      //     username: username.value,
-      //     password: password.value,
-      //   })
-      // );
-
-      console.log("Email:", email.value);
-      console.log("Username:", username.value);
-      console.log("Password:", password.value);
-      console.log("Confirm Password:", confirmPassword.value);
+      dispatch(
+        Sagas.registerRequest({
+          email: email.value,
+          username: username.value,
+          password: password.value,
+        })
+      );
     }
   }
 
   return (
     <form onSubmit={register}>
-      <AuthHeader pageType="Registration" title="Registration" />
+      <AuthHeader pageType="Registration" />
 
       <AuthInputs
         pageType="Registration"

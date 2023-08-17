@@ -35,7 +35,7 @@ function generateCaptions(pageType: Types.AuthPageStep): JSX.Element {
         </>
       );
 
-    case "Password Reset":
+    case "Password Reset Request" || "Password Reset Action":
       return (
         <>
           <p>
@@ -60,17 +60,16 @@ function generateCaptions(pageType: Types.AuthPageStep): JSX.Element {
 
 type Props = {
   pageType: Types.AuthPageStep;
-  title: string;
 };
 
 export const AuthHeader = (props: Props) => {
   return (
     <header className={Styles.container}>
-      <h1 className={Styles.title}>{props.title}</h1>
+      <h1 className={Styles.title}>{props.pageType}</h1>
 
       <section className={Styles.captions}>
         <p className={Styles.instruction}>
-          {props.pageType === "Verification"
+          {props.pageType.includes("Verify")
             ? "Please enter the verification code sent to your email below."
             : "Please fill in all fields below."}
         </p>

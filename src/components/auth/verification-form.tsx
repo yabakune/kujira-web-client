@@ -2,20 +2,16 @@ import { effect, useSignal } from "@preact/signals-react";
 
 import * as Components from "@/components";
 import * as Types from "@/types";
-import { signalsStore } from "@/signals/signals";
 
 import { AuthInput } from "./auth-input";
 import { AuthHeader } from "./header";
 
 type Props = {
-  title: string;
   pageType: Types.AuthPageStep;
   withArrow?: true;
 };
 
 export const VerificationForm = (props: Props) => {
-  const { authStep } = signalsStore;
-
   const verificationCode = useSignal("");
   const verificationCodeError = useSignal("");
   const disabled = useSignal(true);
@@ -23,11 +19,9 @@ export const VerificationForm = (props: Props) => {
   function verify(event: Types.OnSubmit): void {
     event.preventDefault();
     if (!disabled.value) {
-      authStep.value = "";
-
-      if (props.pageType === "Registration") {
+      if (props.pageType === "Verify Registration") {
         console.log("Verify Registration");
-      } else if (props.pageType === "Login") {
+      } else if (props.pageType === "Verify Login") {
         console.log("Verify Login");
       }
     }
@@ -62,7 +56,7 @@ export const VerificationForm = (props: Props) => {
 
   return (
     <form onSubmit={verify}>
-      <AuthHeader pageType="Verification" title={props.title} />
+      <AuthHeader pageType={props.pageType} />
 
       <AuthInput
         type="text"
