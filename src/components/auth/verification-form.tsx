@@ -24,7 +24,12 @@ export const VerificationForm = (props: Props) => {
     event.preventDefault();
     if (!disabled.value) {
       authStep.value = "";
-      console.log("Verify");
+
+      if (props.pageType === "Registration") {
+        console.log("Verify Registration");
+      } else if (props.pageType === "Login") {
+        console.log("Verify Login");
+      }
     }
   }
 
