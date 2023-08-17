@@ -1,3 +1,4 @@
+import { useSignal } from "@preact/signals-react";
 import { ReactElement, useEffect } from "react";
 
 import * as Components from "@/components";
@@ -6,6 +7,8 @@ import { NextPageWithLayout } from "./_app";
 
 const Register: NextPageWithLayout = () => {
   const { authStep } = signalsStore;
+
+  const email = useSignal("");
 
   useEffect(() => {
     authStep.value = "Registration";
@@ -16,9 +19,12 @@ const Register: NextPageWithLayout = () => {
       <Components.PageHead title="Register" />
 
       {authStep.value === "Registration" ? (
-        <Components.RegistrationForm />
+        <Components.RegistrationForm email={email} />
       ) : authStep.value === "Verify Registration" ? (
-        <Components.VerificationForm pageType="Verify Registration" />
+        <Components.VerificationForm
+          pageType="Verify Registration"
+          email={email}
+        />
       ) : (
         <></>
       )}

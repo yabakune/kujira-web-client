@@ -1,4 +1,4 @@
-import { useSignal } from "@preact/signals-react";
+import { Signal, useSignal } from "@preact/signals-react";
 import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
@@ -9,10 +9,13 @@ import { Agreement } from "./agreement";
 import { AuthHeader } from "./header";
 import { AuthInputs } from "./inputs";
 
-export const RegistrationForm = () => {
+type Props = {
+  email: Signal<string>;
+};
+
+export const RegistrationForm = (props: Props) => {
   const dispatch = useDispatch();
 
-  const email = useSignal("");
   const username = useSignal("");
   const password = useSignal("");
   const confirmPassword = useSignal("");
@@ -24,7 +27,7 @@ export const RegistrationForm = () => {
     if (!disabled.value) {
       dispatch(
         Sagas.registerRequest({
-          email: email.value,
+          email: props.email.value,
           username: username.value,
           password: password.value,
         })
@@ -38,7 +41,7 @@ export const RegistrationForm = () => {
 
       <AuthInputs
         pageType="Registration"
-        email={email}
+        email={props.email}
         username={username}
         password={password}
         confirmPassword={confirmPassword}

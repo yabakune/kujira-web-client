@@ -164,6 +164,7 @@ function* login(action: Types.SagaPayload<Types.LoginPayload>) {
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
 
     signalsStore.authVerificationCodeSent.value = true;
+    signalsStore.authStep.value = "Verify Login";
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -191,6 +192,7 @@ function* verifyLogin(
 
     Cookies.set("userId", data.response.safeUser.id);
     signalsStore.authVerificationCodeSent.value = false;
+    signalsStore.authStep.value = "";
 
     yield Saga.put(
       Redux.uiActions.setNotification({

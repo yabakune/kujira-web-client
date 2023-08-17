@@ -1,3 +1,4 @@
+import { useSignal } from "@preact/signals-react";
 import { ReactElement, useEffect } from "react";
 
 import * as Components from "@/components";
@@ -6,6 +7,8 @@ import { NextPageWithLayout } from "./_app";
 
 const Login: NextPageWithLayout = () => {
   const { authStep } = signalsStore;
+
+  const email = useSignal("");
 
   useEffect(() => {
     authStep.value = "Login";
@@ -16,9 +19,9 @@ const Login: NextPageWithLayout = () => {
       <Components.PageHead title="Login" />
 
       {authStep.value === "Login" ? (
-        <Components.LoginForm />
+        <Components.LoginForm email={email} />
       ) : authStep.value === "Verify Login" ? (
-        <Components.VerificationForm pageType="Verify Login" />
+        <Components.VerificationForm pageType="Verify Login" email={email} />
       ) : (
         <></>
       )}

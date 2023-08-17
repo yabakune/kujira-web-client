@@ -1,6 +1,8 @@
-import { effect, useSignal } from "@preact/signals-react";
+import { Signal, effect, useSignal } from "@preact/signals-react";
+import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
+import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
 import { AuthInput } from "./auth-input";
@@ -8,10 +10,13 @@ import { AuthHeader } from "./header";
 
 type Props = {
   pageType: Types.AuthPageStep;
+  email: Signal<string>;
   withArrow?: true;
 };
 
 export const VerificationForm = (props: Props) => {
+  const dispatch = useDispatch();
+
   const verificationCode = useSignal("");
   const verificationCodeError = useSignal("");
   const disabled = useSignal(true);
@@ -20,6 +25,12 @@ export const VerificationForm = (props: Props) => {
     event.preventDefault();
     if (!disabled.value) {
       if (props.pageType === "Verify Registration") {
+        dispatch(
+          Sagas.verifyRegistrationRequest({
+            email: props.email.value,
+            verificationCode: verificationCode.value,
+          })
+        );
         console.log("Verify Registration");
       } else if (props.pageType === "Verify Login") {
         console.log("Verify Login");

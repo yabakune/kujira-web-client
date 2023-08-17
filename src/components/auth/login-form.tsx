@@ -1,16 +1,16 @@
-import { useSignal } from "@preact/signals-react";
+import { Signal, useSignal } from "@preact/signals-react";
 
 import * as Components from "@/components";
 import * as Types from "@/types";
-import { signalsStore } from "@/signals/signals";
 
 import { AuthHeader } from "./header";
 import { AuthInputs } from "./inputs";
 
-export const LoginForm = () => {
-  const { authStep } = signalsStore;
+type Props = {
+  email: Signal<string>;
+};
 
-  const email = useSignal("");
+export const LoginForm = (props: Props) => {
   const password = useSignal("");
   const disabled = useSignal(true);
 
@@ -18,20 +18,18 @@ export const LoginForm = () => {
     event.preventDefault();
 
     if (!disabled.value) {
-      authStep.value = "Verification";
-
-      console.log("Email:", email.value);
+      console.log("Email:", props.email.value);
       console.log("Password:", password.value);
     }
   }
 
   return (
     <form onSubmit={login}>
-      <AuthHeader pageType="Login" title="Login" />
+      <AuthHeader pageType="Login" />
 
       <AuthInputs
         pageType="Login"
-        email={email}
+        email={props.email}
         password={password}
         disabled={disabled}
       />
