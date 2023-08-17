@@ -9,6 +9,7 @@ import { AuthHeader } from "./header";
 
 type Props = {
   title: string;
+  pageType: Types.AuthPageStep;
   withArrow?: true;
 };
 
