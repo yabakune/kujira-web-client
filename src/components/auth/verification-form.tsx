@@ -7,6 +7,7 @@ import * as Types from "@/types";
 
 import { AuthInput } from "./auth-input";
 import { AuthHeader } from "./header";
+import { Agreement } from "./agreement";
 
 type Props = {
   pageType: Types.AuthPageStep;
@@ -19,6 +20,7 @@ export const VerificationForm = (props: Props) => {
 
   const verificationCode = useSignal("");
   const verificationCodeError = useSignal("");
+  const extendedLoginCheck = useSignal(false);
   const disabled = useSignal(true);
 
   function verify(event: Types.OnSubmit): void {
@@ -31,9 +33,14 @@ export const VerificationForm = (props: Props) => {
             verificationCode: verificationCode.value,
           })
         );
-        console.log("Verify Registration");
       } else if (props.pageType === "Verify Login") {
-        console.log("Verify Login");
+        dispatch(
+          Sagas.verifyLoginRequest({
+            email: props.email.value,
+            verificationCode: verificationCode.value,
+            thirtyDays: extendedLoginCheck.value,
+          })
+        );
       }
     }
   }
@@ -75,6 +82,10 @@ export const VerificationForm = (props: Props) => {
         userInput={verificationCode}
         errorMessage={verificationCodeError.value}
       />
+
+      {props.pageType === "Verify Login" && (
+        <Agreement checked={extendedLoginCheck} pageType={props.pageType} />
+      )}
 
       <Components.Button
         text="Create Account"

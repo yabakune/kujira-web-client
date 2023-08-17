@@ -1,6 +1,8 @@
 import { Signal, useSignal } from "@preact/signals-react";
+import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
+import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
 import { AuthHeader } from "./header";
@@ -11,6 +13,8 @@ type Props = {
 };
 
 export const LoginForm = (props: Props) => {
+  const dispatch = useDispatch();
+
   const password = useSignal("");
   const disabled = useSignal(true);
 
@@ -18,8 +22,12 @@ export const LoginForm = (props: Props) => {
     event.preventDefault();
 
     if (!disabled.value) {
-      console.log("Email:", props.email.value);
-      console.log("Password:", password.value);
+      dispatch(
+        Sagas.loginRequest({
+          email: props.email.value,
+          password: password.value,
+        })
+      );
     }
   }
 
