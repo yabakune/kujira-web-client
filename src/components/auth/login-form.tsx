@@ -33,10 +33,10 @@ export const LoginForm = (props: Props) => {
 
   return (
     <form onSubmit={login}>
-      <AuthHeader pageType="Login" />
+      <AuthHeader pageStep="Login" />
 
       <AuthInputs
-        pageType="Login"
+        pageStep="Login"
         email={props.email}
         password={password}
         disabled={disabled}

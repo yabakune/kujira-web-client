@@ -45,7 +45,7 @@ const RegistrationAgreement = () => {
 
 type Props = {
   checked: Signal<boolean>;
-  pageType: Types.AuthPageStep;
+  pageStep: Types.AuthPageStep;
 };
 
 export const Agreement = (props: Props) => {
@@ -63,7 +63,7 @@ export const Agreement = (props: Props) => {
         )}
       </div>
 
-      {props.pageType === "Registration" ? (
+      {props.pageStep === "Registration" ? (
         <RegistrationAgreement />
       ) : (
         <p>Stay logged in for 30 days.</p>

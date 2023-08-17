@@ -10,7 +10,7 @@ import { AuthHeader } from "./header";
 import { Agreement } from "./agreement";
 
 type Props = {
-  pageType: Types.AuthPageStep;
+  pageStep: Types.AuthPageStep;
   email: Signal<string>;
   withArrow?: true;
 };
@@ -26,14 +26,14 @@ export const VerificationForm = (props: Props) => {
   function verify(event: Types.OnSubmit): void {
     event.preventDefault();
     if (!disabled.value) {
-      if (props.pageType === "Verify Registration") {
+      if (props.pageStep === "Verify Registration") {
         dispatch(
           Sagas.verifyRegistrationRequest({
             email: props.email.value,
             verificationCode: verificationCode.value,
           })
         );
-      } else if (props.pageType === "Verify Login") {
+      } else if (props.pageStep === "Verify Login") {
         dispatch(
           Sagas.verifyLoginRequest({
             email: props.email.value,
@@ -74,7 +74,7 @@ export const VerificationForm = (props: Props) => {
 
   return (
     <form onSubmit={verify}>
-      <AuthHeader pageType={props.pageType} />
+      <AuthHeader pageStep={props.pageStep} />
 
       <AuthInput
         type="text"
@@ -83,8 +83,8 @@ export const VerificationForm = (props: Props) => {
         errorMessage={verificationCodeError.value}
       />
 
-      {props.pageType === "Verify Login" && (
-        <Agreement checked={extendedLoginCheck} pageType={props.pageType} />
+      {props.pageStep === "Verify Login" && (
+        <Agreement checked={extendedLoginCheck} pageStep={props.pageStep} />
       )}
 
       <Components.Button

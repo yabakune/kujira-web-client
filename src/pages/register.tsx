@@ -22,7 +22,7 @@ const Register: NextPageWithLayout = () => {
         <Components.RegistrationForm email={email} />
       ) : authStep.value === "Verify Registration" ? (
         <Components.VerificationForm
-          pageType="Verify Registration"
+          pageStep="Verify Registration"
           email={email}
         />
       ) : (

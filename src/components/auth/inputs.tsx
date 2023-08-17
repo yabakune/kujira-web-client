@@ -9,7 +9,7 @@ import { PasswordStrength } from "./password-strength";
 import Styles from "./inputs.module.scss";
 
 type Props = {
-  pageType: Types.AuthPageStep;
+  pageStep: Types.AuthPageStep;
   email: Signal<string>;
   username?: Signal<string>;
   password: Signal<string>;
@@ -100,7 +100,7 @@ export const AuthInputs = (props: Props) => {
         errorMessage={emailError.value}
       />
 
-      {props.pageType === "Registration" && props.username && (
+      {props.pageStep === "Registration" && props.username && (
         <AuthInput
           key="Auth Username Input"
           type="text"
@@ -119,25 +119,22 @@ export const AuthInputs = (props: Props) => {
         password
       />
 
-      {(props.pageType === "Registration" ||
-        props.pageType === "Password Reset") &&
+      {props.pageStep === "Registration" &&
         props.password.value.length > 0 &&
         passwordError.value === "" && (
           <PasswordStrength password={props.password} />
         )}
 
-      {(props.pageType === "Registration" ||
-        props.pageType === "Password Reset") &&
-        props.confirmPassword && (
-          <AuthInput
-            key="Auth Confirm Password Input"
-            type="password"
-            placeholder="Confirm Password"
-            userInput={props.confirmPassword}
-            errorMessage={confirmPasswordError.value}
-            password
-          />
-        )}
+      {props.pageStep === "Registration" && props.confirmPassword && (
+        <AuthInput
+          key="Auth Confirm Password Input"
+          type="password"
+          placeholder="Confirm Password"
+          userInput={props.confirmPassword}
+          errorMessage={confirmPasswordError.value}
+          password
+        />
+      )}
     </section>
   );
 };

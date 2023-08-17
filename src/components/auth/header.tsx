@@ -5,8 +5,8 @@ import * as Types from "@/types";
 import Styles from "./header.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
-function generateCaptions(pageType: Types.AuthPageStep): JSX.Element {
-  switch (pageType) {
+function generateCaptions(pageStep: Types.AuthPageStep): JSX.Element {
+  switch (pageStep) {
     case "Registration":
       return (
         <p>
@@ -59,21 +59,21 @@ function generateCaptions(pageType: Types.AuthPageStep): JSX.Element {
 }
 
 type Props = {
-  pageType: Types.AuthPageStep;
+  pageStep: Types.AuthPageStep;
 };
 
 export const AuthHeader = (props: Props) => {
   return (
     <header className={Styles.container}>
-      <h1 className={Styles.title}>{props.pageType}</h1>
+      <h1 className={Styles.title}>{props.pageStep}</h1>
 
       <section className={Styles.captions}>
         <p className={Styles.instruction}>
-          {props.pageType.includes("Verify")
+          {props.pageStep.includes("Verify")
             ? "Please enter the verification code sent to your email below."
             : "Please fill in all fields below."}
         </p>
-        {generateCaptions(props.pageType)}
+        {generateCaptions(props.pageStep)}
       </section>
     </header>
   );

@@ -1,38 +1,34 @@
-import { ReactElement } from "react";
+import { useSignal } from "@preact/signals-react";
+import { ReactElement, useEffect } from "react";
 
 import * as Components from "@/components";
-import * as Types from "@/types";
-import { NextPageWithLayout } from "./_app";
 import { signalsStore } from "@/signals/signals";
+import { NextPageWithLayout } from "./_app";
 
 const PasswordReset: NextPageWithLayout = () => {
-  const { passwordResetStep } = signalsStore;
+  const { authStep } = signalsStore;
 
-  function handleSubmit(event: Types.OnSubmit): void {
-    event.preventDefault();
+  const email = useSignal("");
 
-    if (passwordResetStep.value === "Request Reset") {
-      alert("Request Reset");
-    } else if (passwordResetStep.value === "Verify Email") {
-      alert("Verify Email");
-    } else {
-      alert("Reset Password");
-    }
-  }
+  useEffect(() => {
+    authStep.value = "Password Reset Request";
+  }, []);
 
   return (
     <>
       <Components.PageHead title="PasswordReset" />
 
-      <form onSubmit={handleSubmit}>
-        <Components.AuthHeader pageType="Password Reset" />
-
-        {passwordResetStep.value === "Request Reset" ? (
-          <Components.RequestReset />
-        ) : (
-          <></>
-        )}
-      </form>
+      {authStep.value === "Password Reset Request" ||
+      authStep.value === "Password Reset Action" ? (
+        <Components.PasswordResetForm email={email} />
+      ) : authStep.value === "Verify Password Reset" ? (
+        <Components.VerificationForm
+          pageStep="Verify Password Reset"
+          email={email}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };
