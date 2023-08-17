@@ -60,16 +60,17 @@ function generateCaptions(pageType: Types.AuthPageType): JSX.Element {
 
 type Props = {
   pageType: Types.AuthPageType;
+  title: string;
 };
 
 export const AuthHeader = (props: Props) => {
   return (
     <header className={Styles.container}>
-      <h1 className={Styles.title}>{props.pageType}</h1>
+      <h1 className={Styles.title}>{props.title}</h1>
 
       <section className={Styles.captions}>
         <p className={Styles.instruction}>
-          {props.pageType.includes("Verify")
+          {props.pageType === "Verification"
             ? "Please enter the verification code sent to your email below."
             : "Please fill in all fields below."}
         </p>

@@ -1,10 +1,10 @@
 import { Signal, effect, useSignal } from "@preact/signals-react";
 
-import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
 import { AuthInput } from "./auth-input";
+import { PasswordStrength } from "./password-strength";
 
 import Styles from "./inputs.module.scss";
 
@@ -123,7 +123,7 @@ export const AuthInputs = (props: Props) => {
         props.pageType === "Password Reset") &&
         props.password.value.length > 0 &&
         passwordError.value === "" && (
-          <Components.PasswordStrength password={props.password} />
+          <PasswordStrength password={props.password} />
         )}
 
       {(props.pageType === "Registration" ||
