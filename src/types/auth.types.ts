@@ -1,6 +1,7 @@
 export type AuthPageType =
   | "Registration"
   | "Login"
-  | "Password Reset"
+  | "Password Reset Request"
+  | "Password Reset Action"
   | "Verification"
   | "";
