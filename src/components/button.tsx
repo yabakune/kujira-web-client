@@ -32,6 +32,7 @@ type Props = {
 export const Button = (props: Props) => {
   return (
     <button
+      aria-label={`${props.text} Button`}
       className={`
 				${Styles.container}
         ${props.disabled && `${Styles.disabled} ${Snippets.noInteraction}`}

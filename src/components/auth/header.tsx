@@ -93,6 +93,7 @@ export const AuthHeader = (props: Props) => {
           <p>
             {"Need a new code? "}
             <button
+              aria-label="Request New Code Button"
               className={Snippets.primaryLink}
               type="button"
               onClick={requestNewCode}

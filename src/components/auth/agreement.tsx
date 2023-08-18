@@ -53,7 +53,12 @@ export const Agreement = (props: Props) => {
   }
 
   return (
-    <button className={Styles.container} type="button" onClick={toggleChecked}>
+    <button
+      aria-label="Auth Form Agreement Checkbox Button"
+      className={Styles.container}
+      type="button"
+      onClick={toggleChecked}
+    >
       <div className={Snippets.iconButton}>
         {props.checked.value ? (
           <Components.CheckboxFilled width={24} fill={13} />
