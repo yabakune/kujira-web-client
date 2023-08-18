@@ -1,11 +1,14 @@
 import { effect, useSignal } from "@preact/signals-react";
+import { useRouter } from "next/router";
 import { ReactElement, useEffect } from "react";
 
 import * as Components from "@/components";
+import * as Constants from "@/constants";
 import { signalsStore } from "@/signals/signals";
 import { NextPageWithLayout } from "./_app";
 
 const PasswordReset: NextPageWithLayout = () => {
+  const router = useRouter();
   const { authStep } = signalsStore;
 
   const email = useSignal("");
@@ -29,6 +32,12 @@ const PasswordReset: NextPageWithLayout = () => {
     authStep.value = "Password Reset Request";
   }, []);
 
+  useEffect(() => {
+    if (authStep.value === "") {
+      router.push(Constants.ClientRoutes.LOGIN);
+    }
+  }, [authStep.value]);
+
   return (
     <>
       <Components.PageHead title="PasswordReset" />
@@ -39,10 +48,7 @@ const PasswordReset: NextPageWithLayout = () => {
           emailError={emailError}
         />
       ) : authStep.value === "Verify Password Reset" ? (
-        <Components.VerificationForm
-          email={email}
-          withArrow
-        />
+        <Components.VerificationForm email={email} withArrow />
       ) : authStep.value === "Password Reset Action" ? (
         <Components.PasswordResetActionForm
           email={email}
