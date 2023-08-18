@@ -40,7 +40,6 @@ export const RegistrationForm = (props: Props) => {
       <AuthHeader />
 
       <AuthInputs
-        pageStep="Registration"
         email={props.email}
         username={username}
         password={password}
@@ -49,7 +48,7 @@ export const RegistrationForm = (props: Props) => {
         disabled={disabled}
       />
 
-      <Agreement checked={agreementChecked} pageStep="Registration" />
+      <Agreement checked={agreementChecked} />
 
       <Components.Button
         text="Create Account"

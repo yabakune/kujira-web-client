@@ -9,7 +9,7 @@ import * as Types from "@/types";
 import { AuthInput } from "./auth-input";
 import { AuthHeader } from "./header";
 
-import Styles from "./password-reset-action-form.module.scss";
+import Styles from "./inputs.module.scss";
 import { PasswordStrength } from "./password-strength";
 
 type Props = {
@@ -85,9 +85,11 @@ export const PasswordResetActionForm = (props: Props) => {
           errorMessage={passwordError}
           password
         />
+
         {password.value.length > 0 && passwordError.value === "" && (
           <PasswordStrength password={password} />
         )}
+
         <AuthInput
           type="password"
           placeholder="Confirm Password"

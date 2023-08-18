@@ -1,7 +1,7 @@
 import { Signal, effect, useSignal } from "@preact/signals-react";
 
 import * as Helpers from "@/helpers";
-import * as Types from "@/types";
+import { signalsStore } from "@/signals/signals";
 
 import { AuthInput } from "./auth-input";
 import { PasswordStrength } from "./password-strength";
@@ -9,7 +9,6 @@ import { PasswordStrength } from "./password-strength";
 import Styles from "./inputs.module.scss";
 
 type Props = {
-  pageStep: Types.AuthPageStep;
   email: Signal<string>;
   username?: Signal<string>;
   password: Signal<string>;
@@ -19,6 +18,8 @@ type Props = {
 };
 
 export const AuthInputs = (props: Props) => {
+  const { authStep } = signalsStore;
+
   const emailError = useSignal("");
   const usernameError = useSignal("");
   const passwordError = useSignal("");
@@ -91,7 +92,7 @@ export const AuthInputs = (props: Props) => {
   });
 
   return (
-    <section className={Styles.container}>
+    <section className={Styles.inputs}>
       <AuthInput
         key="Auth Email Input"
         type="email"
@@ -100,7 +101,7 @@ export const AuthInputs = (props: Props) => {
         errorMessage={emailError}
       />
 
-      {props.pageStep === "Registration" && props.username && (
+      {authStep.value === "Registration" && props.username && (
         <AuthInput
           key="Auth Username Input"
           type="text"
@@ -119,13 +120,13 @@ export const AuthInputs = (props: Props) => {
         password
       />
 
-      {props.pageStep === "Registration" &&
+      {authStep.value === "Registration" &&
         props.password.value.length > 0 &&
         passwordError.value === "" && (
           <PasswordStrength password={props.password} />
         )}
 
-      {props.pageStep === "Registration" && props.confirmPassword && (
+      {authStep.value === "Registration" && props.confirmPassword && (
         <AuthInput
           key="Auth Confirm Password Input"
           type="password"

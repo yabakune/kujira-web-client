@@ -9,7 +9,7 @@ import { signalsStore } from "@/signals/signals";
 import Styles from "./header.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
-function generateCaptions(pageStep: Types.AuthPageStep): JSX.Element {
+function generateCaptions(pageStep: Types.AuthPageStep): JSX.Element | null {
   switch (pageStep) {
     case "Registration":
       return (
@@ -58,7 +58,7 @@ function generateCaptions(pageStep: Types.AuthPageStep): JSX.Element {
       );
 
     default:
-      return <></>;
+      return null;
   }
 }
 

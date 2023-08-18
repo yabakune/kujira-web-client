@@ -20,7 +20,6 @@ export const LoginForm = (props: Props) => {
 
   function login(event: Types.OnSubmit): void {
     event.preventDefault();
-
     if (!disabled.value) {
       dispatch(
         Sagas.loginRequest({
@@ -36,7 +35,6 @@ export const LoginForm = (props: Props) => {
       <AuthHeader />
 
       <AuthInputs
-        pageStep="Login"
         email={props.email}
         password={password}
         disabled={disabled}

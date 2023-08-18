@@ -12,7 +12,7 @@ type Props = {
   type: Types.UserInputType;
   placeholder: string;
   userInput: Signal<string>;
-  errorMessage: string;
+  errorMessage: Signal<string>;
   backgroundLevel?: number;
   password?: true;
   required?: true;
@@ -34,7 +34,9 @@ export const Input = (props: Props) => {
     props.userInput.value = userInput;
   }
 
-  function togglePasswordInput(event: Types.OnClick<HTMLButtonElement>): void {
+  function togglePasswordInputType(
+    event: Types.OnClick<HTMLButtonElement>
+  ): void {
     Helpers.preventBubbling(event);
     if (props.password) {
       if (inputType.value === "password") inputType.value = "text";
@@ -44,17 +46,15 @@ export const Input = (props: Props) => {
 
   return (
     <article className={Styles.container}>
-      {props.errorMessage && (
-        <p className={Styles.error}>{props.errorMessage}</p>
+      {props.errorMessage.value && (
+        <p className={Styles.error}>{props.errorMessage.value}</p>
       )}
 
       <div
         className={`
 					${Styles.inputContainer}
-          ${props.errorMessage && Styles.error}
-					${Helpers.setBackgroundLevel(props.backgroundLevel)}
-					${Helpers.setClickLevel(props.backgroundLevel)}
-					${Helpers.setHoverLevel(props.backgroundLevel)}
+          ${props.errorMessage.value && Styles.error}
+          ${Helpers.setBackgroundClickHover(props.backgroundLevel)}
 				`}
         onClick={focusInput}
       >
@@ -71,7 +71,7 @@ export const Input = (props: Props) => {
         {props.password && (
           <button
             className={Snippets.iconButton}
-            onClick={togglePasswordInput}
+            onClick={togglePasswordInputType}
             type="button"
           >
             {inputType.value === "password" ? (

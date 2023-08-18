@@ -40,7 +40,7 @@ const PasswordReset: NextPageWithLayout = () => {
 
   return (
     <>
-      <Components.PageHead title="PasswordReset" />
+      <Components.PageHead title="Password Reset" />
 
       {authStep.value === "Password Reset Request" ? (
         <Components.PasswordResetRequestForm

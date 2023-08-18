@@ -130,3 +130,11 @@ export function setIconSize(size?: Types.ButtonSize): number {
   else if (size === "smaller") return 10;
   else return 14;
 }
+
+export function setBackgroundClickHover(backgroundLevel?: number): string {
+  return `
+    ${setBackgroundLevel(backgroundLevel)}
+		${setClickLevel(backgroundLevel)}
+		${setHoverLevel(backgroundLevel)}
+  `;
+}

@@ -4,7 +4,7 @@ import * as Types from "@/types";
 import Styles from "./button.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
-function setButtonSize(size?: Types.ButtonSize): string {
+function setSize(size?: Types.ButtonSize): string {
   if (size === "large") return Styles.large;
   else if (size === "medium") return Styles.medium;
   else if (size === "small") return Styles.small;
@@ -12,19 +12,9 @@ function setButtonSize(size?: Types.ButtonSize): string {
   else return Styles.default;
 }
 
-function setButtonBackgroundStyles(
-  primary?: true,
-  backgroundLevel?: number
-): string {
-  if (primary) {
-    return Styles.primary;
-  } else {
-    return `
-			${Helpers.setBackgroundLevel(backgroundLevel)}
-			${Helpers.setClickLevel(backgroundLevel)}
-			${Helpers.setHoverLevel(backgroundLevel)}
-		`;
-  }
+function setBackground(primary?: true, backgroundLevel?: number): string {
+  if (primary) return Styles.primary;
+  else return Helpers.setBackgroundClickHover(backgroundLevel);
 }
 
 type Props = {
@@ -46,8 +36,8 @@ export const Button = (props: Props) => {
 				${Styles.container}
         ${props.disabled && `${Styles.disabled} ${Snippets.noInteraction}`}
 				${props.centered && Styles.centered}
-				${setButtonSize(props.size)}
-				${setButtonBackgroundStyles(props.primary, props.backgroundLevel)}
+				${setSize(props.size)}
+				${setBackground(props.primary, props.backgroundLevel)}
 			`}
       type={props.submit ? "submit" : "button"}
     >

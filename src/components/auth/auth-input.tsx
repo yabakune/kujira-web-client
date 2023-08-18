@@ -36,7 +36,9 @@ export const AuthInput = (props: Props) => {
     props.userInput.value = userInput;
   }
 
-  function togglePasswordInput(event: Types.OnClick<HTMLButtonElement>): void {
+  function togglePasswordInputType(
+    event: Types.OnClick<HTMLButtonElement>
+  ): void {
     Helpers.preventBubbling(event);
     if (props.password) {
       if (inputType.value === "password") inputType.value = "text";
@@ -49,9 +51,7 @@ export const AuthInput = (props: Props) => {
       className={`
 				${Styles.container}
 				${props.errorMessage.value && Styles.error}
-				${Helpers.setBackgroundLevel(2)}
-				${Helpers.setClickLevel(2)}
-				${Helpers.setHoverLevel(2)}
+        ${Helpers.setBackgroundClickHover(2)}
 			`}
       onClick={focusInput}
     >
@@ -75,7 +75,7 @@ export const AuthInput = (props: Props) => {
           <button
             key="User Input Is Valid"
             className={Snippets.iconButton}
-            onClick={togglePasswordInput}
+            onClick={togglePasswordInputType}
             type="button"
             tabIndex={-1}
           >
@@ -96,7 +96,7 @@ export const AuthInput = (props: Props) => {
         {props.password && (
           <button
             className={Snippets.iconButton}
-            onClick={togglePasswordInput}
+            onClick={togglePasswordInputType}
             type="button"
             tabIndex={-1}
           >

@@ -4,11 +4,11 @@ import { useDispatch } from "react-redux";
 import * as Components from "@/components";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
+import { signalsStore } from "@/signals/signals";
 
 import { AuthInput } from "./auth-input";
 import { AuthHeader } from "./header";
 import { Agreement } from "./agreement";
-import { signalsStore } from "@/signals/signals";
 
 type Props = {
   email: Signal<string>;
@@ -21,7 +21,7 @@ export const VerificationForm = (props: Props) => {
 
   const verificationCode = useSignal("");
   const verificationCodeError = useSignal("");
-  const extendedLoginCheck = useSignal(false);
+  const extendLoginDuration = useSignal(false);
   const disabled = useSignal(true);
 
   function verify(event: Types.OnSubmit): void {
@@ -39,7 +39,7 @@ export const VerificationForm = (props: Props) => {
           Sagas.verifyLoginRequest({
             email: props.email.value,
             verificationCode: verificationCode.value,
-            thirtyDays: extendedLoginCheck.value,
+            thirtyDays: extendLoginDuration.value,
           })
         );
       } else if (authStep.value === "Verify Password Reset") {
@@ -92,7 +92,7 @@ export const VerificationForm = (props: Props) => {
       />
 
       {authStep.value === "Verify Login" && (
-        <Agreement checked={extendedLoginCheck} pageStep={authStep.value} />
+        <Agreement checked={extendLoginDuration} />
       )}
 
       <Components.Button

@@ -2,9 +2,7 @@ import { Signal } from "@preact/signals-react";
 
 import Styles from "./password-strength.module.scss";
 
-type PasswordStrength = "Weak" | "Moderate" | "Strong" | "Excellent";
-
-function determinePasswordStrength(password: string): PasswordStrength {
+function determinePasswordStrength(password: string): string {
   if (password.length > 0 && password.length < 16) {
     return "Weak";
   } else if (password.length >= 16 && password.length < 20) {
