@@ -22,9 +22,7 @@ const Login: NextPageWithLayout = () => {
         <Components.LoginForm email={email} />
       ) : authStep.value === "Verify Login" ? (
         <Components.VerificationForm pageStep="Verify Login" email={email} />
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 };

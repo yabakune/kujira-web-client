@@ -25,9 +25,7 @@ const Register: NextPageWithLayout = () => {
           pageStep="Verify Registration"
           email={email}
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 };

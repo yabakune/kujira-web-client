@@ -1,4 +1,4 @@
-import { useSignal } from "@preact/signals-react";
+import { effect, useSignal } from "@preact/signals-react";
 import { ReactElement, useEffect } from "react";
 
 import * as Components from "@/components";
@@ -9,6 +9,21 @@ const PasswordReset: NextPageWithLayout = () => {
   const { authStep } = signalsStore;
 
   const email = useSignal("");
+  const emailError = useSignal("");
+
+  effect(() => {
+    if (email.value === "") {
+      emailError.value = "";
+    } else {
+      if (!email.value.includes("@")) {
+        emailError.value = `Email must contain "@".`;
+      } else if (!email.value.includes(".com")) {
+        emailError.value = `Email must contain ".com".`;
+      } else {
+        emailError.value = "";
+      }
+    }
+  });
 
   useEffect(() => {
     authStep.value = "Password Reset Request";
@@ -18,17 +33,22 @@ const PasswordReset: NextPageWithLayout = () => {
     <>
       <Components.PageHead title="PasswordReset" />
 
-      {authStep.value === "Password Reset Request" ||
-      authStep.value === "Password Reset Action" ? (
-        <Components.PasswordResetForm email={email} />
+      {authStep.value === "Password Reset Request" ? (
+        <Components.PasswordResetRequestForm
+          email={email}
+          emailError={emailError}
+        />
+      ) : authStep.value === "Password Reset Action" ? (
+        <Components.PasswordResetActionForm
+          email={email}
+          emailError={emailError}
+        />
       ) : authStep.value === "Verify Password Reset" ? (
         <Components.VerificationForm
           pageStep="Verify Password Reset"
           email={email}
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 };
