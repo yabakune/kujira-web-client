@@ -230,6 +230,8 @@ function* requestPasswordReset(
     const endpoint = Constants.APIRoutes.AUTH + `/request-password-reset`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
 
+    signalsStore.authStep.value = "Verify Password Reset";
+
     yield Saga.put(
       Redux.uiActions.setNotification({
         body: data.body,
@@ -249,7 +251,8 @@ function* verifyPasswordReset(
     const endpoint =
       Constants.APIRoutes.AUTH + `/verify-password-reset-request`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
-    signalsStore.resetPassword.value = true;
+
+    signalsStore.authStep.value = "Password Reset Action";
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -268,7 +271,7 @@ function* resetPassword(action: Types.SagaPayload<Types.ResetPasswordPayload>) {
     const endpoint = Constants.APIRoutes.AUTH + `/reset-password`;
     const { data } = yield Saga.call(axios.post, endpoint, action.payload);
 
-    signalsStore.resetPassword.value = false;
+    signalsStore.authStep.value = "";
 
     yield Saga.put(
       Redux.uiActions.setNotification({

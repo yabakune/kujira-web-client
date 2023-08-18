@@ -1,8 +1,9 @@
 import { Signal, effect, useSignal } from "@preact/signals-react";
 
 import * as Components from "@/components";
+import * as Sagas from "@/sagas";
 import * as Types from "@/types";
-import { signalsStore } from "@/signals/signals";
+import { useDispatch } from "react-redux";
 
 import { AuthHeader } from "./header";
 import { AuthInput } from "./auth-input";
@@ -13,7 +14,7 @@ type Props = {
 };
 
 export const PasswordResetRequestForm = (props: Props) => {
-  const { authStep } = signalsStore;
+  const dispatch = useDispatch();
 
   const disabled = useSignal(true);
 
@@ -21,32 +22,30 @@ export const PasswordResetRequestForm = (props: Props) => {
     disabled.value = props.email.value === "" || props.emailError.value != "";
   });
 
-  function handleSubmit(event: Types.OnSubmit): void {
+  function requestPasswordReset(event: Types.OnSubmit): void {
     event.preventDefault();
-
     if (!disabled.value) {
-      console.log("Password Reset Request");
+      dispatch(
+        Sagas.requestPasswordResetRequest({
+          email: props.email.value,
+        })
+      );
     }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <AuthHeader pageStep={authStep.value} />
+    <form onSubmit={requestPasswordReset}>
+      <AuthHeader />
 
       <AuthInput
-        key="Auth Email Input"
         type="email"
         placeholder="Email"
         userInput={props.email}
-        errorMessage={props.emailError.value}
+        errorMessage={props.emailError}
       />
 
       <Components.Button
-        text={
-          authStep.value === "Password Reset Request"
-            ? "Request Reset"
-            : "Reset Password"
-        }
+        text="Request Reset"
         rightIcon={<Components.ArrowRight width={14} fill={12} />}
         disabled={disabled.value}
         submit

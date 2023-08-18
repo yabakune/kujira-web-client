@@ -38,15 +38,15 @@ const PasswordReset: NextPageWithLayout = () => {
           email={email}
           emailError={emailError}
         />
+      ) : authStep.value === "Verify Password Reset" ? (
+        <Components.VerificationForm
+          email={email}
+          withArrow
+        />
       ) : authStep.value === "Password Reset Action" ? (
         <Components.PasswordResetActionForm
           email={email}
           emailError={emailError}
-        />
-      ) : authStep.value === "Verify Password Reset" ? (
-        <Components.VerificationForm
-          pageStep="Verify Password Reset"
-          email={email}
         />
       ) : null}
     </>

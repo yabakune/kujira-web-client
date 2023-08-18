@@ -12,7 +12,7 @@ type Props = {
   type: Types.UserInputType;
   placeholder: string;
   userInput: Signal<string>;
-  errorMessage: string;
+  errorMessage: Signal<string>;
   password?: true;
 };
 
@@ -28,7 +28,7 @@ export const AuthInput = (props: Props) => {
   }
 
   function userInputIsValid(): boolean {
-    return !props.errorMessage && props.userInput.value.length > 0;
+    return !props.errorMessage.value && props.userInput.value.length > 0;
   }
 
   function setUserInput(event: Types.OnChange): void {
@@ -48,23 +48,23 @@ export const AuthInput = (props: Props) => {
     <article
       className={`
 				${Styles.container}
-				${props.errorMessage && Styles.error}
+				${props.errorMessage.value && Styles.error}
 				${Helpers.setBackgroundLevel(2)}
 				${Helpers.setClickLevel(2)}
 				${Helpers.setHoverLevel(2)}
 			`}
       onClick={focusInput}
     >
-      {(props.userInput.value.length > 0 || props.errorMessage) && (
+      {(props.userInput.value.length > 0 || props.errorMessage.value) && (
         <section className={Styles.placeholderAndError}>
           {props.userInput.value.length > 0 && (
             <p key="Placeholder" className={Styles.placeholder}>
               {props.placeholder}
             </p>
           )}
-          {props.errorMessage && (
+          {props.errorMessage.value && (
             <p key="Error Message" className={Styles.error}>
-              {props.errorMessage}
+              {props.errorMessage.value}
             </p>
           )}
         </section>

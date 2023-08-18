@@ -37,7 +37,7 @@ export const RegistrationForm = (props: Props) => {
 
   return (
     <form onSubmit={register}>
-      <AuthHeader pageStep="Registration" />
+      <AuthHeader />
 
       <AuthInputs
         pageStep="Registration"

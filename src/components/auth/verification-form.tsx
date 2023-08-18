@@ -8,15 +8,16 @@ import * as Types from "@/types";
 import { AuthInput } from "./auth-input";
 import { AuthHeader } from "./header";
 import { Agreement } from "./agreement";
+import { signalsStore } from "@/signals/signals";
 
 type Props = {
-  pageStep: Types.AuthPageStep;
   email: Signal<string>;
   withArrow?: true;
 };
 
 export const VerificationForm = (props: Props) => {
   const dispatch = useDispatch();
+  const { authStep } = signalsStore;
 
   const verificationCode = useSignal("");
   const verificationCodeError = useSignal("");
@@ -26,19 +27,26 @@ export const VerificationForm = (props: Props) => {
   function verify(event: Types.OnSubmit): void {
     event.preventDefault();
     if (!disabled.value) {
-      if (props.pageStep === "Verify Registration") {
+      if (authStep.value === "Verify Registration") {
         dispatch(
           Sagas.verifyRegistrationRequest({
             email: props.email.value,
             verificationCode: verificationCode.value,
           })
         );
-      } else if (props.pageStep === "Verify Login") {
+      } else if (authStep.value === "Verify Login") {
         dispatch(
           Sagas.verifyLoginRequest({
             email: props.email.value,
             verificationCode: verificationCode.value,
             thirtyDays: extendedLoginCheck.value,
+          })
+        );
+      } else if (authStep.value === "Verify Password Reset") {
+        dispatch(
+          Sagas.verifyPasswordResetRequest({
+            email: props.email.value,
+            verificationCode: verificationCode.value,
           })
         );
       }
@@ -74,21 +82,21 @@ export const VerificationForm = (props: Props) => {
 
   return (
     <form onSubmit={verify}>
-      <AuthHeader pageStep={props.pageStep} />
+      <AuthHeader email={props.email} />
 
       <AuthInput
         type="text"
         placeholder="Verification Code"
         userInput={verificationCode}
-        errorMessage={verificationCodeError.value}
+        errorMessage={verificationCodeError}
       />
 
-      {props.pageStep === "Verify Login" && (
-        <Agreement checked={extendedLoginCheck} pageStep={props.pageStep} />
+      {authStep.value === "Verify Login" && (
+        <Agreement checked={extendedLoginCheck} pageStep={authStep.value} />
       )}
 
       <Components.Button
-        text="Create Account"
+        text="Verify"
         rightIcon={generateButtonIcon()}
         disabled={disabled.value}
         submit

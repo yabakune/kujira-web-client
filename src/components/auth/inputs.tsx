@@ -97,7 +97,7 @@ export const AuthInputs = (props: Props) => {
         type="email"
         placeholder="Email"
         userInput={props.email}
-        errorMessage={emailError.value}
+        errorMessage={emailError}
       />
 
       {props.pageStep === "Registration" && props.username && (
@@ -106,7 +106,7 @@ export const AuthInputs = (props: Props) => {
           type="text"
           placeholder="Username"
           userInput={props.username}
-          errorMessage={usernameError.value}
+          errorMessage={usernameError}
         />
       )}
 
@@ -115,7 +115,7 @@ export const AuthInputs = (props: Props) => {
         type="password"
         placeholder="Password"
         userInput={props.password}
-        errorMessage={passwordError.value}
+        errorMessage={passwordError}
         password
       />
 
@@ -131,7 +131,7 @@ export const AuthInputs = (props: Props) => {
           type="password"
           placeholder="Confirm Password"
           userInput={props.confirmPassword}
-          errorMessage={confirmPasswordError.value}
+          errorMessage={confirmPasswordError}
           password
         />
       )}
