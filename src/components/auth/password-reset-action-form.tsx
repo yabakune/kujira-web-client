@@ -86,9 +86,7 @@ export const PasswordResetActionForm = (props: Props) => {
           password
         />
 
-        {password.value.length > 0 && passwordError.value === "" && (
-          <PasswordStrength password={password} />
-        )}
+        <PasswordStrength password={password} passwordError={passwordError} />
 
         <AuthInput
           type="password"
@@ -101,7 +99,7 @@ export const PasswordResetActionForm = (props: Props) => {
 
       <Components.Button
         text="Reset Password"
-        disabled={disabled.value}
+        disabled={disabled}
         submit
         centered
         primary

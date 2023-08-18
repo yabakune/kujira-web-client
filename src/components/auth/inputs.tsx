@@ -120,11 +120,10 @@ export const AuthInputs = (props: Props) => {
         password
       />
 
-      {authStep.value === "Registration" &&
-        props.password.value.length > 0 &&
-        passwordError.value === "" && (
-          <PasswordStrength password={props.password} />
-        )}
+      <PasswordStrength
+        password={props.password}
+        passwordError={passwordError}
+      />
 
       {authStep.value === "Registration" && props.confirmPassword && (
         <AuthInput

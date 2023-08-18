@@ -34,16 +34,12 @@ export const LoginForm = (props: Props) => {
     <form onSubmit={login}>
       <AuthHeader />
 
-      <AuthInputs
-        email={props.email}
-        password={password}
-        disabled={disabled}
-      />
+      <AuthInputs email={props.email} password={password} disabled={disabled} />
 
       <Components.Button
         text="Log In"
         rightIcon={<Components.ArrowRight width={14} fill={12} />}
-        disabled={disabled.value}
+        disabled={disabled}
         submit
         centered
         primary

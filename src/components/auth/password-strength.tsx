@@ -28,22 +28,27 @@ function determinePasswordProgression(password: string): string {
 
 type Props = {
   password: Signal<string>;
+  passwordError: Signal<string>;
 };
 
 export const PasswordStrength = (props: Props) => {
-  return (
-    <section className={Styles.container}>
-      <p className={Styles.text}>
-        {determinePasswordStrength(props.password.value)} Password
-      </p>
+  if (props.password.value.length > 0 && props.passwordError.value === "") {
+    return (
+      <section className={Styles.container}>
+        <p className={Styles.text}>
+          {determinePasswordStrength(props.password.value)} Password
+        </p>
 
-      <div className={Styles.progressBar}>
-        <div
-          className={`
+        <div className={Styles.progressBar}>
+          <div
+            className={`
 						${Styles.progression}
 						${determinePasswordProgression(props.password.value)}`}
-        />
-      </div>
-    </section>
-  );
+          />
+        </div>
+      </section>
+    );
+  } else {
+    return null;
+  }
 };

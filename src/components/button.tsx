@@ -3,6 +3,7 @@ import * as Types from "@/types";
 
 import Styles from "./button.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
+import { Signal } from "@preact/signals-react";
 
 function setSize(size?: Types.ButtonSize): string {
   if (size === "large") return Styles.large;
@@ -23,7 +24,7 @@ type Props = {
   text: string;
   rightIcon?: JSX.Element;
   backgroundLevel?: number;
-  disabled?: boolean;
+  disabled?: Signal<boolean>;
   centered?: true;
   primary?: true;
   submit?: true;
@@ -35,7 +36,11 @@ export const Button = (props: Props) => {
       aria-label={`${props.text} Button`}
       className={`
 				${Styles.container}
-        ${props.disabled && `${Styles.disabled} ${Snippets.noInteraction}`}
+        ${
+          props.disabled &&
+          props.disabled.value &&
+          `${Styles.disabled} ${Snippets.noInteraction}`
+        }
 				${props.centered && Styles.centered}
 				${setSize(props.size)}
 				${setBackground(props.primary, props.backgroundLevel)}

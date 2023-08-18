@@ -47,7 +47,7 @@ export const PasswordResetRequestForm = (props: Props) => {
       <Components.Button
         text="Request Reset"
         rightIcon={<Components.ArrowRight width={14} fill={12} />}
-        disabled={disabled.value}
+        disabled={disabled}
         submit
         centered
         primary

@@ -98,7 +98,7 @@ export const VerificationForm = (props: Props) => {
       <Components.Button
         text="Verify"
         rightIcon={generateButtonIcon()}
-        disabled={disabled.value}
+        disabled={disabled}
         submit
         centered
         primary

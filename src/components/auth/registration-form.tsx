@@ -53,7 +53,7 @@ export const RegistrationForm = (props: Props) => {
       <Components.Button
         text="Create Account"
         rightIcon={<Components.ArrowRight width={14} fill={12} />}
-        disabled={disabled.value}
+        disabled={disabled}
         submit
         centered
         primary
