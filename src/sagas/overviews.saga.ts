@@ -93,11 +93,11 @@ function* fetchOverviews(
     const { data } = yield Saga.call(axios.get, endpoint);
     const normalizedData = normalize(data.response, overviewsSchemaList);
 
-    yield Saga.put(
-      Redux.entitiesActions.setOverviews(
-        normalizedData.entities.overviews as Types.NormalizedOverviews
-      )
-    );
+    // yield Saga.put(
+    //   Redux.entitiesActions.setOverviews(
+    //     normalizedData.entities.overviews as Types.NormalizedOverviews
+    //   )
+    // );
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);
@@ -113,7 +113,7 @@ function* fetchOverview(action: Types.SagaPayload<Types.FetchOverviewPayload>) {
     );
     const { data } = yield Saga.call(axios.post, endpoint);
 
-    yield Saga.put(Redux.entitiesActions.setOverview(data.response));
+    // yield Saga.put(Redux.entitiesActions.setOverview(data.response));
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);
@@ -133,11 +133,11 @@ function* fetchLogbookOverview(
     const { data } = yield Saga.call(axios.post, endpoint, fetchPayload);
     const normalizedData = normalize(data.response, overviewsSchema);
 
-    yield Saga.put(
-      Redux.entitiesActions.setOverviews(
-        normalizedData.entities.overviews as Types.NormalizedOverviews
-      )
-    );
+    // yield Saga.put(
+    //   Redux.entitiesActions.setOverviews(
+    //     normalizedData.entities.overviews as Types.NormalizedOverviews
+    //   )
+    // );
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);
@@ -156,7 +156,7 @@ function* createOverview(
     const { userId, ...createPayload } = action.payload;
     const { data } = yield Saga.call(axios.post, endpoint, createPayload);
 
-    yield Saga.put(Redux.entitiesActions.setOverview(data.response));
+    // yield Saga.put(Redux.entitiesActions.setOverview(data.response));
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -183,7 +183,7 @@ function* updateOverview(
     const { userId, overviewId, ...updatePayload } = action.payload;
     const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
 
-    yield Saga.put(Redux.entitiesActions.setOverview(data.response));
+    // yield Saga.put(Redux.entitiesActions.setOverview(data.response));
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -209,7 +209,7 @@ function* deleteOverview(
     );
     const { data } = yield Saga.call(axios.delete, endpoint);
 
-    yield Saga.put(Redux.entitiesActions.deleteOverview(data.response));
+    // yield Saga.put(Redux.entitiesActions.deleteOverview(data.response));
 
     yield Saga.put(
       Redux.uiActions.setNotification({
