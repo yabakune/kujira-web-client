@@ -98,6 +98,10 @@ const Onboarding: NextPageWithLayout = () => {
             savings={savings}
             disabled={disabled}
           />
+        ) : page.value === 4 ? (
+          <Components.OnboardingRecurring />
+        ) : page.value === 5 ? (
+          <Components.OnboardingIncoming />
         ) : (
           <Components.OnboardingFinal />
         )}
