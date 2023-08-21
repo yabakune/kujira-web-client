@@ -54,6 +54,21 @@ const nextConfig = {
         destination: "/dashboard/logbooks",
         permanent: true,
       },
+      {
+        source: "/setting",
+        destination: "/dashboard/settings",
+        permanent: true,
+      },
+      {
+        source: "/settings",
+        destination: "/dashboard/settings",
+        permanent: true,
+      },
+      {
+        source: "/dashboard/setting",
+        destination: "/dashboard/settings",
+        permanent: true,
+      },
     ];
   },
 };
