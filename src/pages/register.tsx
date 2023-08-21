@@ -1,5 +1,5 @@
 import { useSignal } from "@preact/signals-react";
-import { ReactElement, useEffect } from "react";
+import { useEffect } from "react";
 
 import * as Components from "@/components";
 import { signalsStore } from "@/signals/signals";
@@ -27,7 +27,7 @@ const Register: NextPageWithLayout = () => {
   );
 };
 
-Register.getLayout = function getLayout(page: ReactElement) {
+Register.getLayout = function getLayout(page: React.ReactElement) {
   return <Components.AuthLayout>{page}</Components.AuthLayout>;
 };
 
