@@ -24,6 +24,7 @@ const Onboarding: NextPageWithLayout = () => {
   const buttonText = useSignal("Let's go!");
   const remainingBudget = useSignal(0);
   const income = useSignal("");
+  const savings = useSignal("");
   const disabled = useSignal(true);
 
   effect(() => {
@@ -43,7 +44,9 @@ const Onboarding: NextPageWithLayout = () => {
       disabled.value = false;
     }
 
-    remainingBudget.value = Number(income.value);
+    remainingBudget.value =
+      Number(income.value) -
+      Helpers.calculateSavedIncome(Number(income.value), Number(savings.value));
   });
 
   function incrementPage(): void {
@@ -57,6 +60,7 @@ const Onboarding: NextPageWithLayout = () => {
     } else {
       if (!disabled.value) {
         console.log("Income:", Helpers.numberToCost(Number(income.value)));
+        console.log("Savings:", Number(savings.value));
       }
     }
     console.log("Next Page");
@@ -79,7 +83,7 @@ const Onboarding: NextPageWithLayout = () => {
         <Components.OnboardingHeader page={page} />
 
         {page.value > 1 && Number(income.value) >= 0 && (
-          <p className={Styles.remaining}>
+          <p className={Styles.highlight}>
             ${Helpers.numberToCost(remainingBudget.value)} remaining
           </p>
         )}
@@ -88,6 +92,12 @@ const Onboarding: NextPageWithLayout = () => {
           <Components.OnboardingWelcome />
         ) : page.value === 2 ? (
           <Components.OnboardingIncome income={income} disabled={disabled} />
+        ) : page.value === 3 ? (
+          <Components.OnboardingSavings
+            income={income}
+            savings={savings}
+            disabled={disabled}
+          />
         ) : (
           <></>
         )}
