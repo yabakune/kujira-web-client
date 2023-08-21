@@ -41,7 +41,9 @@ export const AppLayout = (props: Props) => {
 
   useEffect(() => {
     if (Constants.userId) {
-      dispatch(Sagas.fetchUserRequest({ userId: Constants.userId }));
+      if (!currentUser) {
+        dispatch(Sagas.fetchUserRequest({ userId: Constants.userId }));
+      }
     }
   }, []);
 
