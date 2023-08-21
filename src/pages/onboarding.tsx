@@ -99,7 +99,7 @@ const Onboarding: NextPageWithLayout = () => {
             disabled={disabled}
           />
         ) : (
-          <></>
+          <Components.OnboardingFinal />
         )}
 
         <Components.Button
