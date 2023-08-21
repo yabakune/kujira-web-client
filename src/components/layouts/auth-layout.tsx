@@ -14,7 +14,6 @@ type Props = {
 
 export const AuthLayout = (props: Props) => {
   const router = useRouter();
-  const { ClientRoutes } = Constants;
 
   const { currentUser } = useSelector(
     (state: Redux.ReduxStore) => state.entities
@@ -22,8 +21,11 @@ export const AuthLayout = (props: Props) => {
 
   useEffect(() => {
     if (currentUser) {
-      if (!currentUser.onboarded) router.push(ClientRoutes.ONBOARDING);
-      else router.push(ClientRoutes.LOGBOOKS);
+      if (!currentUser.onboarded) {
+        router.push(Constants.ClientRoutes.ONBOARDING);
+      } else {
+        router.push(Constants.ClientRoutes.LOGBOOKS);
+      }
     }
   }, [currentUser]);
 
