@@ -69,6 +69,21 @@ const nextConfig = {
         destination: "/dashboard/settings",
         permanent: true,
       },
+      {
+        source: "/onboard",
+        destination: "/onboarding",
+        permanent: true,
+      },
+      {
+        source: "/onboards",
+        destination: "/onboarding",
+        permanent: true,
+      },
+      {
+        source: "/board",
+        destination: "/onboarding",
+        permanent: true,
+      },
     ];
   },
 };
