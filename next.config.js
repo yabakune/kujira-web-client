@@ -39,6 +39,21 @@ const nextConfig = {
         destination: "/cookie-policy",
         permanent: true,
       },
+      {
+        source: "/logbook",
+        destination: "/dashboard/logbooks",
+        permanent: true,
+      },
+      {
+        source: "/logbooks",
+        destination: "/dashboard/logbooks",
+        permanent: true,
+      },
+      {
+        source: "/dashboard/logbook",
+        destination: "/dashboard/logbooks",
+        permanent: true,
+      },
     ];
   },
 };
