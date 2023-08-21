@@ -7,7 +7,7 @@ import * as Types from "@/types";
 import { signalsStore } from "@/signals/signals";
 
 import { AuthInput } from "./auth-input";
-import { AuthHeader } from "./header";
+import { AuthHeader } from "./auth-header";
 import { Agreement } from "./agreement";
 
 type Props = {

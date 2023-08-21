@@ -5,8 +5,8 @@ import * as Components from "@/components";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
-import { AuthHeader } from "./header";
-import { AuthInputs } from "./inputs";
+import { AuthHeader } from "./auth-header";
+import { AuthInputs } from "./auth-inputs";
 
 type Props = {
   email: Signal<string>;

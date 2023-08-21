@@ -59,7 +59,7 @@ export const Agreement = (props: Props) => {
       type="button"
       onClick={toggleChecked}
     >
-      <div className={Snippets.iconButton}>
+      <div className={Snippets.iconContainer}>
         {props.checked.value ? (
           <Components.CheckboxFilled width={24} fill={13} />
         ) : (

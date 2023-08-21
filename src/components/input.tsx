@@ -71,7 +71,7 @@ export const Input = (props: Props) => {
         {props.password && (
           <button
             aria-label="Password Input Type Toggle Button"
-            className={Snippets.iconButton}
+            className={Snippets.iconContainer}
             onClick={togglePasswordInputType}
             type="button"
           >

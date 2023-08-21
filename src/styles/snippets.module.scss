@@ -47,11 +47,19 @@
   font-weight: var(--bold);
 }
 
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .iconButton {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+  padding: var(--twelvePixels);
 }
 
 .noInteraction {

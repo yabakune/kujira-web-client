@@ -5,7 +5,7 @@ import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 import { useDispatch } from "react-redux";
 
-import { AuthHeader } from "./header";
+import { AuthHeader } from "./auth-header";
 import { AuthInput } from "./auth-input";
 
 type Props = {

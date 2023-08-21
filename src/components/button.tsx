@@ -48,13 +48,13 @@ export const Button = (props: Props) => {
       type={props.submit ? "submit" : "button"}
     >
       {props.leftIcon && (
-        <div className={Snippets.iconButton}>{props.leftIcon}</div>
+        <div className={Snippets.iconContainer}>{props.leftIcon}</div>
       )}
 
       {props.text}
 
       {props.rightIcon && (
-        <div className={Snippets.iconButton}>{props.rightIcon}</div>
+        <div className={Snippets.iconContainer}>{props.rightIcon}</div>
       )}
     </button>
   );

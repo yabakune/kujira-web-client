@@ -7,7 +7,7 @@ import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
 import { AuthInput } from "./auth-input";
-import { AuthHeader } from "./header";
+import { AuthHeader } from "./auth-header";
 
 import Styles from "./inputs.module.scss";
 import { PasswordStrength } from "./password-strength";

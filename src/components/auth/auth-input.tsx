@@ -74,7 +74,7 @@ export const AuthInput = (props: Props) => {
         {userInputIsValid() && (
           <div
             key="User Input Is Valid"
-            className={Snippets.iconButton}
+            className={Snippets.iconContainer}
             tabIndex={-1}
           >
             <Components.CheckRounded width={16} fill={11} />
@@ -94,7 +94,7 @@ export const AuthInput = (props: Props) => {
         {props.password && (
           <button
             aria-label="Password Input Type Toggle Button"
-            className={Snippets.iconButton}
+            className={Snippets.iconContainer}
             onClick={togglePasswordInputType}
             type="button"
             tabIndex={-1}

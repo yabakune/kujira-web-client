@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--sixteenPixels);
+
+  border: var(--debug);
+}
+
+.page {
+  color: var(--themeTen);
+  font-size: var(--sixteenPixels);
+  font-weight: var(--extraBold);
+}
