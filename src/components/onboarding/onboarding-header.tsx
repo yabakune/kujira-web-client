@@ -24,8 +24,8 @@ export const OnboardingHeader = (props: Props) => {
         <Components.ArrowLeft width={14} fill={8} />
       </Components.ButtonIcon>
 
-      <h1 className={Snippets.titleText}>{props.title}</h1>
-      <h2 className={Styles.page}>{props.page.value}</h2>
+      <h1 className={`${Styles.title} ${Snippets.titleText}`}>{props.title}</h1>
+      <h2 className={Styles.page}>{props.page.value}/6</h2>
     </header>
   );
 };
