@@ -1,6 +1,8 @@
+import Styles from "@/styles/onboarding.module.scss";
+
 export const OnboardingWelcome = () => {
   return (
-    <>
+    <section className={Styles.textBody}>
       <p>
         This app was created to help you manage your financial health on a
         monthly basis. In order to achieve that, however, you’re going to have
@@ -13,6 +15,6 @@ export const OnboardingWelcome = () => {
         private to you and will never be shared with anyone else. With that
         said, let’s do some setup, starting with your take-home income!
       </p>
-    </>
+    </section>
   );
 };

@@ -15,3 +15,9 @@
   max-width: var(--sixHundredPixels);
   border-radius: var(--sixPixels);
 }
+
+.textBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fourPixels);
+}
