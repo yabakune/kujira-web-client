@@ -40,47 +40,53 @@ export const AppLayout = (props: Props) => {
   const { currentUser } = useSelector((state: ReduxStore) => state.entities);
 
   useEffect(() => {
-    if (Constants.userId && !currentUser) {
+    if (Constants.userId) {
       dispatch(Sagas.fetchUserRequest({ userId: Constants.userId }));
-    } else if (!currentUser) {
-      if (gatedRoutes.includes(router.pathname)) {
-        router.push(Constants.ClientRoutes.LANDING);
-      }
-    } else {
-      if (ungatedRoutes.includes(router.pathname)) {
-        router.push(Constants.ClientRoutes.LOGBOOKS);
-      }
-
-      if (typeof window !== "undefined") {
-        const localStorageTheme = localStorage.getItem("theme");
-
-        if (currentUser.theme && localStorageTheme !== currentUser.theme) {
-          localStorage.setItem("theme", currentUser.theme);
-        }
-
-        if (currentUser.theme === "dark") {
-          document.body.classList.remove(ThemeStyles.themeLilac);
-          document.body.classList.remove(ThemeStyles.systemTheme);
-        } else if (currentUser.theme === "light") {
-          document.body.classList.remove(ThemeStyles.systemTheme);
-          document.body.classList.add(ThemeStyles.themeLilac);
-        } else if (currentUser.theme === "system") {
-          document.body.classList.remove(ThemeStyles.themeLilac);
-          document.body.classList.add(ThemeStyles.systemTheme);
-        } else {
-          const date = new Date();
-          const beforeSixPM = date.getHours() < 18;
-          if (beforeSixPM) {
-            document.body.classList.remove(ThemeStyles.systemTheme);
-            document.body.classList.add(ThemeStyles.themeLilac);
-          } else {
-            document.body.classList.remove(ThemeStyles.themeLilac);
-            document.body.classList.remove(ThemeStyles.systemTheme);
-          }
-        }
-      }
     }
-  }, [currentUser]);
+  }, []);
+
+  // useEffect(() => {
+  //   if (Constants.userId && !currentUser) {
+  //     dispatch(Sagas.fetchUserRequest({ userId: Constants.userId }));
+  //   } else if (!currentUser) {
+  //     if (gatedRoutes.includes(router.pathname)) {
+  //       router.push(Constants.ClientRoutes.LANDING);
+  //     }
+  //   } else {
+  //     if (ungatedRoutes.includes(router.pathname)) {
+  //       router.push(Constants.ClientRoutes.LOGBOOKS);
+  //     }
+
+  //     if (typeof window !== "undefined") {
+  //       const localStorageTheme = localStorage.getItem("theme");
+
+  //       if (currentUser.theme && localStorageTheme !== currentUser.theme) {
+  //         localStorage.setItem("theme", currentUser.theme);
+  //       }
+
+  //       if (currentUser.theme === "dark") {
+  //         document.body.classList.remove(ThemeStyles.themeLilac);
+  //         document.body.classList.remove(ThemeStyles.systemTheme);
+  //       } else if (currentUser.theme === "light") {
+  //         document.body.classList.remove(ThemeStyles.systemTheme);
+  //         document.body.classList.add(ThemeStyles.themeLilac);
+  //       } else if (currentUser.theme === "system") {
+  //         document.body.classList.remove(ThemeStyles.themeLilac);
+  //         document.body.classList.add(ThemeStyles.systemTheme);
+  //       } else {
+  //         const date = new Date();
+  //         const beforeSixPM = date.getHours() < 18;
+  //         if (beforeSixPM) {
+  //           document.body.classList.remove(ThemeStyles.systemTheme);
+  //           document.body.classList.add(ThemeStyles.themeLilac);
+  //         } else {
+  //           document.body.classList.remove(ThemeStyles.themeLilac);
+  //           document.body.classList.remove(ThemeStyles.systemTheme);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }, [currentUser]);
 
   return (
     <div className={mulish.className}>

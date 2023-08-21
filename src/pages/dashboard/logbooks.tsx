@@ -1,5 +1,5 @@
 const Logbooks = () => {
-  return <Logbooks></Logbooks>;
+  return <div>Logbooks</div>;
 };
 
 export default Logbooks;
