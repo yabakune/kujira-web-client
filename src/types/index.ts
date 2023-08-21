@@ -4,6 +4,5 @@ export * from "./buttons.types";
 export * from "./forms.types";
 export * from "./icons.types";
 export * from "./legals.types";
-export * from "./onboarding.types";
 export * from "./redux.types";
 export * from "./sagas";

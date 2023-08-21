@@ -43,10 +43,6 @@ const Onboarding: NextPageWithLayout = () => {
     if (page.value < 6) page.value += 1;
   }
 
-  const decrementPage = useCallback(() => {
-    if (page.value > 1) page.value -= 1;
-  }, []);
-
   function nextPage(event: Types.OnSubmit): void {
     event.preventDefault();
     if (page.value < 6) {
@@ -73,14 +69,9 @@ const Onboarding: NextPageWithLayout = () => {
         className={`${Styles.form} ${Helpers.setBackgroundLevel(2)}`}
         onSubmit={nextPage}
       >
-        {page.value === 1 ? (
-          <Components.OnboardingWelcome
-            page={page}
-            decrementPage={decrementPage}
-          />
-        ) : (
-          <></>
-        )}
+        <Components.OnboardingHeader page={page} />
+
+        {page.value === 1 ? <Components.OnboardingWelcome /> : <></>}
 
         <Components.Button
           text={buttonText.value}
