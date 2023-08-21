@@ -42,6 +42,8 @@ const Onboarding: NextPageWithLayout = () => {
       buttonText.value = "I'm ready.";
       disabled.value = false;
     }
+
+    remainingBudget.value = Number(income.value);
   });
 
   function incrementPage(): void {
@@ -53,12 +55,12 @@ const Onboarding: NextPageWithLayout = () => {
     if (page.value < 6) {
       incrementPage();
     } else {
-      console.log("Foo");
+      if (!disabled.value) {
+        console.log("Income:", Helpers.numberToCost(Number(income.value)));
+      }
     }
     console.log("Next Page");
   }
-
-  console.log("Page:", page.value);
 
   useEffect(() => {
     if (currentUser) {

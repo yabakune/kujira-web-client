@@ -10,7 +10,25 @@ type Props = {
 export const OnboardingIncome = (props: Props) => {
   const incomeError = useSignal("");
 
-  effect(() => {});
+  const cents = props.income.value.split(".")[1];
+
+  effect(() => {
+    if (props.income.value.length === 0) {
+      incomeError.value = "";
+      props.disabled.value = true;
+    } else {
+      if (!Number(props.income.value)) {
+        incomeError.value = "Income must be a number.";
+        props.disabled.value = true;
+      } else if (cents && cents.length > 2) {
+        incomeError.value = "Cents can only be within the hundreds.";
+        props.disabled.value = true;
+      } else {
+        incomeError.value = "";
+        props.disabled.value = false;
+      }
+    }
+  });
 
   return (
     <>
