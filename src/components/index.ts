@@ -1,5 +1,6 @@
 export * from "./auth";
 export * from "./button";
+export * from "./button-icon";
 export * from "./icons";
 export * from "./input";
 export * from "./layouts";

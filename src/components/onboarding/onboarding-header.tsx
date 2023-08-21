@@ -18,9 +18,12 @@ export const OnboardingHeader = (props: Props) => {
         className={Snippets.iconButton}
         type="button"
         onClick={props.decrementPage}
-      >
+      ></button>
+
+      <Components.ButtonIcon backgroundLevel={2} onClick={props.decrementPage}>
         <Components.ArrowLeft width={14} fill={8} />
-      </button>
+      </Components.ButtonIcon>
+
       <h1 className={Snippets.titleText}>{props.title}</h1>
       <h2 className={Styles.page}>{props.page.value}</h2>
     </header>

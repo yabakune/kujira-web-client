@@ -3,7 +3,7 @@ import * as Types from "@/types";
 import ThemeStyles from "@/styles/themes.module.scss";
 
 export function setBorderRadius(borderRadius?: number): string {
-  return borderRadius ? `${borderRadius}px` : "12px";
+  return borderRadius ? `${borderRadius}px` : "4px";
 }
 
 export function setBackgroundLevel(

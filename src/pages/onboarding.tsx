@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Constants from "@/constants";
+import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Types from "@/types";
 import { NextPageWithLayout } from "./_app";
@@ -51,7 +52,10 @@ const Onboarding: NextPageWithLayout = () => {
 
   return (
     <main className={Styles.container}>
-      <form className={Styles.form} onSubmit={nextPage}>
+      <form
+        className={`${Styles.form} ${Helpers.setBackgroundLevel(2)}`}
+        onSubmit={nextPage}
+      >
         {page.value === 1 ? (
           <Components.OnboardingWelcome
             page={page}
