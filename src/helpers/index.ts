@@ -3,4 +3,5 @@ export * from "./forms.helpers";
 export * from "./metadata.helpers";
 export * from "./performance.helpers";
 export * from "./sagas.helpers";
+export * from "./strings.helpers";
 export * from "./styles.helpers";

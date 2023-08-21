@@ -22,6 +22,8 @@ const Onboarding: NextPageWithLayout = () => {
 
   const page = useSignal(1);
   const buttonText = useSignal("Let's go!");
+  const remainingBudget = useSignal(0);
+  const income = useSignal(0);
 
   effect(() => {
     if (page.value === 1) {
@@ -71,7 +73,19 @@ const Onboarding: NextPageWithLayout = () => {
       >
         <Components.OnboardingHeader page={page} />
 
-        {page.value === 1 ? <Components.OnboardingWelcome /> : <></>}
+        {page.value > 1 && income.value >= 0 && (
+          <p className={Styles.remaining}>
+            ${Helpers.numberToCost(remainingBudget.value)} remaining
+          </p>
+        )}
+
+        {page.value === 1 ? (
+          <Components.OnboardingWelcome />
+        ) : page.value === 2 ? (
+          <Components.OnboardingIncome income={income} />
+        ) : (
+          <></>
+        )}
 
         <Components.Button
           text={buttonText.value}
