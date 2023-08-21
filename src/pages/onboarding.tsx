@@ -1,4 +1,5 @@
 import * as Components from "@/components";
+
 import { NextPageWithLayout } from "./_app";
 
 const Onboarding: NextPageWithLayout = () => {
