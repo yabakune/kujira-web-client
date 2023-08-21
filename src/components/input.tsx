@@ -13,6 +13,7 @@ type Props = {
   placeholder: string;
   userInput: Signal<string>;
   errorMessage: Signal<string>;
+  icon: JSX.Element;
   backgroundLevel?: number;
   password?: true;
   required?: true;
@@ -58,6 +59,10 @@ export const Input = (props: Props) => {
 				`}
         onClick={focusInput}
       >
+        {props.icon && (
+          <div className={Snippets.iconContainer}>{props.icon}</div>
+        )}
+
         <input
           className={Styles.input}
           type={inputType.value}

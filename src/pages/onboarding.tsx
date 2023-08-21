@@ -23,11 +23,13 @@ const Onboarding: NextPageWithLayout = () => {
   const page = useSignal(1);
   const buttonText = useSignal("Let's go!");
   const remainingBudget = useSignal(0);
-  const income = useSignal(0);
+  const income = useSignal("");
+  const disabled = useSignal(true);
 
   effect(() => {
     if (page.value === 1) {
       buttonText.value = "Let's go!";
+      disabled.value = false;
     } else if (page.value === 2) {
       buttonText.value = "Savings";
     } else if (page.value === 3) {
@@ -38,6 +40,7 @@ const Onboarding: NextPageWithLayout = () => {
       buttonText.value = "Final Step";
     } else {
       buttonText.value = "I'm ready.";
+      disabled.value = false;
     }
   });
 
@@ -73,7 +76,7 @@ const Onboarding: NextPageWithLayout = () => {
       >
         <Components.OnboardingHeader page={page} />
 
-        {page.value > 1 && income.value >= 0 && (
+        {page.value > 1 && Number(income.value) >= 0 && (
           <p className={Styles.remaining}>
             ${Helpers.numberToCost(remainingBudget.value)} remaining
           </p>
@@ -82,7 +85,7 @@ const Onboarding: NextPageWithLayout = () => {
         {page.value === 1 ? (
           <Components.OnboardingWelcome />
         ) : page.value === 2 ? (
-          <Components.OnboardingIncome income={income} />
+          <Components.OnboardingIncome income={income} disabled={disabled} />
         ) : (
           <></>
         )}
@@ -90,6 +93,7 @@ const Onboarding: NextPageWithLayout = () => {
         <Components.Button
           text={buttonText.value}
           rightIcon={<Components.ArrowRight width={14} fill={12} />}
+          disabled={disabled}
           centered
           primary
           submit
