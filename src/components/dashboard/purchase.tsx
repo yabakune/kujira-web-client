@@ -14,7 +14,7 @@ type Props = {
   dragAction?: () => void;
   checkAction?: () => void;
   id: number;
-  category: Types.PurchaseCategory;
+  category?: Types.PurchaseCategory;
   description: string;
   cost: string;
   borderRadius?: number;
@@ -61,18 +61,19 @@ export const Purchase = (props: Props) => {
         </button>
       )}
 
-      {changeCategory.value ? (
-        <CategorySelector
-          changeCategory={changeCategory}
-          backgroundLevel={props.backgroundLevel}
-        />
-      ) : (
-        <CategoryButton
-          category={props.category}
-          changeCategory={changeCategory}
-          backgroundLevel={props.backgroundLevel}
-        />
-      )}
+      {props.category &&
+        (changeCategory.value ? (
+          <CategorySelector
+            changeCategory={changeCategory}
+            backgroundLevel={props.backgroundLevel}
+          />
+        ) : (
+          <CategoryButton
+            category={props.category}
+            changeCategory={changeCategory}
+            backgroundLevel={props.backgroundLevel}
+          />
+        ))}
 
       <section className={Styles.inputs}>
         <Components.Input

@@ -49,7 +49,6 @@ export const OverviewPurchasesDropdown = (props: Props) => {
             <Components.Purchase
               key={`${purchase.id}-${index}`}
               id={purchase.id}
-              category={purchase.category}
               description={purchase.description}
               cost={purchase.cost ? purchase.cost.toString() : ""}
               backgroundLevel={2}
