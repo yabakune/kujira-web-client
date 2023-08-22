@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  overflow: hidden;
+  cursor: pointer;
+
+  border: red solid 1px;
+
+  &.opened {
+    border: var(--themeEight) solid 1px;
+  }
+
+  &.closed {
+    border: transparent solid 1px;
+  }
+}
+
+.purchases {
+  display: flex;
+  flex-direction: column;
+  gap: var(--eightPixels);
+  padding: var(--sixteenPixels);
+  background-color: var(--themeTwo);
+  transition: var(--transition);
+
+  border: blue solid 1px;
+
+  &.opened {
+    height: auto;
+  }
+
+  &.closed {
+    height: 0px;
+  }
+}

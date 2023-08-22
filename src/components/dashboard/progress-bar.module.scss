@@ -1,0 +1,30 @@
+.container {
+  background-color: var(--themeFive);
+  border-radius: 999px;
+  transition: var(--transition);
+}
+
+.progression {
+  height: 100%;
+  border-radius: 999px;
+
+  &.default {
+    background-color: var(--text);
+  }
+
+  &.low {
+    background-color: var(--hpLow);
+  }
+
+  &.moderate {
+    background-color: var(--hpModerate);
+  }
+
+  &.high {
+    background-color: var(--hpHigh);
+  }
+
+  &.excellent {
+    background-color: var(--hpExcellent);
+  }
+}

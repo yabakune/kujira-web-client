@@ -43,6 +43,7 @@ export const OnboardingIncome = (props: Props) => {
         userInput={props.income}
         errorMessage={incomeError}
         icon={<Components.USD width={16} fill={8} />}
+        autoFocus
         required
       />
     </>

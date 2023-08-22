@@ -16,6 +16,7 @@ type Props = {
   icon: JSX.Element;
   backgroundLevel?: number;
   password?: true;
+  autoFocus?: true;
   required?: true;
 };
 
@@ -70,6 +71,7 @@ export const Input = (props: Props) => {
           value={props.userInput.value}
           ref={inputRef}
           onChange={setUserInput}
+          autoFocus={props.autoFocus}
           required={props.required}
         />
 

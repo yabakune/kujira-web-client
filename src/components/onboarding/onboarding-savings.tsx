@@ -72,6 +72,7 @@ export const OnboardingSavings = (props: Props) => {
         userInput={props.savings}
         errorMessage={savingsError}
         icon={<Components.Percent width={16} fill={8} />}
+        autoFocus
         required
       />
     </>
