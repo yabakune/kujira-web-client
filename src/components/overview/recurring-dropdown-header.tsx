@@ -7,11 +7,12 @@ import * as Types from "@/types";
 import Styles from "./recurring-dropdown-header.module.scss";
 
 type Props = {
+  title: string;
   opened: Signal<boolean>;
   totalCost: number;
 };
 
-export const RecurringDropdownHeader = (props: Props) => {
+export const OverviewDropdownHeader = (props: Props) => {
   function toggleOpened(): void {
     props.opened.value = !props.opened.value;
   }
@@ -27,7 +28,7 @@ export const RecurringDropdownHeader = (props: Props) => {
       onClick={toggleOpened}
     >
       <section className={Styles.titleAndTotal}>
-        <h5 className={Styles.title}>Recurring Purchases</h5>
+        <h5 className={Styles.title}>{props.title}</h5>
         <p className={Styles.totalCost}>
           ${Helpers.numberToCost(props.totalCost)}
         </p>

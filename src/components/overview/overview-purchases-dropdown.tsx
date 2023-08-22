@@ -4,11 +4,12 @@ import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
-import { RecurringDropdownHeader } from "./recurring-dropdown-header";
+import { OverviewDropdownHeader } from "./recurring-dropdown-header";
 
 import Styles from "./overview-purchases-dropdown.module.scss";
 
 type Props = {
+  title: string;
   purchases: Types.PurchaseModel[];
   borderRadius?: number;
   startOpened?: true;
@@ -33,7 +34,8 @@ export const OverviewPurchasesDropdown = (props: Props) => {
 			`}
       style={{ borderRadius: Helpers.setBorderRadius(props.borderRadius) }}
     >
-      <RecurringDropdownHeader
+      <OverviewDropdownHeader
+        title={props.title}
         opened={opened}
         totalCost={calculateTotalCost()}
       />
@@ -50,7 +52,7 @@ export const OverviewPurchasesDropdown = (props: Props) => {
               key={`${purchase.id}-${index}`}
               id={purchase.id}
               description={purchase.description}
-              cost={purchase.cost ? purchase.cost.toString() : ""}
+              cost={purchase.cost ? Helpers.numberToCost(purchase.cost) : ""}
               backgroundLevel={2}
             />
           );

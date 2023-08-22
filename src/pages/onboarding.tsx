@@ -1,6 +1,6 @@
 import { effect, useSignal } from "@preact/signals-react";
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import * as Components from "@/components";
@@ -25,6 +25,7 @@ const Onboarding: NextPageWithLayout = () => {
   const remainingBudget = useSignal(0);
   const income = useSignal("");
   const savings = useSignal("");
+  const recurringPurchaseCost = useSignal(0);
   const disabled = useSignal(true);
 
   effect(() => {
@@ -46,7 +47,11 @@ const Onboarding: NextPageWithLayout = () => {
 
     remainingBudget.value =
       Number(income.value) -
-      Helpers.calculateSavedIncome(Number(income.value), Number(savings.value));
+      Helpers.calculateSavedIncome(
+        Number(income.value),
+        Number(savings.value)
+      ) -
+      recurringPurchaseCost.value;
   });
 
   function incrementPage(): void {
@@ -99,7 +104,9 @@ const Onboarding: NextPageWithLayout = () => {
             disabled={disabled}
           />
         ) : page.value === 4 ? (
-          <Components.OnboardingRecurring />
+          <Components.OnboardingRecurring
+            recurringPurchaseCost={recurringPurchaseCost}
+          />
         ) : page.value === 5 ? (
           <Components.OnboardingIncoming />
         ) : (
