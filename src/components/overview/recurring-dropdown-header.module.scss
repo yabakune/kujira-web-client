@@ -14,9 +14,9 @@
 
 .titleAndTotal {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--fourPixels);
-  width: 100%;
 }
 
 .title {
@@ -27,6 +27,7 @@
 
 .totalCost {
   color: var(--themeTen);
+  font-weight: var(--bold);
 }
 
 .low {
@@ -47,5 +48,5 @@
 
 .buttons {
   display: flex;
-  flex-shrink: 0;
+  align-items: flex-start;
 }
