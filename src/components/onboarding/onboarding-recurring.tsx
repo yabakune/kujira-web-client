@@ -17,7 +17,7 @@ const testPurchases: PurchaseModel[] = [
   {
     id: 2,
     placement: 2,
-    category: "monthly",
+    category: "need",
     description: "Test 2",
     cost: 1,
     createdAt: new Date(),
@@ -27,7 +27,7 @@ const testPurchases: PurchaseModel[] = [
   {
     id: 3,
     placement: 3,
-    category: "monthly",
+    category: "planned",
     description: "Test 3",
     cost: 1,
     createdAt: new Date(),

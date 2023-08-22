@@ -6,6 +6,7 @@ export * from "./checkbox";
 export * from "./chevron-down";
 export * from "./chevron-up";
 export * from "./close";
+export * from "./drag";
 export * from "./error";
 export * from "./eye-hidden";
 export * from "./eye-visible";

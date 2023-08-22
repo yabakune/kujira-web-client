@@ -1,0 +1,32 @@
+.category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.25rem;
+  padding: var(--fourPixels) var(--eightPixels);
+  border: var(--themeEight) solid 1px;
+  border-radius: 4px;
+  font-size: var(--tenPixels);
+  font-weight: var(--bold);
+  cursor: pointer;
+
+  &.monthly {
+    color: var(--monthly);
+  }
+
+  &.need {
+    color: var(--need);
+  }
+
+  &.planned {
+    color: var(--planned);
+  }
+
+  &.impulse {
+    color: var(--impulse);
+  }
+
+  &.regret {
+    color: var(--regret);
+  }
+}

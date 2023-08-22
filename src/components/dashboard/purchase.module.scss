@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--twelvePixels);
+  padding: var(--eightPixels);
+}
+
+.inputs {
+  display: flex;
+  gap: var(--eightPixels);
+}

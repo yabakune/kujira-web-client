@@ -20,6 +20,10 @@
   transition: var(--transition);
   cursor: pointer;
 
+  &.small {
+    padding: var(--sixPixels) var(--eightPixels);
+  }
+
   &.error {
     border: var(--failure) solid 1px;
   }

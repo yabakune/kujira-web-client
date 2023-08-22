@@ -3,7 +3,6 @@
   flex-direction: column;
   transition: var(--transition);
   overflow: hidden;
-  cursor: pointer;
 
   &.opened {
     border: var(--themeEight) solid 1px;

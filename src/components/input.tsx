@@ -18,6 +18,7 @@ type Props = {
   password?: true;
   autoFocus?: true;
   required?: true;
+  small?: true;
 };
 
 export const Input = (props: Props) => {
@@ -55,6 +56,7 @@ export const Input = (props: Props) => {
       <div
         className={`
 					${Styles.inputContainer}
+					${props.small && Styles.small}
           ${props.errorMessage.value && Styles.error}
           ${Helpers.setBackgroundClickHover(props.backgroundLevel)}
 				`}

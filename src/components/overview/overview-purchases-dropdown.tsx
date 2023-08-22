@@ -1,5 +1,6 @@
 import { useSignal } from "@preact/signals-react";
 
+import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 
@@ -44,7 +45,16 @@ export const OverviewPurchasesDropdown = (props: Props) => {
 			`}
       >
         {props.purchases.map((purchase: Types.PurchaseModel, index: number) => {
-          return <div key={`${purchase}-${index}`}>{purchase.description}</div>;
+          return (
+            <Components.Purchase
+              key={`${purchase.id}-${index}`}
+              id={purchase.id}
+              category={purchase.category}
+              description={purchase.description}
+              cost={purchase.cost ? purchase.cost.toString() : ""}
+              backgroundLevel={2}
+            />
+          );
         })}
       </article>
     </section>
