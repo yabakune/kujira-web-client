@@ -49,7 +49,10 @@ export const OnboardingRecurring = () => {
         all below.
       </p>
 
-      <Components.OverviewDropdown purchases={testPurchases} startOpened />
+      <Components.OverviewPurchasesDropdown
+        purchases={testPurchases}
+        startOpened
+      />
     </>
   );
 };

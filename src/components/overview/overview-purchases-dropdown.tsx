@@ -5,7 +5,7 @@ import * as Types from "@/types";
 
 import { RecurringDropdownHeader } from "./recurring-dropdown-header";
 
-import Styles from "./overview-dropdown.module.scss";
+import Styles from "./overview-purchases-dropdown.module.scss";
 
 type Props = {
   purchases: Types.PurchaseModel[];
@@ -13,7 +13,7 @@ type Props = {
   startOpened?: true;
 };
 
-export const OverviewDropdown = (props: Props) => {
+export const OverviewPurchasesDropdown = (props: Props) => {
   const opened = useSignal(props.startOpened || false);
 
   function calculateTotalCost(): number {
