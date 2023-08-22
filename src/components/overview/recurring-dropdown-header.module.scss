@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  align-items: center;
   gap: var(--eightPixels);
   padding: var(--sixteenPixels);
   transition: var(--transition);
