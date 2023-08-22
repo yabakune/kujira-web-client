@@ -10,7 +10,7 @@
   }
 
   &.closed {
-    border: transparent solid 1px;
+    border: var(--themeFour) solid 1px;
   }
 }
 
