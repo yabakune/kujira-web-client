@@ -1,4 +1,4 @@
-import { Signal, useSignal } from "@preact/signals-react";
+import { Signal } from "@preact/signals-react";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
@@ -8,7 +8,6 @@ import Styles from "./recurring-dropdown-header.module.scss";
 
 type Props = {
   opened: Signal<boolean>;
-  remainingCost: number;
   totalCost: number;
 };
 
@@ -22,58 +21,35 @@ export const RecurringDropdownHeader = (props: Props) => {
     console.log("Add Purchase");
   }
 
-  function determineRemainingCost(): string {
-    const remainingPercentage = (props.remainingCost / props.totalCost) * 100;
-
-    if (remainingPercentage <= 25) {
-      return Styles.low;
-    } else if (remainingPercentage <= 50) {
-      return Styles.moderate;
-    } else if (remainingPercentage <= 75) {
-      return Styles.high;
-    } else {
-      return Styles.excellent;
-    }
-  }
-
   return (
     <header
       className={`${Styles.container} ${Helpers.setBackgroundClickHover(2)}`}
       onClick={toggleOpened}
     >
-      <div className={Styles.titleTotalAndButtons}>
-        <section className={Styles.titleAndTotal}>
-          <h5 className={Styles.title}>Recurring Purchases</h5>
-          <p className={Styles.totalCost}>
-            <span className={determineRemainingCost()}>
-              {props.remainingCost}
-            </span>{" "}
-            / {props.totalCost}
-          </p>
-        </section>
+      <section className={Styles.titleAndTotal}>
+        <h5 className={Styles.title}>Recurring Purchases</h5>
+        <p className={Styles.totalCost}>
+          ${Helpers.numberToCost(props.totalCost)}
+        </p>
+      </section>
 
-        <section className={Styles.buttons}>
-          <Components.ButtonIcon
-            onClick={addPurchase}
-            backgroundLevel={3}
-            transparent
-          >
-            <Components.Plus width={14} fill={12} />
-          </Components.ButtonIcon>
+      <section className={Styles.buttons}>
+        <Components.ButtonIcon
+          onClick={addPurchase}
+          backgroundLevel={3}
+          transparent
+        >
+          <Components.Plus width={14} fill={12} />
+        </Components.ButtonIcon>
 
-          <Components.ButtonIcon backgroundLevel={3} transparent>
-            {props.opened.value ? (
-              <Components.ChevronDown width={14} fill={12} />
-            ) : (
-              <Components.ChevronUp width={14} fill={8} />
-            )}
-          </Components.ButtonIcon>
-        </section>
-      </div>
-
-      <Components.ProgressBar
-        progression={(props.remainingCost / props.totalCost) * 100}
-      />
+        <Components.ButtonIcon backgroundLevel={3} transparent>
+          {props.opened.value ? (
+            <Components.ChevronDown width={14} fill={12} />
+          ) : (
+            <Components.ChevronUp width={14} fill={8} />
+          )}
+        </Components.ButtonIcon>
+      </section>
     </header>
   );
 };

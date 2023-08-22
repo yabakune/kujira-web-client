@@ -9,4 +9,5 @@ export * from "./notification";
 export * from "./onboarding";
 export * from "./overview";
 export * from "./page-head";
+export * from "./progress-bar";
 export * from "./spacer";

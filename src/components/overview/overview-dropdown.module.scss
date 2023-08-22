@@ -5,8 +5,6 @@
   overflow: hidden;
   cursor: pointer;
 
-  border: red solid 1px;
-
   &.opened {
     border: var(--themeEight) solid 1px;
   }
@@ -21,16 +19,11 @@
   flex-direction: column;
   gap: var(--eightPixels);
   padding: var(--sixteenPixels);
-  background-color: var(--themeTwo);
+  background-color: var(--themeOne);
+  transform-origin: top;
   transition: var(--transition);
 
-  border: blue solid 1px;
-
-  &.opened {
-    height: auto;
-  }
-
   &.closed {
-    height: 0px;
+    display: none;
   }
 }

@@ -1,22 +1,15 @@
 .container {
   display: flex;
-  flex-direction: column;
   gap: var(--eightPixels);
   padding: var(--sixteenPixels);
   transition: var(--transition);
   cursor: pointer;
 }
 
-.titleTotalAndButtons {
-  display: flex;
-  gap: var(--sixteenPixels);
-}
-
 .titleAndTotal {
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: var(--fourPixels);
 }
 
 .title {
@@ -26,24 +19,9 @@
 }
 
 .totalCost {
-  color: var(--themeTen);
+  color: var(--primary);
+  font-size: var(--fourteenPixels);
   font-weight: var(--bold);
-}
-
-.low {
-  color: var(--hpLow);
-}
-
-.moderate {
-  color: var(--hpModerate);
-}
-
-.high {
-  color: var(--hpHigh);
-}
-
-.excellent {
-  color: var(--hpExcellent);
 }
 
 .buttons {

@@ -1,10 +1,43 @@
 import * as Components from "@/components";
+import { PurchaseModel } from "@/types";
 
 import { useSignal } from "@preact/signals-react";
 
+const testPurchases: PurchaseModel[] = [
+  {
+    id: 1,
+    placement: 1,
+    category: "monthly",
+    description: "Test 1",
+    cost: 1,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    entryId: 1,
+  },
+  {
+    id: 2,
+    placement: 2,
+    category: "monthly",
+    description: "Test 2",
+    cost: 1,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    entryId: 1,
+  },
+  {
+    id: 3,
+    placement: 3,
+    category: "monthly",
+    description: "Test 3",
+    cost: 1,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    entryId: 1,
+  },
+];
+
 export const OnboardingRecurring = () => {
   const recurringPurchases = useSignal("");
-  const opened = useSignal(true);
 
   return (
     <>
@@ -16,20 +49,7 @@ export const OnboardingRecurring = () => {
         all below.
       </p>
 
-      <Components.PurchasesDropdown
-        startOpened
-        header={
-          <Components.RecurringDropdownHeader
-            opened={opened}
-            remainingCost={15.49}
-            totalCost={2031.62}
-          />
-        }
-      >
-        <div>Foo</div>
-        <div>Foo</div>
-        <div>Foo</div>
-      </Components.PurchasesDropdown>
+      <Components.OverviewDropdown purchases={testPurchases} startOpened />
     </>
   );
 };

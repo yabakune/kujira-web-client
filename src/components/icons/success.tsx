@@ -20,7 +20,7 @@ export const Success = (props: Types.IconProps) => {
       onMouseEnter={() => props.hoverFill && (hovered.value = true)}
       onMouseLeave={() => props.hoverFill && (hovered.value = false)}
     >
-      <g clip-path="url(#clip0_1354_58)">
+      <g clipPath="url(#clip0_1354_58)">
         <path
           fill-rule="evenodd"
           clip-rule="evenodd"
