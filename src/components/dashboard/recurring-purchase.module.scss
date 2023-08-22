@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  border: var(--themeFour) solid 1px;
+  border-radius: var(--fourPixels);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--twelvePixels);
+  padding: var(--twelvePixels);
+}
+
+.title {
+  color: var(--themeTen);
+}
+
+.status {
+  color: var(--text);
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  gap: var(--eightPixels);
+  padding: var(--twelvePixels);
+}
