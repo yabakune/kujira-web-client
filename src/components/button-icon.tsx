@@ -8,15 +8,26 @@ type Props = {
   backgroundLevel?: number;
   borderRadius?: number;
   children: React.ReactNode;
+  transparent?: true;
 };
 
 export const ButtonIcon = (props: Props) => {
+  function determineBackground(): string {
+    if (props.transparent) {
+      return `
+        ${Styles.transparent}
+        ${Helpers.setClickLevel(props.backgroundLevel)}
+        ${Helpers.setHoverLevel(props.backgroundLevel)}
+      `;
+    } else {
+      return Helpers.setBackgroundClickHover(props.backgroundLevel);
+    }
+  }
+
   return (
     <button
       type="button"
-      className={`
-        ${Styles.container}
-        ${Helpers.setBackgroundClickHover(props.backgroundLevel)}`}
+      className={`${Styles.container} ${determineBackground()}`}
       style={{ borderRadius: Helpers.setBorderRadius(props.borderRadius) }}
       onClick={props.onClick}
     >

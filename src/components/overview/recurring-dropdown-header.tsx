@@ -53,11 +53,15 @@ export const RecurringDropdownHeader = (props: Props) => {
         </section>
 
         <section className={Styles.buttons}>
-          <Components.ButtonIcon onClick={addPurchase} backgroundLevel={2}>
+          <Components.ButtonIcon
+            onClick={addPurchase}
+            backgroundLevel={3}
+            transparent
+          >
             <Components.Plus width={14} fill={12} />
           </Components.ButtonIcon>
 
-          <Components.ButtonIcon backgroundLevel={2}>
+          <Components.ButtonIcon backgroundLevel={3} transparent>
             {props.opened.value ? (
               <Components.ChevronDown width={14} fill={12} />
             ) : (
