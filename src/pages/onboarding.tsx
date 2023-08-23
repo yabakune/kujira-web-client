@@ -26,7 +26,17 @@ const Onboarding: NextPageWithLayout = () => {
   const remainingBudget = useSignal(0);
   const income = useSignal("");
   const savings = useSignal("");
-  const recurringPurchases = useSignal<Types.PurchaseModel[]>([]);
+  const recurringPurchases = useSignal<Types.PurchaseModel[]>([
+    {
+      id: 1,
+      placement: 1,
+      category: "monthly",
+      description: "",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      entryId: 1,
+    },
+  ]);
   const buttonText = useSignal("Let's go!");
   const disabled = useSignal(true);
 
