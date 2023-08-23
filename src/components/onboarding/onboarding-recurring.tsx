@@ -11,8 +11,8 @@ type Props = {
 export const OnboardingRecurring = (props: Props) => {
   function addPurchase(): void {
     props.purchases.value.push({
-      id: 1,
-      placement: 1,
+      id: props.purchases.value.length + 1,
+      placement: props.purchases.value.length + 1,
       category: "monthly",
       description: "",
       createdAt: new Date(),
@@ -25,8 +25,8 @@ export const OnboardingRecurring = (props: Props) => {
     console.log("Update Purchase");
   }, []);
 
-  const deletePurchase = useCallback(() => {
-    console.log("Delete Purchase");
+  const deletePurchase = useCallback((index: number) => {
+    props.purchases.value.splice(index);
   }, []);
 
   return (

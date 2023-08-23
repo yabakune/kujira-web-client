@@ -41,12 +41,12 @@ export const OverviewDropdownHeader = (props: Props) => {
           backgroundLevel={3}
           transparent
         >
-          <Components.Plus width={14} fill={12} />
+          <Components.Plus width={14} fill={11} />
         </Components.ButtonIcon>
 
         <Components.ButtonIcon backgroundLevel={3} transparent>
           {props.opened.value ? (
-            <Components.ChevronDown width={14} fill={12} />
+            <Components.ChevronDown width={14} fill={11} />
           ) : (
             <Components.ChevronUp width={14} fill={8} />
           )}

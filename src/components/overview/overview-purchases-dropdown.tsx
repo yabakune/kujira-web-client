@@ -13,7 +13,7 @@ type Props = {
   purchases: Types.PurchaseModel[];
   addPurchase: () => void;
   updatePurchase: () => void;
-  deletePurchase: () => void;
+  deletePurchase: (id: number) => void;
   borderRadius?: number;
   startOpened?: true;
 };

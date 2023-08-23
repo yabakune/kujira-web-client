@@ -1,4 +1,5 @@
 import { useSignal } from "@preact/signals-react";
+import { useEffect } from "react";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
@@ -9,14 +10,13 @@ import { CategoryButton } from "./category-button";
 
 import Styles from "./purchase.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
-import { useEffect } from "react";
 
 type Props = {
   purchase: Types.PurchaseModel;
   dragAction?: () => void;
   checkAction?: () => void;
   updatePurchase: () => void;
-  deletePurchase: () => void;
+  deletePurchase: (id: number) => void;
   borderRadius?: number;
   backgroundLevel?: number;
   hideCategories?: true;
@@ -111,9 +111,10 @@ export const Purchase = (props: Props) => {
         key="dashboard-purchase-cell-delete-button"
         className={Snippets.iconContainer}
         type="button"
-        onClick={props.deletePurchase}
+        onClick={() => props.deletePurchase(props.purchase.id)}
+        tabIndex={-1}
       >
-        <Components.Close width={12} fill={8} hoverFill={12} />
+        <Components.Close width={12} fill={8} hoverFill={11} />
       </button>
     </article>
   );
