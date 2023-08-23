@@ -25,8 +25,6 @@ export const OnboardingRecurring = (props: Props) => {
 
   const updatePurchase = useCallback(
     (purchaseUpdateFields: Types.PurchaseUpdateFields) => {
-      console.log("Purchases Before:", props.purchases.value);
-
       const { id, category, description, cost } = purchaseUpdateFields;
       const updatedPurchases = [...props.purchases.value];
       const index = id - 1;
@@ -36,8 +34,6 @@ export const OnboardingRecurring = (props: Props) => {
       else if (cost) purchase.cost = cost;
       Helpers.insertElementIntoArray(updatedPurchases, index, purchase);
       props.purchases.value = updatedPurchases;
-
-      console.log("Purchases After:", props.purchases.value);
     },
     []
   );
