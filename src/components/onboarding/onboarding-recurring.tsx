@@ -1,9 +1,9 @@
 import { Signal } from "@preact/signals-react";
+import { useCallback } from "react";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Types from "@/types";
-import { useCallback } from "react";
 
 type Props = {
   purchases: Signal<Types.PurchaseModel[]>;

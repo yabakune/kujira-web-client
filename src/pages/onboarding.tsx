@@ -37,6 +37,17 @@ const Onboarding: NextPageWithLayout = () => {
       entryId: 1,
     },
   ]);
+  const incomingPurchases = useSignal<Types.PurchaseModel[]>([
+    {
+      id: 1,
+      placement: 1,
+      category: "monthly",
+      description: "",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      entryId: 1,
+    },
+  ]);
   const buttonText = useSignal("Let's go!");
   const disabled = useSignal(true);
 
@@ -131,7 +142,7 @@ const Onboarding: NextPageWithLayout = () => {
         ) : page.value === 4 ? (
           <Components.OnboardingRecurring purchases={recurringPurchases} />
         ) : page.value === 5 ? (
-          <Components.OnboardingIncoming />
+          <Components.OnboardingIncoming purchases={incomingPurchases} />
         ) : (
           <Components.OnboardingFinal />
         )}
