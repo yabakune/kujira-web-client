@@ -21,8 +21,8 @@ export const OnboardingRecurring = (props: Props) => {
     });
   }
 
-  const updatePurchase = useCallback(() => {
-    console.log("Update Purchase");
+  const updatePurchase = useCallback((index: number) => {
+    console.log("Update Purchase Id:", index);
   }, []);
 
   const deletePurchase = useCallback((index: number) => {

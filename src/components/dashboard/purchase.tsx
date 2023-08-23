@@ -15,7 +15,7 @@ type Props = {
   purchase: Types.PurchaseModel;
   dragAction?: () => void;
   checkAction?: () => void;
-  updatePurchase: () => void;
+  updatePurchase: (id: number) => void;
   deletePurchase: (id: number) => void;
   borderRadius?: number;
   backgroundLevel?: number;
@@ -33,13 +33,13 @@ export const Purchase = (props: Props) => {
 
   useEffect(() => {
     if (description.value !== props.purchase.description) {
-      props.updatePurchase();
+      props.updatePurchase(props.purchase.id);
     }
   }, [description.value]);
 
   useEffect(() => {
     if (Number(cost.value) !== props.purchase.cost) {
-      props.updatePurchase();
+      props.updatePurchase(props.purchase.id);
     }
   }, [cost.value]);
 
