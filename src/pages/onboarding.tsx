@@ -114,7 +114,7 @@ const Onboarding: NextPageWithLayout = () => {
 
         {page.value > 1 && Number(income.value) >= 0 && (
           <p className={Styles.highlight}>
-            ${Helpers.roundCost(remainingBudget.value)} remaining
+            ${Helpers.formatRoundedCost(remainingBudget.value)} remaining
           </p>
         )}
 
