@@ -12,7 +12,7 @@ export function formatRoundedCost(cost: number): string {
   let stepCounter = 0;
   for (let index = dollars.length; index >= 0; index--) {
     stepCounter++;
-    if (stepCounter === 4) {
+    if (stepCounter === 4 && index != 0) {
       insertElementIntoArray(dollars, index, ",");
       stepCounter = 0;
     }
