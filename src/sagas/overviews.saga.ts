@@ -133,11 +133,11 @@ function* fetchLogbookOverview(
     const { data } = yield Saga.call(axios.post, endpoint, fetchPayload);
     const normalizedData = normalize(data.response, overviewsSchema);
 
-    // yield Saga.put(
-    //   Redux.entitiesActions.setOverviews(
-    //     normalizedData.entities.overviews as Types.NormalizedOverviews
-    //   )
-    // );
+    yield Saga.put(
+      Redux.entitiesActions.setOverviews(
+        normalizedData.entities.overviews as Types.NormalizedOverviews
+      )
+    );
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);

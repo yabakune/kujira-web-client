@@ -129,11 +129,11 @@ function* fetchUserLogbooks(
     });
     const normalizedData = normalize(data.response, logbooksSchemaList);
 
-    // yield Saga.put(
-    //   Redux.entitiesActions.setLogbooks(
-    //     normalizedData.entities.logbooks as Types.NormalizedLogbooks
-    //   )
-    // );
+    yield Saga.put(
+      Redux.entitiesActions.setLogbooks(
+        normalizedData.entities.logbooks as Types.NormalizedLogbooks
+      )
+    );
   } catch (error: any) {
     yield Helpers.handleError(error);
   }

@@ -1,7 +1,10 @@
+import Cookies from "js-cookie";
 import * as Saga from "redux-saga/effects";
 
 import * as Constants from "@/constants";
 import * as Redux from "@/redux";
+
+export const userId = Number(Cookies.get("userId"));
 
 export function generateGatedEndpoint(
   baseEndpoint: Constants.APIRoutes,
