@@ -1,6 +1,5 @@
 import * as Components from "@/components";
 import * as Types from "@/types";
-import { PurchaseModel } from "@/types";
 
 type Props = {
   purchases: Types.PurchaseModel[];

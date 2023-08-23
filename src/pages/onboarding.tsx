@@ -87,7 +87,7 @@ const Onboarding: NextPageWithLayout = () => {
   });
 
   function incrementPage(): void {
-    if (page.value < 6) page.value += 1;
+    if (page.value < 6 && !disabled.value) page.value += 1;
   }
 
   function nextPage(event: Types.OnSubmit): void {
