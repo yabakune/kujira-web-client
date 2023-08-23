@@ -34,8 +34,6 @@ export const OnboardingRecurring = (props: Props) => {
       else if (cost) purchase.cost = cost;
       Helpers.insertElementIntoArray(updatedPurchases, index, purchase);
       props.purchases.value = updatedPurchases;
-
-      console.log("Foo");
     }),
     []
   );
