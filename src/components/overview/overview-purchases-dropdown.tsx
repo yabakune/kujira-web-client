@@ -12,6 +12,8 @@ type Props = {
   title: string;
   purchases: Types.PurchaseModel[];
   addPurchase: () => void;
+  updatePurchase: () => void;
+  deletePurchase: () => void;
   borderRadius?: number;
   startOpened?: true;
 };
@@ -45,6 +47,8 @@ export const OverviewPurchasesDropdown = (props: Props) => {
             <Components.Purchase
               key={`${purchase.id}-${index}`}
               purchase={purchase}
+              updatePurchase={props.updatePurchase}
+              deletePurchase={props.deletePurchase}
               backgroundLevel={2}
             />
           );

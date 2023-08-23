@@ -20,6 +20,8 @@ export const OnboardingRecurring = (props: Props) => {
         title="Recurring Purchases"
         purchases={props.purchases}
         addPurchase={() => console.log("Add Purchase Baby")}
+        updatePurchase={() => console.log("Update Purchase Baby")}
+        deletePurchase={() => console.log("Delete Purchase Baby")}
         startOpened
       />
     </>

@@ -11,9 +11,11 @@ import Styles from "./purchase.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
 type Props = {
+  purchase: Types.PurchaseModel;
   dragAction?: () => void;
   checkAction?: () => void;
-  purchase: Types.PurchaseModel;
+  updatePurchase: () => void;
+  deletePurchase: () => void;
   borderRadius?: number;
   backgroundLevel?: number;
 };
@@ -26,10 +28,6 @@ export const Purchase = (props: Props) => {
   );
   const descriptionError = useSignal("");
   const costError = useSignal("");
-
-  function deletePurchase(): void {
-    console.log("Delete Purchase With ID:", props.purchase.id);
-  }
 
   return (
     <article
@@ -99,7 +97,7 @@ export const Purchase = (props: Props) => {
         key="dashboard-purchase-cell-delete-button"
         className={Snippets.iconContainer}
         type="button"
-        onClick={deletePurchase}
+        onClick={props.deletePurchase}
       >
         <Components.Close width={12} fill={8} hoverFill={12} />
       </button>
