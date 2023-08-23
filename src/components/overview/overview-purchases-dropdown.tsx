@@ -12,8 +12,8 @@ type Props = {
   title: string;
   purchases: Types.PurchaseModel[];
   addPurchase: () => void;
-  updatePurchase: (updateFields: Types.PurchaseUpdateFields) => void;
-  deletePurchase: (id: number) => void;
+  updatePurchase: Types.UpdatePurchase;
+  deletePurchase: Types.DeletePurchase;
   borderRadius?: number;
   startOpened?: true;
 };

@@ -15,8 +15,8 @@ type Props = {
   purchase: Types.PurchaseModel;
   dragAction?: () => void;
   checkAction?: () => void;
-  updatePurchase: (updateFields: Types.PurchaseUpdateFields) => void;
-  deletePurchase: (id: number) => void;
+  updatePurchase: Types.UpdatePurchase;
+  deletePurchase: Types.DeletePurchase;
   borderRadius?: number;
   backgroundLevel?: number;
   hideCategories?: true;

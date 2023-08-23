@@ -6,3 +6,7 @@ export type PurchaseUpdateFields = {
   description?: string;
   cost?: number;
 };
+
+export type UpdatePurchase = (updateFields: PurchaseUpdateFields) => void;
+
+export type DeletePurchase = (id: number) => void;
