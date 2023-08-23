@@ -1,6 +1,7 @@
 import { Signal } from "@preact/signals-react";
 
 import * as Components from "@/components";
+import * as Helpers from "@/helpers";
 import * as Types from "@/types";
 import { useCallback } from "react";
 
@@ -22,12 +23,31 @@ export const OnboardingRecurring = (props: Props) => {
     props.purchases.value = [...props.purchases.value, emptyPurchase];
   }
 
-  const updatePurchase = useCallback((index: number) => {
-    console.log("Update Purchase Id:", index);
-  }, []);
+  const updatePurchase = useCallback(
+    (purchaseUpdateFields: Types.PurchaseUpdateFields) => {
+      console.log("Purchases Before:", props.purchases.value);
 
-  const deletePurchase = useCallback((index: number) => {
-    props.purchases.value.splice(index);
+      const { id, category, description, cost } = purchaseUpdateFields;
+      const updatedPurchases = [...props.purchases.value];
+      const index = id - 1;
+      const purchase = updatedPurchases.splice(index, 1)[0];
+      if (category) purchase.category = category;
+      else if (description) purchase.description = description;
+      else if (cost) purchase.cost = cost;
+      Helpers.insertElementIntoArray(updatedPurchases, index, purchase);
+      props.purchases.value = updatedPurchases;
+
+      console.log("Purchases After:", props.purchases.value);
+    },
+    []
+  );
+
+  const deletePurchase = useCallback((id: number) => {
+    const index = id - 1;
+    props.purchases.value = Helpers.deleteArrayElement(
+      props.purchases.value,
+      index
+    );
   }, []);
 
   return (
