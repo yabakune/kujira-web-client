@@ -50,9 +50,7 @@ export const OverviewPurchasesDropdown = (props: Props) => {
           return (
             <Components.Purchase
               key={`${purchase.id}-${index}`}
-              id={purchase.id}
-              description={purchase.description}
-              cost={purchase.cost ? Helpers.numberToCost(purchase.cost) : ""}
+              purchase={purchase}
               backgroundLevel={2}
             />
           );

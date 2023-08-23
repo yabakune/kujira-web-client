@@ -13,23 +13,22 @@ import Snippets from "@/styles/snippets.module.scss";
 type Props = {
   dragAction?: () => void;
   checkAction?: () => void;
-  id: number;
-  category?: Types.PurchaseCategory;
-  description: string;
-  cost: string;
+  purchase: Types.PurchaseModel;
   borderRadius?: number;
   backgroundLevel?: number;
 };
 
 export const Purchase = (props: Props) => {
   const changeCategory = useSignal(false);
-  const description = useSignal(props.description);
-  const cost = useSignal(props.cost);
+  const description = useSignal(props.purchase.description);
+  const cost = useSignal(
+    props.purchase.cost ? props.purchase.cost.toString() : ""
+  );
   const descriptionError = useSignal("");
   const costError = useSignal("");
 
   function deletePurchase(): void {
-    console.log("Delete Purchase With ID:", props.id);
+    console.log("Delete Purchase With ID:", props.purchase.id);
   }
 
   return (
@@ -61,7 +60,7 @@ export const Purchase = (props: Props) => {
         </button>
       )}
 
-      {props.category &&
+      {props.purchase.category &&
         (changeCategory.value ? (
           <CategorySelector
             changeCategory={changeCategory}
@@ -69,7 +68,7 @@ export const Purchase = (props: Props) => {
           />
         ) : (
           <CategoryButton
-            category={props.category}
+            category={props.purchase.category}
             changeCategory={changeCategory}
             backgroundLevel={props.backgroundLevel}
           />
