@@ -43,11 +43,22 @@ export const OnboardingRecurring = (props: Props) => {
   );
 
   const deletePurchase = useCallback((id: number) => {
-    const index = id - 1;
-    props.purchases.value = Helpers.deleteArrayElement(
-      props.purchases.value,
-      index
-    );
+    let purchaseIndex: number | null = null;
+
+    for (let index = 0; index < props.purchases.value.length; index++) {
+      const purchase = props.purchases.value[index];
+      if (purchase.id === id) {
+        purchaseIndex = index;
+        break;
+      }
+    }
+
+    if (purchaseIndex || purchaseIndex === 0) {
+      props.purchases.value = Helpers.deleteArrayElement(
+        props.purchases.value,
+        purchaseIndex
+      );
+    }
   }, []);
 
   return (

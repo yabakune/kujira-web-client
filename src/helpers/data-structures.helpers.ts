@@ -3,10 +3,7 @@ export function deleteArrayElement<Element>(
   index: number
 ): Element[] {
   const updatedArray = [...array];
-  console.log("Updated Array Before:", updatedArray);
-  const foo = updatedArray.splice(index, 1);
-  console.log("Foo:", foo);
-  console.log("Updated Array After:", updatedArray);
+  updatedArray.splice(index, 1);
   return updatedArray;
 }
 
