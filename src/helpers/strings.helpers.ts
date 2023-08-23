@@ -1,5 +1,5 @@
-export function numberToCost(number: number): string {
-  return number.toFixed(2);
+export function roundCost(cost: number): string {
+  return cost.toFixed(2);
 }
 
 export function calculateSavedIncome(income: number, savings: number): number {

@@ -76,7 +76,7 @@ const Onboarding: NextPageWithLayout = () => {
       incrementPage();
     } else {
       if (!disabled.value) {
-        console.log("Income:", Helpers.numberToCost(Number(income.value)));
+        console.log("Income:", Helpers.roundCost(Number(income.value)));
         console.log("Savings:", Number(savings.value));
       }
     }
@@ -114,7 +114,7 @@ const Onboarding: NextPageWithLayout = () => {
 
         {page.value > 1 && Number(income.value) >= 0 && (
           <p className={Styles.highlight}>
-            ${Helpers.numberToCost(remainingBudget.value)} remaining
+            ${Helpers.roundCost(remainingBudget.value)} remaining
           </p>
         )}
 

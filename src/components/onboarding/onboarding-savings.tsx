@@ -56,7 +56,7 @@ export const OnboardingSavings = (props: Props) => {
         You are currently saving:{" "}
         <span className={Styles.highlight}>
           $
-          {Helpers.numberToCost(
+          {Helpers.roundCost(
             Helpers.calculateSavedIncome(
               Number(props.income.value),
               Number(props.savings.value)

@@ -31,7 +31,7 @@ export const OverviewDropdownHeader = (props: Props) => {
       <section className={Styles.titleAndTotal}>
         <h5 className={Styles.title}>{props.title}</h5>
         <p className={Styles.totalCost}>
-          ${Helpers.numberToCost(props.totalCost)}
+          ${Helpers.roundCost(props.totalCost)}
         </p>
       </section>
 
