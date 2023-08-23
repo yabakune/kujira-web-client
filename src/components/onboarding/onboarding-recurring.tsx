@@ -1,58 +1,12 @@
-import { Signal, useSignal } from "@preact/signals-react";
-import { useEffect } from "react";
-
 import * as Components from "@/components";
+import * as Types from "@/types";
 import { PurchaseModel } from "@/types";
 
-const testPurchases: PurchaseModel[] = [
-  {
-    id: 1,
-    placement: 1,
-    category: "monthly",
-    description: "Rent",
-    cost: 2000,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    entryId: 1,
-  },
-  {
-    id: 2,
-    placement: 2,
-    category: "monthly",
-    description: "Netflix",
-    cost: 15.49,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    entryId: 1,
-  },
-  {
-    id: 3,
-    placement: 3,
-    category: "monthly",
-    description: "YouTube Premium",
-    cost: 16.13,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    entryId: 1,
-  },
-];
-
 type Props = {
-  recurringPurchaseCost: Signal<number>;
+  purchases: Types.PurchaseModel[];
 };
 
 export const OnboardingRecurring = (props: Props) => {
-  const recurringPurchases = useSignal("");
-
-  useEffect(() => {
-    for (const testPurchase of testPurchases) {
-      if (testPurchase.cost) {
-        props.recurringPurchaseCost.value =
-          props.recurringPurchaseCost.value + testPurchase.cost;
-      }
-    }
-  }, []);
-
   return (
     <>
       <p>
@@ -65,7 +19,7 @@ export const OnboardingRecurring = (props: Props) => {
 
       <Components.OverviewPurchasesDropdown
         title="Recurring Purchases"
-        purchases={testPurchases}
+        purchases={props.purchases}
         startOpened
       />
     </>

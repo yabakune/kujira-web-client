@@ -18,14 +18,6 @@ type Props = {
 export const OverviewPurchasesDropdown = (props: Props) => {
   const opened = useSignal(props.startOpened || false);
 
-  function calculateTotalCost(): number {
-    let totalCost = 0;
-    for (const purchase of props.purchases) {
-      if (purchase.cost) totalCost += purchase.cost;
-    }
-    return totalCost;
-  }
-
   return (
     <section
       className={`
@@ -37,7 +29,7 @@ export const OverviewPurchasesDropdown = (props: Props) => {
       <OverviewDropdownHeader
         title={props.title}
         opened={opened}
-        totalCost={calculateTotalCost()}
+        totalCost={Helpers.calculatePurchasesTotalCost(props.purchases)}
       />
 
       <article
