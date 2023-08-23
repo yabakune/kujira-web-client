@@ -11,6 +11,7 @@ import Styles from "./overview-purchases-dropdown.module.scss";
 type Props = {
   title: string;
   purchases: Types.PurchaseModel[];
+  addPurchase: () => void;
   borderRadius?: number;
   startOpened?: true;
 };
@@ -30,6 +31,7 @@ export const OverviewPurchasesDropdown = (props: Props) => {
         title={props.title}
         opened={opened}
         totalCost={Helpers.calculatePurchasesTotalCost(props.purchases)}
+        addPurchase={props.addPurchase}
       />
 
       <article

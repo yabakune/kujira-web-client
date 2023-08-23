@@ -54,10 +54,11 @@ const Onboarding: NextPageWithLayout = () => {
   );
 
   const page = useSignal(1);
-  const buttonText = useSignal("Let's go!");
   const remainingBudget = useSignal(0);
   const income = useSignal("");
   const savings = useSignal("");
+  
+  const buttonText = useSignal("Let's go!");
   const disabled = useSignal(true);
 
   effect(() => {

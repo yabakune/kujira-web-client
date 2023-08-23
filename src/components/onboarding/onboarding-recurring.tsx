@@ -19,6 +19,7 @@ export const OnboardingRecurring = (props: Props) => {
       <Components.OverviewPurchasesDropdown
         title="Recurring Purchases"
         purchases={props.purchases}
+        addPurchase={() => console.log("Add Purchase Baby")}
         startOpened
       />
     </>

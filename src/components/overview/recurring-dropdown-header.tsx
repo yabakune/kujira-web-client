@@ -10,6 +10,7 @@ type Props = {
   title: string;
   opened: Signal<boolean>;
   totalCost: number;
+  addPurchase: () => void;
 };
 
 export const OverviewDropdownHeader = (props: Props) => {
@@ -19,7 +20,7 @@ export const OverviewDropdownHeader = (props: Props) => {
 
   function addPurchase(event: Types.OnClick<HTMLButtonElement>): void {
     Helpers.preventBubbling(event);
-    console.log("Add Purchase");
+    props.addPurchase();
   }
 
   return (
