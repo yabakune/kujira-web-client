@@ -89,8 +89,8 @@ const Onboarding: NextPageWithLayout = () => {
       if (!disabled.value) {
         console.log("Income:", Helpers.roundCost(Number(income.value)));
         console.log("Savings:", Number(savings.value));
-        console.log("Recurring Purchases:", recurringPurchases.value)
-        console.log("Incoming Purchases:", incomingPurchases.value)
+        console.log("Recurring Purchases:", recurringPurchases.value);
+        console.log("Incoming Purchases:", incomingPurchases.value);
       }
     }
     console.log("Next Page");
