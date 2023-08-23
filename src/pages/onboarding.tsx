@@ -12,39 +12,6 @@ import { NextPageWithLayout } from "./_app";
 
 import Styles from "@/styles/onboarding.module.scss";
 
-const testPurchases: Types.PurchaseModel[] = [
-  {
-    id: 1,
-    placement: 1,
-    category: "monthly",
-    description: "Rent",
-    cost: 2000,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    entryId: 1,
-  },
-  {
-    id: 2,
-    placement: 2,
-    category: "monthly",
-    description: "Netflix",
-    cost: 15.49,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    entryId: 1,
-  },
-  {
-    id: 3,
-    placement: 3,
-    category: "monthly",
-    description: "YouTube Premium",
-    cost: 16.13,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    entryId: 1,
-  },
-];
-
 const Onboarding: NextPageWithLayout = () => {
   const router = useRouter();
 
@@ -57,7 +24,7 @@ const Onboarding: NextPageWithLayout = () => {
   const remainingBudget = useSignal(0);
   const income = useSignal("");
   const savings = useSignal("");
-  
+  const recurringPurchases = useSignal<Types.PurchaseModel[]>([]);
   const buttonText = useSignal("Let's go!");
   const disabled = useSignal(true);
 
@@ -84,7 +51,7 @@ const Onboarding: NextPageWithLayout = () => {
         Number(income.value),
         Number(savings.value)
       ) -
-      Helpers.calculatePurchasesTotalCost(testPurchases);
+      Helpers.calculatePurchasesTotalCost(recurringPurchases.value);
   });
 
   function incrementPage(): void {
@@ -137,7 +104,7 @@ const Onboarding: NextPageWithLayout = () => {
             disabled={disabled}
           />
         ) : page.value === 4 ? (
-          <Components.OnboardingRecurring purchases={testPurchases} />
+          <Components.OnboardingRecurring purchases={recurringPurchases} />
         ) : page.value === 5 ? (
           <Components.OnboardingIncoming />
         ) : (

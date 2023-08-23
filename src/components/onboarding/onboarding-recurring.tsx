@@ -1,11 +1,34 @@
+import { Signal } from "@preact/signals-react";
+
 import * as Components from "@/components";
 import * as Types from "@/types";
+import { useCallback } from "react";
 
 type Props = {
-  purchases: Types.PurchaseModel[];
+  purchases: Signal<Types.PurchaseModel[]>;
 };
 
 export const OnboardingRecurring = (props: Props) => {
+  function addPurchase(): void {
+    props.purchases.value.push({
+      id: 1,
+      placement: 1,
+      category: "monthly",
+      description: "",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      entryId: 1,
+    });
+  }
+
+  const updatePurchase = useCallback(() => {
+    console.log("Update Purchase");
+  }, []);
+
+  const deletePurchase = useCallback(() => {
+    console.log("Delete Purchase");
+  }, []);
+
   return (
     <>
       <p>
@@ -18,10 +41,10 @@ export const OnboardingRecurring = (props: Props) => {
 
       <Components.OverviewPurchasesDropdown
         title="Recurring Purchases"
-        purchases={props.purchases}
-        addPurchase={() => console.log("Add Purchase Baby")}
-        updatePurchase={() => console.log("Update Purchase Baby")}
-        deletePurchase={() => console.log("Delete Purchase Baby")}
+        purchases={props.purchases.value}
+        addPurchase={addPurchase}
+        updatePurchase={updatePurchase}
+        deletePurchase={deletePurchase}
         startOpened
       />
     </>
