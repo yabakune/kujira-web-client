@@ -50,6 +50,7 @@ export const OverviewPurchasesDropdown = (props: Props) => {
               updatePurchase={props.updatePurchase}
               deletePurchase={props.deletePurchase}
               backgroundLevel={2}
+              hideCategories
             />
           );
         })}

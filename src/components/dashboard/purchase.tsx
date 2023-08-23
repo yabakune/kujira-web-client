@@ -19,6 +19,7 @@ type Props = {
   deletePurchase: () => void;
   borderRadius?: number;
   backgroundLevel?: number;
+  hideCategories?: true;
 };
 
 export const Purchase = (props: Props) => {
@@ -71,7 +72,7 @@ export const Purchase = (props: Props) => {
         </button>
       )}
 
-      {props.purchase.category &&
+      {!props.hideCategories &&
         (changeCategory.value ? (
           <CategorySelector
             changeCategory={changeCategory}
