@@ -10,7 +10,7 @@ type Props = {
 
 export const OnboardingRecurring = (props: Props) => {
   function addPurchase(): void {
-    props.purchases.value.push({
+    const emptyPurchase: Types.PurchaseModel = {
       id: props.purchases.value.length + 1,
       placement: props.purchases.value.length + 1,
       category: "monthly",
@@ -18,7 +18,8 @@ export const OnboardingRecurring = (props: Props) => {
       createdAt: new Date(),
       updatedAt: new Date(),
       entryId: 1,
-    });
+    };
+    props.purchases.value = [...props.purchases.value, emptyPurchase];
   }
 
   const updatePurchase = useCallback((index: number) => {
