@@ -1,18 +1,20 @@
 import { effect, useSignal } from "@preact/signals-react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Constants from "@/constants";
 import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
+import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 import { NextPageWithLayout } from "./_app";
 
 import Styles from "@/styles/onboarding.module.scss";
 
 const Onboarding: NextPageWithLayout = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const { ClientRoutes } = Constants;
@@ -73,6 +75,7 @@ const Onboarding: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (currentUser) {
+      dispatch(Sagas.fetchUserLogbooksRequest({ userId: currentUser.id }));
       if (currentUser.onboarded) router.push(ClientRoutes.LOGBOOKS);
     } else {
       router.push(ClientRoutes.LOGIN);
