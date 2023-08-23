@@ -9,6 +9,7 @@ import { CategoryButton } from "./category-button";
 
 import Styles from "./purchase.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
+import { useEffect } from "react";
 
 type Props = {
   purchase: Types.PurchaseModel;
@@ -28,6 +29,18 @@ export const Purchase = (props: Props) => {
   );
   const descriptionError = useSignal("");
   const costError = useSignal("");
+
+  useEffect(() => {
+    if (description.value !== props.purchase.description) {
+      props.updatePurchase();
+    }
+  }, [description.value]);
+
+  useEffect(() => {
+    if (Number(cost.value) !== props.purchase.cost) {
+      props.updatePurchase();
+    }
+  }, [cost.value]);
 
   return (
     <article
