@@ -12,6 +12,7 @@ import * as Types from "@/types";
 import { NextPageWithLayout } from "./_app";
 
 import Styles from "@/styles/onboarding.module.scss";
+import dynamic from "next/dynamic";
 
 function generatePurchasesForAPI(purchases: Types.PurchaseModel[]) {
   return purchases.map((purchase: Types.PurchaseModel) => {
@@ -28,6 +29,36 @@ function findEntryId(
     if (entry.name === name) return entry.id;
   }
 }
+
+const DynamicIncome = dynamic(() =>
+  import("@/components/onboarding/onboarding-income").then(
+    (mod) => mod.OnboardingIncome
+  )
+);
+
+const DynamicSavings = dynamic(() =>
+  import("@/components/onboarding/onboarding-savings").then(
+    (mod) => mod.OnboardingSavings
+  )
+);
+
+const DynamicRecurring = dynamic(() =>
+  import("@/components/onboarding/onboarding-recurring").then(
+    (mod) => mod.OnboardingRecurring
+  )
+);
+
+const DynamicIncoming = dynamic(() =>
+  import("@/components/onboarding/onboarding-incoming").then(
+    (mod) => mod.OnboardingIncoming
+  )
+);
+
+const DynamicFinal = dynamic(() =>
+  import("@/components/onboarding/onboarding-final").then(
+    (mod) => mod.OnboardingFinal
+  )
+);
 
 const Onboarding: NextPageWithLayout = () => {
   const dispatch = useDispatch();
@@ -178,19 +209,19 @@ const Onboarding: NextPageWithLayout = () => {
         {page.value === 1 ? (
           <Components.OnboardingWelcome />
         ) : page.value === 2 ? (
-          <Components.OnboardingIncome income={income} disabled={disabled} />
+          <DynamicIncome income={income} disabled={disabled} />
         ) : page.value === 3 ? (
-          <Components.OnboardingSavings
+          <DynamicSavings
             income={income}
             savings={savings}
             disabled={disabled}
           />
         ) : page.value === 4 ? (
-          <Components.OnboardingRecurring purchases={recurringPurchases} />
+          <DynamicRecurring purchases={recurringPurchases} />
         ) : page.value === 5 ? (
-          <Components.OnboardingIncoming purchases={incomingPurchases} />
+          <DynamicIncoming purchases={incomingPurchases} />
         ) : (
-          <Components.OnboardingFinal />
+          <DynamicFinal />
         )}
 
         <Components.Button
