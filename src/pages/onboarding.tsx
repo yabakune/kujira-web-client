@@ -13,12 +13,28 @@ import { NextPageWithLayout } from "./_app";
 
 import Styles from "@/styles/onboarding.module.scss";
 
+function generatePurchasesForAPI(purchases: Types.PurchaseModel[]) {
+  return purchases.map((purchase: Types.PurchaseModel) => {
+    const { placement, category, description, cost } = purchase;
+    return { placement, category, description, cost };
+  });
+}
+
+function findEntryId(
+  name: "Recurring" | "Incoming",
+  entries: Types.NormalizedEntries
+) {
+  for (const entry of Object.values(entries)) {
+    if (entry.name === name) return entry.id;
+  }
+}
+
 const Onboarding: NextPageWithLayout = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
   const { ClientRoutes } = Constants;
-  const { currentUser, logbooks, overviews } = useSelector(
+  const { currentUser, logbooks, overviews, entries } = useSelector(
     (state: Redux.ReduxStore) => state.entities
   );
 
@@ -82,12 +98,23 @@ const Onboarding: NextPageWithLayout = () => {
   }
 
   function completeOnboarding(): void {
-    if (!disabled.value) {
+    if (!disabled.value && entries) {
+      const recurringEntryId = findEntryId("Recurring", entries);
+      const incomingEntryId = findEntryId("Incoming", entries);
+
       console.log("Complete Onboarding");
-      console.log("Income:", Helpers.roundCost(Number(income.value)));
+      console.log("Income:", Number(income.value));
       console.log("Savings:", Number(savings.value));
-      console.log("Recurring Purchases:", recurringPurchases.value);
-      console.log("Incoming Purchases:", incomingPurchases.value);
+      console.log(
+        "Recurring Purchases:",
+        generatePurchasesForAPI(recurringPurchases.value)
+      );
+      console.log(
+        "Incoming Purchases:",
+        generatePurchasesForAPI(incomingPurchases.value)
+      );
+      console.log("Recurring Entry Id:", recurringEntryId);
+      console.log("Incoming Entry Id:", incomingEntryId);
     }
   }
 
