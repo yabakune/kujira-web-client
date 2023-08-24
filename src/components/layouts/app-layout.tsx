@@ -74,16 +74,16 @@ export const AppLayout = (props: Props) => {
       dispatch(Sagas.fetchUserRequest({ userId: Constants.userId }));
     }
 
-    if (currentUser) {
-      if (authRoutes.includes(currentPath)) {
-        if (currentUser.onboarded) router.push(Constants.ClientRoutes.LOGBOOKS);
-        else router.push(Constants.ClientRoutes.ONBOARDING);
-      }
-    } else {
-      if (gatedRoutes.includes(currentPath)) {
-        router.push(Constants.ClientRoutes.LOGIN);
-      }
-    }
+    // if (currentUser) {
+    //   if (authRoutes.includes(currentPath)) {
+    //     if (currentUser.onboarded) router.push(Constants.ClientRoutes.LOGBOOKS);
+    //     else router.push(Constants.ClientRoutes.ONBOARDING);
+    //   }
+    // } else {
+    //   if (gatedRoutes.includes(currentPath)) {
+    //     router.push(Constants.ClientRoutes.LOGIN);
+    //   }
+    // }
   }, [currentUser, router]);
 
   return (
