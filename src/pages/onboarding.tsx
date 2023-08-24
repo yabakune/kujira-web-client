@@ -18,7 +18,7 @@ const Onboarding: NextPageWithLayout = () => {
   const router = useRouter();
 
   const { ClientRoutes } = Constants;
-  const { currentUser, logbooks } = useSelector(
+  const { currentUser, logbooks, overviews } = useSelector(
     (state: Redux.ReduxStore) => state.entities
   );
 
@@ -116,6 +116,18 @@ const Onboarding: NextPageWithLayout = () => {
       );
     }
   }, [logbooks]);
+
+  useEffect(() => {
+    if (overviews) {
+      const overview = Object.values(overviews)[0];
+      dispatch(
+        Sagas.fetchOverviewEntriesRequest({
+          overviewId: overview.id,
+          userId: Helpers.userId,
+        })
+      );
+    }
+  }, [overviews]);
 
   return (
     <main className={Styles.container}>
