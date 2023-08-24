@@ -1,9 +1,4 @@
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-
-import * as Constants from "@/constants";
-import * as Redux from "@/redux";
+import * as Helpers from "@/helpers";
 
 import Styles from "./auth-layout.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
@@ -13,25 +8,13 @@ type Props = {
 };
 
 export const AuthLayout = (props: Props) => {
-  const router = useRouter();
-
-  const { currentUser } = useSelector(
-    (state: Redux.ReduxStore) => state.entities
-  );
-
-  useEffect(() => {
-    if (currentUser) {
-      if (!currentUser.onboarded) {
-        router.push(Constants.ClientRoutes.ONBOARDING);
-      } else {
-        router.push(Constants.ClientRoutes.LOGBOOKS);
-      }
-    }
-  }, [currentUser]);
-
-  return (
-    <div className={`${Styles.container} ${Snippets.responsiveSidePadding}`}>
-      <div className={Styles.form}>{props.children}</div>
-    </div>
-  );
+  if (Helpers.userId) {
+    return null;
+  } else {
+    return (
+      <div className={`${Styles.container} ${Snippets.responsiveSidePadding}`}>
+        <div className={Styles.form}>{props.children}</div>
+      </div>
+    );
+  }
 };

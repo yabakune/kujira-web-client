@@ -1,10 +1,8 @@
 import { effect, useSignal } from "@preact/signals-react";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
-import * as Constants from "@/constants";
 import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
@@ -30,9 +28,7 @@ function findEntryId(
 
 const Onboarding = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
 
-  const { ClientRoutes } = Constants;
   const { currentUser, logbooks, overviews, entries } = useSelector(
     (state: Redux.ReduxStore) => state.entities,
     shallowEqual
@@ -93,16 +89,6 @@ const Onboarding = () => {
       Helpers.calculatePurchasesTotalCost(recurringPurchases.value);
   });
 
-  // useEffect(() => {
-  //   if (Helpers.userId) {
-  //     if (currentUser && currentUser.onboarded) {
-  //       router.push(ClientRoutes.LOGBOOKS);
-  //     }
-  //   } else {
-  //     router.push(ClientRoutes.LOGIN);
-  //   }
-  // }, [currentUser]);
-
   useEffect(() => {
     if (!logbooks && Helpers.userId) {
       dispatch(Sagas.fetchUserLogbooksRequest({ userId: Helpers.userId }));
@@ -161,40 +147,44 @@ const Onboarding = () => {
     console.log("Next Page");
   }
 
-  return (
-    <main className={Styles.container}>
-      <form
-        className={`${Styles.form} ${Helpers.setBackgroundLevel(2)}`}
-        onSubmit={nextPage}
-      >
-        <Components.OnboardingHeader page={page} />
+  if (Helpers.userId || currentUser) {
+    return (
+      <main className={Styles.container}>
+        <form
+          className={`${Styles.form} ${Helpers.setBackgroundLevel(2)}`}
+          onSubmit={nextPage}
+        >
+          <Components.OnboardingHeader page={page} />
 
-        {page.value > 1 && Number(income.value) >= 0 && (
-          <p className={Styles.highlight}>
-            ${Helpers.formatRoundedCost(remainingBudget.value)} remaining
-          </p>
-        )}
+          {page.value > 1 && Number(income.value) >= 0 && (
+            <p className={Styles.highlight}>
+              ${Helpers.formatRoundedCost(remainingBudget.value)} remaining
+            </p>
+          )}
 
-        <Components.OnboardingPages
-          page={page}
-          income={income}
-          savings={savings}
-          recurringPurchases={recurringPurchases}
-          incomingPurchases={incomingPurchases}
-          disabled={disabled}
-        />
+          <Components.OnboardingPages
+            page={page}
+            income={income}
+            savings={savings}
+            recurringPurchases={recurringPurchases}
+            incomingPurchases={incomingPurchases}
+            disabled={disabled}
+          />
 
-        <Components.Button
-          text={buttonText.value}
-          rightIcon={<Components.ArrowRight width={14} fill={12} />}
-          disabled={disabled}
-          centered
-          primary
-          submit
-        />
-      </form>
-    </main>
-  );
+          <Components.Button
+            text={buttonText.value}
+            rightIcon={<Components.ArrowRight width={14} fill={12} />}
+            disabled={disabled}
+            centered
+            primary
+            submit
+          />
+        </form>
+      </main>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default Onboarding;
