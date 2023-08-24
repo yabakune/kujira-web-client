@@ -8,5 +8,6 @@
 .inputs {
   display: flex;
   flex: 1;
+  align-items: flex-end;
   gap: var(--eightPixels);
 }

@@ -1,4 +1,4 @@
-import { useSignal } from "@preact/signals-react";
+import { effect, useSignal } from "@preact/signals-react";
 import { useEffect } from "react";
 
 import * as Components from "@/components";
@@ -30,6 +30,22 @@ export const Purchase = (props: Props) => {
   );
   const descriptionError = useSignal("");
   const costError = useSignal("");
+
+  const cents = cost.value.split(".")[1];
+
+  effect(() => {
+    if (cost.value === "") {
+      costError.value = "";
+    } else {
+      if (!Number(cost.value)) {
+        costError.value = "Must be a number.";
+      } else if (cents && cents.length > 2) {
+        costError.value = "Cents can only be within the hundreds.";
+      } else {
+        costError.value = "";
+      }
+    }
+  });
 
   useEffect(() => {
     if (description.value !== props.purchase.description) {
