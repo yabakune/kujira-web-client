@@ -19,6 +19,8 @@ type Props = {
 };
 
 export const OnboardingHeader = (props: Props) => {
+  console.log("Onboarding header rendered");
+
   function decrementPage(): void {
     if (props.page.value > 1) props.page.value -= 1;
   }

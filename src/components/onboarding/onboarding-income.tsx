@@ -8,6 +8,8 @@ type Props = {
 };
 
 export const OnboardingIncome = (props: Props) => {
+  console.log("Onboarding income rendered");
+
   const incomeError = useSignal("");
 
   const cents = props.income.value.split(".")[1];

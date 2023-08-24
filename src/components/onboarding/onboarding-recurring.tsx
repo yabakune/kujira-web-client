@@ -10,6 +10,8 @@ type Props = {
 };
 
 export const OnboardingRecurring = (props: Props) => {
+  console.log("Onboarding recurring rendered");
+
   function addPurchase(): void {
     const emptyPurchase: Types.PurchaseModel = {
       id: props.purchases.value.length + 1,

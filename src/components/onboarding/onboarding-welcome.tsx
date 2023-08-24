@@ -1,6 +1,8 @@
 import Styles from "@/styles/onboarding.module.scss";
 
 export const OnboardingWelcome = () => {
+  console.log("Onboarding welcome rendered");
+
   return (
     <section className={Styles.textBody}>
       <p>

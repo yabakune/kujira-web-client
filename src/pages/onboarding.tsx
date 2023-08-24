@@ -1,7 +1,7 @@
 import { effect, useSignal } from "@preact/signals-react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Constants from "@/constants";
@@ -61,12 +61,15 @@ const DynamicFinal = dynamic(() =>
 );
 
 const Onboarding: NextPageWithLayout = () => {
+  console.log("Onboarding page rendered");
+
   const dispatch = useDispatch();
   const router = useRouter();
 
   const { ClientRoutes } = Constants;
   const { currentUser, logbooks, overviews, entries } = useSelector(
-    (state: Redux.ReduxStore) => state.entities
+    (state: Redux.ReduxStore) => state.entities,
+    shallowEqual
   );
 
   const page = useSignal(1);
