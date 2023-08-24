@@ -81,17 +81,22 @@ const Onboarding: NextPageWithLayout = () => {
     if (page.value < 6 && !disabled.value) page.value += 1;
   }
 
+  function completeOnboarding(): void {
+    if (!disabled.value) {
+      console.log("Complete Onboarding");
+      console.log("Income:", Helpers.roundCost(Number(income.value)));
+      console.log("Savings:", Number(savings.value));
+      console.log("Recurring Purchases:", recurringPurchases.value);
+      console.log("Incoming Purchases:", incomingPurchases.value);
+    }
+  }
+
   function nextPage(event: Types.OnSubmit): void {
     event.preventDefault();
     if (page.value < 6) {
       incrementPage();
     } else {
-      if (!disabled.value) {
-        console.log("Income:", Helpers.roundCost(Number(income.value)));
-        console.log("Savings:", Number(savings.value));
-        console.log("Recurring Purchases:", recurringPurchases.value);
-        console.log("Incoming Purchases:", incomingPurchases.value);
-      }
+      completeOnboarding();
     }
     console.log("Next Page");
   }
