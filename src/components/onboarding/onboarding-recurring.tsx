@@ -10,9 +10,7 @@ type Props = {
 };
 
 export const OnboardingRecurring = (props: Props) => {
-  console.log("Onboarding recurring rendered");
-
-  function addPurchase(): void {
+  const addPurchase = useCallback(() => {
     const emptyPurchase: Types.PurchaseModel = {
       id: props.purchases.value.length + 1,
       placement: props.purchases.value.length + 1,
@@ -23,7 +21,7 @@ export const OnboardingRecurring = (props: Props) => {
       entryId: 1,
     };
     props.purchases.value = [...props.purchases.value, emptyPurchase];
-  }
+  }, []);
 
   const updatePurchase = useCallback(
     Helpers.debounce((purchaseUpdateFields: Types.PurchaseUpdateFields) => {

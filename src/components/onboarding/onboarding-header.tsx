@@ -1,4 +1,5 @@
 import { Signal } from "@preact/signals-react";
+import { memo } from "react";
 
 import * as Components from "@/components";
 
@@ -18,9 +19,7 @@ type Props = {
   page: Signal<number>;
 };
 
-export const OnboardingHeader = (props: Props) => {
-  console.log("Onboarding header rendered");
-
+const ExportedComponent = (props: Props) => {
   function decrementPage(): void {
     if (props.page.value > 1) props.page.value -= 1;
   }
@@ -40,3 +39,5 @@ export const OnboardingHeader = (props: Props) => {
     </header>
   );
 };
+
+export const OnboardingHeader = memo(ExportedComponent);

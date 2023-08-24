@@ -1,8 +1,8 @@
+import { memo } from "react";
+
 import Styles from "@/styles/onboarding.module.scss";
 
-export const OnboardingWelcome = () => {
-  console.log("Onboarding welcome rendered");
-
+const ExportedComponent = () => {
   return (
     <section className={Styles.textBody}>
       <p>
@@ -20,3 +20,5 @@ export const OnboardingWelcome = () => {
     </section>
   );
 };
+
+export const OnboardingWelcome = memo(ExportedComponent);

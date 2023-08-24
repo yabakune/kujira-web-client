@@ -1,5 +1,5 @@
 import { effect, useSignal } from "@preact/signals-react";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
@@ -22,7 +22,7 @@ type Props = {
   hideCategories?: true;
 };
 
-export const Purchase = (props: Props) => {
+const ExportedComponent = (props: Props) => {
   const changeCategory = useSignal(false);
   const description = useSignal(props.purchase.description);
   const cost = useSignal(
@@ -141,3 +141,5 @@ export const Purchase = (props: Props) => {
     </article>
   );
 };
+
+export const Purchase = memo(ExportedComponent);

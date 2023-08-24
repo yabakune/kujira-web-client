@@ -9,10 +9,8 @@ import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
-import { NextPageWithLayout } from "./_app";
 
 import Styles from "@/styles/onboarding.module.scss";
-import dynamic from "next/dynamic";
 
 function generatePurchasesForAPI(purchases: Types.PurchaseModel[]) {
   return purchases.map((purchase: Types.PurchaseModel) => {
@@ -30,39 +28,7 @@ function findEntryId(
   }
 }
 
-const DynamicIncome = dynamic(() =>
-  import("@/components/onboarding/onboarding-income").then(
-    (mod) => mod.OnboardingIncome
-  )
-);
-
-const DynamicSavings = dynamic(() =>
-  import("@/components/onboarding/onboarding-savings").then(
-    (mod) => mod.OnboardingSavings
-  )
-);
-
-const DynamicRecurring = dynamic(() =>
-  import("@/components/onboarding/onboarding-recurring").then(
-    (mod) => mod.OnboardingRecurring
-  )
-);
-
-const DynamicIncoming = dynamic(() =>
-  import("@/components/onboarding/onboarding-incoming").then(
-    (mod) => mod.OnboardingIncoming
-  )
-);
-
-const DynamicFinal = dynamic(() =>
-  import("@/components/onboarding/onboarding-final").then(
-    (mod) => mod.OnboardingFinal
-  )
-);
-
-const Onboarding: NextPageWithLayout = () => {
-  console.log("Onboarding page rendered");
-
+const Onboarding = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -127,52 +93,20 @@ const Onboarding: NextPageWithLayout = () => {
       Helpers.calculatePurchasesTotalCost(recurringPurchases.value);
   });
 
-  function incrementPage(): void {
-    if (page.value < 6 && !disabled.value) page.value += 1;
-  }
-
-  function completeOnboarding(): void {
-    if (!disabled.value && entries) {
-      const recurringEntryId = findEntryId("Recurring", entries);
-      const incomingEntryId = findEntryId("Incoming", entries);
-
-      console.log("Complete Onboarding");
-      console.log("Income:", Number(income.value));
-      console.log("Savings:", Number(savings.value));
-      console.log(
-        "Recurring Purchases:",
-        generatePurchasesForAPI(recurringPurchases.value)
-      );
-      console.log(
-        "Incoming Purchases:",
-        generatePurchasesForAPI(incomingPurchases.value)
-      );
-      console.log("Recurring Entry Id:", recurringEntryId);
-      console.log("Incoming Entry Id:", incomingEntryId);
-    }
-  }
-
-  function nextPage(event: Types.OnSubmit): void {
-    event.preventDefault();
-    if (page.value < 6) {
-      incrementPage();
-    } else {
-      completeOnboarding();
-    }
-    console.log("Next Page");
-  }
+  // useEffect(() => {
+  //   if (Helpers.userId) {
+  //     if (currentUser && currentUser.onboarded) {
+  //       router.push(ClientRoutes.LOGBOOKS);
+  //     }
+  //   } else {
+  //     router.push(ClientRoutes.LOGIN);
+  //   }
+  // }, [currentUser]);
 
   useEffect(() => {
-    if (currentUser) {
-      dispatch(Sagas.fetchUserLogbooksRequest({ userId: currentUser.id }));
-      if (currentUser.onboarded) router.push(ClientRoutes.LOGBOOKS);
-    } else {
-      router.push(ClientRoutes.LOGIN);
-    }
-  }, [currentUser]);
-
-  useEffect(() => {
-    if (logbooks) {
+    if (!logbooks && Helpers.userId) {
+      dispatch(Sagas.fetchUserLogbooksRequest({ userId: Helpers.userId }));
+    } else if (logbooks) {
       const logbook = Object.values(logbooks)[0];
       dispatch(
         Sagas.fetchLogbookOverviewRequest({
@@ -195,6 +129,38 @@ const Onboarding: NextPageWithLayout = () => {
     }
   }, [overviews]);
 
+  function incrementPage(): void {
+    if (page.value < 6 && !disabled.value) page.value += 1;
+  }
+
+  function completeOnboarding(): void {
+    if (!disabled.value && entries) {
+      const recurringEntryId = findEntryId("Recurring", entries);
+      const incomingEntryId = findEntryId("Incoming", entries);
+
+      const data = {
+        income: income.value,
+        savings: savings.value,
+        recurringPurchases: generatePurchasesForAPI(recurringPurchases.value),
+        incomingPurchases: generatePurchasesForAPI(incomingPurchases.value),
+        recurringEntryId,
+        incomingEntryId,
+      };
+
+      console.log("Data:", data);
+    }
+  }
+
+  function nextPage(event: Types.OnSubmit): void {
+    event.preventDefault();
+    if (page.value < 6) {
+      incrementPage();
+    } else {
+      completeOnboarding();
+    }
+    console.log("Next Page");
+  }
+
   return (
     <main className={Styles.container}>
       <form
@@ -209,23 +175,14 @@ const Onboarding: NextPageWithLayout = () => {
           </p>
         )}
 
-        {page.value === 1 ? (
-          <Components.OnboardingWelcome />
-        ) : page.value === 2 ? (
-          <DynamicIncome income={income} disabled={disabled} />
-        ) : page.value === 3 ? (
-          <DynamicSavings
-            income={income}
-            savings={savings}
-            disabled={disabled}
-          />
-        ) : page.value === 4 ? (
-          <DynamicRecurring purchases={recurringPurchases} />
-        ) : page.value === 5 ? (
-          <DynamicIncoming purchases={incomingPurchases} />
-        ) : (
-          <DynamicFinal />
-        )}
+        <Components.OnboardingPages
+          page={page}
+          income={income}
+          savings={savings}
+          recurringPurchases={recurringPurchases}
+          incomingPurchases={incomingPurchases}
+          disabled={disabled}
+        />
 
         <Components.Button
           text={buttonText.value}

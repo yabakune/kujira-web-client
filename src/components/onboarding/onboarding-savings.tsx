@@ -12,8 +12,6 @@ type Props = {
 };
 
 export const OnboardingSavings = (props: Props) => {
-  console.log("Onboarding savings rendered");
-
   const savingsError = useSignal("");
 
   effect(() => {

@@ -1,4 +1,5 @@
 import { Signal } from "@preact/signals-react";
+import { memo } from "react";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
@@ -13,7 +14,7 @@ type Props = {
   addPurchase: () => void;
 };
 
-export const OverviewDropdownHeader = (props: Props) => {
+const ExportedComponent = (props: Props) => {
   function toggleOpened(): void {
     props.opened.value = !props.opened.value;
   }
@@ -55,3 +56,5 @@ export const OverviewDropdownHeader = (props: Props) => {
     </header>
   );
 };
+
+export const OverviewDropdownHeader = memo(ExportedComponent);
