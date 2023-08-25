@@ -10,10 +10,13 @@ import * as Types from "@/types";
 
 import Styles from "@/styles/onboarding.module.scss";
 
-function generatePurchasesForAPI(purchases: Types.PurchaseModel[]) {
+function generatePurchasesForAPI(
+  purchases: Types.PurchaseModel[],
+  entryId: number
+) {
   return purchases.map((purchase: Types.PurchaseModel) => {
     const { placement, category, description, cost } = purchase;
-    return { placement, category, description, cost };
+    return { placement, category, description, cost: cost || null, entryId };
   });
 }
 
@@ -120,20 +123,41 @@ const Onboarding = () => {
   }
 
   function completeOnboarding(): void {
-    if (!disabled.value && entries) {
+    if (!disabled.value && Helpers.userId && logbooks && entries) {
+      const logbookId = Object.values(logbooks)[0].id;
       const recurringEntryId = findEntryId("Recurring", entries);
       const incomingEntryId = findEntryId("Incoming", entries);
 
-      const data = {
-        income: income.value,
-        savings: savings.value,
-        recurringPurchases: generatePurchasesForAPI(recurringPurchases.value),
-        incomingPurchases: generatePurchasesForAPI(incomingPurchases.value),
-        recurringEntryId,
-        incomingEntryId,
-      };
-
-      console.log("Data:", data);
+      if (recurringEntryId && incomingEntryId) {
+        dispatch(
+          Sagas.onboardNewUserRequest({
+            userId: Helpers.userId,
+            logbookId,
+            income: Number(income.value),
+            savings: Number(savings.value),
+            recurringPurchases: generatePurchasesForAPI(
+              recurringPurchases.value,
+              recurringEntryId
+            ),
+            incomingPurchases: generatePurchasesForAPI(
+              incomingPurchases.value,
+              incomingEntryId
+            ),
+            recurringEntry: {
+              id: recurringEntryId,
+              totalCost: Helpers.calculatePurchasesTotalCost(
+                recurringPurchases.value
+              ),
+            },
+            incomingEntry: {
+              id: incomingEntryId,
+              totalCost: Helpers.calculatePurchasesTotalCost(
+                incomingPurchases.value
+              ),
+            },
+          })
+        );
+      }
     }
   }
 
@@ -144,7 +168,6 @@ const Onboarding = () => {
     } else {
       completeOnboarding();
     }
-    console.log("Next Page");
   }
 
   return (

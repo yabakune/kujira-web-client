@@ -11,4 +11,10 @@ export const overviewsReducers = {
   ) => {
     state.overviews = action.payload;
   },
+  setOverview: (
+    state: EntitiesState,
+    action: PayloadAction<Types.OverviewModel>
+  ) => {
+    if (state.overviews) state.overviews[action.payload.id] = action.payload;
+  },
 };

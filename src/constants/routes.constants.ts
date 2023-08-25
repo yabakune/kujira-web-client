@@ -15,6 +15,7 @@ export enum ClientRoutes {
 
 export enum APIRoutes {
   AUTH = "/api/v1/auth",
+  ONBOARDING = "/api/v1/onboarding",
   USERS = "/api/v1/users",
   OVERVIEWS = "/api/v1/overviews",
   LOGBOOKS = "/api/v1/logbooks",

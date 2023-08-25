@@ -11,4 +11,10 @@ export const logbooksReducers = {
   ) => {
     state.logbooks = action.payload;
   },
+  setLogbook: (
+    state: EntitiesState,
+    action: PayloadAction<Types.LogbookModel>
+  ) => {
+    if (state.logbooks) state.logbooks[action.payload.id] = action.payload;
+  },
 };
