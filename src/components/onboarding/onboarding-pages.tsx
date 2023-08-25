@@ -58,9 +58,15 @@ const ExportedComponent = (props: Props) => {
           disabled={props.disabled}
         />
       ) : props.page.value === 4 ? (
-        <DynamicRecurring purchases={props.recurringPurchases} />
+        <DynamicRecurring
+          purchases={props.recurringPurchases}
+          disabled={props.disabled}
+        />
       ) : props.page.value === 5 ? (
-        <DynamicIncoming purchases={props.incomingPurchases} />
+        <DynamicIncoming
+          purchases={props.incomingPurchases}
+          disabled={props.disabled}
+        />
       ) : (
         <DynamicFinal />
       )}

@@ -1,4 +1,4 @@
-import { useSignal } from "@preact/signals-react";
+import { Signal, useSignal } from "@preact/signals-react";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
@@ -14,6 +14,7 @@ type Props = {
   addPurchase: () => void;
   updatePurchase: Types.UpdatePurchase;
   deletePurchase: Types.DeletePurchase;
+  disabled?: Signal<boolean>;
   borderRadius?: number;
   startOpened?: true;
 };
@@ -49,6 +50,7 @@ export const OverviewPurchasesDropdown = (props: Props) => {
               purchase={purchase}
               updatePurchase={props.updatePurchase}
               deletePurchase={props.deletePurchase}
+              disabled={props.disabled}
               backgroundLevel={2}
               hideCategories
             />

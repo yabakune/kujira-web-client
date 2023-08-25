@@ -1,4 +1,4 @@
-import { effect, useSignal } from "@preact/signals-react";
+import { Signal, effect, useSignal } from "@preact/signals-react";
 import { memo, useEffect } from "react";
 
 import * as Components from "@/components";
@@ -17,6 +17,7 @@ type Props = {
   checkAction?: () => void;
   updatePurchase: Types.UpdatePurchase;
   deletePurchase: Types.DeletePurchase;
+  disabled?: Signal<boolean>;
   borderRadius?: number;
   backgroundLevel?: number;
   hideCategories?: true;
@@ -36,13 +37,17 @@ const ExportedComponent = (props: Props) => {
   effect(() => {
     if (cost.value === "") {
       costError.value = "";
+      if (props.disabled) props.disabled.value = false;
     } else {
       if (!Number(cost.value)) {
         costError.value = "Must be a number.";
+        if (props.disabled) props.disabled.value = true;
       } else if (cents && cents.length > 2) {
         costError.value = "Cents can only be within the hundreds.";
+        if (props.disabled) props.disabled.value = true;
       } else {
         costError.value = "";
+        if (props.disabled) props.disabled.value = false;
       }
     }
   });

@@ -7,6 +7,7 @@ import * as Types from "@/types";
 
 type Props = {
   purchases: Signal<Types.PurchaseModel[]>;
+  disabled: Signal<boolean>;
 };
 
 export const OnboardingIncoming = (props: Props) => {
@@ -72,6 +73,7 @@ export const OnboardingIncoming = (props: Props) => {
         addPurchase={addPurchase}
         updatePurchase={updatePurchase}
         deletePurchase={deletePurchase}
+        disabled={props.disabled}
         startOpened
       />
     </>

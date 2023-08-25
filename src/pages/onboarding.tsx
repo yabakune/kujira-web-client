@@ -78,6 +78,7 @@ const Onboarding = () => {
       buttonText.value = "Incoming Purchases";
     } else if (page.value === 5) {
       buttonText.value = "Final Step";
+      disabled.value = false;
     } else {
       buttonText.value = "I'm ready.";
       disabled.value = false;
