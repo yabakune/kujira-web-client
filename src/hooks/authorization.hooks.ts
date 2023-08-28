@@ -37,8 +37,6 @@ export function useAuthorization() {
   const notInAnOpenRoute = !openRoutes[router.pathname];
   const notInAnAuthRoute = !unauthenticatedRoutes[router.pathname];
 
-  console.log("notInAnAuthRoute:", notInAnAuthRoute);
-
   useEffect(() => {
     if (notInAnOpenRoute) {
       if (!currentUser) {
