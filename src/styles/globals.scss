@@ -40,6 +40,7 @@
 
   --shadowOne: 0px 8px 16px 0px #27262f;
 
+  --overlay: rgba(0, 0, 0, 0.7);
   --shadowOverlay: 0px 8px 16px 0px #000000;
 
   --fourPixels: 0.25rem;
@@ -77,6 +78,8 @@
   --bold: 700;
   --extraBold: 800;
   --black: 900;
+
+  --zIndexLoading: 10;
 }
 
 #root,

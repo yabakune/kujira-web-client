@@ -1,6 +1,7 @@
 export * from "./button";
 export * from "./button-icon";
 export * from "./input";
+export * from "./loading";
 export * from "./notification";
 export * from "./page-head";
 export * from "./progress-bar";

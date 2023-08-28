@@ -26,7 +26,11 @@ const ToLogin = () => {
   useEffect(() => {
     router.replace(Constants.ClientRoutes.LOGIN, undefined, { shallow: true });
   }, []);
-  return <Login />;
+  if (router.pathname === Constants.ClientRoutes.LOGIN) {
+    return <Login />;
+  } else {
+    return <Components.Loading />;
+  }
 };
 
 const ToLogbooks = () => {
@@ -36,7 +40,11 @@ const ToLogbooks = () => {
       shallow: true,
     });
   }, []);
-  return <Logbooks />;
+  if (router.pathname === Constants.ClientRoutes.LOGBOOKS) {
+    return <Logbooks />;
+  } else {
+    return <Components.Loading />;
+  }
 };
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
@@ -44,6 +52,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter();
   const userLoggedIn = Helpers.userId;
 
+  // Required for server-side authorization re-routing to work on the client.
   const mounted = useSignal(false);
 
   useEffect(() => {
