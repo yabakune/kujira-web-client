@@ -17,3 +17,7 @@ Settings.getLayout = function getLayout(page: ReactElement) {
 };
 
 export default Settings;
+
+export async function getServerSideProps() {
+  return { props: { requiresAuthorization: true } };
+}

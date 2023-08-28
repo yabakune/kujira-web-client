@@ -34,3 +34,7 @@ Login.getLayout = function getLayout(page: ReactElement) {
 };
 
 export default Login;
+
+export async function getServerSideProps() {
+  return { props: { authenticationRoute: true } };
+}

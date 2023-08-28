@@ -9,7 +9,6 @@ import * as Sagas from "@/sagas";
 import * as Selectors from "@/selectors";
 
 import ThemeStyles from "@/styles/themes.module.scss";
-import { useRouter } from "next/router";
 
 if (process.env.NODE_ENV === "development") {
   axios.defaults.baseURL = "http://localhost:8000";

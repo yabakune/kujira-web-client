@@ -66,3 +66,7 @@ PasswordReset.getLayout = function getLayout(page: ReactElement) {
 };
 
 export default PasswordReset;
+
+export async function getServerSideProps() {
+  return { props: { authenticationRoute: true } };
+}

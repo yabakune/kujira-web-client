@@ -34,3 +34,7 @@ Register.getLayout = function getLayout(page: React.ReactElement) {
 };
 
 export default Register;
+
+export async function getServerSideProps() {
+  return { props: { authenticationRoute: true } };
+}
