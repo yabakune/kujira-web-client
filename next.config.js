@@ -84,6 +84,26 @@ const nextConfig = {
         destination: "/onboarding",
         permanent: true,
       },
+      {
+        source: "/reset",
+        destination: "/password-reset",
+        permanent: true,
+      },
+      {
+        source: "/reset-password",
+        destination: "/password-reset",
+        permanent: true,
+      },
+      {
+        source: "/resetpassword",
+        destination: "/password-reset",
+        permanent: true,
+      },
+      {
+        source: "/passwordreset",
+        destination: "/password-reset",
+        permanent: true,
+      },
     ];
   },
 };
