@@ -1,3 +1,5 @@
+import * as Hooks from "@/hooks";
+
 type Props = {
   children: React.ReactNode;
 };

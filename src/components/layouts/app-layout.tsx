@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Components from "@/components";
 import * as Constants from "@/constants";
 import * as Sagas from "@/sagas";
-import { ReduxStore } from "@/redux";
+import * as Selectors from "@/selectors";
 
 import ThemeStyles from "@/styles/themes.module.scss";
 import { useRouter } from "next/router";
@@ -38,7 +38,7 @@ export const AppLayout = (props: Props) => {
   const router = useRouter();
 
   const currentPath = router.pathname;
-  const { currentUser } = useSelector((state: ReduxStore) => state.entities);
+  const currentUser = useSelector(Selectors.fetchCurrentUser);
 
   // useEffect(() => {
   // if (typeof window !== "undefined") {
@@ -89,7 +89,6 @@ export const AppLayout = (props: Props) => {
   return (
     <div className={mulish.className}>
       <Components.Notification />
-
       {props.children}
     </div>
   );

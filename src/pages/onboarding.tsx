@@ -4,6 +4,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
+import * as Hooks from "@/hooks";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
@@ -30,6 +31,7 @@ function findEntryId(
 }
 
 const Onboarding = () => {
+  Hooks.useAuthorization();
   const dispatch = useDispatch();
 
   const { logbooks, overviews, entries } = useSelector(
