@@ -28,7 +28,9 @@ const Register: NextPageWithLayout = () => {
 };
 
 Register.getLayout = function getLayout(page: React.ReactElement) {
-  return <Components.AuthLayout>{page}</Components.AuthLayout>;
+  return (
+    <Components.AuthenticationLayout>{page}</Components.AuthenticationLayout>
+  );
 };
 
 export default Register;

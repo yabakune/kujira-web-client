@@ -28,7 +28,9 @@ const Login: NextPageWithLayout = () => {
 };
 
 Login.getLayout = function getLayout(page: ReactElement) {
-  return <Components.AuthLayout>{page}</Components.AuthLayout>;
+  return (
+    <Components.AuthenticationLayout>{page}</Components.AuthenticationLayout>
+  );
 };
 
 export default Login;
