@@ -5,4 +5,5 @@ export * from "./loading";
 export * from "./notification";
 export * from "./page-head";
 export * from "./progress-bar";
+export * from "./shimmer";
 export * from "./spacer";

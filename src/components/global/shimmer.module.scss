@@ -1,0 +1,19 @@
+@keyframes effect {
+  from {
+    background-position: -1200px 0;
+  }
+  to {
+    background-position: 1200px 0;
+  }
+}
+
+.container {
+  background: linear-gradient(
+    to right,
+    var(--themeThree) 8%,
+    var(--themeFour) 18%,
+    var(--themeThree) 33%
+  );
+  background-size: 1200px 100%;
+  animation: effect 2.2s linear infinite;
+}
