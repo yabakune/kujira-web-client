@@ -5,5 +5,7 @@ type Props = {
 };
 
 export const AuthorizationLayout = (props: Props) => {
+  Hooks.useAuthorization();
+
   return <>{props.children}Authorization Layout</>;
 };

@@ -7,7 +7,9 @@ export default function Home() {
     <>
       <Components.PageHead title="Home" />
 
-      <main className={styles.main}>Home</main>
+      <Components.AuthorizationLayout>
+        <main className={styles.main}>Home</main>
+      </Components.AuthorizationLayout>
     </>
   );
 }

@@ -1,3 +1,5 @@
+import { AuthorizationLayout } from "./authorization-layout";
+
 import Styles from "./dashboard-layout.module.scss";
 
 type Props = {
@@ -6,6 +8,8 @@ type Props = {
 
 export const DashboardLayout = (props: Props) => {
   return (
-    <div className={Styles.container}>Dashboard Layout {props.children}</div>
+    <AuthorizationLayout>
+      <div className={Styles.container}>Dashboard Layout {props.children}</div>
+    </AuthorizationLayout>
   );
 };
