@@ -36,6 +36,7 @@ export function useAuthorization() {
 
   const notInAnOpenRoute = !openRoutes[router.pathname];
   const notInAnAuthRoute = !unauthenticatedRoutes[router.pathname];
+  const inAnAuthRoute = !!unauthenticatedRoutes[router.pathname];
 
   useEffect(() => {
     if (notInAnOpenRoute) {
@@ -44,7 +45,7 @@ export function useAuthorization() {
       } else {
         if (!currentUser.onboarded) router.push(ONBOARDING);
         else {
-          if (!notInAnAuthRoute) router.push(LOGBOOKS);
+          if (inAnAuthRoute) router.push(LOGBOOKS);
         }
       }
     }
