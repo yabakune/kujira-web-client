@@ -40,6 +40,16 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/dash",
+        destination: "/dashboard/logbooks",
+        permanent: true,
+      },
+      {
+        source: "/dashboard",
+        destination: "/dashboard/logbooks",
+        permanent: true,
+      },
+      {
         source: "/logbook",
         destination: "/dashboard/logbooks",
         permanent: true,
