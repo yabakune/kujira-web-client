@@ -70,8 +70,9 @@ function* onboardNewUser(
 
     yield Saga.put(Redux.entitiesActions.setEntry(updatedRecurringEntry));
     yield Saga.put(Redux.entitiesActions.setEntry(updatedIncomingEntry));
-
     yield Saga.put(Redux.entitiesActions.setCurrentUser(onboardedUser));
+
+    location.reload();
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);

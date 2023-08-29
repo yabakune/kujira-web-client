@@ -32,7 +32,7 @@ function findEntryId(
 const Onboarding = () => {
   const dispatch = useDispatch();
 
-  const { currentUser, logbooks, overviews, entries } = useSelector(
+  const { logbooks, overviews, entries } = useSelector(
     (state: Redux.ReduxStore) => state.entities,
     shallowEqual
   );
@@ -171,51 +171,49 @@ const Onboarding = () => {
     }
   }
 
-  if (currentUser) {
-    if (currentUser.onboarded) return <Components.ToLogbooks />;
-    else {
-      return (
-        <main className={Styles.container}>
-          <form
-            className={`${Styles.form} ${Helpers.setBackgroundLevel(2)}`}
-            onSubmit={nextPage}
-          >
-            <Components.OnboardingHeader page={page} />
+  return (
+    <main className={Styles.container}>
+      <form
+        className={`${Styles.form} ${Helpers.setBackgroundLevel(2)}`}
+        onSubmit={nextPage}
+      >
+        <Components.OnboardingHeader page={page} />
 
-            {page.value > 1 && Number(income.value) >= 0 && (
-              <p className={Styles.highlight}>
-                ${Helpers.formatRoundedCost(remainingBudget.value)} remaining
-              </p>
-            )}
+        {page.value > 1 && Number(income.value) >= 0 && (
+          <p className={Styles.highlight}>
+            ${Helpers.formatRoundedCost(remainingBudget.value)} remaining
+          </p>
+        )}
 
-            <Components.OnboardingPages
-              page={page}
-              income={income}
-              savings={savings}
-              recurringPurchases={recurringPurchases}
-              incomingPurchases={incomingPurchases}
-              disabled={disabled}
-            />
+        <Components.OnboardingPages
+          page={page}
+          income={income}
+          savings={savings}
+          recurringPurchases={recurringPurchases}
+          incomingPurchases={incomingPurchases}
+          disabled={disabled}
+        />
 
-            <Components.Button
-              text={buttonText.value}
-              rightIcon={<Components.ArrowRight width={14} fill={12} />}
-              disabled={disabled}
-              centered
-              primary
-              submit
-            />
-          </form>
-        </main>
-      );
-    }
-  } else {
-    return <Components.Loading />;
-  }
+        <Components.Button
+          text={buttonText.value}
+          rightIcon={<Components.ArrowRight width={14} fill={12} />}
+          disabled={disabled}
+          centered
+          primary
+          submit
+        />
+      </form>
+    </main>
+  );
 };
 
 export default Onboarding;
 
 export async function getServerSideProps() {
-  return { props: { requiresAuthorization: true } };
+  return {
+    props: {
+      requiresAuthorization: true,
+      isOnboarding: true,
+    },
+  };
 }

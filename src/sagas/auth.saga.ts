@@ -141,8 +141,8 @@ function* verifyRegistration(
     );
 
     Cookies.set("userId", data.response.safeUser.id);
-
     signalsStore.authStep.value = "";
+    location.reload();
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -189,8 +189,8 @@ function* verifyLogin(
     );
 
     Cookies.set("userId", data.response.safeUser.id);
-
     signalsStore.authStep.value = "";
+    location.reload();
 
     yield Saga.put(
       Redux.uiActions.setNotification({

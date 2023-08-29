@@ -1,12 +1,11 @@
 import axios from "axios";
+import { useSignal } from "@preact/signals-react";
 import { Mulish } from "next/font/google";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
-import * as Constants from "@/constants";
-import * as Sagas from "@/sagas";
-import * as Selectors from "@/selectors";
+import * as Hooks from "@/hooks";
 
 import ThemeStyles from "@/styles/themes.module.scss";
 
@@ -16,14 +15,26 @@ if (process.env.NODE_ENV === "development") {
   axios.defaults.baseURL = "http://localhost:8000";
 }
 
-type Props = { children: React.ReactNode };
+type Props = {
+  authenticationRoute: boolean;
+  requiresAuthorization: boolean;
+  isOnboarding: boolean;
+  children: React.ReactNode;
+};
 
 const mulish = Mulish({ subsets: ["latin"] });
 
 export const AppLayout = (props: Props) => {
-  const dispatch = useDispatch();
+  const router = useRouter();
+  const { user, fetchingCurrentUser } = Hooks.useFetchCurrentUser();
 
-  const currentUser = useSelector(Selectors.fetchCurrentUser);
+  // Required for server-side authorization re-routing to work on the client.
+  const mounted = useSignal(false);
+
+  useEffect(() => {
+    mounted.value = true;
+    router.replace(router.pathname, undefined, { shallow: true });
+  }, []);
 
   // useEffect(() => {
   // if (typeof window !== "undefined") {
@@ -54,16 +65,26 @@ export const AppLayout = (props: Props) => {
   // }
   // }, []);
 
-  useEffect(() => {
-    if (Constants.userId && !currentUser) {
-      dispatch(Sagas.fetchUserRequest({ userId: Constants.userId }));
-    }
-  }, [currentUser]);
-
   return (
     <div className={mulish.className}>
       <Components.Notification />
-      {props.children}
+
+      {mounted.value &&
+        (fetchingCurrentUser ? (
+          <Components.Loading text="Fetching your information..." />
+        ) : props.requiresAuthorization && !user ? (
+          <Components.ToLogin />
+        ) : props.requiresAuthorization && !!user && !user.onboarded ? (
+          <Components.ToOnboarding />
+        ) : props.isOnboarding && !!user && user.onboarded ? (
+          <Components.ToLogbooks />
+        ) : props.authenticationRoute && !!user && !user.onboarded ? (
+          <Components.ToOnboarding />
+        ) : props.authenticationRoute && !!user && user.onboarded ? (
+          <Components.ToLogbooks />
+        ) : (
+          props.children
+        ))}
     </div>
   );
 };
