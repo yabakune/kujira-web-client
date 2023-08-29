@@ -1,3 +1,4 @@
+export * from "./_app";
 export * from "./auth";
 export * from "./dashboard";
 export * from "./global";

@@ -21,32 +21,6 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 
 type AppPropsWithLayout = AppProps & { Component: NextPageWithLayout };
 
-const ToLogin = () => {
-  const router = useRouter();
-  useEffect(() => {
-    router.replace(Constants.ClientRoutes.LOGIN, undefined, { shallow: true });
-  }, []);
-  if (router.pathname === Constants.ClientRoutes.LOGIN) {
-    return <Login />;
-  } else {
-    return <Components.Loading />;
-  }
-};
-
-const ToLogbooks = () => {
-  const router = useRouter();
-  useEffect(() => {
-    router.replace(Constants.ClientRoutes.LOGBOOKS, undefined, {
-      shallow: true,
-    });
-  }, []);
-  if (router.pathname === Constants.ClientRoutes.LOGBOOKS) {
-    return <Logbooks />;
-  } else {
-    return <Components.Loading />;
-  }
-};
-
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   const router = useRouter();
@@ -65,9 +39,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       <Components.AppLayout>
         {mounted.value &&
           (pageProps.authenticationRoute && userLoggedIn ? (
-            <ToLogbooks />
+            <Components.ToLogbooks />
           ) : pageProps.requiresAuthorization && !userLoggedIn ? (
-            <ToLogin />
+            <Components.ToLogin />
           ) : (
             getLayout(<Component {...pageProps} />)
           ))}
