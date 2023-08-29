@@ -17,10 +17,11 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 
 type AppPropsWithLayout = AppProps & { Component: NextPageWithLayout };
 
+const userLoggedIn = Helpers.userId;
+
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   const router = useRouter();
-  const userLoggedIn = Helpers.userId;
 
   // Required for server-side authorization re-routing to work on the client.
   const mounted = useSignal(false);

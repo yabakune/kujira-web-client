@@ -210,7 +210,7 @@ const Onboarding = () => {
       );
     }
   } else {
-    return <Components.ToLogin />;
+    return <Components.Loading />;
   }
 };
 
