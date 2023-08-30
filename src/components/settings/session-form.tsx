@@ -10,7 +10,7 @@ export const SessionForm = () => {
 
   const dispatch = useDispatch();
 
-  function submit(): void {
+  function logOut(): void {
     if (Helpers.userId) {
       dispatch(
         Sagas.logoutRequest({
@@ -21,6 +21,6 @@ export const SessionForm = () => {
   }
 
   return (
-    <SettingsForm title="Session" submit={submit} buttonText="Log Out" inputs />
+    <SettingsForm title="Session" submit={logOut} buttonText="Log Out" inputs />
   );
 };

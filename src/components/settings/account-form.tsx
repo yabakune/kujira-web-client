@@ -60,7 +60,7 @@ export const AccountForm = (props: Props) => {
       usernameError.value !== "";
   });
 
-  function submit(): void {
+  function updateAccountDetails(): void {
     if (!disabled.value && Helpers.userId) {
       dispatch(
         Sagas.updateUserRequest({
@@ -73,7 +73,12 @@ export const AccountForm = (props: Props) => {
   }
 
   return (
-    <SettingsForm title="Account" submit={submit} disabled={disabled} inputs>
+    <SettingsForm
+      title="Account"
+      submit={updateAccountDetails}
+      disabled={disabled}
+      inputs
+    >
       <Components.AuthInput
         key="Settings Account Form Email Input"
         type="text"

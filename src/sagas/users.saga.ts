@@ -6,6 +6,7 @@ import * as Constants from "@/constants";
 import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Types from "@/types";
+import { signalsStore } from "@/signals/signals";
 
 enum UsersActions {
   FETCH_USER = "FETCH_USER",
@@ -135,6 +136,10 @@ function* deleteUser(action: Types.SagaPayload<Types.DeleteUserPayload>) {
 
     Cookies.remove("userId");
 
+    if (signalsStore.confirmationModalOpen.value) {
+      signalsStore.confirmationModalOpen.value = false;
+    }
+
     yield Saga.put(
       Redux.uiActions.setNotification({
         body: data.body,
@@ -142,6 +147,8 @@ function* deleteUser(action: Types.SagaPayload<Types.DeleteUserPayload>) {
         timeout: 5000,
       })
     );
+
+    location.reload();
   } catch (error: any) {
     yield Helpers.handleError(error);
   }

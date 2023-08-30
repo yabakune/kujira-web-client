@@ -4,6 +4,7 @@ export * from "./dashboard";
 export * from "./global";
 export * from "./icons";
 export * from "./layouts";
+export * from "./modals";
 export * from "./onboarding";
 export * from "./overview";
 export * from "./settings";

@@ -1,0 +1,42 @@
+.container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: var(--zIndexModal);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--overlay);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sixteenPixels);
+  width: 100%;
+  max-width: var(--sixHundredPixels);
+  padding: var(--sixteenPixels);
+  background-color: var(--themeOne);
+  border-radius: var(--sixPixels);
+  box-shadow: var(--shadowOverlay);
+}
+
+.header {
+  display: flex;
+  gap: var(--sixteenPixels);
+  align-items: flex-start;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--fourPixels);
+}
+
+.caption {
+  font-size: var(--sixteenPixels);
+  font-weight: var(--medium);
+}
