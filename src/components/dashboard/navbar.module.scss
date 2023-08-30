@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--twelvePixels);
+  padding-bottom: var(--twelvePixels);
+  background-color: transparent;
+  border-bottom: var(--themeFour) solid 1px;
+}
+
+.overviewToggleButton {
+  display: none;
+  flex-shrink: 0;
+
+  @media (max-width: 500px) {
+    display: block;
+  }
+}
+
+.navigationLinks {
+  display: flex;
+}

@@ -1,17 +1,17 @@
 .responsiveSidePadding {
-  padding-right: var(--twentyFourPixels);
-  padding-left: var(--twentyFourPixels);
+  padding-right: var(--sixteenPixels);
+  padding-left: var(--sixteenPixels);
 
   /* Tablet */
   @media (max-width: 1024px) {
-    padding-right: var(--twentyPixels);
-    padding-left: var(--twentyPixels);
+    padding-right: var(--fourteenPixels);
+    padding-left: var(--fourteenPixels);
   }
 
   /* Mobile */
   @media (max-width: 500px) {
-    padding-right: var(--sixteenPixels);
-    padding-left: var(--sixteenPixels);
+    padding-right: var(--twelvePixels);
+    padding-left: var(--twelvePixels);
   }
 }
 
