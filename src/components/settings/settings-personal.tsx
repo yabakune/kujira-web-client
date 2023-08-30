@@ -1,10 +1,15 @@
+import { useSelector } from "react-redux";
+
 import * as Components from "@/components";
 import * as Selectors from "@/selectors";
 
 import { AccountForm } from "./account-form";
-import { useSelector } from "react-redux";
+import { SessionForm } from "./session-form";
+import { DangerousForm } from "./dangerous-form";
 
 export const SettingsPersonal = () => {
+  console.log("Settings personal rendered");
+
   const currentUser = useSelector(Selectors.fetchCurrentUser);
 
   if (currentUser) {
@@ -14,6 +19,8 @@ export const SettingsPersonal = () => {
           email={currentUser.email}
           username={currentUser.username}
         />
+        <SessionForm />
+        <DangerousForm />
       </>
     );
   } else {

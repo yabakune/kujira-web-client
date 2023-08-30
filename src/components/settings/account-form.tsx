@@ -13,6 +13,8 @@ type Props = {
 };
 
 export const AccountForm = (props: Props) => {
+  console.log("Account form rendered");
+
   const dispatch = useDispatch();
 
   const email = useSignal(props.email);

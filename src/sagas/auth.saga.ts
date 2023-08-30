@@ -142,7 +142,6 @@ function* verifyRegistration(
 
     Cookies.set("userId", data.response.safeUser.id);
     signalsStore.authStep.value = "";
-    location.reload();
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -152,6 +151,8 @@ function* verifyRegistration(
         timeout: 5000,
       })
     );
+
+    location.reload();
   } catch (error: any) {
     yield Helpers.handleError(error);
   }
@@ -190,7 +191,6 @@ function* verifyLogin(
 
     Cookies.set("userId", data.response.safeUser.id);
     signalsStore.authStep.value = "";
-    location.reload();
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -199,6 +199,8 @@ function* verifyLogin(
         timeout: 5000,
       })
     );
+
+    location.reload();
   } catch (error: any) {
     yield Helpers.handleError(error);
   }
@@ -300,6 +302,8 @@ function* logout(action: Types.SagaPayload<Types.LogoutPayload>) {
         timeout: 5000,
       })
     );
+
+    location.reload();
   } catch (error: any) {
     yield Helpers.handleError(error);
   }

@@ -1,4 +1,5 @@
 import { Signal } from "@preact/signals-react";
+import { memo } from "react";
 
 import * as Components from "@/components";
 import * as Types from "@/types";
@@ -15,7 +16,9 @@ type Props = {
   inputs?: true;
 };
 
-export const SettingsForm = (props: Props) => {
+const ExportedComponent = (props: Props) => {
+  console.log("Settings form rendered");
+
   function submit(event: Types.OnSubmit): void {
     event.preventDefault();
     props.submit();
@@ -45,3 +48,5 @@ export const SettingsForm = (props: Props) => {
     </form>
   );
 };
+
+export const SettingsForm = memo(ExportedComponent);
