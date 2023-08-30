@@ -6,3 +6,4 @@ export * from "./icons";
 export * from "./layouts";
 export * from "./onboarding";
 export * from "./overview";
+export * from "./settings";
