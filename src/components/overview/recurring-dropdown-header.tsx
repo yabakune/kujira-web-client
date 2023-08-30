@@ -30,7 +30,7 @@ const ExportedComponent = (props: Props) => {
       onClick={toggleOpened}
     >
       <section className={Styles.titleAndTotal}>
-        <h5 className={Styles.title}>{props.title}</h5>
+        <h2 className={Styles.title}>{props.title}</h2>
         <p className={Styles.totalCost}>
           ${Helpers.formatRoundedCost(props.totalCost)}
         </p>

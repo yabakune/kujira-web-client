@@ -14,7 +14,7 @@ import Snippets from "@/styles/snippets.module.scss";
 type Props = {
   purchase: Types.PurchaseModel;
   dragAction?: () => void;
-  checkAction?: () => void;
+  selectAction?: () => void;
   updatePurchase: Types.UpdatePurchase;
   deletePurchase: Types.DeletePurchase;
   disabled?: Signal<boolean>;
@@ -79,6 +79,7 @@ const ExportedComponent = (props: Props) => {
     >
       {props.dragAction && (
         <button
+          aria-label="Purchase Cell Drag Button"
           key="dashboard-purchase-cell-drag-button"
           className={Snippets.iconContainer}
           type="button"
@@ -88,12 +89,13 @@ const ExportedComponent = (props: Props) => {
         </button>
       )}
 
-      {props.checkAction && (
+      {props.selectAction && (
         <button
-          key="dashboard-purchase-cell-check-button"
+          aria-label="Purchase Cell Select Button"
+          key="dashboard-purchase-cell-select-button"
           className={Snippets.iconContainer}
           type="button"
-          onClick={props.checkAction}
+          onClick={props.selectAction}
         >
           <Components.Checkbox width={12} fill={8} hoverFill={12} />
         </button>
@@ -135,6 +137,7 @@ const ExportedComponent = (props: Props) => {
       </section>
 
       <button
+        aria-label="Purchase Cell Delete Button"
         key="dashboard-purchase-cell-delete-button"
         className={Snippets.iconContainer}
         type="button"

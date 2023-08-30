@@ -26,6 +26,7 @@ export const ButtonIcon = (props: Props) => {
 
   return (
     <button
+      aria-label="Icon Button"
       type="button"
       className={`${Styles.container} ${determineBackground()}`}
       style={{ borderRadius: Helpers.setBorderRadius(props.borderRadius) }}

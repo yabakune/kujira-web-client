@@ -28,6 +28,7 @@ export const CategoryButton = (props: Props) => {
 
   return (
     <button
+      aria-label="Category Button"
       className={`
 						${Styles.category}
 						${determineCategoryStyle(props.category)}

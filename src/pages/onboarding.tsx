@@ -172,38 +172,42 @@ const Onboarding = () => {
   }
 
   return (
-    <main className={Styles.container}>
-      <form
-        className={`${Styles.form} ${Helpers.setBackgroundLevel(2)}`}
-        onSubmit={nextPage}
-      >
-        <Components.OnboardingHeader page={page} />
+    <>
+      <Components.PageHead title="Onboarding" />
 
-        {page.value > 1 && Number(income.value) >= 0 && (
-          <p className={Styles.highlight}>
-            ${Helpers.formatRoundedCost(remainingBudget.value)} remaining
-          </p>
-        )}
+      <main className={Styles.container}>
+        <form
+          className={`${Styles.form} ${Helpers.setBackgroundLevel(2)}`}
+          onSubmit={nextPage}
+        >
+          <Components.OnboardingHeader page={page} />
 
-        <Components.OnboardingPages
-          page={page}
-          income={income}
-          savings={savings}
-          recurringPurchases={recurringPurchases}
-          incomingPurchases={incomingPurchases}
-          disabled={disabled}
-        />
+          {page.value > 1 && Number(income.value) >= 0 && (
+            <p className={Styles.highlight}>
+              ${Helpers.formatRoundedCost(remainingBudget.value)} remaining
+            </p>
+          )}
 
-        <Components.Button
-          text={buttonText.value}
-          rightIcon={<Components.ArrowRight width={14} fill={12} />}
-          disabled={disabled}
-          centered
-          primary
-          submit
-        />
-      </form>
-    </main>
+          <Components.OnboardingPages
+            page={page}
+            income={income}
+            savings={savings}
+            recurringPurchases={recurringPurchases}
+            incomingPurchases={incomingPurchases}
+            disabled={disabled}
+          />
+
+          <Components.Button
+            text={buttonText.value}
+            rightIcon={<Components.ArrowRight width={14} fill={12} />}
+            disabled={disabled}
+            centered
+            primary
+            submit
+          />
+        </form>
+      </main>
+    </>
   );
 };
 
