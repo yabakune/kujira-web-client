@@ -17,8 +17,6 @@ type Props = {
 };
 
 const ExportedComponent = (props: Props) => {
-  console.log("Settings form rendered");
-
   function submit(event: Types.OnSubmit): void {
     event.preventDefault();
     props.submit();

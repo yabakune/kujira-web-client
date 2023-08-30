@@ -8,8 +8,6 @@ import { SessionForm } from "./session-form";
 import { DangerousForm } from "./dangerous-form";
 
 export const SettingsPersonal = () => {
-  console.log("Settings personal rendered");
-
   const currentUser = useSelector(Selectors.fetchCurrentUser);
 
   if (currentUser) {

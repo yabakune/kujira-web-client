@@ -18,8 +18,6 @@ type Props = {
 const { confirmationModalOpen } = signalsStore;
 
 export const ConfirmationModal = (props: Props) => {
-  console.log("Confirmation modal rendered");
-
   function closeModal(): void {
     confirmationModalOpen.value = false;
   }

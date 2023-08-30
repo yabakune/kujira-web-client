@@ -1,26 +1,27 @@
+import { memo, useCallback } from "react";
+import { useDispatch } from "react-redux";
+
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Sagas from "@/sagas";
+import { signalsStore } from "@/signals/signals";
 
 import { SettingsForm } from "./settings-form";
-import { useDispatch } from "react-redux";
-import { signalsStore } from "@/signals/signals";
 
 const { confirmationModalOpen } = signalsStore;
 
-export const DangerousForm = () => {
+const ExportedComponent = () => {
   const dispatch = useDispatch();
 
-  function deleteAccount(): void {
+  const deleteAccount = useCallback((): void => {
     if (Helpers.userId) {
-      console.log("Delete Account");
-      // dispatch(
-      //   Sagas.deleteUserRequest({
-      //     userId: Helpers.userId,
-      //   })
-      // );
+      dispatch(
+        Sagas.deleteUserRequest({
+          userId: Helpers.userId,
+        })
+      );
     }
-  }
+  }, []);
 
   return (
     <>
@@ -38,3 +39,5 @@ export const DangerousForm = () => {
     </>
   );
 };
+
+export const DangerousForm = memo(ExportedComponent);

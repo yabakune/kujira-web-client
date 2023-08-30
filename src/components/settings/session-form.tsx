@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useDispatch } from "react-redux";
 
 import * as Helpers from "@/helpers";
@@ -5,9 +6,7 @@ import * as Sagas from "@/sagas";
 
 import { SettingsForm } from "./settings-form";
 
-export const SessionForm = () => {
-  console.log("Session form rendered");
-
+const ExportedComponent = () => {
   const dispatch = useDispatch();
 
   function logOut(): void {
@@ -24,3 +23,5 @@ export const SessionForm = () => {
     <SettingsForm title="Session" submit={logOut} buttonText="Log Out" inputs />
   );
 };
+
+export const SessionForm = memo(ExportedComponent);
