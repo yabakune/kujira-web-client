@@ -22,6 +22,7 @@ type Props = {
   size?: Types.ButtonSize;
   leftIcon?: JSX.Element;
   text: string;
+  onClick?: () => void;
   rightIcon?: JSX.Element;
   backgroundLevel?: number;
   disabled?: Signal<boolean>;
@@ -46,6 +47,7 @@ export const Button = (props: Props) => {
 				${setBackground(props.primary, props.backgroundLevel)}
 			`}
       type={props.submit ? "submit" : "button"}
+      onClick={props.onClick}
     >
       {props.leftIcon && (
         <div className={Snippets.iconContainer}>{props.leftIcon}</div>
