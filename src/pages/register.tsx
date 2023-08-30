@@ -5,9 +5,9 @@ import * as Components from "@/components";
 import { signalsStore } from "@/signals/signals";
 import { NextPageWithLayout } from "./_app";
 
-const Register: NextPageWithLayout = () => {
-  const { authStep } = signalsStore;
+const { authStep } = signalsStore;
 
+const Register: NextPageWithLayout = () => {
   const email = useSignal("");
 
   useEffect(() => {

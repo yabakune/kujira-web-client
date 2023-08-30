@@ -7,9 +7,10 @@ import * as Constants from "@/constants";
 import { signalsStore } from "@/signals/signals";
 import { NextPageWithLayout } from "./_app";
 
+const { authStep } = signalsStore;
+
 const PasswordReset: NextPageWithLayout = () => {
   const router = useRouter();
-  const { authStep } = signalsStore;
 
   const email = useSignal("");
   const emailError = useSignal("");

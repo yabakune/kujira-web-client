@@ -66,9 +66,10 @@ type Props = {
   email?: Signal<string>;
 };
 
+const { authStep } = signalsStore;
+
 export const AuthHeader = (props: Props) => {
   const dispatch = useDispatch();
-  const { authStep } = signalsStore;
 
   function requestNewCode(): void {
     if (props.email) {

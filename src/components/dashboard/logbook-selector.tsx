@@ -11,9 +11,10 @@ import { signalsStore } from "@/signals/signals";
 import Styles from "./logbook-selector.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
+const { currentLogbookId } = signalsStore;
+
 const ExportedComponent = () => {
   const dispatch = useDispatch();
-  const { currentLogbookId } = signalsStore;
   const { logbooks } = useSelector((state: Redux.ReduxStore) => state.entities);
 
   useEffect(() => {

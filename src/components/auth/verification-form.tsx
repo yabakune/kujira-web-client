@@ -15,9 +15,10 @@ type Props = {
   withArrow?: true;
 };
 
+const { authStep } = signalsStore;
+
 export const VerificationForm = (props: Props) => {
   const dispatch = useDispatch();
-  const { authStep } = signalsStore;
 
   const verificationCode = useSignal("");
   const verificationCodeError = useSignal("");

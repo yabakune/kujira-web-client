@@ -17,9 +17,9 @@ type Props = {
   disabled: Signal<boolean>;
 };
 
-export const AuthInputs = (props: Props) => {
-  const { authStep } = signalsStore;
+const { authStep } = signalsStore;
 
+export const AuthInputs = (props: Props) => {
   const emailError = useSignal("");
   const usernameError = useSignal("");
   const passwordError = useSignal("");

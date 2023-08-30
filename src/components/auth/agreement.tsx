@@ -45,9 +45,9 @@ type Props = {
   checked: Signal<boolean>;
 };
 
-export const Agreement = (props: Props) => {
-  const { authStep } = signalsStore;
+const { authStep } = signalsStore;
 
+export const Agreement = (props: Props) => {
   function toggleChecked(): void {
     props.checked.value = !props.checked.value;
   }
