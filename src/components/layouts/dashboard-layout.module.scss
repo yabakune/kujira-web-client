@@ -7,3 +7,29 @@
 
   border: var(--debug);
 }
+
+.contentContainer {
+  height: 100%;
+
+  border: green solid 1px;
+}
+
+.body {
+  display: flex;
+  gap: var(--sixteenPixels);
+  height: 100%;
+
+  border: var(--debug);
+}
+
+.overview {
+  min-width: var(--fiveHundredPixels);
+
+  border: blue solid 1px;
+}
+
+.mainContent {
+  flex: 1;
+
+  border: blue solid 1px;
+}

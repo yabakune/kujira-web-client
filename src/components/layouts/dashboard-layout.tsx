@@ -19,9 +19,19 @@ export const DashboardLayout = (props: Props) => {
     <div className={Styles.container}>
       <Navbar />
 
-      <section className={Snippets.responsiveSidePadding}>
-        {!currentLogbookId.value ? <LogbookSelector /> : props.children}
-      </section>
+      <div
+        className={`${Styles.contentContainer} ${Snippets.responsiveSidePadding}`}
+      >
+        {!currentLogbookId.value ? (
+          <LogbookSelector />
+        ) : (
+          <section className={Styles.body}>
+            <article className={Styles.overview}>Overview</article>
+            <article className={Styles.mainContent}>{props.children}</article>
+            <div className={Styles.overview} />
+          </section>
+        )}
+      </div>
     </div>
   );
 };
