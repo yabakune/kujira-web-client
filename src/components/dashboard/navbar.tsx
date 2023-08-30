@@ -45,13 +45,13 @@ export const Navbar = () => {
         <Components.ButtonIcon onClick={() => toPage(LOGBOOKS)}>
           <Components.Logbook
             width={14}
-            fill={currentRoute.value === LOGBOOKS ? 11 : 8}
+            fill={router.pathname === LOGBOOKS ? 11 : 8}
           />
         </Components.ButtonIcon>
         <Components.ButtonIcon onClick={() => toPage(SETTINGS)}>
           <Components.Settings
             width={14}
-            fill={currentRoute.value === SETTINGS ? 11 : 8}
+            fill={router.pathname === SETTINGS ? 11 : 8}
           />
         </Components.ButtonIcon>
       </section>

@@ -9,6 +9,10 @@ import * as Redux from "@/redux";
 import * as Types from "@/types";
 
 async function fetchCurrentUser(endpoint: string) {
+  if (process.env.NODE_ENV === "development") {
+    console.log("useFetchCurrentUser fired");
+  }
+
   const { data } = await axios.get(endpoint);
   return data.response;
 }
@@ -20,10 +24,6 @@ type CurrentUser = {
 };
 
 export function useFetchCurrentUser(): CurrentUser {
-  if (process.env.NODE_ENV === "development") {
-    console.log("useFetchCurrentUser fired");
-  }
-
   const dispatch = useDispatch();
 
   const endpoint = Helpers.generateGatedEndpoint(
