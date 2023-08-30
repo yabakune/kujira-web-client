@@ -25,6 +25,10 @@
 .overview {
   min-width: var(--fiveHundredPixels);
 
+  @media (max-width: 1664px) {
+    display: none;
+  }
+
   border: blue solid 1px;
 }
 
