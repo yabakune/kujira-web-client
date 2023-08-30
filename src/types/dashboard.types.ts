@@ -10,3 +10,5 @@ export type PurchaseUpdateFields = {
 export type UpdatePurchase = (updateFields: PurchaseUpdateFields) => void;
 
 export type DeletePurchase = (id: number) => void;
+
+export type SettingsPage = "Personal" | "Security" | "Personalize" | "Feedback";

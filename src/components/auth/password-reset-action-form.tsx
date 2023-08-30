@@ -56,9 +56,9 @@ export const PasswordResetActionForm = (props: Props) => {
       props.email.value === "" ||
       password.value === "" ||
       confirmPassword.value === "" ||
-      props.emailError.value != "" ||
-      passwordError.value != "" ||
-      confirmPasswordError.value != "";
+      props.emailError.value !== "" ||
+      passwordError.value !== "" ||
+      confirmPasswordError.value !== "";
   });
 
   function resetPassword(event: Types.OnSubmit): void {

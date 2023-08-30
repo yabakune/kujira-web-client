@@ -1,1 +1,1 @@
-export * from "./settings-form";
+export * from "./settings-personal";

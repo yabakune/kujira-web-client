@@ -19,7 +19,7 @@ export const PasswordResetRequestForm = (props: Props) => {
   const disabled = useSignal(true);
 
   effect(() => {
-    disabled.value = props.email.value === "" || props.emailError.value != "";
+    disabled.value = props.email.value === "" || props.emailError.value !== "";
   });
 
   function requestPasswordReset(event: Types.OnSubmit): void {

@@ -9,14 +9,16 @@ import Snippets from "@/styles/snippets.module.scss";
 type Props = {
   title: string;
   children?: React.ReactNode;
+  submit: () => void;
   disabled?: Signal<boolean>;
-  buttonText: string;
+  buttonText?: string;
   inputs?: true;
 };
 
 export const SettingsForm = (props: Props) => {
   function submit(event: Types.OnSubmit): void {
     event.preventDefault();
+    props.submit();
   }
 
   return (
@@ -34,7 +36,7 @@ export const SettingsForm = (props: Props) => {
       )}
 
       <Components.Button
-        text={props.buttonText}
+        text={props.buttonText || "Update"}
         disabled={props.disabled}
         centered
         primary

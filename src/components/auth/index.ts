@@ -1,3 +1,4 @@
+export * from "./auth-input";
 export * from "./login-form";
 export * from "./password-reset-request.form";
 export * from "./password-reset-action-form";

@@ -1,13 +1,23 @@
 import { ReactElement } from "react";
 
 import * as Components from "@/components";
+import { signalsStore } from "@/signals/signals";
 import { NextPageWithLayout } from "../_app";
+
+import Styles from "@/styles/settings.module.scss";
+
+const { currentSettingsPage } = signalsStore;
 
 const Settings: NextPageWithLayout = () => {
   return (
     <>
       <Components.PageHead title="Settings" />
-      Settings
+
+      <div className={Styles.page}>
+        {currentSettingsPage.value === "Personal" ? (
+          <Components.SettingsPersonal />
+        ) : null}
+      </div>
     </>
   );
 };

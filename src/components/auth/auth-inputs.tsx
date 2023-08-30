@@ -85,10 +85,10 @@ export const AuthInputs = (props: Props) => {
       (props.username && props.username.value === "") ||
       props.password.value === "" ||
       (props.confirmPassword && props.confirmPassword.value === "") ||
-      emailError.value != "" ||
-      usernameError.value != "" ||
-      passwordError.value != "" ||
-      confirmPasswordError.value != "";
+      emailError.value !== "" ||
+      usernameError.value !== "" ||
+      passwordError.value !== "" ||
+      confirmPasswordError.value !== "";
   });
 
   return (
