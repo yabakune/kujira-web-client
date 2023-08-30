@@ -2,6 +2,7 @@ import { signalsStore } from "@/signals/signals";
 
 import { LogbookSelector } from "../dashboard/logbook-selector";
 import { Navbar } from "../dashboard/navbar";
+import { Overview } from "../dashboard/overview";
 
 import Styles from "./dashboard-layout.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
@@ -26,7 +27,9 @@ export const DashboardLayout = (props: Props) => {
           <LogbookSelector />
         ) : (
           <section className={Styles.body}>
-            <article className={Styles.overview}>Overview</article>
+            <article className={Styles.overview}>
+              <Overview />
+            </article>
             <article className={Styles.mainContent}>{props.children}</article>
             <div className={Styles.overview} />
           </section>
