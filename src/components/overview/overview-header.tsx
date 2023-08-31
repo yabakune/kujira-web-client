@@ -4,7 +4,7 @@ import { signalsStore } from "@/signals/signals";
 
 import Styles from "./overview-header.module.scss";
 
-const { currentSettingsPage } = signalsStore;
+const { currentSettingsPage, remainingBudget } = signalsStore;
 
 const settingsPages: Types.SettingsPage[] = [
   "Personal",
@@ -32,10 +32,19 @@ const SettingsNavigation = () => {
   );
 };
 
+const OverviewStatus = () => {
+  return <section></section>;
+};
+
+type Props = {
+  income: number;
+};
+
 export const OverviewHeader = () => {
   return (
     <header className={Styles.container}>
       <SettingsNavigation />
+      <OverviewStatus />
     </header>
   );
 };
