@@ -1,15 +1,17 @@
-import { createSelector } from "@reduxjs/toolkit";
+import createCachedSelector from "re-reselect";
 
 import { ReduxStore } from "@/redux";
 
-export const fetchLogbookOverview = createSelector(
+export const fetchLogbookOverview = createCachedSelector(
   (state: ReduxStore) => state.entities.logbooks,
   (state: ReduxStore) => state.entities.overviews,
-  (state: ReduxStore, logbookId: number) => logbookId,
+  (state: ReduxStore, logbookId: number | null) => logbookId,
   (logbooks, overviews, logbookId) => {
-    if (logbooks && overviews && logbooks[logbookId]) {
+    if (logbooks && overviews && logbookId && logbooks[logbookId]) {
       const currentLogbook = logbooks[logbookId];
-      return overviews[currentLogbook.overview.id];
+      if (overviews[currentLogbook.overview.id]) {
+        return overviews[currentLogbook.overview.id];
+      }
     }
   }
-);
+)((_state_, logbookId) => logbookId);

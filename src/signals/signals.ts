@@ -9,7 +9,6 @@ type SignalsStore = {
 
   currentLogbookId: Signal<number | null>;
   currentSettingsPage: Signal<Types.SettingsPage>;
-  remainingBudget: Signal<number | null>;
 
   confirmationModalOpen: Signal<boolean>;
 };
@@ -19,7 +18,6 @@ export const signalsStore: SignalsStore = {
 
   currentLogbookId: signal(null),
   currentSettingsPage: signal("Personal"),
-  remainingBudget: signal(null),
 
   confirmationModalOpen: signal(false),
 };
