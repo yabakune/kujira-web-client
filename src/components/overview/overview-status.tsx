@@ -69,7 +69,10 @@ export const OverviewStatus = () => {
           </h1>
           <p className={Styles.headerCopyCaption}>Remaining Budget</p>
         </div>
-        <Components.ButtonIcon backgroundLevel={2}>
+        <Components.ButtonIcon
+          onClick={() => (currentLogbookId.value = null)}
+          backgroundLevel={2}
+        >
           <Components.Filter width={14} fill={8} />
         </Components.ButtonIcon>
       </article>
