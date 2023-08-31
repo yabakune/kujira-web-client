@@ -14,6 +14,6 @@ type SignalsStore = {
 export const signalsStore: SignalsStore = {
   authStep: signal(""),
   currentLogbookId: signal(null),
-  currentSettingsPage: signal("Security"),
+  currentSettingsPage: signal("Personalize"),
   confirmationModalOpen: signal(false),
 };

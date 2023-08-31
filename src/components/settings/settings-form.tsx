@@ -36,13 +36,15 @@ const ExportedComponent = (props: Props) => {
         </section>
       )}
 
-      <Components.Button
-        text={props.buttonText || "Update"}
-        disabled={props.disabled}
-        centered
-        primary
-        submit
-      />
+      {props.inputs && (
+        <Components.Button
+          text={props.buttonText || "Update"}
+          disabled={props.disabled}
+          centered
+          primary
+          submit
+        />
+      )}
     </form>
   );
 };

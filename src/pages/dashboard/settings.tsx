@@ -18,6 +18,8 @@ const Settings: NextPageWithLayout = () => {
           <Components.SettingsPersonal />
         ) : currentSettingsPage.value === "Security" ? (
           <Components.SettingsSecurity />
+        ) : currentSettingsPage.value === "Personalize" ? (
+          <Components.SettingsPersonalize />
         ) : null}
       </div>
     </>

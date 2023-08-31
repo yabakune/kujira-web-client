@@ -1,4 +1,4 @@
-export type Theme = "dark" | "light" | "system" | "auto";
+export type Theme = "violet" | "lilac" | "system" | "auto";
 
 export type Currency = "USD";
 
