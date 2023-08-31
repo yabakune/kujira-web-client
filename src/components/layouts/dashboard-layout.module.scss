@@ -10,16 +10,12 @@
 
 .contentContainer {
   height: 100%;
-
-  border: green solid 1px;
 }
 
 .body {
   display: flex;
   gap: var(--sixteenPixels);
   height: 100%;
-
-  border: var(--debug);
 }
 
 .overview {
@@ -28,12 +24,8 @@
   @media (max-width: 1564px) {
     display: none;
   }
-
-  border: blue solid 1px;
 }
 
 .mainContent {
   flex: 1;
-
-  border: blue solid 1px;
 }
