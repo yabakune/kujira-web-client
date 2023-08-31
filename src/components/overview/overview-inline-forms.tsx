@@ -83,6 +83,7 @@ export const OverviewInlineForms = () => {
               userId: Helpers.userId,
             })
           );
+          income.value = Helpers.roundCost(Number(income.value));
         }
       }
     }, 800),
