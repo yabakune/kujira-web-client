@@ -1,10 +1,13 @@
+import { useSelector } from "react-redux";
+
 import * as Components from "@/components";
 import * as Selectors from "@/selectors";
 
 import { ThemeForm } from "./theme-form";
-import { useSelector } from "react-redux";
 
 export const SettingsPersonalize = () => {
+  console.log("Settings personalize rendered");
+
   const currentUser = useSelector(Selectors.fetchCurrentUser);
 
   if (currentUser) {
