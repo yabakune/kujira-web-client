@@ -9,6 +9,6 @@ export const purchasesReducers = {
     state: EntitiesState,
     action: PayloadAction<Types.NormalizedPurchases>
   ) => {
-    state.purchases = action.payload;
+    state.purchases = { ...state.purchases, ...action.payload };
   },
 };

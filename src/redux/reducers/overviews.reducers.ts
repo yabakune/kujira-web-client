@@ -9,7 +9,7 @@ export const overviewsReducers = {
     state: EntitiesState,
     action: PayloadAction<Types.NormalizedOverviews>
   ) => {
-    state.overviews = action.payload;
+    state.overviews = { ...state.overviews, ...action.payload };
   },
   setOverview: (
     state: EntitiesState,
