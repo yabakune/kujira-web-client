@@ -20,10 +20,18 @@
       }
     }
   }
-}
 
-.weak {
-  color: var(--themeEight);
+  &.border {
+    border: var(--text) solid 1px;
+  }
+
+  &.weakText {
+    color: var(--themeEight);
+  }
+
+  &.weakBorder {
+    border: var(--themeEight) solid 1px;
+  }
 }
 
 .large {

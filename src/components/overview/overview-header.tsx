@@ -27,6 +27,7 @@ const SettingsNavigation = () => {
             onClick={() => setSettingsPage(page)}
             weak={currentSettingsPage.value !== page}
             centered
+            border
           />
         );
       })}

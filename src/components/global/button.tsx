@@ -30,6 +30,7 @@ type Props = {
   weak?: boolean;
   centered?: true;
   primary?: true;
+  border?: true;
   submit?: true;
 };
 
@@ -39,7 +40,9 @@ export const Button = (props: Props) => {
       aria-label={`${props.text} Button`}
       className={`
 				${Styles.container}
-        ${props.weak && Styles.weak}
+        ${props.border && Styles.border}
+        ${props.weak && Styles.weakText}
+        ${props.border && props.weak && Styles.weakBorder}
         ${
           props.disabled &&
           props.disabled.value &&
