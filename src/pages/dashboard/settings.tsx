@@ -9,8 +9,6 @@ import Styles from "@/styles/settings.module.scss";
 const { currentSettingsPage } = signalsStore;
 
 const Settings: NextPageWithLayout = () => {
-  console.log("Settings page rendered");
-
   return (
     <>
       <Components.PageHead title="Settings" />

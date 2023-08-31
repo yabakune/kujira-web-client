@@ -13,8 +13,6 @@ type Props = {
 };
 
 export const ThemeForm = (props: Props) => {
-  console.log("Theme form rendered");
-
   const dispatch = useDispatch();
 
   const currentTheme = useSignal(props.theme);
