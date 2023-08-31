@@ -43,7 +43,7 @@ export const ThemeForm = (props: Props) => {
         }
         text="Violet"
         onClick={() => setTheme("violet")}
-        weakText={currentTheme.value !== "violet"}
+        weak={currentTheme.value !== "violet"}
         submit
       />
 
@@ -56,7 +56,7 @@ export const ThemeForm = (props: Props) => {
         }
         text="Lilac"
         onClick={() => setTheme("lilac")}
-        weakText={currentTheme.value !== "lilac"}
+        weak={currentTheme.value !== "lilac"}
         submit
       />
 
@@ -69,7 +69,7 @@ export const ThemeForm = (props: Props) => {
         }
         text="System"
         onClick={() => setTheme("system")}
-        weakText={currentTheme.value !== "system"}
+        weak={currentTheme.value !== "system"}
         submit
       />
 
@@ -82,7 +82,7 @@ export const ThemeForm = (props: Props) => {
         }
         text="Auto"
         onClick={() => setTheme("auto")}
-        weakText={currentTheme.value !== "auto"}
+        weak={currentTheme.value !== "auto"}
         submit
       />
     </SettingsForm>

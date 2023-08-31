@@ -25,7 +25,7 @@ const SettingsNavigation = () => {
             key={`Overview Header Settings Navigation ${page} ${index}`}
             text={page}
             onClick={() => setSettingsPage(page)}
-            weakText={currentSettingsPage.value !== page}
+            weak={currentSettingsPage.value !== page}
             centered
           />
         );

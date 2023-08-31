@@ -27,7 +27,7 @@ type Props = {
   rightIcon?: JSX.Element;
   backgroundLevel?: number;
   disabled?: Signal<boolean>;
-  weakText?: boolean;
+  weak?: boolean;
   centered?: true;
   primary?: true;
   submit?: true;
@@ -39,7 +39,7 @@ export const Button = (props: Props) => {
       aria-label={`${props.text} Button`}
       className={`
 				${Styles.container}
-        ${props.weakText && Styles.weakText}
+        ${props.weak && Styles.weak}
         ${
           props.disabled &&
           props.disabled.value &&
