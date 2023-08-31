@@ -10,6 +10,7 @@ export * from "./drag";
 export * from "./error";
 export * from "./eye-hidden";
 export * from "./eye-visible";
+export * from "./filter";
 export * from "./logbook";
 export * from "./mode-auto";
 export * from "./mode-lilac";

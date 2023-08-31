@@ -5,9 +5,11 @@ import { ReduxStore } from "@/redux";
 
 export const fetchLogbook = createCachedSelector(
   (state: ReduxStore) => state.entities.logbooks,
-  (state: ReduxStore, logbookId: number) => logbookId,
+  (state: ReduxStore, logbookId: number | null) => logbookId,
   (logbooks, logbookId) => {
-    if (logbooks && logbooks[logbookId]) return logbooks[logbookId];
+    if (logbooks && logbookId && logbooks[logbookId]) {
+      return logbooks[logbookId];
+    }
   }
 )((_state_, logbookId) => logbookId);
 
