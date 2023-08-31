@@ -85,7 +85,7 @@ export const OverviewInlineForms = () => {
           );
         }
       }
-    }),
+    }, 800),
     []
   );
 
@@ -102,7 +102,7 @@ export const OverviewInlineForms = () => {
           );
         }
       }
-    }),
+    }, 800),
     []
   );
 
