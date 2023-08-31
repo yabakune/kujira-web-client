@@ -13,10 +13,6 @@ const settingsPages: Types.SettingsPage[] = [
 ];
 
 const SettingsNavigation = () => {
-  function setSettingsPage(page: Types.SettingsPage): void {
-    currentSettingsPage.value = page;
-  }
-
   return (
     <section className={Styles.settingsNavigation}>
       {settingsPages.map((page: Types.SettingsPage, index: number) => {
@@ -24,7 +20,7 @@ const SettingsNavigation = () => {
           <Components.Button
             key={`Overview Header Settings Navigation ${page} ${index}`}
             text={page}
-            onClick={() => setSettingsPage(page)}
+            onClick={() => (currentSettingsPage.value = page)}
             backgroundLevel={3}
             weak={currentSettingsPage.value !== page}
             centered
