@@ -8,6 +8,7 @@ import * as Sagas from "@/sagas";
 import { signalsStore } from "@/signals/signals";
 
 import { OverviewHeader } from "./overview-header";
+import { OverviewInlineForms } from "./overview-inline-forms";
 
 import Styles from "./overview.module.scss";
 
@@ -33,7 +34,10 @@ export const Overview = () => {
   return (
     <section className={Styles.container}>
       {overviews ? (
-        <OverviewHeader />
+        <>
+          <OverviewHeader />
+          <OverviewInlineForms />
+        </>
       ) : (
         <>
           <Components.Shimmer height="151px" borderRadius={6} />
