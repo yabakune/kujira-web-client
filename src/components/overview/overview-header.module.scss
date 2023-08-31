@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--sixPixels);
+  box-shadow: var(--shadowOne);
+}
+
+.settingsNavigation {
+  display: flex;
+  gap: var(--sixteenPixels);
+  padding: var(--sixteenPixels);
+}
