@@ -16,6 +16,8 @@ const Settings: NextPageWithLayout = () => {
       <div className={Styles.page}>
         {currentSettingsPage.value === "Personal" ? (
           <Components.SettingsPersonal />
+        ) : currentSettingsPage.value === "Security" ? (
+          <Components.SettingsSecurity />
         ) : null}
       </div>
     </>

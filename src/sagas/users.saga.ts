@@ -108,13 +108,9 @@ function* updateUserPassword(
     const { userId, ...updatePayload } = action.payload;
     const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
 
-    yield Saga.put(Redux.entitiesActions.logoutUser());
-
-    Cookies.remove("userId");
-
     yield Saga.put(
       Redux.uiActions.setNotification({
-        body: `${data.body} For security reasons, you've been logged out. Please log back in with your new password.`,
+        body: data.body,
         status: "success",
         timeout: 10000,
       })
