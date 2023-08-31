@@ -1,10 +1,11 @@
 import { useSignal } from "@preact/signals-react";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { memo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
+import * as Sagas from "@/sagas";
 import * as Selectors from "@/selectors";
 import { signalsStore } from "@/signals/signals";
 
@@ -13,9 +14,13 @@ import Snippets from "@/styles/snippets.module.scss";
 
 const { currentLogbookId } = signalsStore;
 
-export const OverviewStatus = () => {
+const ExportedComponent = () => {
+  const dispatch = useDispatch();
+
   const remainingBudget = useSignal(0);
   const budgetStatusText = useSignal("");
+
+  const { entries } = useSelector((state: Redux.ReduxStore) => state.entities);
 
   const currentLogbook = useSelector((state: Redux.ReduxStore) =>
     Selectors.fetchLogbook(state, currentLogbookId.value)
@@ -38,6 +43,17 @@ export const OverviewStatus = () => {
         income - savedIncome - currentLogbookEntriesTotalSpent;
     }
   }, [currentOverview, currentLogbookEntriesTotalSpent]);
+
+  useEffect(() => {
+    if (!entries && currentLogbookId.value && Helpers.userId) {
+      dispatch(
+        Sagas.fetchLogbookEntriesRequest({
+          logbookId: currentLogbookId.value,
+          userId: Helpers.userId,
+        })
+      );
+    }
+  }, [entries]);
 
   function determineRemainingBudgetHealth(): string {
     if (currentOverview) {
@@ -102,3 +118,5 @@ export const OverviewStatus = () => {
     </section>
   );
 };
+
+export const OverviewStatus = memo(ExportedComponent);

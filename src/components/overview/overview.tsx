@@ -15,7 +15,7 @@ const { currentLogbookId } = signalsStore;
 
 export const Overview = () => {
   const dispatch = useDispatch();
-  const { overviews, entries } = useSelector(
+  const { overviews } = useSelector(
     (state: Redux.ReduxStore) => state.entities
   );
 
@@ -29,17 +29,6 @@ export const Overview = () => {
       );
     }
   }, [overviews]);
-
-  useEffect(() => {
-    if (!entries && currentLogbookId.value && Helpers.userId) {
-      dispatch(
-        Sagas.fetchLogbookEntriesRequest({
-          logbookId: currentLogbookId.value,
-          userId: Helpers.userId,
-        })
-      );
-    }
-  }, [entries]);
 
   return (
     <section className={Styles.container}>
