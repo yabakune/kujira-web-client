@@ -63,7 +63,6 @@ export const PasswordForm = () => {
           userId: Helpers.userId,
         })
       );
-      console.log("Update Password");
     }
   }
 
