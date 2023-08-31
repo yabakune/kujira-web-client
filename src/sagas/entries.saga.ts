@@ -165,11 +165,11 @@ function* fetchLogbookEntries(
     const { data } = yield Saga.call(axios.post, endpoint, fetchPayload);
     const normalizedData = normalize(data.response, entriesSchemaList);
 
-    // yield Saga.put(
-    //   Redux.entitiesActions.setEntries(
-    //     normalizedData.entities.entries as Types.NormalizedEntries
-    //   )
-    // );
+    yield Saga.put(
+      Redux.entitiesActions.setEntries(
+        normalizedData.entities.entries as Types.NormalizedEntries
+      )
+    );
   } catch (error: any) {
     console.error(error);
     yield Helpers.handleError(error);

@@ -1,10 +1,13 @@
 import * as Components from "@/components";
+import * as Redux from "@/redux";
+import * as Selectors from "@/selectors";
 import * as Types from "@/types";
 import { signalsStore } from "@/signals/signals";
 
 import Styles from "./overview-header.module.scss";
+import { useSelector } from "react-redux";
 
-const { currentSettingsPage, remainingBudget } = signalsStore;
+const { currentLogbookId, currentSettingsPage, remainingBudget } = signalsStore;
 
 const settingsPages: Types.SettingsPage[] = [
   "Personal",
@@ -33,11 +36,12 @@ const SettingsNavigation = () => {
 };
 
 const OverviewStatus = () => {
-  return <section></section>;
-};
+  const currentLogbookEntriesTotalSpent = useSelector(
+    (state: Redux.ReduxStore) =>
+      Selectors.calculateLogbookEntriesTotalSpent(state, currentLogbookId.value)
+  );
 
-type Props = {
-  income: number;
+  return <section></section>;
 };
 
 export const OverviewHeader = () => {
