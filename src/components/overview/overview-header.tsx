@@ -25,6 +25,7 @@ const SettingsNavigation = () => {
             key={`Overview Header Settings Navigation ${page} ${index}`}
             text={page}
             onClick={() => setSettingsPage(page)}
+            backgroundLevel={3}
             weak={currentSettingsPage.value !== page}
             centered
             border
