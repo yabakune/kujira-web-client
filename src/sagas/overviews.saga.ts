@@ -183,7 +183,7 @@ function* updateOverview(
     const { userId, overviewId, ...updatePayload } = action.payload;
     const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
 
-    // yield Saga.put(Redux.entitiesActions.setOverview(data.response));
+    yield Saga.put(Redux.entitiesActions.setOverview(data.response));
 
     yield Saga.put(
       Redux.uiActions.setNotification({
