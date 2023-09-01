@@ -2,11 +2,10 @@ import { AnimatePresence, m, LazyMotion, domAnimation } from "framer-motion";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import * as Components from "@/components";
 import * as Redux from "@/redux";
 
 import Styles from "./notification.module.scss";
-import TextStyles from "@/styles/snippets.module.scss";
+import Snippets from "@/styles/snippets.module.scss";
 
 export const Notification = () => {
   const dispatch = useDispatch();
@@ -45,13 +44,11 @@ export const Notification = () => {
             transition={{ duration: 0.1 }}
           >
             <article className={Styles.texts}>
-              {title && <h3 className={TextStyles.titleText}>{title}</h3>}
+              {title && <h3 className={Snippets.titleText}>{title}</h3>}
 
               <p>{body}</p>
 
-              {caption && (
-                <p className={TextStyles.captionEmphasis}>{caption}</p>
-              )}
+              {caption && <p className={Snippets.captionEmphasis}>{caption}</p>}
             </article>
           </m.section>
         </LazyMotion>
