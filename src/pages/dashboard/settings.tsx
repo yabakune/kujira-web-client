@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { ReactElement } from "react";
 
 import * as Components from "@/components";
@@ -7,6 +8,18 @@ import { NextPageWithLayout } from "../_app";
 import Styles from "@/styles/settings.module.scss";
 
 const { currentSettingsPage } = signalsStore;
+
+const DynamicSecurity = dynamic(
+  import("@/components/settings/settings-security").then(
+    (mod) => mod.SettingsSecurity
+  )
+);
+
+const DynamicPersonalize = dynamic(
+  import("@/components/settings/settings-personalize").then(
+    (mod) => mod.SettingsPersonalize
+  )
+);
 
 const Settings: NextPageWithLayout = () => {
   console.log("Settings page rendered");
@@ -19,9 +32,9 @@ const Settings: NextPageWithLayout = () => {
         {currentSettingsPage.value === "Personal" ? (
           <Components.SettingsPersonal />
         ) : currentSettingsPage.value === "Security" ? (
-          <Components.SettingsSecurity />
+          <DynamicSecurity />
         ) : currentSettingsPage.value === "Personalize" ? (
-          <Components.SettingsPersonalize />
+          <DynamicPersonalize />
         ) : null}
       </div>
     </>
