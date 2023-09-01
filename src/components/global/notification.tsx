@@ -12,14 +12,6 @@ export const Notification = () => {
   const { notification } = useSelector((state: Redux.ReduxStore) => state.ui);
   const { title, body, caption, status, timeout } = notification;
 
-  useEffect(() => {
-    if (body.length > 0) {
-      setTimeout(() => {
-        dispatch(Redux.uiActions.resetNotification());
-      }, timeout);
-    }
-  }, [dispatch, body, timeout]);
-
   function setStatusBorder(): string {
     if (status === "success") return Styles.success;
     else if (status === "failure") return Styles.failure;
@@ -30,6 +22,14 @@ export const Notification = () => {
   function closeNotification(): void {
     dispatch(Redux.uiActions.resetNotification());
   }
+
+  useEffect(() => {
+    if (body.length > 0) {
+      setTimeout(() => {
+        dispatch(Redux.uiActions.resetNotification());
+      }, timeout);
+    }
+  }, [dispatch, body, timeout]);
 
   return (
     <AnimatePresence>

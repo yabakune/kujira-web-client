@@ -66,6 +66,58 @@ const Onboarding = () => {
   const buttonText = useSignal("Let's go!");
   const disabled = useSignal(true);
 
+  function incrementPage(): void {
+    if (page.value < 6 && !disabled.value) page.value += 1;
+  }
+
+  function completeOnboarding(): void {
+    if (!disabled.value && Helpers.userId && logbooks && entries) {
+      const logbookId = Object.values(logbooks)[0].id;
+      const recurringEntryId = findEntryId("Recurring", entries);
+      const incomingEntryId = findEntryId("Incoming", entries);
+
+      if (recurringEntryId && incomingEntryId) {
+        dispatch(
+          Sagas.onboardNewUserRequest({
+            userId: Helpers.userId,
+            logbookId,
+            income: Number(income.value),
+            savings: Number(savings.value),
+            recurringPurchases: generatePurchasesForAPI(
+              recurringPurchases.value,
+              recurringEntryId
+            ),
+            incomingPurchases: generatePurchasesForAPI(
+              incomingPurchases.value,
+              incomingEntryId
+            ),
+            recurringEntry: {
+              id: recurringEntryId,
+              totalCost: Helpers.calculatePurchasesTotalCost(
+                recurringPurchases.value
+              ),
+            },
+            incomingEntry: {
+              id: incomingEntryId,
+              totalCost: Helpers.calculatePurchasesTotalCost(
+                incomingPurchases.value
+              ),
+            },
+          })
+        );
+      }
+    }
+  }
+
+  function nextPage(event: Types.OnSubmit): void {
+    event.preventDefault();
+    if (page.value < 6) {
+      incrementPage();
+    } else {
+      completeOnboarding();
+    }
+  }
+
   effect(() => {
     if (page.value === 1) {
       buttonText.value = "Let's go!";
@@ -118,58 +170,6 @@ const Onboarding = () => {
       );
     }
   }, [overviews]);
-
-  function incrementPage(): void {
-    if (page.value < 6 && !disabled.value) page.value += 1;
-  }
-
-  function completeOnboarding(): void {
-    if (!disabled.value && Helpers.userId && logbooks && entries) {
-      const logbookId = Object.values(logbooks)[0].id;
-      const recurringEntryId = findEntryId("Recurring", entries);
-      const incomingEntryId = findEntryId("Incoming", entries);
-
-      if (recurringEntryId && incomingEntryId) {
-        dispatch(
-          Sagas.onboardNewUserRequest({
-            userId: Helpers.userId,
-            logbookId,
-            income: Number(income.value),
-            savings: Number(savings.value),
-            recurringPurchases: generatePurchasesForAPI(
-              recurringPurchases.value,
-              recurringEntryId
-            ),
-            incomingPurchases: generatePurchasesForAPI(
-              incomingPurchases.value,
-              incomingEntryId
-            ),
-            recurringEntry: {
-              id: recurringEntryId,
-              totalCost: Helpers.calculatePurchasesTotalCost(
-                recurringPurchases.value
-              ),
-            },
-            incomingEntry: {
-              id: incomingEntryId,
-              totalCost: Helpers.calculatePurchasesTotalCost(
-                incomingPurchases.value
-              ),
-            },
-          })
-        );
-      }
-    }
-  }
-
-  function nextPage(event: Types.OnSubmit): void {
-    event.preventDefault();
-    if (page.value < 6) {
-      incrementPage();
-    } else {
-      completeOnboarding();
-    }
-  }
 
   return (
     <>

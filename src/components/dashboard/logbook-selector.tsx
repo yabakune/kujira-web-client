@@ -17,6 +17,10 @@ const ExportedComponent = () => {
   const dispatch = useDispatch();
   const { logbooks } = useSelector((state: Redux.ReduxStore) => state.entities);
 
+  function selectLogbook(logbookId: number): void {
+    currentLogbookId.value = logbookId;
+  }
+
   useEffect(() => {
     if (Helpers.userId && !logbooks) {
       dispatch(
@@ -26,10 +30,6 @@ const ExportedComponent = () => {
       );
     }
   }, [logbooks]);
-
-  function selectLogbook(logbookId: number): void {
-    currentLogbookId.value = logbookId;
-  }
 
   if (!!logbooks) {
     return (
