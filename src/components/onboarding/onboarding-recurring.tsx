@@ -70,7 +70,7 @@ export const OnboardingRecurring = (props: Props) => {
 
       <Components.OverviewPurchasesDropdown
         title="Recurring Purchases"
-        purchases={props.purchases.value}
+        onboardingPurchases={props.purchases.value}
         addPurchase={addPurchase}
         updatePurchase={updatePurchase}
         deletePurchase={deletePurchase}

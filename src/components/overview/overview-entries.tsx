@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
 import * as Selectors from "@/selectors";
+import * as Types from "@/types";
 import { signalsStore } from "@/signals/signals";
-
-import Styles from "./overview-entries.module.scss";
 
 const { currentLogbookId } = signalsStore;
 
@@ -32,5 +32,26 @@ export const OverviewEntries = () => {
     }
   }, [entries, overviewId]);
 
-  return <div className={Styles.container}>Overview Entries</div>;
+  if (entries) {
+    return (
+      <>
+        {Object.values(entries).map((entry: Types.EntryModel) => {
+          return (
+            <Components.OverviewPurchasesDropdown
+              key={entry.id}
+              title={entry.name}
+							shadow
+            />
+          );
+        })}
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Components.Shimmer height="86px" borderRadius={6} />
+        <Components.Shimmer height="86px" borderRadius={6} />
+      </>
+    );
+  }
 };

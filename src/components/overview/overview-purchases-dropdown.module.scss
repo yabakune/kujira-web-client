@@ -11,6 +11,10 @@
   &.closed {
     border: var(--themeFour) solid 1px;
   }
+
+  &.shadow {
+    box-shadow: var(--shadowOne);
+  }
 }
 
 .purchases {

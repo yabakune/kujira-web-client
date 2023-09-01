@@ -49,8 +49,6 @@ export const Overview = () => {
           <Components.Shimmer height="151px" borderRadius={6} />
           <Components.Shimmer height="102px" borderRadius={6} />
           <Components.Shimmer height="102px" borderRadius={6} />
-          <Components.Shimmer height="74px" borderRadius={6} />
-          <Components.Shimmer height="74px" borderRadius={6} />
         </>
       )}
     </section>

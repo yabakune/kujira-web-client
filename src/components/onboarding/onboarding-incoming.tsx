@@ -69,7 +69,7 @@ export const OnboardingIncoming = (props: Props) => {
 
       <Components.OverviewPurchasesDropdown
         title="Incoming Purchases"
-        purchases={props.purchases.value}
+        onboardingPurchases={props.purchases.value}
         addPurchase={addPurchase}
         updatePurchase={updatePurchase}
         deletePurchase={deletePurchase}
