@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Signal } from "@preact/signals-react";
+import { Fragment } from "react";
 
 import * as Components from "@/components";
 import * as Constants from "@/constants";
@@ -23,9 +24,8 @@ const RegistrationAgreement = () => {
       I have read and understood the{" "}
       {legalLinks.map((legalLink: LegalLink, index: number) => {
         return (
-          <>
+          <Fragment key={`Auth Agreement Registration Link ${legalLink.name}`}>
             <Link
-              key={`auth-agreement-link-${legalLink.name}-${index}`}
               className={Snippets.primaryLink}
               href={legalLink.route}
               target="_blank"
@@ -34,7 +34,7 @@ const RegistrationAgreement = () => {
               {legalLink.name}
             </Link>
             {index === 0 ? ", " : index === 1 ? ", and " : "."}
-          </>
+          </Fragment>
         );
       })}
     </p>
