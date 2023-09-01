@@ -21,7 +21,7 @@ export const OnboardingIncome = (props: Props) => {
         incomeError.value = "Income must be a number.";
         props.disabled.value = true;
       } else if (cents && cents.length > 2) {
-        incomeError.value = "Cents can only be within the hundreds.";
+        incomeError.value = "Cents should only be within the hundreds.";
         props.disabled.value = true;
       } else {
         incomeError.value = "";

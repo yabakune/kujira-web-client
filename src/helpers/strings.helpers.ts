@@ -4,6 +4,10 @@ export function roundCost(cost: number): string {
   return cost.toFixed(2);
 }
 
+export function roundCostToNumber(cost: number): number {
+  return Number(cost.toFixed(2));
+}
+
 export function formatRoundedCost(cost: number): string {
   const roundedCost = roundCost(cost);
   const dollars = roundedCost.split(".")[0].split("");

@@ -43,7 +43,7 @@ const ExportedComponent = (props: Props) => {
         costError.value = "Must be a number.";
         if (props.disabled) props.disabled.value = true;
       } else if (cents && cents.length > 2) {
-        costError.value = "Cents can only be within the hundreds.";
+        costError.value = "Cents should only be within the hundreds.";
         if (props.disabled) props.disabled.value = true;
       } else {
         costError.value = "";

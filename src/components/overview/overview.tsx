@@ -8,7 +8,8 @@ import * as Sagas from "@/sagas";
 import { signalsStore } from "@/signals/signals";
 
 import { OverviewHeader } from "./overview-header";
-import { OverviewInlineForms } from "./overview-inline-forms";
+import { OverviewIncomeForm } from "./overview-income-form";
+import { OverviewSavingsForm } from "./overview-savings-form";
 
 import Styles from "./overview.module.scss";
 
@@ -36,7 +37,8 @@ export const Overview = () => {
       {overviews ? (
         <>
           <OverviewHeader />
-          <OverviewInlineForms />
+          <OverviewIncomeForm />
+          <OverviewSavingsForm />
         </>
       ) : (
         <>
