@@ -38,7 +38,7 @@ const ExportedComponent = () => {
   useEffect(() => {
     if (currentOverview) {
       const { income, savings } = currentOverview;
-      const savedIncome = income * (savings / 100);
+      const savedIncome = Helpers.calculateSavedIncome(income, savings);
       remainingBudget.value =
         income - savedIncome - currentLogbookEntriesTotalSpent;
     }
