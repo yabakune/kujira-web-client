@@ -79,8 +79,8 @@ const ExportedComponent = (props: Props) => {
     >
       {props.dragAction && (
         <button
-          aria-label="Purchase Cell Drag Button"
-          key="dashboard-purchase-cell-drag-button"
+          aria-label="Dashboard Purchase Cell Drag Button"
+          key="Dashboard Purchase Cell Drag Button"
           className={Snippets.iconContainer}
           type="button"
           onClick={props.dragAction}
@@ -91,8 +91,8 @@ const ExportedComponent = (props: Props) => {
 
       {props.selectAction && (
         <button
-          aria-label="Purchase Cell Select Button"
-          key="dashboard-purchase-cell-select-button"
+          aria-label="Dashboard Purchase Cell Select Button"
+          key="Dashboard Purchase Cell Select Button"
           className={Snippets.iconContainer}
           type="button"
           onClick={props.selectAction}
@@ -117,7 +117,7 @@ const ExportedComponent = (props: Props) => {
 
       <section className={Styles.inputs}>
         <Components.Input
-          key="dashboard-purchase-cell-description-input"
+          key="Dashboard Purchase Cell Description Input"
           type="text"
           placeholder="Description"
           userInput={description}
@@ -126,7 +126,7 @@ const ExportedComponent = (props: Props) => {
           small
         />
         <Components.Input
-          key="dashboard-purchase-cell-cost-input"
+          key="Dashboard Purchase Cell Cost Input"
           type="text"
           placeholder="Cost"
           userInput={cost}
@@ -137,8 +137,8 @@ const ExportedComponent = (props: Props) => {
       </section>
 
       <button
-        aria-label="Purchase Cell Delete Button"
-        key="dashboard-purchase-cell-delete-button"
+        aria-label="Dashboard Purchase Cell Delete Button"
+        key="Dashboard Purchase Cell Delete Button"
         className={Snippets.iconContainer}
         type="button"
         onClick={() => props.deletePurchase(props.purchase.id)}

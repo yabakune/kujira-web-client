@@ -11,7 +11,7 @@ const Section = (props: LegalSection) => {
       </h3>
       {props.statements.map((statement: string, index: number) => {
         return (
-          <p key={`${statement}-${index}`} className={`${Styles.statement}`}>
+          <p key={`${statement} ${index}`} className={`${Styles.statement}`}>
             {statement}
           </p>
         );
@@ -30,7 +30,7 @@ export const Sections = (props: Props) => {
       {props.legalSections.map((section: LegalSection, index: number) => {
         return (
           <Section
-            key={`${section.topic}-${index}`}
+            key={`${section.topic} ${index}`}
             topic={section.topic}
             statements={section.statements}
           />

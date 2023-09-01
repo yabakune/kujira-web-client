@@ -58,12 +58,12 @@ export const AuthInput = (props: Props) => {
       {(props.userInput.value.length > 0 || props.errorMessage.value) && (
         <section className={Styles.placeholderAndError}>
           {props.userInput.value.length > 0 && (
-            <p key="Placeholder" className={Styles.placeholder}>
+            <p key="Auth Input Placeholder" className={Styles.placeholder}>
               {props.placeholder}
             </p>
           )}
           {props.errorMessage.value && (
-            <p key="Error Message" className={Styles.error}>
+            <p key="Auth Input Error Message" className={Styles.error}>
               {props.errorMessage.value}
             </p>
           )}

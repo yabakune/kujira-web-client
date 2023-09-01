@@ -46,7 +46,7 @@ export const OverviewPurchasesDropdown = (props: Props) => {
         {props.purchases.map((purchase: Types.PurchaseModel, index: number) => {
           return (
             <Components.Purchase
-              key={`${purchase.id}-${index}`}
+              key={`${purchase.id} ${index}`}
               purchase={purchase}
               updatePurchase={props.updatePurchase}
               deletePurchase={props.deletePurchase}
