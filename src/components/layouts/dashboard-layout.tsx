@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
+import * as Components from "@/components";
 import * as Selectors from "@/selectors";
 import { signalsStore } from "@/signals/signals";
 
@@ -20,7 +21,7 @@ const { currentLogbookId } = signalsStore;
 
 export const DashboardLayout = (props: Props) => {
   console.log("Dashboard layout rendered");
-  
+
   const currentUser = useSelector(Selectors.fetchCurrentUser);
 
   useEffect(() => {
@@ -56,7 +57,10 @@ export const DashboardLayout = (props: Props) => {
         className={`${Styles.contentContainer} ${Snippets.responsiveSidePadding}`}
       >
         {!currentLogbookId.value ? (
-          <LogbookSelector />
+          <>
+            <Components.PageHead title="Select a Logbook" />
+            <LogbookSelector />
+          </>
         ) : (
           <section className={Styles.body}>
             <article className={Styles.overview}>
