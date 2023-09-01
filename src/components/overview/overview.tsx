@@ -10,12 +10,15 @@ import { signalsStore } from "@/signals/signals";
 import { OverviewHeader } from "./overview-header";
 import { OverviewIncomeForm } from "./overview-income-form";
 import { OverviewSavingsForm } from "./overview-savings-form";
+import { OverviewEntries } from "./overview-entries";
 
 import Styles from "./overview.module.scss";
 
 const { currentLogbookId } = signalsStore;
 
 export const Overview = () => {
+  console.log("Overview rendered");
+
   const dispatch = useDispatch();
   const { overviews } = useSelector(
     (state: Redux.ReduxStore) => state.entities
@@ -39,6 +42,7 @@ export const Overview = () => {
           <OverviewHeader />
           <OverviewIncomeForm />
           <OverviewSavingsForm />
+          <OverviewEntries />
         </>
       ) : (
         <>
