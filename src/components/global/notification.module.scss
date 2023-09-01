@@ -13,6 +13,7 @@
   border-radius: 12px;
   transition: var(--transition);
   cursor: pointer;
+  box-shadow: var(--shadowOne);
 
   @media (hover: hover) {
     &:hover {
