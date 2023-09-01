@@ -57,7 +57,10 @@ const ExportedComponent = () => {
 
   function determineRemainingBudgetHealth(): string {
     if (currentOverview) {
-      if (remainingBudget.value <= currentOverview.income * 0.25) {
+      if (remainingBudget.value === 0) {
+        budgetStatusText.value = "You ran out of this month's budget!";
+        return Styles.low;
+      } else if (remainingBudget.value <= currentOverview.income * 0.25) {
         budgetStatusText.value = "Your budget is running low!";
         return Styles.low;
       } else if (remainingBudget.value <= currentOverview.income * 0.5) {
@@ -111,7 +114,9 @@ const ExportedComponent = () => {
           </div>
           <Components.ProgressBar
             height={8}
-            progression={(remainingBudget.value / currentOverview.income) * 100}
+            progression={
+              (remainingBudget.value / currentOverview.income) * 100 || 0
+            }
           />
         </article>
       )}
