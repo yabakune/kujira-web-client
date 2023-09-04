@@ -113,7 +113,7 @@ function* fetchOverview(action: Types.SagaPayload<Types.FetchOverviewPayload>) {
     );
     const { data } = yield Saga.call(axios.post, endpoint);
 
-    // yield Saga.put(Redux.entitiesActions.setOverview(data.response));
+    // yield Saga.put(Redux.entitiesActions.updateOverview(data.response));
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);
@@ -156,7 +156,7 @@ function* createOverview(
     const { userId, ...createPayload } = action.payload;
     const { data } = yield Saga.call(axios.post, endpoint, createPayload);
 
-    // yield Saga.put(Redux.entitiesActions.setOverview(data.response));
+    // yield Saga.put(Redux.entitiesActions.updateOverview(data.response));
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -183,7 +183,7 @@ function* updateOverview(
     const { userId, overviewId, ...updatePayload } = action.payload;
     const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
 
-    yield Saga.put(Redux.entitiesActions.setOverview(data.response));
+    yield Saga.put(Redux.entitiesActions.updateOverview(data.response));
 
     yield Saga.put(
       Redux.uiActions.setNotification({

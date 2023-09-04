@@ -53,7 +53,7 @@ function* onboardNewUser(
       { onboarded: true }
     );
 
-    yield Saga.put(Redux.entitiesActions.setOverview(overview));
+    yield Saga.put(Redux.entitiesActions.updateOverview(overview));
     yield Saga.put(Redux.entitiesActions.setCurrentUser(onboardedUser));
 
     location.reload();

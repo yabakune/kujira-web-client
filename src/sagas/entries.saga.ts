@@ -121,7 +121,7 @@ function* fetchEntry(action: Types.SagaPayload<Types.FetchEntryPayload>) {
     );
     const { data } = yield Saga.call(axios.get, endpoint);
 
-    // yield Saga.put(Redux.entitiesActions.setEntry(data.response));
+    // yield Saga.put(Redux.entitiesActions.updateEntry(data.response));
   } catch (error: any) {
     console.error(error);
     yield Helpers.handleError(error);
@@ -185,7 +185,7 @@ function* createEntry(action: Types.SagaPayload<Types.CreateEntryPayload>) {
     );
     const { userId, ...createPayload } = action.payload;
     const { data } = yield Saga.call(axios.post, endpoint, createPayload);
-    // yield Saga.put(Redux.entitiesActions.setEntry(data.response));
+    // yield Saga.put(Redux.entitiesActions.updateEntry(data.response));
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -209,7 +209,7 @@ function* updateEntry(action: Types.SagaPayload<Types.UpdateEntryPayload>) {
     );
     const { userId, ...updatePayload } = action.payload;
     const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
-    // yield Saga.put(Redux.entitiesActions.setEntry(data.response));
+    // yield Saga.put(Redux.entitiesActions.updateEntry(data.response));
 
     yield Saga.put(
       Redux.uiActions.setNotification({
@@ -232,7 +232,7 @@ function* deleteEntry(action: Types.SagaPayload<Types.DeleteEntryPayload>) {
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.delete, endpoint);
-    // yield Saga.put(Redux.entitiesActions.setEntry(data.response));
+    // yield Saga.put(Redux.entitiesActions.updateEntry(data.response));
 
     yield Saga.put(
       Redux.uiActions.setNotification({

@@ -11,7 +11,10 @@ export const entriesReducers = {
   ) => {
     state.entries = { ...state.entries, ...action.payload };
   },
-  setEntry: (state: EntitiesState, action: PayloadAction<Types.EntryModel>) => {
+  updateEntry: (
+    state: EntitiesState,
+    action: PayloadAction<Types.EntryModel>
+  ) => {
     if (state.entries) state.entries[action.payload.id] = action.payload;
   },
 };

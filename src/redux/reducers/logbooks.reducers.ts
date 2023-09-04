@@ -11,7 +11,7 @@ export const logbooksReducers = {
   ) => {
     state.logbooks = { ...state.logbooks, ...action.payload };
   },
-  setLogbook: (
+  updateLogbook: (
     state: EntitiesState,
     action: PayloadAction<Types.LogbookModel>
   ) => {

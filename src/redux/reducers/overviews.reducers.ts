@@ -11,7 +11,7 @@ export const overviewsReducers = {
   ) => {
     state.overviews = { ...state.overviews, ...action.payload };
   },
-  setOverview: (
+  updateOverview: (
     state: EntitiesState,
     action: PayloadAction<Types.OverviewModel>
   ) => {
