@@ -89,6 +89,25 @@ export const OverviewPurchasesDropdown = (props: Props) => {
               );
             }
           )}
+
+        {entryPurchases &&
+          entryPurchases.map(
+            (purchase: Types.PurchaseModel | undefined, index: number) => {
+              if (purchase) {
+                return (
+                  <Components.Purchase
+                    key={`${purchase.id} ${index}`}
+                    purchase={purchase}
+                    updatePurchase={props.updatePurchase}
+                    deletePurchase={props.deletePurchase}
+                    disabled={props.disabled}
+                    backgroundLevel={2}
+                    hideCategories
+                  />
+                );
+              }
+            }
+          )}
       </article>
     </section>
   );
