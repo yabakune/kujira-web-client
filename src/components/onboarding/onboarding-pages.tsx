@@ -3,7 +3,6 @@ import { Signal } from "@preact/signals-react";
 import { memo } from "react";
 
 import * as Components from "@/components";
-import * as Types from "@/types";
 
 const DynamicIncome = dynamic(() =>
   import("@/components/onboarding/onboarding-income").then(
@@ -37,10 +36,9 @@ const DynamicFinal = dynamic(() =>
 
 type Props = {
   page: Signal<number>;
+  recurringOverviewTotalCost: Signal<number>;
   income: Signal<string>;
   savings: Signal<string>;
-  recurringPurchases: Signal<Types.PurchaseModel[]>;
-  incomingPurchases: Signal<Types.PurchaseModel[]>;
   disabled: Signal<boolean>;
 };
 
@@ -59,14 +57,11 @@ const ExportedComponent = (props: Props) => {
         />
       ) : props.page.value === 4 ? (
         <DynamicRecurring
-          purchases={props.recurringPurchases}
+          recurringOverviewTotalCost={props.recurringOverviewTotalCost}
           disabled={props.disabled}
         />
       ) : props.page.value === 5 ? (
-        <DynamicIncoming
-          purchases={props.incomingPurchases}
-          disabled={props.disabled}
-        />
+        <DynamicIncoming disabled={props.disabled} />
       ) : (
         <DynamicFinal />
       )}

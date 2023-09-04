@@ -1,6 +1,5 @@
 import * as Saga from "redux-saga/effects";
 import axios from "axios";
-import { normalize, schema } from "normalizr";
 
 import * as Constants from "@/constants";
 import * as Helpers from "@/helpers";
@@ -28,48 +27,33 @@ export function onboardNewUserRequest(
 // [ SAGAS ] =============================================================================== //
 // ========================================================================================= //
 
-const purchasesSchema = new schema.Entity("logbooks");
-const purchasesSchemaList = new schema.Array(purchasesSchema);
-
 function* onboardNewUser(
   action: Types.SagaPayload<Types.OnboardNewUserPayload>
 ) {
   try {
-    const endpoint = Helpers.generateGatedEndpoint(
-      Constants.APIRoutes.ONBOARDING,
-      `/onboard-new-user`,
-      action.payload.userId
+    const { userId, overviewId, ...overviewUpdatePayload } = action.payload;
+
+    const { data: overview } = yield Saga.call(
+      axios.patch,
+      Helpers.generateGatedEndpoint(
+        Constants.APIRoutes.OVERVIEWS,
+        `/${overviewId}`,
+        userId
+      ),
+      overviewUpdatePayload
     );
 
-    const { data } = yield Saga.call(axios.post, endpoint, action.payload);
-    const {
-      logbookOverview,
-      overviewRecurringPurchases,
-      overviewIncomingPurchases,
-      updatedRecurringEntry,
-      updatedIncomingEntry,
-      onboardedUser,
-    } = data.response;
-
-    yield Saga.put(Redux.entitiesActions.setOverview(logbookOverview));
-
-    const normalizedRecurringPurchases = normalize(
-      overviewRecurringPurchases,
-      purchasesSchemaList
-    );
-    const normalizedIncomingPurchases = normalize(
-      overviewIncomingPurchases,
-      purchasesSchemaList
-    );
-    yield Saga.put(
-      Redux.entitiesActions.setPurchases({
-        ...normalizedRecurringPurchases.entities.logbooks,
-        ...normalizedIncomingPurchases.entities.logbooks,
-      } as Types.NormalizedPurchases)
+    const { data: onboardedUser } = yield Saga.call(
+      axios.patch,
+      Helpers.generateGatedEndpoint(
+        Constants.APIRoutes.USERS,
+        `/${userId}`,
+        userId
+      ),
+      { onboarded: true }
     );
 
-    yield Saga.put(Redux.entitiesActions.setEntry(updatedRecurringEntry));
-    yield Saga.put(Redux.entitiesActions.setEntry(updatedIncomingEntry));
+    yield Saga.put(Redux.entitiesActions.setOverview(overview));
     yield Saga.put(Redux.entitiesActions.setCurrentUser(onboardedUser));
 
     location.reload();

@@ -1,8 +1,10 @@
 import { Signal, effect, useSignal } from "@preact/signals-react";
-import { memo, useEffect } from "react";
+import { memo, useCallback, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
+import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
 import { CategorySelector } from "./category-selector";
@@ -15,8 +17,6 @@ type Props = {
   purchase: Types.PurchaseModel;
   dragAction?: () => void;
   selectAction?: () => void;
-  updatePurchase: Types.UpdatePurchase;
-  deletePurchase: Types.DeletePurchase;
   disabled?: Signal<boolean>;
   borderRadius?: number;
   backgroundLevel?: number;
@@ -24,15 +24,47 @@ type Props = {
 };
 
 const ExportedComponent = (props: Props) => {
+  const dispatch = useDispatch();
+
   const changeCategory = useSignal(false);
   const description = useSignal(props.purchase.description);
   const cost = useSignal(
-    props.purchase.cost ? props.purchase.cost.toString() : ""
+    props.purchase.cost ? Helpers.roundCost(props.purchase.cost) : ""
   );
   const descriptionError = useSignal("");
   const costError = useSignal("");
 
   const cents = cost.value.split(".")[1];
+
+  const updatePurchase = useCallback(
+    Helpers.debounce((fields: Types.PurchaseUpdateFields): void => {
+      if (Helpers.userId) {
+        const { placement, category, description, cost } = fields;
+        dispatch(
+          Sagas.updatePurchaseRequest({
+            placement: placement || props.purchase.placement,
+            category: category || props.purchase.category,
+            description: description,
+            cost: cost,
+            purchaseId: props.purchase.id,
+            userId: Helpers.userId,
+          })
+        );
+      }
+    }),
+    []
+  );
+
+  function deletePurchase(): void {
+    if (Helpers.userId) {
+      dispatch(
+        Sagas.deletePurchaseRequest({
+          purchaseId: props.purchase.id,
+          userId: Helpers.userId,
+        })
+      );
+    }
+  }
 
   effect(() => {
     if (cost.value === "") {
@@ -54,17 +86,17 @@ const ExportedComponent = (props: Props) => {
 
   useEffect(() => {
     if (description.value !== props.purchase.description) {
-      props.updatePurchase({
-        id: props.purchase.id,
+      updatePurchase({
         description: description.value,
+        cost: Number(cost.value),
       });
     }
   }, [description.value]);
 
   useEffect(() => {
     if (Number(cost.value) && Number(cost.value) !== props.purchase.cost) {
-      props.updatePurchase({
-        id: props.purchase.id,
+      updatePurchase({
+        description: description.value,
         cost: Number(cost.value),
       });
     }
@@ -102,7 +134,7 @@ const ExportedComponent = (props: Props) => {
       )}
 
       {!props.hideCategories &&
-        (changeCategory.value ? (
+        (!props.purchase.category || changeCategory.value ? (
           <CategorySelector
             changeCategory={changeCategory}
             backgroundLevel={props.backgroundLevel}
@@ -141,7 +173,7 @@ const ExportedComponent = (props: Props) => {
         key="Dashboard Purchase Cell Delete Button"
         className={Snippets.iconContainer}
         type="button"
-        onClick={() => props.deletePurchase(props.purchase.id)}
+        onClick={deletePurchase}
         tabIndex={-1}
       >
         <Components.Close width={12} fill={8} hoverFill={11} />

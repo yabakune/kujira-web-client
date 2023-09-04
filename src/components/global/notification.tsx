@@ -24,7 +24,7 @@ export const Notification = () => {
   }
 
   useEffect(() => {
-    if (body.length > 0) {
+    if (body && body.length > 0) {
       setTimeout(() => {
         dispatch(Redux.uiActions.resetNotification());
       }, timeout);
@@ -33,7 +33,7 @@ export const Notification = () => {
 
   return (
     <AnimatePresence>
-      {body.length > 0 && (
+      {body && body.length > 0 && (
         <LazyMotion features={domAnimation}>
           <m.section
             className={`${Styles.section} ${setStatusBorder()}`}

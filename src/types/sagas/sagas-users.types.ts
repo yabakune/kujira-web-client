@@ -10,6 +10,7 @@ export type UpdateUserPayload = Partial<{
   currency: Currency;
   theme: Theme;
   mobileNumber: string;
+  onboarded: boolean;
 }> & { userId: number };
 
 export type UpdateUserPasswordPayload = {

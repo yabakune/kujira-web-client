@@ -59,8 +59,8 @@ export function createPurchaseRequest(
 }
 
 export function updatePurchaseRequest(
-  payload: Types.UpdatePurchase
-): Types.SagaPayload<Types.UpdatePurchase> {
+  payload: Types.UpdatePurchasePayload
+): Types.SagaPayload<Types.UpdatePurchasePayload> {
   return {
     type: PurchasesActions.UPDATE_PURCHASE,
     payload,
@@ -163,6 +163,13 @@ function* fetchEntryPurchases(
         normalizedData.entities.purchases as Types.NormalizedPurchases
       )
     );
+
+    yield Saga.put(
+      Redux.entitiesActions.addPurchasesToEntry({
+        entryId: fetchPayload.entryId,
+        purchases: data.response,
+      })
+    );
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);
@@ -180,12 +187,12 @@ function* createPurchase(
     );
     const { userId, ...createPayload } = action.payload;
     const { data } = yield Saga.call(axios.post, endpoint, createPayload);
-    const normalizedData = normalize(data.response, purchasesSchema);
 
     yield Saga.put(
-      Redux.entitiesActions.setPurchases(
-        normalizedData.entities.purchases as Types.NormalizedPurchases
-      )
+      Redux.entitiesActions.addPurchaseToEntries({
+        purchase: data.response,
+        entryId: createPayload.entryId,
+      })
     );
 
     yield Saga.put(
@@ -210,18 +217,10 @@ function* updatePurchase(
       `/${action.payload.purchaseId}`,
       action.payload.userId
     );
-    const { userId, ...updatePayload } = action.payload;
+    const { userId, purchaseId, ...updatePayload } = action.payload;
     const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
 
-    yield Saga.put(Redux.entitiesActions.setPurchase(data));
-
-    yield Saga.put(
-      Redux.uiActions.setNotification({
-        body: data.body,
-        status: "success",
-        timeout: 5000,
-      })
-    );
+    yield Saga.put(Redux.entitiesActions.updatePurchase(data.response));
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);
@@ -288,7 +287,7 @@ function* deletePurchase(
   try {
     const endpoint = Helpers.generateGatedEndpoint(
       Constants.APIRoutes.PURCHASES,
-      `${action.payload.purchaseId}`,
+      `/${action.payload.purchaseId}`,
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.delete, endpoint);

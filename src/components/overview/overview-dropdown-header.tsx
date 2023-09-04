@@ -1,27 +1,41 @@
 import { Signal } from "@preact/signals-react";
 import { memo } from "react";
+import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
+import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
-import Styles from "./recurring-dropdown-header.module.scss";
+import Styles from "./overview-dropdown-header.module.scss";
 
 type Props = {
+  entryId: number;
+  entryPurchasesCount: number;
   title: string;
   opened: Signal<boolean>;
   totalCost: number;
-  addPurchase: () => void;
 };
 
 const ExportedComponent = (props: Props) => {
+  const dispatch = useDispatch();
+
   function toggleOpened(): void {
     props.opened.value = !props.opened.value;
   }
 
   function addPurchase(event: Types.OnClick<HTMLButtonElement>): void {
     Helpers.preventBubbling(event);
-    props.addPurchase();
+    if (Helpers.userId) {
+      dispatch(
+        Sagas.createPurchaseRequest({
+          placement: props.entryPurchasesCount + 1,
+          description: "",
+          entryId: props.entryId,
+          userId: Helpers.userId,
+        })
+      );
+    }
   }
 
   return (

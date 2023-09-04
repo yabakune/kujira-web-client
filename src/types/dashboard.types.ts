@@ -1,7 +1,7 @@
 import { PurchaseCategory } from "./api-models.types";
 
 export type PurchaseUpdateFields = {
-  id: number;
+  placement?: number;
   category?: PurchaseCategory;
   description?: string;
   cost?: number;

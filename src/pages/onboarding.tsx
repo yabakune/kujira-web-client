@@ -10,25 +10,6 @@ import * as Types from "@/types";
 
 import Styles from "@/styles/onboarding.module.scss";
 
-function generatePurchasesForAPI(
-  purchases: Types.PurchaseModel[],
-  entryId: number
-) {
-  return purchases.map((purchase: Types.PurchaseModel) => {
-    const { placement, category, description, cost } = purchase;
-    return { placement, category, description, cost: cost || null, entryId };
-  });
-}
-
-function findEntryId(
-  name: "Recurring" | "Incoming",
-  entries: Types.NormalizedEntries
-) {
-  for (const entry of Object.values(entries)) {
-    if (entry.name === name) return entry.id;
-  }
-}
-
 const Onboarding = () => {
   const dispatch = useDispatch();
 
@@ -39,30 +20,9 @@ const Onboarding = () => {
 
   const page = useSignal(1);
   const remainingBudget = useSignal(0);
+  const recurringOverviewTotalCost = useSignal(0);
   const income = useSignal("");
   const savings = useSignal("");
-  const recurringPurchases = useSignal<Types.PurchaseModel[]>([
-    {
-      id: 1,
-      placement: 1,
-      category: "monthly",
-      description: "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      entryId: 1,
-    },
-  ]);
-  const incomingPurchases = useSignal<Types.PurchaseModel[]>([
-    {
-      id: 1,
-      placement: 1,
-      category: "monthly",
-      description: "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      entryId: 1,
-    },
-  ]);
   const buttonText = useSignal("Let's go!");
   const disabled = useSignal(true);
 
@@ -71,51 +31,23 @@ const Onboarding = () => {
   }
 
   function completeOnboarding(): void {
-    if (!disabled.value && Helpers.userId && logbooks && entries) {
-      const logbookId = Object.values(logbooks)[0].id;
-      const recurringEntryId = findEntryId("Recurring", entries);
-      const incomingEntryId = findEntryId("Incoming", entries);
-
-      if (recurringEntryId && incomingEntryId) {
-        dispatch(
-          Sagas.onboardNewUserRequest({
-            userId: Helpers.userId,
-            logbookId,
-            income: Number(income.value),
-            savings: Number(savings.value),
-            recurringPurchases: generatePurchasesForAPI(
-              recurringPurchases.value,
-              recurringEntryId
-            ),
-            incomingPurchases: generatePurchasesForAPI(
-              incomingPurchases.value,
-              incomingEntryId
-            ),
-            recurringEntry: {
-              id: recurringEntryId,
-              totalCost: Helpers.calculatePurchasesTotalCost(
-                recurringPurchases.value
-              ),
-            },
-            incomingEntry: {
-              id: incomingEntryId,
-              totalCost: Helpers.calculatePurchasesTotalCost(
-                incomingPurchases.value
-              ),
-            },
-          })
-        );
-      }
+    if (!disabled.value && overviews && Helpers.userId) {
+      const overviewId = Object.values(overviews)[0].id;
+      dispatch(
+        Sagas.onboardNewUserRequest({
+          income: Number(income.value),
+          savings: Number(savings.value),
+          overviewId: overviewId,
+          userId: Helpers.userId,
+        })
+      );
     }
   }
 
   function nextPage(event: Types.OnSubmit): void {
     event.preventDefault();
-    if (page.value < 6) {
-      incrementPage();
-    } else {
-      completeOnboarding();
-    }
+    if (page.value < 6) incrementPage();
+    else completeOnboarding();
   }
 
   effect(() => {
@@ -142,34 +74,36 @@ const Onboarding = () => {
         Number(income.value),
         Number(savings.value)
       ) -
-      Helpers.calculatePurchasesTotalCost(recurringPurchases.value);
+      recurringOverviewTotalCost.value;
   });
 
   useEffect(() => {
-    if (!logbooks && Helpers.userId) {
-      dispatch(Sagas.fetchUserLogbooksRequest({ userId: Helpers.userId }));
-    } else if (logbooks) {
-      const logbook = Object.values(logbooks)[0];
-      dispatch(
-        Sagas.fetchLogbookOverviewRequest({
-          logbookId: logbook.id,
-          userId: Helpers.userId,
-        })
-      );
+    if (Helpers.userId) {
+      if (!logbooks) {
+        dispatch(Sagas.fetchUserLogbooksRequest({ userId: Helpers.userId }));
+      } else if (logbooks) {
+        const logbookId = Object.values(logbooks)[0].id;
+        dispatch(
+          Sagas.fetchLogbookOverviewRequest({
+            logbookId,
+            userId: Helpers.userId,
+          })
+        );
+      }
     }
   }, [logbooks]);
 
   useEffect(() => {
-    if (overviews) {
-      const overview = Object.values(overviews)[0];
+    if (overviews && !entries) {
+      const overviewId = Object.values(overviews)[0].id;
       dispatch(
         Sagas.fetchOverviewEntriesRequest({
-          overviewId: overview.id,
+          overviewId,
           userId: Helpers.userId,
         })
       );
     }
-  }, [overviews]);
+  }, [overviews, entries]);
 
   return (
     <>
@@ -190,10 +124,9 @@ const Onboarding = () => {
 
           <Components.OnboardingPages
             page={page}
+            recurringOverviewTotalCost={recurringOverviewTotalCost}
             income={income}
             savings={savings}
-            recurringPurchases={recurringPurchases}
-            incomingPurchases={incomingPurchases}
             disabled={disabled}
           />
 

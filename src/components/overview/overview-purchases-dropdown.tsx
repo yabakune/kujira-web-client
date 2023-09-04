@@ -9,17 +9,13 @@ import * as Sagas from "@/sagas";
 import * as Selectors from "@/selectors";
 import * as Types from "@/types";
 
-import { OverviewDropdownHeader } from "./recurring-dropdown-header";
+import { OverviewDropdownHeader } from "./overview-dropdown-header";
 
 import Styles from "./overview-purchases-dropdown.module.scss";
 
 type Props = {
+  entryId: number;
   title: string;
-  onboardingPurchases?: Types.PurchaseModel[];
-  entryId?: number;
-  addPurchase: () => void;
-  updatePurchase: Types.UpdatePurchase;
-  deletePurchase: Types.DeletePurchase;
   disabled?: Signal<boolean>;
   borderRadius?: number;
   startOpened?: boolean;
@@ -34,49 +30,8 @@ export const OverviewPurchasesDropdown = (props: Props) => {
   const opened = useSignal(props.startOpened || false);
 
   const entryPurchases = useSelector((state: Redux.ReduxStore) =>
-    Selectors.fetchEntryPurchase(state, props.entryId)
+    Selectors.fetchEntryPurchases(state, props.entryId)
   );
-
-  function addPurchase(): void {
-    if (props.entryId && entryPurchases && Helpers.userId) {
-      dispatch(
-        Sagas.createPurchaseRequest({
-          placement: entryPurchases.length + 1,
-          description: "",
-          entryId: props.entryId,
-          userId: Helpers.userId,
-        })
-      );
-    }
-  }
-
-  function generatePurchase(purchase: Types.PurchaseModel): JSX.Element {
-    return (
-      <Components.Purchase
-        key={purchase.id}
-        purchase={purchase}
-        updatePurchase={props.updatePurchase}
-        deletePurchase={props.deletePurchase}
-        disabled={props.disabled}
-        backgroundLevel={2}
-        hideCategories
-      />
-    );
-  }
-
-  function generateEntryPurchases(): (JSX.Element | undefined)[] | null {
-    if (props.onboardingPurchases) {
-      return props.onboardingPurchases.map((purchase: Types.PurchaseModel) => {
-        return generatePurchase(purchase);
-      });
-    } else if (entryPurchases) {
-      return entryPurchases.map((purchase: Types.PurchaseModel | undefined) => {
-        if (purchase) return generatePurchase(purchase);
-      });
-    } else {
-      return null;
-    }
-  }
 
   useEffect(() => {
     if (props.entryId && opened.value && Helpers.userId) {
@@ -98,14 +53,17 @@ export const OverviewPurchasesDropdown = (props: Props) => {
 			`}
       style={{ borderRadius: Helpers.setBorderRadius(props.borderRadius) }}
     >
-      <OverviewDropdownHeader
-        title={props.title}
-        opened={opened}
-        totalCost={Helpers.calculatePurchasesTotalCost(
-          props.onboardingPurchases || []
-        )}
-        addPurchase={props.addPurchase}
-      />
+      {entryPurchases ? (
+        <OverviewDropdownHeader
+          entryId={props.entryId}
+          entryPurchasesCount={entryPurchases.length}
+          title={props.title}
+          opened={opened}
+          totalCost={Helpers.calculatePurchasesTotalCost(entryPurchases)}
+        />
+      ) : (
+        <Components.Shimmer height="74px" borderRadius={4} />
+      )}
 
       <article
         className={`
@@ -113,7 +71,28 @@ export const OverviewPurchasesDropdown = (props: Props) => {
 				${!opened.value && Styles.closed}
 			`}
       >
-        {generateEntryPurchases()}
+        {opened.value &&
+          (entryPurchases ? (
+            entryPurchases.map((purchase: Types.PurchaseModel | undefined) => {
+              if (purchase) {
+                return (
+                  <Components.Purchase
+                    key={purchase.id}
+                    purchase={purchase}
+                    disabled={props.disabled}
+                    backgroundLevel={2}
+                    hideCategories
+                  />
+                );
+              }
+            })
+          ) : (
+            <>
+              <Components.Shimmer height="45px" borderRadius={4} />
+              <Components.Shimmer height="45px" borderRadius={4} />
+              <Components.Shimmer height="45px" borderRadius={4} />
+            </>
+          ))}
       </article>
     </section>
   );

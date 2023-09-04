@@ -1,82 +1,78 @@
 import { Signal } from "@preact/signals-react";
-import { useCallback } from "react";
+import { useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
-import * as Types from "@/types";
+import * as Redux from "@/redux";
+import * as Selectors from "@/selectors";
+import { useEffect } from "react";
 
-type Props = {
-  purchases: Signal<Types.PurchaseModel[]>;
+const copy = (
+  <p>
+    Many people have expenses that can be calculated and/or grouped into monthly
+    segments, such as rent, grocery budget, gas, public transportation, and
+    subscription services. If you have any expenses that occur on or can be
+    grouped into consistent monthly payments, enter them all below.
+  </p>
+);
+
+type DropdownProps = {
+  entryId: number;
+  title: string;
   disabled: Signal<boolean>;
+  recurringOverviewTotalCost: Signal<number>;
 };
 
-export const OnboardingRecurring = (props: Props) => {
-  const addPurchase = useCallback(() => {
-    const emptyPurchase: Types.PurchaseModel = {
-      id: props.purchases.value.length + 1,
-      placement: props.purchases.value.length + 1,
-      category: "monthly",
-      description: "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      entryId: 1,
-    };
-    props.purchases.value = [...props.purchases.value, emptyPurchase];
-  }, []);
-
-  const updatePurchase = useCallback(
-    Helpers.debounce((purchaseUpdateFields: Types.PurchaseUpdateFields) => {
-      const { id, category, description, cost } = purchaseUpdateFields;
-      const updatedPurchases = [...props.purchases.value];
-      const index = id - 1;
-      const purchase = updatedPurchases.splice(index, 1)[0];
-      if (category) purchase.category = category;
-      else if (description) purchase.description = description;
-      else if (cost) purchase.cost = cost;
-      Helpers.insertElementIntoArray(updatedPurchases, index, purchase);
-      props.purchases.value = updatedPurchases;
-    }),
-    []
+const OverviewPurchasesDropdown = (props: DropdownProps) => {
+  const purchases = useSelector((state: Redux.ReduxStore) =>
+    Selectors.fetchEntryPurchases(state, props.entryId)
   );
 
-  const deletePurchase = useCallback((id: number) => {
-    let purchaseIndex: number | null = null;
-
-    for (let index = 0; index < props.purchases.value.length; index++) {
-      const purchase = props.purchases.value[index];
-      if (purchase.id === id) {
-        purchaseIndex = index;
-        break;
-      }
+  useEffect(() => {
+    if (purchases) {
+      props.recurringOverviewTotalCost.value =
+        Helpers.calculatePurchasesTotalCost(purchases);
     }
-
-    if (purchaseIndex || purchaseIndex === 0) {
-      props.purchases.value = Helpers.deleteArrayElement(
-        props.purchases.value,
-        purchaseIndex
-      );
-    }
-  }, []);
+  }, [purchases]);
 
   return (
     <>
-      <p>
-        Many people have expenses that can be calculated and/or grouped into
-        monthly segments, such as rent, grocery budget, gas, public
-        transportation, and subscription services. If you have any expenses that
-        occur on or can be grouped into consistent monthly payments, enter them
-        all below.
-      </p>
-
+      {copy}
       <Components.OverviewPurchasesDropdown
-        title="Recurring Purchases"
-        onboardingPurchases={props.purchases.value}
-        addPurchase={addPurchase}
-        updatePurchase={updatePurchase}
-        deletePurchase={deletePurchase}
+        entryId={props.entryId}
+        title={props.title}
         disabled={props.disabled}
         startOpened={true}
       />
     </>
   );
+};
+
+type Props = {
+  recurringOverviewTotalCost: Signal<number>;
+  disabled: Signal<boolean>;
+};
+
+export const OnboardingRecurring = (props: Props) => {
+  const recurringOverviewEntry = useSelector(
+    Selectors.fetchRecurringOverviewEntry
+  );
+
+  if (recurringOverviewEntry) {
+    return (
+      <OverviewPurchasesDropdown
+        entryId={recurringOverviewEntry.id}
+        title={recurringOverviewEntry.name}
+        disabled={props.disabled}
+        recurringOverviewTotalCost={props.recurringOverviewTotalCost}
+      />
+    );
+  } else {
+    return (
+      <>
+        {copy}
+        <Components.Shimmer height="86px" borderRadius={6} />
+      </>
+    );
+  }
 };
