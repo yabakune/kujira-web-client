@@ -1,24 +1,17 @@
-import { Currency, Theme } from "../api-models.types";
+import { UserModel } from "../api-models.types";
+import { GatedRoutePayload } from "./sagas.types";
 
-export type FetchUserPayload = {
-  userId: number;
-};
+export type FetchUserPayload = {} & GatedRoutePayload;
 
-export type UpdateUserPayload = Partial<{
-  email: string;
-  username: string;
-  currency: Currency;
-  theme: Theme;
-  mobileNumber: string;
-  onboarded: boolean;
-}> & { userId: number };
+export type UpdateUserPayload = Omit<
+  UserModel,
+  "id" | "emailVerified" | "createdAt" | "updatedAt" | "bugReports"
+> &
+  GatedRoutePayload;
 
 export type UpdateUserPasswordPayload = {
-  userId: number;
   oldPassword: string;
   newPassword: string;
-};
+} & GatedRoutePayload;
 
-export type DeleteUserPayload = {
-  userId: number;
-};
+export type DeleteUserPayload = {} & GatedRoutePayload;

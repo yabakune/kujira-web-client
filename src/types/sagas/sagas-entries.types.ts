@@ -1,4 +1,5 @@
 import { GatedRoutePayload } from "./sagas.types";
+import { EntryModel } from "../api-models.types";
 
 export type FetchEntriesPayload = {} & GatedRoutePayload;
 
@@ -14,20 +15,24 @@ export type FetchLogbookEntriesPayload = {
   logbookId: number;
 } & GatedRoutePayload;
 
-export type CreateEntryPayload = {
-  name: string;
-  totalSpent?: number;
-  budget?: number;
-  overviewId?: number;
-  logbookId?: number;
-} & GatedRoutePayload;
-
-export type UpdateEntryPayload = Partial<{
-  entryId: number;
-  totalSpent: number;
-  budget: number | null;
-}> &
+export type CreateEntryPayload = Omit<
+  EntryModel,
+  "id" | "createdAt" | "updatedAt" | "purchases"
+> &
   GatedRoutePayload;
+
+export type UpdateEntryPayload = Partial<
+  Omit<
+    EntryModel,
+    | "id"
+    | "name"
+    | "createdAt"
+    | "updatedAt"
+    | "overviewId"
+    | "logbookId"
+    | "purchases"
+  >
+> & { entryId: number } & GatedRoutePayload;
 
 export type DeleteEntryPayload = {
   entryId: number;
