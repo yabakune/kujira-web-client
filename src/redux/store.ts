@@ -8,6 +8,7 @@ import usersSaga from "@/sagas/users.saga";
 import overviewsSaga from "@/sagas/overviews.saga";
 import logbooksSaga from "@/sagas/logbooks.saga";
 import entriesSaga from "@/sagas/entries.saga";
+import purchasesSaga from "@/sagas/purchases.saga";
 
 import { entitiesReducer as entities } from "./slices/entities-slice";
 import { uiReducer as ui } from "./slices/ui-slice";
@@ -32,6 +33,7 @@ function* rootSaga() {
     overviewsSaga(),
     logbooksSaga(),
     entriesSaga(),
+    purchasesSaga(),
   ]);
 }
 
