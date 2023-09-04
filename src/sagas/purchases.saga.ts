@@ -187,6 +187,14 @@ function* createPurchase(
         normalizedData.entities.purchases as Types.NormalizedPurchases
       )
     );
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);
@@ -206,6 +214,14 @@ function* updatePurchase(
     const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
 
     yield Saga.put(Redux.entitiesActions.setPurchase(data));
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);
@@ -225,6 +241,14 @@ function* bulkDeletePurchases(
     const { data } = yield Saga.call(axios.post, endpoint, deletePayload);
 
     yield Saga.put(Redux.entitiesActions.deletePurchases(data.response));
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);
@@ -244,6 +268,14 @@ function* deleteEntryPurchases(
     const { data } = yield Saga.call(axios.post, endpoint, deletePayload);
 
     yield Saga.put(Redux.entitiesActions.deletePurchases(data.response));
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);
@@ -262,6 +294,14 @@ function* deletePurchase(
     const { data } = yield Saga.call(axios.delete, endpoint);
 
     yield Saga.put(Redux.entitiesActions.deletePurchase(data.response));
+
+    yield Saga.put(
+      Redux.uiActions.setNotification({
+        body: data.body,
+        status: "success",
+        timeout: 5000,
+      })
+    );
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);
