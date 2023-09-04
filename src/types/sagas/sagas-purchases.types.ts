@@ -7,29 +7,28 @@ export type FetchPurchasePayload = {
   purchaseId: number;
 } & GatedRoutePayload;
 
-export type fetchEntryPurchasesPayload = {
+export type FetchEntryPurchasesPayload = {
   entryId: number;
 } & GatedRoutePayload;
 
-export type createPurchase = Omit<
+export type CreatePurchasePayload = Omit<
   PurchaseModel,
   "id" | "createdAt" | "updatedAt"
 > &
   GatedRoutePayload;
 
-export type updatePurchase = Partial<
+export type UpdatePurchasePayload = Partial<
   Omit<PurchaseModel, "id" | "createdAt" | "updatedAt">
-> &
-  GatedRoutePayload;
+> & { purchaseId: number } & GatedRoutePayload;
 
-export type bulkDeletePurchase = {
+export type BulkDeletePurchasesPayload = {
   purchaseIds: number[];
 } & GatedRoutePayload;
 
-export type deleteEntryPurchases = {
+export type DeleteEntryPurchasesPayload = {
   entryId: number;
 } & GatedRoutePayload;
 
-export type deletePurchase = {
+export type DeletePurchasePayload = {
   purchaseId: number;
 } & GatedRoutePayload;
