@@ -17,7 +17,7 @@ import Styles from "./overview.module.scss";
 const { currentLogbookId } = signalsStore;
 
 export const Overview = () => {
-  console.log("Overview rendered");
+  // console.log("Overview rendered");
 
   const dispatch = useDispatch();
   const { overviews } = useSelector(

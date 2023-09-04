@@ -74,7 +74,7 @@ export const OnboardingIncoming = (props: Props) => {
         updatePurchase={updatePurchase}
         deletePurchase={deletePurchase}
         disabled={props.disabled}
-        startOpened
+        startOpened={true}
       />
     </>
   );

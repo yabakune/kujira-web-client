@@ -12,7 +12,7 @@ import { signalsStore } from "@/signals/signals";
 const { currentLogbookId } = signalsStore;
 
 export const OverviewEntries = () => {
-  console.log("Overview entries rendered");
+  // console.log("Overview entries rendered");
 
   const dispatch = useDispatch();
 
@@ -41,6 +41,9 @@ export const OverviewEntries = () => {
               key={entry.id}
               title={entry.name}
               entryId={entry.id}
+              startOpened={
+                entry.name === "Recurring" || entry.name === "Incoming"
+              }
               shadow
             />
           );

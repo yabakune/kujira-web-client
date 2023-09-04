@@ -22,7 +22,7 @@ const DynamicPersonalize = dynamic(
 );
 
 const Settings: NextPageWithLayout = () => {
-  console.log("Settings page rendered");
+  // console.log("Settings page rendered");
 
   return (
     <>

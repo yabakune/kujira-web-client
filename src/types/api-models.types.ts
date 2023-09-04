@@ -66,7 +66,7 @@ export type PurchaseCategory =
 export type PurchaseModel = {
   id: number;
   placement: number;
-  category: PurchaseCategory;
+  category?: PurchaseCategory | null;
   description: string;
   cost?: number | null;
   createdAt: Date;

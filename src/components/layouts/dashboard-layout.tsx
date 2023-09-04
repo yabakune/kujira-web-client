@@ -20,7 +20,7 @@ type Props = {
 const { currentLogbookId } = signalsStore;
 
 export const DashboardLayout = (props: Props) => {
-  console.log("Dashboard layout rendered");
+  // console.log("Dashboard layout rendered");
 
   const currentUser = useSelector(Selectors.fetchCurrentUser);
 
