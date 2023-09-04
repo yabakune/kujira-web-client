@@ -31,9 +31,6 @@ export const OverviewPurchasesDropdown = (props: Props) => {
 
   const opened = useSignal(props.startOpened || false);
 
-  const { purchases } = useSelector(
-    (state: Redux.ReduxStore) => state.entities
-  );
   const entryPurchases = useSelector((state: Redux.ReduxStore) =>
     Selectors.fetchEntryPurchase(state, props.entryId)
   );
