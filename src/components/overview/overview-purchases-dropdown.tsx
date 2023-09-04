@@ -39,10 +39,15 @@ export const OverviewPurchasesDropdown = (props: Props) => {
   );
 
   useEffect(() => {
-    if (props.entryId) {
-      // Dispatch entry purchase fetching
+    if (props.entryId && opened.value && Helpers.userId) {
+      dispatch(
+        Sagas.fetchEntryPurchasesRequest({
+          entryId: props.entryId,
+          userId: Helpers.userId,
+        })
+      );
     }
-  }, [props.entryId]);
+  }, [props.entryId, opened.value]);
 
   return (
     <section

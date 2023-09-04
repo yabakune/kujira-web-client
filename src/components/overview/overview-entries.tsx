@@ -40,7 +40,8 @@ export const OverviewEntries = () => {
             <Components.OverviewPurchasesDropdown
               key={entry.id}
               title={entry.name}
-							shadow
+              entryId={entry.id}
+              shadow
             />
           );
         })}
