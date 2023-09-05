@@ -51,6 +51,13 @@ export const DashboardLayout = (props: Props) => {
 
   return (
     <div className={Styles.container}>
+      <Components.MenuModal
+        extraOpenConditional={!!currentLogbookId.value}
+        title="Logbook Overview"
+      >
+        <Overview />
+      </Components.MenuModal>
+
       <Navbar />
 
       <div className={Styles.body}>
@@ -64,7 +71,9 @@ export const DashboardLayout = (props: Props) => {
             </>
           ) : (
             <>
-              <Overview />
+              <section className={Styles.overview}>
+                <Overview />
+              </section>
 
               <article className={Styles.mainContent}>{props.children}</article>
 

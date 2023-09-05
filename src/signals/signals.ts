@@ -11,6 +11,7 @@ type SignalsStore = {
   currentSettingsPage: Signal<Types.SettingsPage>;
 
   confirmationModalOpen: Signal<boolean>;
+  menuModalOpen: Signal<boolean>;
 };
 
 export const signalsStore: SignalsStore = {
@@ -20,4 +21,5 @@ export const signalsStore: SignalsStore = {
   currentSettingsPage: signal("Personal"),
 
   confirmationModalOpen: signal(false),
+  menuModalOpen: signal(false),
 };

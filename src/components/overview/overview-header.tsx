@@ -10,7 +10,7 @@ import { OverviewStatus } from "./overview-status";
 
 import Styles from "./overview-header.module.scss";
 
-const { currentSettingsPage } = signalsStore;
+const { currentSettingsPage, menuModalOpen } = signalsStore;
 
 const settingsPages: Types.SettingsPage[] = [
   "Personal",
@@ -29,7 +29,10 @@ const SettingsNavigation = () => {
             <Components.Button
               key={`Overview Header Settings Navigation ${page} ${index}`}
               text={page}
-              onClick={() => (currentSettingsPage.value = page)}
+              onClick={() => {
+                currentSettingsPage.value = page;
+                menuModalOpen.value = false;
+              }}
               backgroundLevel={3}
               weak={currentSettingsPage.value !== page}
               centered

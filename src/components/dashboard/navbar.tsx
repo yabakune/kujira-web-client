@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import * as Components from "@/components";
 import * as Constants from "@/constants";
+import { signalsStore } from "@/signals/signals";
 
 import Styles from "./navbar.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
@@ -12,13 +13,15 @@ type Route = Constants.ClientRoutes.LOGBOOKS | Constants.ClientRoutes.SETTINGS;
 
 const { LOGBOOKS, SETTINGS } = Constants.ClientRoutes;
 
+const { currentLogbookId, menuModalOpen } = signalsStore;
+
 export const Navbar = () => {
   const router = useRouter();
 
   const currentRoute = useSignal<Route>(LOGBOOKS);
 
   function toggleOverview(): void {
-    console.log("Toggle Overview");
+    menuModalOpen.value = true;
   }
 
   function toPage(route: Route): void {
@@ -28,11 +31,13 @@ export const Navbar = () => {
 
   return (
     <nav className={`${Styles.container} ${Snippets.responsiveSidePadding}`}>
-      <div className={Styles.overviewToggleButton}>
-        <Components.ButtonIcon onClick={toggleOverview}>
-          <Components.Overview width={14} fill={8} hoverFill={11} />
-        </Components.ButtonIcon>
-      </div>
+      {currentLogbookId.value && (
+        <div className={Styles.overviewToggleButton}>
+          <Components.ButtonIcon onClick={toggleOverview}>
+            <Components.Overview width={14} fill={8} hoverFill={11} />
+          </Components.ButtonIcon>
+        </div>
+      )}
 
       <Image
         src="/logo-full-horizontal-violet.svg"

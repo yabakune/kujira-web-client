@@ -19,6 +19,15 @@
   gap: var(--sixteenPixels);
 }
 
+.overview {
+  width: var(--fiveHundredPixels);
+  padding: var(--sixteenPixels) 0rem;
+
+  @media (max-width: 880px) {
+    display: none;
+  }
+}
+
 .mainContent {
   display: flex;
   justify-content: center;

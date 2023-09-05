@@ -2,11 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--eightPixels);
-  width: var(--fiveHundredPixels);
-  padding: var(--sixteenPixels) 0rem;
+  width: 100%;
   overflow-y: auto;
-
-  @media (max-width: 880px) {
-    display: none;
-  }
 }

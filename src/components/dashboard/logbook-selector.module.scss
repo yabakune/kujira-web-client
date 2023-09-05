@@ -9,6 +9,10 @@
   padding: var(--sixteenPixels);
   border-radius: var(--sixPixels);
   box-shadow: var(--shadowOne);
+
+  @media (max-width: 880px) {
+    max-width: 100%;
+  }
 }
 
 .buttons {

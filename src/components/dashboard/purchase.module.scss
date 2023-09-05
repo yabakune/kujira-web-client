@@ -10,4 +10,9 @@
   flex: 1;
   align-items: flex-end;
   gap: var(--eightPixels);
+
+  @media (max-width: 400px) {
+    flex-direction: column;
+    gap: var(--fourPixels);
+  }
 }

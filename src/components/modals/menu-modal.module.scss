@@ -1,0 +1,33 @@
+.container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: var(--zIndexModal);
+  display: none;
+  background-color: var(--overlay);
+  overflow-y: auto;
+
+  @media (max-width: 880px) {
+    display: block;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sixteenPixels);
+  padding: var(--sixteenPixels);
+  background-color: var(--themeOne);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--twelvePixels);
+}
+
+.title {
+  flex: 1;
+}
