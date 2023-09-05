@@ -25,6 +25,7 @@
   background-color: var(--themeOne);
   transform-origin: top;
   transition: var(--transition);
+  overflow-y: auto;
 
   &.closed {
     display: none;
