@@ -30,6 +30,11 @@ const ExportedComponent = () => {
     Selectors.fetchLogbookOverview(state, currentLogbookId.value)
   );
 
+  const recurringOverviewEntryTotalSpent = useSelector(
+    (state: Redux.ReduxStore) =>
+      Selectors.recurringOverviewEntryTotalSpent(state, currentLogbookId.value)
+  );
+
   const currentLogbookEntriesTotalSpent = useSelector(
     (state: Redux.ReduxStore) =>
       Selectors.calculateLogbookEntriesTotalSpent(state, currentLogbookId.value)
@@ -40,9 +45,16 @@ const ExportedComponent = () => {
       const { income, savings } = currentOverview;
       const savedIncome = Helpers.calculateSavedIncome(income, savings);
       remainingBudget.value =
-        income - savedIncome - currentLogbookEntriesTotalSpent;
+        income -
+        savedIncome -
+        recurringOverviewEntryTotalSpent -
+        currentLogbookEntriesTotalSpent;
     }
-  }, [currentOverview, currentLogbookEntriesTotalSpent]);
+  }, [
+    currentOverview,
+    recurringOverviewEntryTotalSpent,
+    currentLogbookEntriesTotalSpent,
+  ]);
 
   useEffect(() => {
     if (!entries && currentLogbookId.value && Helpers.userId) {

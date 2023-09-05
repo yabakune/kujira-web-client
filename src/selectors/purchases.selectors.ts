@@ -5,9 +5,9 @@ import { ReduxStore } from "@/redux";
 export const fetchEntryPurchases = createSelector(
   (state: ReduxStore) => state.entities.entries,
   (state: ReduxStore) => state.entities.purchases,
-  (state: ReduxStore, entryId: number | undefined) => entryId,
+  (state: ReduxStore, entryId: number) => entryId,
   (entries, purchases, entryId) => {
-    if (entries && purchases && entryId && entries[entryId]) {
+    if (entries && purchases && entries[entryId]) {
       const entryPurchases = entries[entryId].purchases;
       if (entryPurchases) {
         return entryPurchases.map((purchaseId: number) => {

@@ -29,6 +29,10 @@ export const OverviewPurchasesDropdown = (props: Props) => {
 
   const opened = useSignal(props.startOpened || false);
 
+  const entry = useSelector((state: Redux.ReduxStore) =>
+    Selectors.fetchEntry(state, props.entryId)
+  );
+
   const entryPurchases = useSelector((state: Redux.ReduxStore) =>
     Selectors.fetchEntryPurchases(state, props.entryId)
   );
@@ -44,6 +48,27 @@ export const OverviewPurchasesDropdown = (props: Props) => {
     }
   }, [opened.value]);
 
+  useEffect(() => {
+    if (entry && entryPurchases) {
+      let totalSpent = 0;
+      entryPurchases.forEach((purchase: Types.PurchaseModel | undefined) => {
+        if (purchase && purchase.cost) totalSpent += purchase.cost;
+      });
+
+      const roundedTotalSpent = Number(Helpers.roundCost(totalSpent));
+
+      if (roundedTotalSpent !== entry.totalSpent && Helpers.userId) {
+        dispatch(
+          Sagas.updateEntryRequest({
+            totalSpent: roundedTotalSpent,
+            entryId: props.entryId,
+            userId: Helpers.userId,
+          })
+        );
+      }
+    }
+  }, [entry, entryPurchases]);
+
   return (
     <section
       className={`
@@ -53,13 +78,13 @@ export const OverviewPurchasesDropdown = (props: Props) => {
 			`}
       style={{ borderRadius: Helpers.setBorderRadius(props.borderRadius) }}
     >
-      {entryPurchases ? (
+      {entry && entryPurchases ? (
         <OverviewDropdownHeader
           entryId={props.entryId}
           entryPurchasesCount={entryPurchases.length}
           title={props.title}
           opened={opened}
-          totalCost={Helpers.calculatePurchasesTotalCost(entryPurchases)}
+          totalCost={entry.totalSpent}
         />
       ) : (
         <Components.Shimmer height="74px" borderRadius={4} />
@@ -72,7 +97,7 @@ export const OverviewPurchasesDropdown = (props: Props) => {
 			`}
       >
         {opened.value &&
-          (entryPurchases ? (
+          (entry && entryPurchases ? (
             entryPurchases.map((purchase: Types.PurchaseModel | undefined) => {
               if (purchase) {
                 return (
