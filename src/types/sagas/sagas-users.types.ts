@@ -3,9 +3,11 @@ import { GatedRoutePayload } from "./sagas.types";
 
 export type FetchUserPayload = {} & GatedRoutePayload;
 
-export type UpdateUserPayload = Omit<
-  UserModel,
-  "id" | "emailVerified" | "createdAt" | "updatedAt" | "bugReports"
+export type UpdateUserPayload = Partial<
+  Omit<
+    UserModel,
+    "id" | "emailVerified" | "createdAt" | "updatedAt" | "bugReports"
+  >
 > &
   GatedRoutePayload;
 
