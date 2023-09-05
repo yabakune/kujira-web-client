@@ -7,14 +7,10 @@ import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Selectors from "@/selectors";
 
-const copy = (
-  <p>
-    Many people have expenses that can be calculated and/or grouped into monthly
+const copy = `Many people have expenses that can be calculated and/or grouped into monthly
     segments, such as rent, grocery budget, gas, public transportation, and
     subscription services. If you have any expenses that occur on or can be
-    grouped into consistent monthly payments, enter them all below.
-  </p>
-);
+    grouped into consistent monthly payments, enter them all below.`;
 
 type DropdownProps = {
   entryId: number;
@@ -37,7 +33,7 @@ const OverviewPurchasesDropdown = (props: DropdownProps) => {
 
   return (
     <>
-      {copy}
+      <p>{copy}</p>
       <Components.OverviewPurchasesDropdown
         entryId={props.entryId}
         title={props.title}
@@ -70,7 +66,7 @@ const ExportedComponent = (props: Props) => {
   } else {
     return (
       <>
-        {copy}
+        <p>{copy}</p>
         <Components.Shimmer height="86px" borderRadius={6} />
       </>
     );
