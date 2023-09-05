@@ -20,15 +20,25 @@
 }
 
 .mainContent {
+  display: flex;
+  justify-content: center;
   flex: 1;
   padding: var(--sixteenPixels) 0rem;
   overflow-y: auto;
+
+  @media (max-width: 1564px) {
+    justify-content: flex-start;
+  }
+
+  @media (max-width: 880px) {
+    justify-content: center;
+  }
 }
 
 .overviewSpacer {
   min-width: var(--fiveHundredPixels);
 
-  // @media (max-width: 1564px) {
-  //   display: none;
-  // }
+  @media (max-width: 1564px) {
+    display: none;
+  }
 }

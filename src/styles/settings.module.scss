@@ -4,5 +4,8 @@
   gap: var(--sixteenPixels);
   width: 100%;
   max-width: var(--fiveHundredPixels);
-  margin: 0 auto;
+
+  @media (max-width: 880px) {
+    max-width: 100%;
+  }
 }

@@ -12,9 +12,9 @@
   display: none;
   flex-shrink: 0;
 
-  // @media (max-width: 1564px) {
-  //   display: block;
-  // }
+  @media (max-width: 880px) {
+    display: block;
+  }
 }
 
 .navigationLinks {

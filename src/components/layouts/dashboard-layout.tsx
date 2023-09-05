@@ -53,8 +53,10 @@ export const DashboardLayout = (props: Props) => {
     <div className={Styles.container}>
       <Navbar />
 
-      <div className={`${Styles.body} ${Snippets.responsiveSidePadding}`}>
-        <div className={Styles.scrollContainer}>
+      <div className={Styles.body}>
+        <div
+          className={`${Styles.scrollContainer} ${Snippets.responsiveSidePadding}`}
+        >
           {!currentLogbookId.value ? (
             <>
               <Components.PageHead title="Select a Logbook" />
