@@ -27,7 +27,7 @@ const Onboarding = () => {
   const disabled = useSignal(true);
 
   function incrementPage(): void {
-    if (page.value < 6 && !disabled.value) page.value += 1;
+    if (!disabled.value && page.value < 6) page.value += 1;
   }
 
   function completeOnboarding(): void {
@@ -37,7 +37,7 @@ const Onboarding = () => {
         Sagas.onboardNewUserRequest({
           income: Number(income.value),
           savings: Number(savings.value),
-          overviewId: overviewId,
+          overviewId,
           userId: Helpers.userId,
         })
       );

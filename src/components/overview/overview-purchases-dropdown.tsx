@@ -23,7 +23,7 @@ type Props = {
 };
 
 export const OverviewPurchasesDropdown = (props: Props) => {
-  console.log("Overview purchases dropdown");
+  console.log("Overview purchases dropdown:", props.title);
 
   const dispatch = useDispatch();
 

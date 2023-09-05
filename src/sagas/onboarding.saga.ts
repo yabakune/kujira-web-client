@@ -31,7 +31,7 @@ function* onboardNewUser(
   action: Types.SagaPayload<Types.OnboardNewUserPayload>
 ) {
   try {
-    const { userId, overviewId, ...overviewUpdatePayload } = action.payload;
+    const { income, savings, overviewId, userId } = action.payload;
 
     const { data: overview } = yield Saga.call(
       axios.patch,
@@ -40,7 +40,7 @@ function* onboardNewUser(
         `/${overviewId}`,
         userId
       ),
-      overviewUpdatePayload
+      { income, savings }
     );
 
     const { data: onboardedUser } = yield Saga.call(
