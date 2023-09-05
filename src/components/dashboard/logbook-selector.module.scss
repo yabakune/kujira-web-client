@@ -4,7 +4,7 @@
   gap: var(--sixteenPixels);
   width: 100%;
   max-width: var(--sixHundredPixels);
-  margin: 0 auto;
+  margin: var(--sixteenPixels) auto;
   padding: var(--sixteenPixels);
   border-radius: var(--sixPixels);
   box-shadow: var(--shadowOne);

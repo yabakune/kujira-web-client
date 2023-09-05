@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   border-radius: var(--sixPixels);
   background-color: var(--themeTwo);
   box-shadow: var(--shadowOne);
