@@ -1,8 +1,10 @@
 import dynamic from "next/dynamic";
-import { Signal } from "@preact/signals-react";
+import { Signal, effect, useSignal } from "@preact/signals-react";
 import { memo } from "react";
 
 import * as Components from "@/components";
+
+import Styles from "./onboarding-pages.module.scss";
 
 const DynamicIncome = dynamic(() =>
   import("@/components/onboarding/onboarding-income").then(
@@ -34,6 +36,24 @@ const DynamicFinal = dynamic(() =>
   )
 );
 
+type DisplayProps = {
+  show: boolean;
+  children: React.ReactNode;
+};
+
+const Display = (props: DisplayProps) => {
+  return (
+    <div
+      className={`
+      ${Styles.display}
+      ${props.show ? Styles.show : Styles.hide}
+    `}
+    >
+      {props.children}
+    </div>
+  );
+};
+
 type Props = {
   page: Signal<number>;
   recurringOverviewTotalCost: Signal<number>;
@@ -43,27 +63,63 @@ type Props = {
 };
 
 const ExportedComponent = (props: Props) => {
+  const pageLoadedCache = useSignal<{ [key: string]: boolean }>({
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+  });
+
+  effect(() => {
+    if (props.page.value === 2) pageLoadedCache.value[2] = true;
+    else if (props.page.value === 3) pageLoadedCache.value[3] = true;
+    else if (props.page.value === 4) pageLoadedCache.value[4] = true;
+    else if (props.page.value === 5) pageLoadedCache.value[5] = true;
+    else if (props.page.value === 6) pageLoadedCache.value[6] = true;
+  });
+
   return (
     <>
-      {props.page.value === 1 ? (
+      <Display show={props.page.value === 1}>
         <Components.OnboardingWelcome />
-      ) : props.page.value === 2 ? (
-        <DynamicIncome income={props.income} disabled={props.disabled} />
-      ) : props.page.value === 3 ? (
-        <DynamicSavings
-          income={props.income}
-          savings={props.savings}
-          disabled={props.disabled}
-        />
-      ) : props.page.value === 4 ? (
-        <DynamicRecurring
-          recurringOverviewTotalCost={props.recurringOverviewTotalCost}
-          disabled={props.disabled}
-        />
-      ) : props.page.value === 5 ? (
-        <DynamicIncoming disabled={props.disabled} />
-      ) : (
-        <DynamicFinal />
+      </Display>
+
+      {pageLoadedCache.value[2] && (
+        <Display show={props.page.value === 2}>
+          <DynamicIncome income={props.income} disabled={props.disabled} />
+        </Display>
+      )}
+
+      {pageLoadedCache.value[3] && (
+        <Display show={props.page.value === 3}>
+          <DynamicSavings
+            income={props.income}
+            savings={props.savings}
+            disabled={props.disabled}
+          />
+        </Display>
+      )}
+
+      {pageLoadedCache.value[4] && (
+        <Display show={props.page.value === 4}>
+          <DynamicRecurring
+            recurringOverviewTotalCost={props.recurringOverviewTotalCost}
+            disabled={props.disabled}
+          />
+        </Display>
+      )}
+
+      {pageLoadedCache.value[5] && (
+        <Display show={props.page.value === 5}>
+          <DynamicIncoming disabled={props.disabled} />
+        </Display>
+      )}
+
+      {pageLoadedCache.value[6] && (
+        <Display show={props.page.value === 6}>
+          <DynamicFinal />
+        </Display>
       )}
     </>
   );

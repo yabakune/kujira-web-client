@@ -1,0 +1,13 @@
+.display {
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: var(--sixteenPixels);
+
+  &.show {
+    display: flex;
+  }
+
+  &.hide {
+    display: none;
+  }
+}

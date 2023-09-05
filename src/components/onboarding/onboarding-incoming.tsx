@@ -1,4 +1,5 @@
 import { Signal } from "@preact/signals-react";
+import { memo } from "react";
 import { useSelector } from "react-redux";
 
 import * as Components from "@/components";
@@ -17,7 +18,7 @@ const copy = (
   </p>
 );
 
-export const OnboardingIncoming = (props: Props) => {
+const ExportedComponent = (props: Props) => {
   const incomingOverviewEntry = useSelector(
     Selectors.fetchIncomingOverviewEntry
   );
@@ -43,3 +44,5 @@ export const OnboardingIncoming = (props: Props) => {
     );
   }
 };
+
+export const OnboardingIncoming = memo(ExportedComponent);

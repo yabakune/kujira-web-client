@@ -1,11 +1,11 @@
 import { Signal } from "@preact/signals-react";
+import { memo, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Selectors from "@/selectors";
-import { useEffect } from "react";
 
 const copy = (
   <p>
@@ -53,7 +53,7 @@ type Props = {
   disabled: Signal<boolean>;
 };
 
-export const OnboardingRecurring = (props: Props) => {
+const ExportedComponent = (props: Props) => {
   const recurringOverviewEntry = useSelector(
     Selectors.fetchRecurringOverviewEntry
   );
@@ -76,3 +76,5 @@ export const OnboardingRecurring = (props: Props) => {
     );
   }
 };
+
+export const OnboardingRecurring = memo(ExportedComponent);
