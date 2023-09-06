@@ -35,7 +35,7 @@ const ExportedComponent = (props: Props) => {
           userId: Helpers.userId,
         })
       );
-      toggleOpened();
+      props.opened.value = true;
     }
   }
 
