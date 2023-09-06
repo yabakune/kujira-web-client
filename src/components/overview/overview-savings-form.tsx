@@ -26,7 +26,7 @@ const ExportedComponent = () => {
     Selectors.fetchLogbookOverviewSavings(state, currentLogbookId.value)
   );
 
-  const savings = useSignal(overviewSavings ? overviewSavings.toString() : "");
+  const savings = useSignal("");
   const savingsError = useSignal("");
 
   const savedIncome = useMemo((): string => {
@@ -71,6 +71,12 @@ const ExportedComponent = () => {
   });
 
   useEffect(() => {
+    if (overviewSavings) {
+      savings.value = overviewSavings.toString();
+    }
+  }, [overviewSavings]);
+
+  useEffect(() => {
     const validSavings = !savingsError.value && savings.value.length > 0;
     const validOverviewSavings = overviewSavings || overviewSavings === 0;
     const validSavingsPayload = Number(savings.value) !== overviewSavings;
@@ -85,17 +91,21 @@ const ExportedComponent = () => {
     }
   }, [savings.value, savingsError.value, overviewId, overviewSavings]);
 
-  return (
-    <OverviewInlineForm
-      key="Overview Savings Inline Form"
-      title="Savings"
-      titlePrimary={savedIncome}
-      placeholder="Savings"
-      userInput={savings}
-      errorMessage={savingsError}
-      icon={<Components.Percent width={12} fill={8} />}
-    />
-  );
+  if (overviewId) {
+    return (
+      <OverviewInlineForm
+        key="Overview Savings Inline Form"
+        title="Savings"
+        titlePrimary={savedIncome}
+        placeholder="Savings"
+        userInput={savings}
+        errorMessage={savingsError}
+        icon={<Components.Percent width={12} fill={8} />}
+      />
+    );
+  } else {
+    return <Components.Shimmer height="102px" borderRadius={6} />;
+  }
 };
 
 export const OverviewSavingsForm = memo(ExportedComponent);

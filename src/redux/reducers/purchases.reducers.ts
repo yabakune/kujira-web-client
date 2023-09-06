@@ -23,40 +23,12 @@ export const purchasesReducers = {
 
     if (state.entries && state.entries[entryId]) {
       const entryPurchases = state.entries[entryId].purchases;
-      if (entryPurchases && !entryPurchases.includes(purchase.id)) {
-        state.entries[entryId].purchases = [...entryPurchases, purchase.id];
-      }
-    }
-  },
-
-  addPurchasesToEntry: (
-    state: EntitiesState,
-    action: PayloadAction<{ entryId: number; purchases: Types.PurchaseModel[] }>
-  ) => {
-    const { entryId, purchases } = action.payload;
-
-    if (state.entries && state.entries[entryId]) {
-      const entryPurchaseIds = state.entries[entryId].purchases;
-
-      const newPurchaseIds: number[] = [];
-
-      for (const purchase of purchases) {
-        newPurchaseIds.push(purchase.id);
-      }
-
-      if (entryPurchaseIds) {
-        const updatedPurchaseIds = Helpers.sortArray(
-          Helpers.removeDuplicatesFromArray([
-            ...entryPurchaseIds,
-            ...newPurchaseIds,
-          ])
-        );
-        state.entries[entryId].purchases = updatedPurchaseIds;
-      } else {
-        const updatedPurchaseIds = Helpers.sortArray(
-          Helpers.removeDuplicatesFromArray(newPurchaseIds)
-        );
-        state.entries[entryId].purchases = updatedPurchaseIds;
+      
+      if (entryPurchases && !entryPurchases.includes({ id: purchase.id })) {
+        state.entries[entryId].purchases = [
+          ...entryPurchases,
+          { id: purchase.id },
+        ];
       }
     }
   },

@@ -53,7 +53,7 @@ export type EntryModel = {
   overviewId?: number | null;
   logbookId?: number | null;
   // Has Many
-  purchases?: number[];
+  purchases: { id: number }[];
 };
 
 export type PurchaseCategory =

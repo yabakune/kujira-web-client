@@ -23,11 +23,7 @@ const ExportedComponent = () => {
     Selectors.fetchLogbookOverviewIncome(state, currentLogbookId.value)
   );
 
-  const income = useSignal(
-    overviewIncome || overviewIncome === 0
-      ? Helpers.roundCost(overviewIncome)
-      : ""
-  );
+  const income = useSignal("");
   const incomeError = useSignal("");
 
   const updateIncome = useCallback(
@@ -62,6 +58,12 @@ const ExportedComponent = () => {
   });
 
   useEffect(() => {
+    if (overviewIncome) {
+      income.value = Helpers.roundCost(overviewIncome);
+    }
+  }, [overviewIncome]);
+
+  useEffect(() => {
     const validIncome = !incomeError.value && income.value.length > 0;
     const validOverviewIncome = overviewIncome || overviewIncome === 0;
     const validIncomePayload = Number(income.value) !== overviewIncome;
@@ -76,16 +78,20 @@ const ExportedComponent = () => {
     }
   }, [income.value, incomeError.value, overviewId, overviewIncome]);
 
-  return (
-    <OverviewInlineForm
-      key="Overview Income Inline Form"
-      title="Income"
-      placeholder="Income"
-      userInput={income}
-      errorMessage={incomeError}
-      icon={<Components.USD width={12} fill={8} />}
-    />
-  );
+  if (overviewId) {
+    return (
+      <OverviewInlineForm
+        key="Overview Income Inline Form"
+        title="Income"
+        placeholder="Income"
+        userInput={income}
+        errorMessage={incomeError}
+        icon={<Components.USD width={12} fill={8} />}
+      />
+    );
+  } else {
+    return <Components.Shimmer height="102px" borderRadius={6} />;
+  }
 };
 
 export const OverviewIncomeForm = memo(ExportedComponent);

@@ -1,5 +1,5 @@
 import { Signal, useSignal } from "@preact/signals-react";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
@@ -16,25 +16,21 @@ import Styles from "./overview-purchases-dropdown.module.scss";
 type Props = {
   entryId: number;
   title: string;
+  totalSpent: number;
+  purchaseIds: { id: number }[];
   disabled?: Signal<boolean>;
   borderRadius?: number;
   startOpened?: boolean;
   shadow?: true;
 };
 
-export const OverviewPurchasesDropdown = (props: Props) => {
-  // console.log("Overview purchases dropdown:", props.title);
-
+const ExportedComponent = (props: Props) => {
   const dispatch = useDispatch();
 
-  const opened = useSignal(props.startOpened || false);
-
-  const entry = useSelector((state: Redux.ReduxStore) =>
-    Selectors.fetchEntry(state, props.entryId)
-  );
+  const opened = useSignal(!!props.startOpened);
 
   const entryPurchases = useSelector((state: Redux.ReduxStore) =>
-    Selectors.fetchEntryPurchases(state, props.entryId)
+    Selectors.fetchEntryPurchases(state, props.purchaseIds)
   );
 
   useEffect(() => {
@@ -49,7 +45,7 @@ export const OverviewPurchasesDropdown = (props: Props) => {
   }, [opened.value]);
 
   useEffect(() => {
-    if (entry && entryPurchases) {
+    if (entryPurchases && entryPurchases.length > 0) {
       let totalSpent = 0;
       entryPurchases.forEach((purchase: Types.PurchaseModel | undefined) => {
         if (purchase && purchase.cost) totalSpent += purchase.cost;
@@ -57,7 +53,7 @@ export const OverviewPurchasesDropdown = (props: Props) => {
 
       const roundedTotalSpent = Number(Helpers.roundCost(totalSpent));
 
-      if (roundedTotalSpent !== entry.totalSpent && Helpers.userId) {
+      if (roundedTotalSpent !== props.totalSpent && Helpers.userId) {
         dispatch(
           Sagas.updateEntryRequest({
             totalSpent: roundedTotalSpent,
@@ -67,7 +63,7 @@ export const OverviewPurchasesDropdown = (props: Props) => {
         );
       }
     }
-  }, [entry, entryPurchases]);
+  }, [entryPurchases]);
 
   return (
     <section
@@ -78,13 +74,12 @@ export const OverviewPurchasesDropdown = (props: Props) => {
 			`}
       style={{ borderRadius: Helpers.setBorderRadius(props.borderRadius) }}
     >
-      {entry && entryPurchases ? (
+      {entryPurchases ? (
         <OverviewDropdownHeader
           entryId={props.entryId}
-          entryPurchasesCount={entryPurchases.length}
           title={props.title}
           opened={opened}
-          totalCost={entry.totalSpent}
+          totalCost={props.totalSpent}
         />
       ) : (
         <Components.Shimmer height="74px" borderRadius={4} />
@@ -97,7 +92,7 @@ export const OverviewPurchasesDropdown = (props: Props) => {
 			`}
       >
         {opened.value &&
-          (entry && entryPurchases ? (
+          (entryPurchases ? (
             entryPurchases.map((purchase: Types.PurchaseModel | undefined) => {
               if (purchase) {
                 return (
@@ -122,3 +117,5 @@ export const OverviewPurchasesDropdown = (props: Props) => {
     </section>
   );
 };
+
+export const OverviewPurchasesDropdown = memo(ExportedComponent);

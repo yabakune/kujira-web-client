@@ -29,8 +29,6 @@ type PageLoadedCache = {
 };
 
 const Settings: NextPageWithLayout = () => {
-  // console.log("Settings page rendered");
-
   const pageLoadedCache = useSignal<PageLoadedCache>({
     personal: false,
     security: false,

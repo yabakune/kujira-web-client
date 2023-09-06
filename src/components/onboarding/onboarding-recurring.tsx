@@ -19,13 +19,15 @@ const copy = (
 type DropdownProps = {
   entryId: number;
   title: string;
+  totalSpent: number;
+  purchaseIds: { id: number }[];
   disabled: Signal<boolean>;
   recurringOverviewTotalCost: Signal<number>;
 };
 
 const OverviewPurchasesDropdown = (props: DropdownProps) => {
   const purchases = useSelector((state: Redux.ReduxStore) =>
-    Selectors.fetchEntryPurchases(state, props.entryId)
+    Selectors.fetchEntryPurchases(state, props.purchaseIds)
   );
 
   useEffect(() => {
@@ -41,6 +43,8 @@ const OverviewPurchasesDropdown = (props: DropdownProps) => {
       <Components.OverviewPurchasesDropdown
         entryId={props.entryId}
         title={props.title}
+        totalSpent={props.totalSpent}
+        purchaseIds={props.purchaseIds}
         disabled={props.disabled}
         startOpened={true}
       />
@@ -63,6 +67,8 @@ const ExportedComponent = (props: Props) => {
       <OverviewPurchasesDropdown
         entryId={recurringOverviewEntry.id}
         title={recurringOverviewEntry.name}
+        totalSpent={recurringOverviewEntry.totalSpent}
+        purchaseIds={recurringOverviewEntry.purchases}
         disabled={props.disabled}
         recurringOverviewTotalCost={props.recurringOverviewTotalCost}
       />

@@ -163,13 +163,6 @@ function* fetchEntryPurchases(
         normalizedData.entities.purchases as Types.NormalizedPurchases
       )
     );
-
-    yield Saga.put(
-      Redux.entitiesActions.addPurchasesToEntry({
-        entryId: fetchPayload.entryId,
-        purchases: data.response,
-      })
-    );
   } catch (error) {
     console.error(error);
     yield Helpers.handleError(error);

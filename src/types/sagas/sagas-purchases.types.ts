@@ -13,7 +13,7 @@ export type FetchEntryPurchasesPayload = {
 
 export type CreatePurchasePayload = Omit<
   PurchaseModel,
-  "id" | "createdAt" | "updatedAt"
+  "id" | "placement" | "createdAt" | "updatedAt"
 > &
   GatedRoutePayload;
 

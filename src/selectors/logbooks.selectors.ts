@@ -13,6 +13,16 @@ export const fetchLogbook = createCachedSelector(
   }
 )((_state_, logbookId) => logbookId);
 
+export const fetchCurrentLogbookName = createSelector(
+  (state: ReduxStore) => state.entities.logbooks,
+  (state: ReduxStore, logbookId: number | null) => logbookId,
+  (logbooks, logbookId) => {
+    if (logbooks && logbookId && logbooks[logbookId]) {
+      return `${logbooks[logbookId].name} Logbook`;
+    }
+  }
+);
+
 export const calculateLogbookEntriesTotalSpent = createSelector(
   (state: ReduxStore) => state.entities.logbooks,
   (state: ReduxStore) => state.entities.entries,

@@ -5,6 +5,7 @@ import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
+import * as Selectors from "@/selectors";
 import { signalsStore } from "@/signals/signals";
 
 import { OverviewHeader } from "./overview-header";
@@ -16,10 +17,9 @@ import Styles from "./overview.module.scss";
 
 const { currentLogbookId } = signalsStore;
 
-export const Overview = () => {
-  // console.log("Overview rendered");
-
+const LogbookOverviewFetcher = () => {
   const dispatch = useDispatch();
+
   const { overviews } = useSelector(
     (state: Redux.ReduxStore) => state.entities
   );
@@ -35,15 +35,26 @@ export const Overview = () => {
     }
   }, [overviews]);
 
+  return null;
+};
+
+export const Overview = () => {
+  const overviewId = useSelector((state: Redux.ReduxStore) =>
+    Selectors.fetchLogbookOverviewId(state, currentLogbookId.value)
+  );
+
   return (
     <section className={Styles.container}>
-      {overviews ? (
-        <>
-          <OverviewHeader />
-          <OverviewIncomeForm />
-          <OverviewSavingsForm />
-          <OverviewEntries />
-        </>
+      <LogbookOverviewFetcher />
+
+      <OverviewHeader />
+
+      <OverviewIncomeForm />
+
+      <OverviewSavingsForm />
+
+      {overviewId ? (
+        <OverviewEntries overviewId={overviewId} />
       ) : (
         <>
           <Components.Shimmer height="151px" borderRadius={6} />

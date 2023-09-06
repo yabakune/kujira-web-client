@@ -63,10 +63,12 @@ export const recurringOverviewEntryTotalSpent = createSelector(
   (logbooks, overviews, entries, logbookId) => {
     if (logbooks && overviews && entries && logbookId && logbooks[logbookId]) {
       const currentOverview = overviews[logbooks[logbookId].overview.id];
-      for (const { id: entryId } of currentOverview.entries) {
-        const currentEntry = entries[entryId];
-        if (currentEntry && currentEntry.name === "Recurring") {
-          return currentEntry.totalSpent;
+      if (currentOverview && currentOverview.entries) {
+        for (const { id: entryId } of currentOverview.entries) {
+          const currentEntry = entries[entryId];
+          if (currentEntry && currentEntry.name === "Recurring") {
+            return currentEntry.totalSpent;
+          }
         }
       }
       return 0;

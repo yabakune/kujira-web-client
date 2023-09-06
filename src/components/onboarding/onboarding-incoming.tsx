@@ -30,6 +30,8 @@ const ExportedComponent = (props: Props) => {
         <Components.OverviewPurchasesDropdown
           entryId={incomingOverviewEntry.id}
           title={incomingOverviewEntry.name}
+          totalSpent={incomingOverviewEntry.totalSpent}
+          purchaseIds={incomingOverviewEntry.purchases}
           disabled={props.disabled}
           startOpened={true}
         />

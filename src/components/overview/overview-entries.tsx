@@ -5,32 +5,25 @@ import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
-import * as Selectors from "@/selectors";
 import * as Types from "@/types";
-import { signalsStore } from "@/signals/signals";
 
-const { currentLogbookId } = signalsStore;
+type Props = {
+  overviewId: number;
+};
 
-export const OverviewEntries = () => {
-  // console.log("Overview entries rendered");
-
+export const OverviewEntries = (props: Props) => {
   const dispatch = useDispatch();
 
   const { entries } = useSelector((state: Redux.ReduxStore) => state.entities);
-  const overviewId = useSelector((state: Redux.ReduxStore) =>
-    Selectors.fetchLogbookOverviewId(state, currentLogbookId.value)
-  );
 
   useEffect(() => {
-    if (!entries && overviewId && Helpers.userId) {
-      dispatch(
-        Sagas.fetchOverviewEntriesRequest({
-          overviewId,
-          userId: Helpers.userId,
-        })
-      );
-    }
-  }, [entries, overviewId]);
+    dispatch(
+      Sagas.fetchOverviewEntriesRequest({
+        overviewId: props.overviewId,
+        userId: Helpers.userId,
+      })
+    );
+  }, []);
 
   if (entries) {
     return (
@@ -39,8 +32,10 @@ export const OverviewEntries = () => {
           return (
             <Components.OverviewPurchasesDropdown
               key={entry.id}
-              title={entry.name}
               entryId={entry.id}
+              title={entry.name}
+              totalSpent={entry.totalSpent}
+              purchaseIds={entry.purchases}
               startOpened={
                 entry.name === "Recurring" || entry.name === "Incoming"
               }

@@ -1,5 +1,5 @@
 import { useSignal } from "@preact/signals-react";
-import { memo, useEffect } from "react";
+import { memo, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
@@ -22,8 +22,8 @@ const ExportedComponent = () => {
 
   const { entries } = useSelector((state: Redux.ReduxStore) => state.entities);
 
-  const currentLogbook = useSelector((state: Redux.ReduxStore) =>
-    Selectors.fetchLogbook(state, currentLogbookId.value)
+  const currentLogbookName = useSelector((state: Redux.ReduxStore) =>
+    Selectors.fetchCurrentLogbookName(state, currentLogbookId.value)
   );
 
   const currentOverview = useSelector((state: Redux.ReduxStore) =>
@@ -40,21 +40,30 @@ const ExportedComponent = () => {
       Selectors.calculateLogbookEntriesTotalSpent(state, currentLogbookId.value)
   );
 
-  useEffect(() => {
+  const calculatedRemainingBudget = useMemo(() => {
     if (currentOverview) {
       const { income, savings } = currentOverview;
       const savedIncome = Helpers.calculateSavedIncome(income, savings);
-      remainingBudget.value =
+      return (
         income -
         savedIncome -
         recurringOverviewEntryTotalSpent -
-        currentLogbookEntriesTotalSpent;
+        currentLogbookEntriesTotalSpent
+      );
+    } else {
+      return remainingBudget.value;
     }
   }, [
     currentOverview,
     recurringOverviewEntryTotalSpent,
     currentLogbookEntriesTotalSpent,
   ]);
+
+  useEffect(() => {
+    if (remainingBudget.value !== calculatedRemainingBudget) {
+      remainingBudget.value = calculatedRemainingBudget;
+    }
+  }, [calculatedRemainingBudget]);
 
   useEffect(() => {
     if (!entries && currentLogbookId.value && Helpers.userId) {
@@ -95,9 +104,7 @@ const ExportedComponent = () => {
     <section className={Styles.container}>
       <article className={Styles.header}>
         <div className={Styles.headerCopy}>
-          <h1 className={Snippets.titleText}>
-            {currentLogbook ? `${currentLogbook.name} Logbook` : "..."}
-          </h1>
+          <h1 className={Snippets.titleText}>{currentLogbookName ?? "..."}</h1>
           <p className={Styles.headerCopyCaption}>Remaining Budget</p>
         </div>
         <Components.ButtonIcon

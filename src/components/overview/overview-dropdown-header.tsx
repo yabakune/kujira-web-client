@@ -11,7 +11,6 @@ import Styles from "./overview-dropdown-header.module.scss";
 
 type Props = {
   entryId: number;
-  entryPurchasesCount: number;
   title: string;
   opened: Signal<boolean>;
   totalCost: number;
@@ -29,7 +28,6 @@ const ExportedComponent = (props: Props) => {
     if (Helpers.userId) {
       dispatch(
         Sagas.createPurchaseRequest({
-          placement: props.entryPurchasesCount + 1,
           description: "",
           entryId: props.entryId,
           userId: Helpers.userId,
