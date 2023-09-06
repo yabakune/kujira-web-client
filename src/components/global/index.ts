@@ -7,3 +7,4 @@ export * from "./page-head";
 export * from "./progress-bar";
 export * from "./shimmer";
 export * from "./spacer";
+export * from "./cached-display";

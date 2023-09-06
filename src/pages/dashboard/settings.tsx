@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { effect, useSignal } from "@preact/signals-react";
 import { ReactElement } from "react";
 
 import * as Components from "@/components";
@@ -21,21 +22,66 @@ const DynamicPersonalize = dynamic(
   )
 );
 
+type PageLoadedCache = {
+  ["personal"]: boolean;
+  ["security"]: boolean;
+  ["personalize"]: boolean;
+};
+
 const Settings: NextPageWithLayout = () => {
   // console.log("Settings page rendered");
+
+  const pageLoadedCache = useSignal<PageLoadedCache>({
+    personal: false,
+    security: false,
+    personalize: false,
+  });
+
+  effect(() => {
+    if (
+      currentSettingsPage.value === "Personal" &&
+      !pageLoadedCache.value.personal
+    ) {
+      pageLoadedCache.value.personal = true;
+    } else if (
+      currentSettingsPage.value === "Security" &&
+      !pageLoadedCache.value.security
+    ) {
+      pageLoadedCache.value.security = true;
+    } else if (
+      currentSettingsPage.value === "Personalize" &&
+      !pageLoadedCache.value.personalize
+    ) {
+      pageLoadedCache.value.personalize = true;
+    }
+  });
 
   return (
     <>
       <Components.PageHead title="Settings" />
 
       <div className={Styles.page}>
-        {currentSettingsPage.value === "Personal" ? (
+        <Components.CachedDisplay
+          show={currentSettingsPage.value === "Personal"}
+        >
           <Components.SettingsPersonal />
-        ) : currentSettingsPage.value === "Security" ? (
-          <DynamicSecurity />
-        ) : currentSettingsPage.value === "Personalize" ? (
-          <DynamicPersonalize />
-        ) : null}
+        </Components.CachedDisplay>
+
+        {pageLoadedCache.value.security && (
+          <Components.CachedDisplay
+            show={currentSettingsPage.value === "Security"}
+          >
+            <DynamicSecurity />
+          </Components.CachedDisplay>
+        )}
+
+        {pageLoadedCache.value.personalize && (
+          <Components.CachedDisplay
+            show={currentSettingsPage.value === "Personalize"}
+          >
+            <DynamicPersonalize />
+          </Components.CachedDisplay>
+        )}
       </div>
     </>
   );
