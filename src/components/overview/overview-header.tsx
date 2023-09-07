@@ -20,31 +20,33 @@ const settingsPages: Types.SettingsPage[] = [
 
 const SettingsNavigation = () => {
   const router = useRouter();
+  const inSettingsPage = router.pathname === Constants.ClientRoutes.SETTINGS;
 
-  if (router.pathname === Constants.ClientRoutes.SETTINGS) {
-    return (
-      <section className={Styles.settingsNavigation}>
-        {settingsPages.map((page: Types.SettingsPage, index: number) => {
-          return (
-            <Components.Button
-              key={`Overview Header Settings Navigation ${page} ${index}`}
-              text={page}
-              onClick={() => {
-                currentSettingsPage.value = page;
-                menuModalOpen.value = false;
-              }}
-              backgroundLevel={3}
-              weak={currentSettingsPage.value !== page}
-              centered
-              border
-            />
-          );
-        })}
-      </section>
-    );
-  } else {
-    return null;
-  }
+  return (
+    <section
+      className={`
+        ${Styles.settingsNavigation}
+        ${inSettingsPage && Styles.show}
+      `}
+    >
+      {settingsPages.map((page: Types.SettingsPage, index: number) => {
+        return (
+          <Components.Button
+            key={`Overview Header Settings Navigation ${page} ${index}`}
+            text={page}
+            onClick={() => {
+              currentSettingsPage.value = page;
+              menuModalOpen.value = false;
+            }}
+            backgroundLevel={3}
+            weak={currentSettingsPage.value !== page}
+            centered
+            border
+          />
+        );
+      })}
+    </section>
+  );
 };
 
 const ExportedComponent = () => {

@@ -9,10 +9,14 @@
 }
 
 .settingsNavigation {
-  display: flex;
+  display: none;
   gap: var(--sixteenPixels);
   padding: var(--sixteenPixels);
   background-color: var(--themeThree);
+
+  &.show {
+    display: flex;
+  }
 
   @media (max-width: 400px) {
     flex-direction: column;
