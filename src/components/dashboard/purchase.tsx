@@ -17,6 +17,7 @@ type Props = {
   purchase: Types.PurchaseModel;
   dragAction?: () => void;
   selectAction?: (purchaseId: number) => void;
+  selected?: boolean;
   disabled?: Signal<boolean>;
   borderRadius?: number;
   backgroundLevel?: number;
@@ -129,7 +130,11 @@ const ExportedComponent = (props: Props) => {
           type="button"
           onClick={props.selectAction}
         >
-          <Components.Checkbox width={12} fill={8} hoverFill={12} />
+          {props.selected ? (
+            <Components.CheckboxFilled width={12} fill={13} />
+          ) : (
+            <Components.Checkbox width={12} fill={8} hoverFill={12} />
+          )}
         </button>
       )}
 

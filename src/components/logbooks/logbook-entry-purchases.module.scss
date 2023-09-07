@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fourPixels);
+  padding: var(--sixteenPixels);
+  background-color: var(--themeOne);
+  border-top: var(--themeFour) solid 1px;
+  border-bottom: var(--themeFour) solid 1px;
+}
