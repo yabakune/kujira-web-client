@@ -1,5 +1,4 @@
 import { Signal } from "@preact/signals-react";
-import { useCallback } from "react";
 import { useSelector } from "react-redux";
 
 import * as Components from "@/components";
@@ -19,14 +18,6 @@ export const LogbookEntryPurchases = (props: Props) => {
     Selectors.fetchEntryPurchases(state, props.purchaseIds)
   );
 
-  const selectPurchase = useCallback((purchaseId: number) => {
-    if (props.selectedPurchases.value[purchaseId]) {
-      delete props.selectedPurchases.value[purchaseId];
-    } else {
-      props.selectedPurchases.value[purchaseId] = purchaseId;
-    }
-  }, []);
-
   return (
     <section className={Styles.container}>
       {purchases ? (
@@ -36,7 +27,7 @@ export const LogbookEntryPurchases = (props: Props) => {
               <Components.Purchase
                 key={`Logbook Entry Dropdown Purchase ${purchase.id}`}
                 purchase={purchase}
-                selectAction={selectPurchase}
+                selectedPurchases={props.selectedPurchases}
                 backgroundLevel={2}
               />
             );

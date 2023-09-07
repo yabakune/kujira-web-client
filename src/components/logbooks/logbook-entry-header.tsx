@@ -2,6 +2,7 @@ import { Signal, effect, useSignal } from "@preact/signals-react";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
+import * as Types from "@/types";
 
 import Styles from "./logbook-entry-header.module.scss";
 
@@ -29,6 +30,11 @@ export const LogbookEntryHeader = (props: Props) => {
 
   function toggleOpened(): void {
     props.opened.value = !props.opened.value;
+  }
+
+  function deleteEntry(event: Types.OnClick<HTMLButtonElement>): void {
+    event.stopPropagation();
+    console.log("Delete Entry");
   }
 
   effect(() => {
@@ -81,10 +87,7 @@ export const LogbookEntryHeader = (props: Props) => {
           transparent
           required
         />
-        <Components.ButtonIcon
-          onClick={() => console.log("Delete Entry")}
-          backgroundLevel={2}
-        >
+        <Components.ButtonIcon onClick={deleteEntry} backgroundLevel={2}>
           <Components.Close width={14} fill={8} />
         </Components.ButtonIcon>
       </section>

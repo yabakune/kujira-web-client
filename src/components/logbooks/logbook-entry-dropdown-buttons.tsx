@@ -1,24 +1,27 @@
+import { Signal } from "@preact/signals-react";
 import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Sagas from "@/sagas";
+import * as Types from "@/types";
 
 import Styles from "./logbook-entry-dropdown-buttons.module.scss";
 
 type Props = {
   entryId: number;
-  selectedPurchaseIds: number[];
+  selectedPurchases: Signal<Types.SelectedPurchases>;
 };
 
 export const LogbookEntryDropdownButtons = (props: Props) => {
   const dispatch = useDispatch();
 
   function deleteSelectedPurchases(): void {
-    if (props.selectedPurchaseIds.length > 0 && Helpers.userId) {
+    const selectedPurchaseIds = Object.values(props.selectedPurchases.value);
+    if (selectedPurchaseIds.length > 0 && Helpers.userId) {
       dispatch(
         Sagas.bulkDeletePurchasesRequest({
-          purchaseIds: props.selectedPurchaseIds,
+          purchaseIds: selectedPurchaseIds,
           userId: Helpers.userId,
         })
       );

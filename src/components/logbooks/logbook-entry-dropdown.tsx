@@ -60,7 +60,7 @@ export const LogbookEntryDropdown = (props: Props) => {
 
           <LogbookEntryDropdownButtons
             entryId={props.entryId}
-            selectedPurchaseIds={Object.values(selectedPurchases.value)}
+            selectedPurchases={selectedPurchases}
           />
         </>
       )}

@@ -16,8 +16,7 @@ import Snippets from "@/styles/snippets.module.scss";
 type Props = {
   purchase: Types.PurchaseModel;
   dragAction?: () => void;
-  selectAction?: (purchaseId: number) => void;
-  selected?: boolean;
+  selectedPurchases?: Signal<Types.SelectedPurchases>;
   disabled?: Signal<boolean>;
   borderRadius?: number;
   backgroundLevel?: number;
@@ -34,8 +33,21 @@ const ExportedComponent = (props: Props) => {
   );
   const descriptionError = useSignal("");
   const costError = useSignal("");
+  const selected = useSignal(false);
 
   const cents = cost.value.split(".")[1];
+
+  function toggleSelected(): void {
+    if (props.selectedPurchases) {
+      if (props.selectedPurchases.value[props.purchase.id]) {
+        delete props.selectedPurchases.value[props.purchase.id];
+        selected.value = false;
+      } else {
+        props.selectedPurchases.value[props.purchase.id] = props.purchase.id;
+        selected.value = true;
+      }
+    }
+  }
 
   const updatePurchase = useCallback(
     Helpers.debounce((fields: Types.PurchaseUpdateFields): void => {
@@ -122,15 +134,15 @@ const ExportedComponent = (props: Props) => {
         </button>
       )}
 
-      {props.selectAction && (
+      {props.selectedPurchases && (
         <button
           aria-label="Dashboard Purchase Cell Select Button"
           key="Dashboard Purchase Cell Select Button"
           className={Snippets.iconContainer}
           type="button"
-          onClick={props.selectAction}
+          onClick={toggleSelected}
         >
-          {props.selected ? (
+          {selected.value ? (
             <Components.CheckboxFilled width={12} fill={13} />
           ) : (
             <Components.Checkbox width={12} fill={8} hoverFill={12} />
