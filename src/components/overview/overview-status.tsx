@@ -1,4 +1,4 @@
-import { useSignal } from "@preact/signals-react";
+import { Signal, useSignal } from "@preact/signals-react";
 import { memo, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -7,12 +7,41 @@ import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
 import * as Selectors from "@/selectors";
+import * as Types from "@/types";
 import { signalsStore } from "@/signals/signals";
 
 import Styles from "./overview-status.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
 const { currentLogbookId } = signalsStore;
+
+function determineRemainingBudgetHealth(
+  remainingBudget: Signal<number>,
+  budgetStatusText: Signal<string>,
+  currentOverview?: Types.OverviewModel
+): string {
+  if (currentOverview) {
+    if (remainingBudget.value === 0) {
+      budgetStatusText.value = "You ran out of this month's budget!";
+      return Styles.low;
+    } else if (remainingBudget.value <= currentOverview.income * 0.25) {
+      budgetStatusText.value = "Your budget is running low!";
+      return Styles.low;
+    } else if (remainingBudget.value <= currentOverview.income * 0.5) {
+      budgetStatusText.value = "Your budget is doing alright.";
+      return Styles.moderate;
+    } else if (remainingBudget.value <= currentOverview.income * 0.75) {
+      budgetStatusText.value = "Your budget is doing great!";
+      return Styles.high;
+    } else {
+      budgetStatusText.value = "Whoa! Your budget is so healthy!";
+      return Styles.excellent;
+    }
+  } else {
+    budgetStatusText.value = "";
+    return "";
+  }
+}
 
 const ExportedComponent = () => {
   const dispatch = useDispatch();
@@ -76,30 +105,6 @@ const ExportedComponent = () => {
     }
   }, [entries]);
 
-  function determineRemainingBudgetHealth(): string {
-    if (currentOverview) {
-      if (remainingBudget.value === 0) {
-        budgetStatusText.value = "You ran out of this month's budget!";
-        return Styles.low;
-      } else if (remainingBudget.value <= currentOverview.income * 0.25) {
-        budgetStatusText.value = "Your budget is running low!";
-        return Styles.low;
-      } else if (remainingBudget.value <= currentOverview.income * 0.5) {
-        budgetStatusText.value = "Your budget is doing alright.";
-        return Styles.moderate;
-      } else if (remainingBudget.value <= currentOverview.income * 0.75) {
-        budgetStatusText.value = "Your budget is doing great!";
-        return Styles.high;
-      } else {
-        budgetStatusText.value = "Whoa! Your budget is so healthy!";
-        return Styles.excellent;
-      }
-    } else {
-      budgetStatusText.value = "";
-      return "";
-    }
-  }
-
   return (
     <section className={Styles.container}>
       <article className={Styles.header}>
@@ -107,12 +112,14 @@ const ExportedComponent = () => {
           <h1 className={Snippets.titleText}>{currentLogbookName ?? "..."}</h1>
           <p className={Styles.headerCopyCaption}>Remaining Budget</p>
         </div>
-        <Components.ButtonIcon
-          onClick={() => (currentLogbookId.value = null)}
-          backgroundLevel={2}
-        >
-          <Components.Filter width={14} fill={8} />
-        </Components.ButtonIcon>
+        <section className={Styles.headerButtons}>
+          <Components.ButtonIcon
+            onClick={() => (currentLogbookId.value = null)}
+            backgroundLevel={2}
+          >
+            <Components.Filter width={14} fill={8} />
+          </Components.ButtonIcon>
+        </section>
       </article>
 
       {currentOverview && (
@@ -122,7 +129,11 @@ const ExportedComponent = () => {
               <span
                 className={`
 								${Styles.remaining}
-								${determineRemainingBudgetHealth()}
+								${determineRemainingBudgetHealth(
+                  remainingBudget,
+                  budgetStatusText,
+                  currentOverview
+                )}
 							`}
               >
                 ${Helpers.formatRoundedCost(remainingBudget.value)}

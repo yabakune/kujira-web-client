@@ -23,6 +23,10 @@
   color: var(--themeTen);
 }
 
+.headerButtons {
+  display: flex;
+}
+
 .status {
   display: flex;
   flex-direction: column;
