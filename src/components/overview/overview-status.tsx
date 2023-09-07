@@ -122,7 +122,7 @@ const ExportedComponent = () => {
         </section>
       </article>
 
-      {currentOverview && (
+      {currentOverview ? (
         <article className={Styles.status}>
           <div className={Styles.statusCopy}>
             <p className={Styles.remaining}>
@@ -149,6 +149,8 @@ const ExportedComponent = () => {
             }
           />
         </article>
+      ) : (
+        <Components.Shimmer height="56px" borderRadius={4} />
       )}
     </section>
   );
