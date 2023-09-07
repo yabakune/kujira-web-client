@@ -1,5 +1,6 @@
 export * from "./arrow-left";
 export * from "./arrow-right";
+export * from "./calendar";
 export * from "./check-rounded";
 export * from "./checkbox-filled";
 export * from "./checkbox";
@@ -24,3 +25,4 @@ export * from "./settings";
 export * from "./success";
 export * from "./text";
 export * from "./usd";
+export * from "./wallet";
