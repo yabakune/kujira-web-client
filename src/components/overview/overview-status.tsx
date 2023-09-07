@@ -17,6 +17,14 @@ import Snippets from "@/styles/snippets.module.scss";
 
 const { currentLogbookId } = signalsStore;
 
+function generateNewLogbookEntryName(): string {
+  const today = new Date();
+  const month = today.getMonth();
+  const day = today.getDate();
+  const year = today.getFullYear();
+  return Helpers.formatUserInputToLogbookEntryName(`${month}/${day}/${year}`);
+}
+
 function determineRemainingBudgetHealth(
   remainingBudget: Signal<number>,
   budgetStatusText: Signal<string>,
@@ -49,30 +57,26 @@ const ExportedComponent = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const inLogbooksPage = router.pathname === Constants.ClientRoutes.LOGBOOKS;
-
-  const remainingBudget = useSignal(0);
-  const budgetStatusText = useSignal("");
-
   const { entries } = useSelector((state: Redux.ReduxStore) => state.entities);
-
   const currentLogbookName = useSelector((state: Redux.ReduxStore) =>
     Selectors.fetchCurrentLogbookName(state, currentLogbookId.value)
   );
-
   const currentOverview = useSelector((state: Redux.ReduxStore) =>
     Selectors.fetchLogbookOverview(state, currentLogbookId.value)
   );
-
   const recurringOverviewEntryTotalSpent = useSelector(
     (state: Redux.ReduxStore) =>
       Selectors.recurringOverviewEntryTotalSpent(state, currentLogbookId.value)
   );
-
   const currentLogbookEntriesTotalSpent = useSelector(
     (state: Redux.ReduxStore) =>
       Selectors.calculateLogbookEntriesTotalSpent(state, currentLogbookId.value)
   );
+
+  const remainingBudget = useSignal(0);
+  const budgetStatusText = useSignal("");
+
+  const inLogbooksPage = router.pathname === Constants.ClientRoutes.LOGBOOKS;
 
   const calculatedRemainingBudget = useMemo(() => {
     if (currentOverview) {
@@ -92,6 +96,18 @@ const ExportedComponent = () => {
     recurringOverviewEntryTotalSpent,
     currentLogbookEntriesTotalSpent,
   ]);
+
+  function createLogbookEntry(): void {
+    if (currentLogbookId.value && Helpers.userId) {
+      dispatch(
+        Sagas.createEntryRequest({
+          name: generateNewLogbookEntryName(),
+          logbookId: currentLogbookId.value,
+          userId: Helpers.userId,
+        })
+      );
+    }
+  }
 
   useEffect(() => {
     if (remainingBudget.value !== calculatedRemainingBudget) {
@@ -129,7 +145,7 @@ const ExportedComponent = () => {
             ${Styles.addLogbookButton}
             ${inLogbooksPage && Styles.show}`}
           >
-            <Components.ButtonIcon onClick={() => console.log("Foo")} primary>
+            <Components.ButtonIcon onClick={createLogbookEntry} primary>
               <Components.Plus width={14} fill={12} />
             </Components.ButtonIcon>
           </div>

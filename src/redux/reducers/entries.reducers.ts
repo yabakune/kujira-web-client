@@ -11,19 +11,25 @@ export const entriesReducers = {
   ) => {
     state.entries = { ...state.entries, ...action.payload };
   },
+
   updateEntry: (
     state: EntitiesState,
     action: PayloadAction<Types.EntryModel>
   ) => {
-    if (state.entries) {
-      const entry = state.entries[action.payload.id];
-      if (entry.purchases) {
-        state.entries[action.payload.id] = {
-          ...action.payload,
-          purchases: [...entry.purchases],
-        };
-      } else {
-        state.entries[action.payload.id] = action.payload;
+    if (state.entries) state.entries[action.payload.id] = action.payload;
+  },
+
+  addEntryIdToLogbook: (
+    state: EntitiesState,
+    action: PayloadAction<{ logbookId: number; entryId: number }>
+  ) => {
+    if (state.logbooks) {
+      const { logbookId, entryId } = action.payload;
+      if (state.logbooks[logbookId]) {
+        state.logbooks[logbookId].entries = [
+          ...state.logbooks[logbookId].entries,
+          { id: entryId },
+        ];
       }
     }
   },

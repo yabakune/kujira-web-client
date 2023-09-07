@@ -185,7 +185,22 @@ function* createEntry(action: Types.SagaPayload<Types.CreateEntryPayload>) {
     );
     const { userId, ...createPayload } = action.payload;
     const { data } = yield Saga.call(axios.post, endpoint, createPayload);
-    // yield Saga.put(Redux.entitiesActions.updateEntry(data.response));
+    const normalizedData = normalize(data.response, entriesSchema);
+
+    yield Saga.put(
+      Redux.entitiesActions.setEntries(
+        normalizedData.entities.entries as Types.NormalizedEntries
+      )
+    );
+
+    if (createPayload.logbookId) {
+      yield Saga.put(
+        Redux.entitiesActions.addEntryIdToLogbook({
+          logbookId: createPayload.logbookId,
+          entryId: data.response.id,
+        })
+      );
+    }
 
     yield Saga.put(
       Redux.uiActions.setNotification({

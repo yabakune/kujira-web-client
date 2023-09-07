@@ -2,6 +2,7 @@
   position: absolute;
   top: var(--sixteenPixels);
   left: 50%;
+  z-index: var(--zIndexLoading);
   transform: translateX(-50%);
   display: flex;
   align-items: center;
