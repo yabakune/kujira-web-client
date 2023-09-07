@@ -78,6 +78,7 @@ export const LogbookEntryHeader = (props: Props) => {
           icon={<Components.USD width={12} fill={8} />}
           backgroundLevel={2}
           preventInteraction
+          transparent
           required
         />
         <Components.ButtonIcon

@@ -16,11 +16,12 @@ type Props = {
   icon: JSX.Element;
   onClick?: (event: Types.OnClick<HTMLElement>) => void;
   backgroundLevel?: number;
-  preventInteraction?: true;
   password?: true;
   autoFocus?: true;
   required?: true;
   small?: true;
+  preventInteraction?: true;
+  transparent?: true;
 };
 
 export const Input = (props: Props) => {
@@ -51,9 +52,10 @@ export const Input = (props: Props) => {
 
   return (
     <article
-      className={`${Styles.container} ${
-        props.preventInteraction && Snippets.noInteraction
-      }`}
+      className={`
+        ${Styles.container}
+        ${props.preventInteraction && Snippets.noInteraction}
+      `}
       onClick={props.onClick}
     >
       {props.errorMessage.value && (
@@ -65,7 +67,11 @@ export const Input = (props: Props) => {
 					${Styles.inputContainer}
 					${props.small && Styles.small}
           ${props.errorMessage.value && Styles.error}
-          ${Helpers.setBackgroundClickHover(props.backgroundLevel)}
+          ${
+            props.transparent
+              ? Styles.transparent
+              : Helpers.setBackgroundClickHover(props.backgroundLevel)
+          }
 				`}
         onClick={focusInput}
       >
