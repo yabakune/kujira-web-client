@@ -9,6 +9,7 @@ type Props = {
   borderRadius?: number;
   children: React.ReactNode;
   transparent?: true;
+  primary?: true;
 };
 
 export const ButtonIcon = (props: Props) => {
@@ -19,6 +20,8 @@ export const ButtonIcon = (props: Props) => {
         ${Helpers.setClickLevel(props.backgroundLevel)}
         ${Helpers.setHoverLevel(props.backgroundLevel)}
       `;
+    } else if (props.primary) {
+      return Styles.primary;
     } else {
       return Helpers.setBackgroundClickHover(props.backgroundLevel);
     }

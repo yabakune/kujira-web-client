@@ -27,6 +27,14 @@
   display: flex;
 }
 
+.addLogbookButton {
+  display: none;
+
+  &.show {
+    display: block;
+  }
+}
+
 .status {
   display: flex;
   flex-direction: column;

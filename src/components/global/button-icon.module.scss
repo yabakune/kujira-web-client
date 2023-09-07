@@ -8,4 +8,14 @@
   &.transparent {
     background-color: transparent;
   }
+
+  &.primary {
+    background-color: var(--primary);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--primaryHover);
+      }
+    }
+  }
 }

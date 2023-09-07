@@ -1,8 +1,10 @@
 import { Signal, useSignal } from "@preact/signals-react";
+import { useRouter } from "next/router";
 import { memo, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
+import * as Constants from "@/constants";
 import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
@@ -45,6 +47,9 @@ function determineRemainingBudgetHealth(
 
 const ExportedComponent = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  const inLogbooksPage = router.pathname === Constants.ClientRoutes.LOGBOOKS;
 
   const remainingBudget = useSignal(0);
   const budgetStatusText = useSignal("");
@@ -119,6 +124,15 @@ const ExportedComponent = () => {
           >
             <Components.Filter width={14} fill={8} />
           </Components.ButtonIcon>
+          <div
+            className={`
+            ${Styles.addLogbookButton}
+            ${inLogbooksPage && Styles.show}`}
+          >
+            <Components.ButtonIcon onClick={() => console.log("Foo")} primary>
+              <Components.Plus width={14} fill={12} />
+            </Components.ButtonIcon>
+          </div>
         </section>
       </article>
 
