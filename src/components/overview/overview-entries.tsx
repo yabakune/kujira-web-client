@@ -5,6 +5,7 @@ import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
+import * as Selectors from "@/selectors";
 import * as Types from "@/types";
 
 type Props = {
@@ -14,7 +15,9 @@ type Props = {
 export const OverviewEntries = (props: Props) => {
   const dispatch = useDispatch();
 
-  const { entries } = useSelector((state: Redux.ReduxStore) => state.entities);
+  const overviewEntries = useSelector((state: Redux.ReduxStore) =>
+    Selectors.fetchOverviewEntries(state, props.overviewId)
+  );
 
   useEffect(() => {
     dispatch(
@@ -25,26 +28,24 @@ export const OverviewEntries = (props: Props) => {
     );
   }, []);
 
-  if (entries) {
-    return (
-      <>
-        {Object.values(entries).map((entry: Types.EntryModel) => {
-          return (
-            <Components.OverviewPurchasesDropdown
-              key={entry.id}
-              entryId={entry.id}
-              title={entry.name}
-              totalSpent={entry.totalSpent}
-              purchaseIds={entry.purchases}
-              startOpened={
-                entry.name === "Recurring" || entry.name === "Incoming"
-              }
-              shadow
-            />
-          );
-        })}
-      </>
-    );
+  if (overviewEntries) {
+    return overviewEntries.map((entry: Types.EntryModel | undefined) => {
+      if (entry) {
+        return (
+          <Components.OverviewPurchasesDropdown
+            key={entry.id}
+            entryId={entry.id}
+            title={entry.name}
+            totalSpent={entry.totalSpent}
+            purchaseIds={entry.purchases}
+            startOpened={
+              entry.name === "Recurring" || entry.name === "Incoming"
+            }
+            shadow
+          />
+        );
+      }
+    });
   } else {
     return (
       <>

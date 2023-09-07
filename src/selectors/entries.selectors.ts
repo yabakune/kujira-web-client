@@ -40,7 +40,7 @@ export const fetchOverviewEntries = createSelector(
   (overviews, entries, overviewId) => {
     if (overviews && entries && overviewId && overviews[overviewId]) {
       return overviews[overviewId].entries.map((entry: { id: number }) => {
-        return entries[entry.id];
+        if (entries[entry.id]) return entries[entry.id];
       });
     }
   }
