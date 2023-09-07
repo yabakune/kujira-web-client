@@ -23,7 +23,7 @@ export const purchasesReducers = {
 
     if (state.entries && state.entries[entryId]) {
       const entryPurchases = state.entries[entryId].purchases;
-      
+
       if (entryPurchases && !entryPurchases.includes({ id: purchase.id })) {
         state.entries[entryId].purchases = [
           ...entryPurchases,

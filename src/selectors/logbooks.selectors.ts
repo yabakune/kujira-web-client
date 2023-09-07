@@ -23,6 +23,21 @@ export const fetchCurrentLogbookName = createSelector(
   }
 );
 
+export const fetchCurrentLogbookEntries = createSelector(
+  (state: ReduxStore) => state.entities.logbooks,
+  (state: ReduxStore) => state.entities.entries,
+  (state: ReduxStore, logbookId: number | null) => logbookId,
+  (logbooks, entries, logbookId) => {
+    if (logbooks && entries && logbookId && logbooks[logbookId]) {
+      return logbooks[logbookId].entries.map(
+        ({ id: entryId }: { id: number }) => {
+          if (entries[entryId]) return entries[entryId];
+        }
+      );
+    }
+  }
+);
+
 export const calculateLogbookEntriesTotalSpent = createSelector(
   (state: ReduxStore) => state.entities.logbooks,
   (state: ReduxStore) => state.entities.entries,

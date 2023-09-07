@@ -26,16 +26,16 @@ type DropdownProps = {
 };
 
 const OverviewPurchasesDropdown = (props: DropdownProps) => {
-  const purchases = useSelector((state: Redux.ReduxStore) =>
+  const entryPurchases = useSelector((state: Redux.ReduxStore) =>
     Selectors.fetchEntryPurchases(state, props.purchaseIds)
   );
 
   useEffect(() => {
-    if (purchases) {
+    if (entryPurchases) {
       props.recurringOverviewTotalCost.value =
-        Helpers.calculatePurchasesTotalCost(purchases);
+        Helpers.calculatePurchasesTotalCost(entryPurchases);
     }
-  }, [purchases]);
+  }, [entryPurchases]);
 
   return (
     <>

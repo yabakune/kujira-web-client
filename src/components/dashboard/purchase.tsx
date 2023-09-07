@@ -16,7 +16,7 @@ import Snippets from "@/styles/snippets.module.scss";
 type Props = {
   purchase: Types.PurchaseModel;
   dragAction?: () => void;
-  selectAction?: () => void;
+  selectAction?: (purchaseId: number) => void;
   disabled?: Signal<boolean>;
   borderRadius?: number;
   backgroundLevel?: number;

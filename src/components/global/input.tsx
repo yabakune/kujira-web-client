@@ -14,7 +14,9 @@ type Props = {
   userInput: Signal<string>;
   errorMessage: Signal<string>;
   icon: JSX.Element;
+  onClick?: (event: Types.OnClick<HTMLElement>) => void;
   backgroundLevel?: number;
+  preventInteraction?: true;
   password?: true;
   autoFocus?: true;
   required?: true;
@@ -48,7 +50,12 @@ export const Input = (props: Props) => {
   }
 
   return (
-    <article className={Styles.container}>
+    <article
+      className={`${Styles.container} ${
+        props.preventInteraction && Snippets.noInteraction
+      }`}
+      onClick={props.onClick}
+    >
       {props.errorMessage.value && (
         <p className={Styles.error}>{props.errorMessage.value}</p>
       )}

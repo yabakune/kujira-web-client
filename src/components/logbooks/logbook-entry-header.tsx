@@ -1,4 +1,4 @@
-import { effect, useSignal } from "@preact/signals-react";
+import { Signal, effect, useSignal } from "@preact/signals-react";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
@@ -14,8 +14,9 @@ function determineBudgetHealth(budget: number): string {
 
 type Props = {
   name: string;
-  budget?: number;
+  budget?: number | null;
   totalSpent: number;
+  opened: Signal<boolean>;
 };
 
 export const LogbookEntryHeader = (props: Props) => {
@@ -25,6 +26,10 @@ export const LogbookEntryHeader = (props: Props) => {
   const nameError = useSignal("");
   const budgetError = useSignal("");
   const spentError = useSignal("");
+
+  function toggleOpened(): void {
+    props.opened.value = !props.opened.value;
+  }
 
   effect(() => {
     if (budget.value === "") {
@@ -39,14 +44,21 @@ export const LogbookEntryHeader = (props: Props) => {
   });
 
   return (
-    <header className={Styles.container}>
-      <section className={Styles.form}>
+    <header
+      className={`
+      ${Styles.container}
+      ${Helpers.setBackgroundClickHover(2)}
+    `}
+      onClick={toggleOpened}
+    >
+      <section className={Styles.inputs}>
         <Components.Input
           type="text"
           placeholder="DD/MM/YYYY"
           userInput={name}
           errorMessage={nameError}
           icon={<Components.Calendar width={12} fill={8} />}
+          onClick={Helpers.preventBubbling}
           required
         />
         <Components.Input
@@ -55,6 +67,7 @@ export const LogbookEntryHeader = (props: Props) => {
           userInput={budget}
           errorMessage={budgetError}
           icon={<Components.Wallet width={12} fill={8} />}
+          onClick={Helpers.preventBubbling}
           required
         />
         <Components.Input
@@ -64,8 +77,15 @@ export const LogbookEntryHeader = (props: Props) => {
           errorMessage={spentError}
           icon={<Components.USD width={12} fill={8} />}
           backgroundLevel={2}
+          preventInteraction
           required
         />
+        <Components.ButtonIcon
+          onClick={() => console.log("Delete Entry")}
+          backgroundLevel={2}
+        >
+          <Components.Close width={14} fill={8} />
+        </Components.ButtonIcon>
       </section>
 
       {props.budget && budgetError.value === "" && (

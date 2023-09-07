@@ -1,0 +1,7 @@
+.logbookEntries {
+  display: flex;
+  flex-direction: column;
+  gap: var(--eightPixels);
+  width: 100%;
+  max-width: var(--thousandPixels);
+}

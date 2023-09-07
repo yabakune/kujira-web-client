@@ -4,13 +4,14 @@
   gap: var(--twelvePixels);
   padding: var(--sixteenPixels);
   background-color: var(--themeTwo);
-
-  border: red solid 1px;
+  transition: var(--transition);
+  cursor: pointer;
 }
 
-.form {
+.inputs {
   display: flex;
   gap: var(--sixteenPixels);
+  align-items: center;
 }
 
 .budgetHealth {
