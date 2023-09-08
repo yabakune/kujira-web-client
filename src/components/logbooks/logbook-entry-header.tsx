@@ -1,4 +1,5 @@
 import { Signal, effect, useSignal } from "@preact/signals-react";
+import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
@@ -58,10 +59,26 @@ export const LogbookEntryHeader = (props: Props) => {
     }
   }
 
+  const updateBudget = useCallback(
+    Helpers.debounce((): void => {
+      if (Helpers.userId) {
+        dispatch(
+          Sagas.updateEntryRequest({
+            budget: Helpers.roundCostToNumber(Number(budget.value)),
+            entryId: props.entryId,
+            userId: Helpers.userId,
+          })
+        );
+        budget.value = Helpers.roundCost(Number(budget.value));
+      }
+    }, 800),
+    []
+  );
+
   effect(() => {
     if (budget.value === "") {
-    } else {
       budgetError.value = "";
+    } else {
       if (!Number(budget.value)) {
         budgetError.value = "Budget must be a number!";
       } else {
@@ -69,6 +86,16 @@ export const LogbookEntryHeader = (props: Props) => {
       }
     }
   });
+
+  useEffect(() => {
+    if (
+      !budgetError.value &&
+      Number(budget.value) &&
+      Number(budget.value) !== props.budget
+    ) {
+      updateBudget();
+    }
+  }, [budgetError.value, budget.value, props.budget]);
 
   return (
     <>
