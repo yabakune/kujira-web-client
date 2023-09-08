@@ -8,10 +8,17 @@
   cursor: pointer;
 }
 
-.inputs {
+.headerContent {
   display: flex;
   gap: var(--sixteenPixels);
   align-items: center;
+}
+
+.inputs {
+  display: flex;
+  gap: var(--sixteenPixels);
+  align-items: flex-end;
+  flex: 1;
 }
 
 .budgetHealth {

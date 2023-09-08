@@ -106,36 +106,38 @@ export const LogbookEntryHeader = (props: Props) => {
     `}
         onClick={toggleOpened}
       >
-        <section className={Styles.inputs}>
-          <Components.Input
-            type="text"
-            placeholder="DD/MM/YYYY"
-            userInput={name}
-            errorMessage={nameError}
-            icon={<Components.Calendar width={12} fill={8} />}
-            onClick={Helpers.preventBubbling}
-            required
-          />
-          <Components.Input
-            type="text"
-            placeholder="Budget"
-            userInput={budget}
-            errorMessage={budgetError}
-            icon={<Components.Wallet width={12} fill={8} />}
-            onClick={Helpers.preventBubbling}
-            required
-          />
-          <Components.Input
-            type="text"
-            placeholder="Spent"
-            userInput={spent}
-            errorMessage={spentError}
-            icon={<Components.USD width={12} fill={8} />}
-            backgroundLevel={2}
-            preventInteraction
-            transparent
-            required
-          />
+        <section className={Styles.headerContent}>
+          <div className={Styles.inputs}>
+            <Components.Input
+              type="text"
+              placeholder="DD/MM/YYYY"
+              userInput={name}
+              errorMessage={nameError}
+              icon={<Components.Calendar width={12} fill={8} />}
+              onClick={Helpers.preventBubbling}
+              required
+            />
+            <Components.Input
+              type="text"
+              placeholder="Budget"
+              userInput={budget}
+              errorMessage={budgetError}
+              icon={<Components.Wallet width={12} fill={8} />}
+              onClick={Helpers.preventBubbling}
+              required
+            />
+            <Components.Input
+              type="text"
+              placeholder="Spent"
+              userInput={spent}
+              errorMessage={spentError}
+              icon={<Components.USD width={12} fill={8} />}
+              backgroundLevel={2}
+              preventInteraction
+              transparent
+              required
+            />
+          </div>
           <Components.ButtonIcon
             onClick={openConfirmationModal}
             backgroundLevel={2}
@@ -152,10 +154,9 @@ export const LogbookEntryHeader = (props: Props) => {
                   props.totalSpent / Number(budget.value)
                 )}
               >
-                {Helpers.formatRoundedCost(props.totalSpent)}
+                ${Helpers.formatRoundedCost(props.totalSpent)}
               </span>
-              {" / "}
-              {Helpers.formatRoundedCost(Number(budget.value))}
+              {" / "}${Helpers.formatRoundedCost(props.budget)}
             </p>
           </section>
         )}
