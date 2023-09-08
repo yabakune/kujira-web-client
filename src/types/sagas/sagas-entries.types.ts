@@ -24,15 +24,9 @@ export type CreateEntryPayload = Omit<
 export type UpdateEntryPayload = Partial<
   Omit<
     EntryModel,
-    | "id"
-    | "name"
-    | "createdAt"
-    | "updatedAt"
-    | "overviewId"
-    | "logbookId"
-    | "purchases"
+    "id" | "createdAt" | "updatedAt" | "overviewId" | "logbookId" | "purchases"
   >
-> & { entryId: number } & GatedRoutePayload;
+> & { entryId: number; showNotification?: boolean } & GatedRoutePayload;
 
 export type DeleteEntryPayload = {
   entryId: number;

@@ -26,9 +26,22 @@ export function validateLogbookEntryName(name: string): string {
 export function formatUserInputToLogbookEntryName(name: string): string {
   const splitName = name.split("/");
 
-  const month = months[Number(splitName[0])];
+  const month = months[Number(splitName[0]) - 1];
   const day = splitName[1];
   const year = splitName[2];
 
   return `${month} ${day}, ${year}`;
+}
+
+export function formatLogbookEntryNameToUserInput(name: string): string {
+  const date = new Date(name);
+
+  let month = (date.getMonth() + 1).toString();
+  let day = date.getDate().toString();
+  const year = date.getFullYear();
+
+  if (Number(day) < 10) day = "0" + day;
+  if (Number(month) < 10) month = "0" + month;
+
+  return `${month}/${day}/${year}`;
 }

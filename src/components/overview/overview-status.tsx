@@ -22,7 +22,7 @@ function generateNewLogbookEntryName(): string {
   const month = today.getMonth();
   const day = today.getDate();
   const year = today.getFullYear();
-  return Helpers.formatUserInputToLogbookEntryName(`${month}/${day}/${year}`);
+  return Helpers.formatUserInputToLogbookEntryName(`${day}/${month}/${year}`);
 }
 
 function determineRemainingBudgetHealth(

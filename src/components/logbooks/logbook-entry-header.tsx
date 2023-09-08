@@ -59,6 +59,27 @@ export const LogbookEntryHeader = (props: Props) => {
     }
   }
 
+  const updateName = useCallback(
+    Helpers.debounce((): void => {
+      if (Helpers.userId && Helpers.checkValidLogbookEntryInput(name.value)) {
+        const formattedName = Helpers.formatUserInputToLogbookEntryName(
+          name.value
+        );
+
+        dispatch(
+          Sagas.updateEntryRequest({
+            name: formattedName,
+            entryId: props.entryId,
+            userId: Helpers.userId,
+            showNotification: true,
+          })
+        );
+        name.value = formattedName;
+      }
+    }, 800),
+    []
+  );
+
   const updateBudget = useCallback(
     Helpers.debounce((): void => {
       if (Helpers.userId) {
@@ -67,6 +88,7 @@ export const LogbookEntryHeader = (props: Props) => {
             budget: Helpers.roundCostToNumber(Number(budget.value)),
             entryId: props.entryId,
             userId: Helpers.userId,
+            showNotification: true,
           })
         );
         budget.value = Helpers.roundCost(Number(budget.value));
@@ -76,6 +98,19 @@ export const LogbookEntryHeader = (props: Props) => {
   );
 
   effect(() => {
+    if (name.value === "") {
+      nameError.value = "";
+    } else {
+      if (
+        !Helpers.checkValidLogbookEntryFormattedName(name.value) &&
+        !Helpers.checkValidLogbookEntryInput(name.value)
+      ) {
+        nameError.value = "Invalid date format.";
+      } else {
+        nameError.value = "";
+      }
+    }
+
     if (budget.value === "") {
       budgetError.value = "";
     } else {
@@ -86,6 +121,12 @@ export const LogbookEntryHeader = (props: Props) => {
       }
     }
   });
+
+  useEffect(() => {
+    if (!nameError.value && name.value !== "" && name.value !== props.name) {
+      updateName();
+    }
+  }, [nameError.value, name.value]);
 
   useEffect(() => {
     if (
@@ -110,7 +151,7 @@ export const LogbookEntryHeader = (props: Props) => {
           <div className={Styles.inputs}>
             <Components.Input
               type="text"
-              placeholder="DD/MM/YYYY"
+              placeholder="MM/DD/YYYY"
               userInput={name}
               errorMessage={nameError}
               icon={<Components.Calendar width={12} fill={8} />}

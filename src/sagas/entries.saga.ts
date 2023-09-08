@@ -222,9 +222,20 @@ function* updateEntry(action: Types.SagaPayload<Types.UpdateEntryPayload>) {
       `/${action.payload.entryId}`,
       action.payload.userId
     );
-    const { userId, entryId, ...updatePayload } = action.payload;
+    const { showNotification, userId, entryId, ...updatePayload } =
+      action.payload;
     const { data } = yield Saga.call(axios.patch, endpoint, updatePayload);
     yield Saga.put(Redux.entitiesActions.updateEntry(data.response));
+
+    if (showNotification) {
+      yield Saga.put(
+        Redux.uiActions.setNotification({
+          body: data.body,
+          status: "success",
+          timeout: 5000,
+        })
+      );
+    }
   } catch (error: any) {
     console.error(error);
     yield Helpers.handleError(error);
