@@ -1,5 +1,8 @@
 import { Signal } from "@preact/signals-react";
+import { useDispatch } from "react-redux";
 
+import * as Helpers from "@/helpers";
+import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
 import { CategoryButton } from "./category-button";
@@ -14,11 +17,27 @@ const categories: Types.PurchaseCategory[] = [
 ];
 
 type Props = {
+  purchaseId: number;
   changeCategory: Signal<boolean>;
   backgroundLevel?: number;
 };
 
 export const CategorySelector = (props: Props) => {
+  const dispatch = useDispatch();
+
+  function setCategory(category: Types.PurchaseCategory): void {
+    if (Helpers.userId) {
+      dispatch(
+        Sagas.updatePurchaseRequest({
+          purchaseId: props.purchaseId,
+          category,
+          userId: Helpers.userId,
+        })
+      );
+      props.changeCategory.value = false;
+    }
+  }
+
   return (
     <section className={Styles.categories}>
       {categories.map((category: Types.PurchaseCategory) => {
@@ -26,9 +45,8 @@ export const CategorySelector = (props: Props) => {
           <CategoryButton
             key={category}
             category={category}
-            changeCategory={props.changeCategory}
             backgroundLevel={props.backgroundLevel}
-            setCategory={() => console.log(category)}
+            setCategory={() => setCategory(category)}
           />
         );
       })}

@@ -155,14 +155,15 @@ const ExportedComponent = (props: Props) => {
       {!props.hideCategories &&
         (!props.purchase.category || changeCategory.value ? (
           <CategorySelector
+            purchaseId={props.purchase.id}
             changeCategory={changeCategory}
             backgroundLevel={props.backgroundLevel}
           />
         ) : (
           <CategoryButton
             category={props.purchase.category}
-            changeCategory={changeCategory}
             backgroundLevel={props.backgroundLevel}
+            setCategory={() => (changeCategory.value = true)}
           />
         ))}
 

@@ -15,17 +15,11 @@ function determineCategoryStyle(category: Types.PurchaseCategory): string {
 
 type Props = {
   category: Types.PurchaseCategory;
-  changeCategory: Signal<boolean>;
   backgroundLevel?: number;
-  setCategory?: () => void;
+  setCategory: () => void;
 };
 
 export const CategoryButton = (props: Props) => {
-  function setCategory(): void {
-    props.changeCategory.value = !props.changeCategory.value;
-    props.setCategory && props.setCategory();
-  }
-
   return (
     <button
       aria-label="Category Button"
@@ -35,7 +29,7 @@ export const CategoryButton = (props: Props) => {
 						${Helpers.setBackgroundClickHover(props.backgroundLevel)}
 					`}
       type="button"
-      onClick={setCategory}
+      onClick={props.setCategory}
       tabIndex={-1}
     >
       {Helpers.capitalizeFirstCharacter(props.category)}
