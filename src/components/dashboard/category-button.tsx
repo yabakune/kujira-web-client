@@ -36,6 +36,7 @@ export const CategoryButton = (props: Props) => {
 					`}
       type="button"
       onClick={setCategory}
+      tabIndex={-1}
     >
       {Helpers.capitalizeFirstCharacter(props.category)}
     </button>

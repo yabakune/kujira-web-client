@@ -129,6 +129,7 @@ const ExportedComponent = (props: Props) => {
           className={Snippets.iconContainer}
           type="button"
           onClick={props.dragAction}
+          tabIndex={-1}
         >
           <Components.Drag width={12} fill={8} hoverFill={12} />
         </button>
@@ -141,6 +142,7 @@ const ExportedComponent = (props: Props) => {
           className={Snippets.iconContainer}
           type="button"
           onClick={toggleSelected}
+          tabIndex={-1}
         >
           {selected.value ? (
             <Components.CheckboxFilled width={12} fill={13} />
