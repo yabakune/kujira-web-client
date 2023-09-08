@@ -25,6 +25,7 @@ export const ConfirmationModal = (props: Props) => {
   function submit(event: Types.OnSubmit): void {
     event.preventDefault();
     props.submit();
+    confirmationModalOpen.value = false;
   }
 
   return (

@@ -5,6 +5,7 @@ import * as Components from "@/components";
 import * as Helpers from "@/helpers";
 import * as Sagas from "@/sagas";
 import * as Types from "@/types";
+import { signalsStore } from "@/signals/signals";
 
 import Styles from "./logbook-entry-header.module.scss";
 
@@ -14,6 +15,8 @@ function determineBudgetHealth(budget: number): string {
   else if (budget <= 0.75) return Styles.high;
   else return Styles.excellent;
 }
+
+const { confirmationModalOpen } = signalsStore;
 
 type Props = {
   entryId: number;
@@ -37,8 +40,14 @@ export const LogbookEntryHeader = (props: Props) => {
     props.opened.value = !props.opened.value;
   }
 
-  function deleteEntry(event: Types.OnClick<HTMLButtonElement>): void {
+  function openConfirmationModal(
+    event: Types.OnClick<HTMLButtonElement>
+  ): void {
     event.stopPropagation();
+    confirmationModalOpen.value = true;
+  }
+
+  function deleteEntry(): void {
     if (Helpers.userId) {
       dispatch(
         Sagas.deleteEntryRequest({
@@ -62,63 +71,74 @@ export const LogbookEntryHeader = (props: Props) => {
   });
 
   return (
-    <header
-      className={`
+    <>
+      <header
+        className={`
       ${Styles.container}
       ${Helpers.setBackgroundClickHover(2)}
     `}
-      onClick={toggleOpened}
-    >
-      <section className={Styles.inputs}>
-        <Components.Input
-          type="text"
-          placeholder="DD/MM/YYYY"
-          userInput={name}
-          errorMessage={nameError}
-          icon={<Components.Calendar width={12} fill={8} />}
-          onClick={Helpers.preventBubbling}
-          required
-        />
-        <Components.Input
-          type="text"
-          placeholder="Budget"
-          userInput={budget}
-          errorMessage={budgetError}
-          icon={<Components.Wallet width={12} fill={8} />}
-          onClick={Helpers.preventBubbling}
-          required
-        />
-        <Components.Input
-          type="text"
-          placeholder="Spent"
-          userInput={spent}
-          errorMessage={spentError}
-          icon={<Components.USD width={12} fill={8} />}
-          backgroundLevel={2}
-          preventInteraction
-          transparent
-          required
-        />
-        <Components.ButtonIcon onClick={deleteEntry} backgroundLevel={2}>
-          <Components.Close width={14} fill={8} />
-        </Components.ButtonIcon>
-      </section>
-
-      {props.budget && budgetError.value === "" && (
-        <section className={Styles.budgetHealth}>
-          <p className={Styles.remainingBudget}>
-            <span
-              className={determineBudgetHealth(
-                props.totalSpent / Number(budget.value)
-              )}
-            >
-              {Helpers.formatRoundedCost(props.totalSpent)}
-            </span>
-            {" / "}
-            {Helpers.formatRoundedCost(Number(budget.value))}
-          </p>
+        onClick={toggleOpened}
+      >
+        <section className={Styles.inputs}>
+          <Components.Input
+            type="text"
+            placeholder="DD/MM/YYYY"
+            userInput={name}
+            errorMessage={nameError}
+            icon={<Components.Calendar width={12} fill={8} />}
+            onClick={Helpers.preventBubbling}
+            required
+          />
+          <Components.Input
+            type="text"
+            placeholder="Budget"
+            userInput={budget}
+            errorMessage={budgetError}
+            icon={<Components.Wallet width={12} fill={8} />}
+            onClick={Helpers.preventBubbling}
+            required
+          />
+          <Components.Input
+            type="text"
+            placeholder="Spent"
+            userInput={spent}
+            errorMessage={spentError}
+            icon={<Components.USD width={12} fill={8} />}
+            backgroundLevel={2}
+            preventInteraction
+            transparent
+            required
+          />
+          <Components.ButtonIcon
+            onClick={openConfirmationModal}
+            backgroundLevel={2}
+          >
+            <Components.Close width={14} fill={8} />
+          </Components.ButtonIcon>
         </section>
-      )}
-    </header>
+
+        {props.budget && budgetError.value === "" && (
+          <section className={Styles.budgetHealth}>
+            <p className={Styles.remainingBudget}>
+              <span
+                className={determineBudgetHealth(
+                  props.totalSpent / Number(budget.value)
+                )}
+              >
+                {Helpers.formatRoundedCost(props.totalSpent)}
+              </span>
+              {" / "}
+              {Helpers.formatRoundedCost(Number(budget.value))}
+            </p>
+          </section>
+        )}
+      </header>
+
+      <Components.ConfirmationModal
+        title="Are you sure you want to delete this logbook entry?"
+        caption="Once deleted, it will be gone forever"
+        submit={deleteEntry}
+      />
+    </>
   );
 };
