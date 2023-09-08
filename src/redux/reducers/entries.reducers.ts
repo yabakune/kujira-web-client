@@ -27,8 +27,8 @@ export const entriesReducers = {
       const { logbookId, entryId } = action.payload;
       if (state.logbooks[logbookId]) {
         state.logbooks[logbookId].entries = [
-          ...state.logbooks[logbookId].entries,
           { id: entryId },
+          ...state.logbooks[logbookId].entries,
         ];
       }
     }
