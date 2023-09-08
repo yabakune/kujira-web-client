@@ -1,7 +1,9 @@
 import { Signal, effect, useSignal } from "@preact/signals-react";
+import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
+import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
 import Styles from "./logbook-entry-header.module.scss";
@@ -14,6 +16,7 @@ function determineBudgetHealth(budget: number): string {
 }
 
 type Props = {
+  entryId: number;
   name: string;
   budget?: number | null;
   totalSpent: number;
@@ -21,6 +24,8 @@ type Props = {
 };
 
 export const LogbookEntryHeader = (props: Props) => {
+  const dispatch = useDispatch();
+
   const name = useSignal(props.name);
   const budget = useSignal(props.budget ? Helpers.roundCost(props.budget) : "");
   const spent = useSignal("");
@@ -34,7 +39,14 @@ export const LogbookEntryHeader = (props: Props) => {
 
   function deleteEntry(event: Types.OnClick<HTMLButtonElement>): void {
     event.stopPropagation();
-    console.log("Delete Entry");
+    if (Helpers.userId) {
+      dispatch(
+        Sagas.deleteEntryRequest({
+          entryId: props.entryId,
+          userId: Helpers.userId,
+        })
+      );
+    }
   }
 
   effect(() => {

@@ -239,7 +239,7 @@ function* deleteEntry(action: Types.SagaPayload<Types.DeleteEntryPayload>) {
       action.payload.userId
     );
     const { data } = yield Saga.call(axios.delete, endpoint);
-    // yield Saga.put(Redux.entitiesActions.updateEntry(data.response));
+    yield Saga.put(Redux.entitiesActions.deleteEntry(action.payload.entryId));
 
     yield Saga.put(
       Redux.uiActions.setNotification({

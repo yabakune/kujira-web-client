@@ -33,4 +33,10 @@ export const entriesReducers = {
       }
     }
   },
+
+  deleteEntry: (state: EntitiesState, action: PayloadAction<number>) => {
+    if (state.entries && state.entries[action.payload]) {
+      delete state.entries[action.payload];
+    }
+  },
 };

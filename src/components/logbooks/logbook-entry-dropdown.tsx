@@ -45,6 +45,7 @@ export const LogbookEntryDropdown = (props: Props) => {
 		`}
     >
       <LogbookEntryHeader
+        entryId={props.entryId}
         name={props.name}
         budget={props.budget}
         totalSpent={props.totalSpent}
