@@ -62,19 +62,14 @@ export const LogbookEntryHeader = (props: Props) => {
   const updateName = useCallback(
     Helpers.debounce((): void => {
       if (Helpers.userId && Helpers.checkValidLogbookEntryInput(name.value)) {
-        const formattedName = Helpers.formatUserInputToLogbookEntryName(
-          name.value
-        );
-
         dispatch(
           Sagas.updateEntryRequest({
-            name: formattedName,
+            name: name.value,
             entryId: props.entryId,
             userId: Helpers.userId,
             showNotification: true,
           })
         );
-        name.value = formattedName;
       }
     }, 800),
     []
@@ -101,11 +96,8 @@ export const LogbookEntryHeader = (props: Props) => {
     if (name.value === "") {
       nameError.value = "";
     } else {
-      if (
-        !Helpers.checkValidLogbookEntryFormattedName(name.value) &&
-        !Helpers.checkValidLogbookEntryInput(name.value)
-      ) {
-        nameError.value = "Invalid date format.";
+      if (!Helpers.checkValidLogbookEntryInput(name.value)) {
+        nameError.value = "Invalid date format: MM/DD/YYYY";
       } else {
         nameError.value = "";
       }
