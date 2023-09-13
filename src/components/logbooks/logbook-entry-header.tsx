@@ -17,6 +17,11 @@ function determineBudgetHealth(budget: number): string {
   else return Styles.excellent;
 }
 
+function formatDateName(name: string): string {
+  const [month, day, year] = name.split("/");
+  return `${Number(month)}/${Number(day)}/${year}`;
+}
+
 const { confirmationModalOpen } = signalsStore;
 
 type Props = {
@@ -64,12 +69,13 @@ export const LogbookEntryHeader = (props: Props) => {
       if (Helpers.userId && Helpers.checkValidLogbookEntryInput(name.value)) {
         dispatch(
           Sagas.updateEntryRequest({
-            name: name.value,
+            name: formatDateName(name.value),
             entryId: props.entryId,
             userId: Helpers.userId,
             showNotification: true,
           })
         );
+        name.value = formatDateName(name.value);
       }
     }, 800),
     []
