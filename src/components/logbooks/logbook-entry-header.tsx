@@ -22,7 +22,7 @@ function formatDateName(name: string): string {
   return `${Number(month)}/${Number(day)}/${year}`;
 }
 
-const { confirmationModalOpen } = signalsStore;
+const { currentLogbookId, confirmationModalOpen } = signalsStore;
 
 type Props = {
   entryId: number;
@@ -66,11 +66,16 @@ export const LogbookEntryHeader = (props: Props) => {
 
   const updateName = useCallback(
     Helpers.debounce((): void => {
-      if (Helpers.userId && Helpers.checkValidLogbookEntryInput(name.value)) {
+      if (
+        currentLogbookId.value &&
+        Helpers.userId &&
+        Helpers.checkValidLogbookEntryInput(name.value)
+      ) {
         dispatch(
           Sagas.updateEntryRequest({
             name: formatDateName(name.value),
             entryId: props.entryId,
+            logbookId: currentLogbookId.value,
             userId: Helpers.userId,
             showNotification: true,
           })
