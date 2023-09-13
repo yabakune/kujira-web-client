@@ -9,6 +9,7 @@ import * as Types from "@/types";
 import { signalsStore } from "@/signals/signals";
 
 import Styles from "./logbook-entry-header.module.scss";
+import Snippets from "@/styles/snippets.module.scss";
 
 function determineBudgetHealth(budget: number): string {
   if (budget <= 0.25) return Styles.low;
@@ -170,17 +171,15 @@ export const LogbookEntryHeader = (props: Props) => {
               onClick={Helpers.preventBubbling}
               required
             />
-            <Components.Input
-              type="text"
-              placeholder="Spent"
-              userInput={spent}
-              errorMessage={spentError}
-              icon={<Components.USD width={12} fill={8} />}
-              backgroundLevel={2}
-              preventInteraction
-              transparent
-              required
-            />
+            <article
+              className={`
+              ${Styles.spent}
+              ${Snippets.noInteraction}
+            `}
+            >
+              <Components.USD width={12} fill={8} />
+              {spent.value || "Spent"}
+            </article>
           </div>
           <Components.ButtonIcon
             onClick={openConfirmationModal}
@@ -194,14 +193,20 @@ export const LogbookEntryHeader = (props: Props) => {
           <section className={Styles.budgetHealth}>
             <p className={Styles.remainingBudget}>
               <span
-                className={determineBudgetHealth(
-                  props.totalSpent / Number(budget.value)
-                )}
+                className={`
+                  ${Styles.remainingBudget}
+                  ${determineBudgetHealth(
+                    props.totalSpent / Number(budget.value)
+                  )}
+                `}
               >
                 ${Helpers.formatRoundedCost(props.totalSpent)}
               </span>
               {" / "}${Helpers.formatRoundedCost(props.budget)}
             </p>
+            <Components.ProgressBar
+              progression={props.totalSpent / Number(budget.value)}
+            />
           </section>
         )}
       </header>

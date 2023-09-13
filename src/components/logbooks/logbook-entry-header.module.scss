@@ -15,10 +15,21 @@
 }
 
 .inputs {
-  display: flex;
+  display: grid;
   gap: var(--sixteenPixels);
-  align-items: flex-end;
+  align-items: end;
+  grid-template-columns: repeat(3, 1fr);
   flex: 1;
+}
+
+.spent {
+  display: flex;
+  align-items: center;
+  gap: var(--sixteenPixels);
+  padding: var(--twelvePixels) var(--sixteenPixels);
+  color: var(--themeEight);
+  font-size: var(--fourteenPixels);
+  font-weight: var(--medium);
 }
 
 .budgetHealth {

@@ -100,6 +100,7 @@ const ExportedComponent = (props: Props) => {
   useEffect(() => {
     if (description.value !== props.purchase.description) {
       updatePurchase({
+        category: props.purchase.category,
         description: description.value,
         cost: Number(cost.value),
       });
@@ -109,6 +110,7 @@ const ExportedComponent = (props: Props) => {
   useEffect(() => {
     if (Number(cost.value) && Number(cost.value) !== props.purchase.cost) {
       updatePurchase({
+        category: props.purchase.category,
         description: description.value,
         cost: Number(cost.value),
       });
