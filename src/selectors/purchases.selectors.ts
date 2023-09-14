@@ -7,9 +7,11 @@ export const fetchEntryPurchases = createSelector(
   (state: ReduxStore, purchaseIds?: { id: number }[]) => purchaseIds,
   (purchases, purchaseIds) => {
     if (purchases && purchaseIds) {
-      return purchaseIds.map(({ id: purchaseId }: { id: number }) => {
-        if (purchases[purchaseId]) return purchases[purchaseId];
-      });
+      return purchaseIds
+        .filter(({ id: purchaseId }: { id: number }) => !!purchases[purchaseId])
+        .map(({ id: purchaseId }: { id: number }) => {
+          return purchases[purchaseId];
+        });
     }
   }
 );

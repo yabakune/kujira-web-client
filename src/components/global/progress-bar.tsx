@@ -4,20 +4,24 @@ type Props = {
   height?: number;
   progression: number;
   defaultProgression?: true;
+  reverseProgression?: true;
 };
 
-export const ProgressBar = (props: Props) => {
-  function determineProgression(): string {
-    if (props.defaultProgression) {
-      return Styles.default;
-    } else {
-      if (props.progression <= 25) return Styles.low;
-      else if (props.progression <= 50) return Styles.moderate;
-      else if (props.progression <= 75) return Styles.high;
-      else return Styles.excellent;
-    }
-  }
+function determineProgression(progression: number): string {
+  if (progression <= 25) return Styles.low;
+  else if (progression <= 50) return Styles.moderate;
+  else if (progression <= 75) return Styles.high;
+  else return Styles.excellent;
+}
 
+function determineProgressionReverse(progression: number): string {
+  if (progression <= 25) return Styles.excellent;
+  else if (progression <= 50) return Styles.high;
+  else if (progression <= 75) return Styles.moderate;
+  else return Styles.low;
+}
+
+export const ProgressBar = (props: Props) => {
   return (
     <section
       className={Styles.container}
@@ -28,7 +32,13 @@ export const ProgressBar = (props: Props) => {
       <div
         className={`
 					${Styles.progression}
-					${determineProgression()}
+					${
+            props.defaultProgression
+              ? Styles.default
+              : props.reverseProgression
+              ? determineProgressionReverse(props.progression)
+              : determineProgression(props.progression)
+          }
 				`}
         style={{ width: `${props.progression}%` }}
       />

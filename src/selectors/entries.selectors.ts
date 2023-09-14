@@ -45,3 +45,11 @@ export const fetchOverviewEntries = createSelector(
     }
   }
 );
+
+export const fetchEntryTotalSpent = createCachedSelector(
+  (state: ReduxStore) => state.entities.entries,
+  (state: ReduxStore, entryId: number) => entryId,
+  (entries, entryId) => {
+    if (entries && entries[entryId]) return entries[entryId].totalSpent;
+  }
+)((_state_, entryId) => entryId);

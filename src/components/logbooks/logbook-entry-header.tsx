@@ -1,10 +1,12 @@
 import { Signal, effect, useSignal } from "@preact/signals-react";
-import { useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useCallback, useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
 import * as Helpers from "@/helpers";
+import * as Redux from "@/redux";
 import * as Sagas from "@/sagas";
+import * as Selectors from "@/selectors";
 import * as Types from "@/types";
 import { signalsStore } from "@/signals/signals";
 
@@ -12,10 +14,10 @@ import Styles from "./logbook-entry-header.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
 function determineBudgetHealth(budget: number): string {
-  if (budget <= 0.25) return Styles.low;
-  else if (budget <= 0.5) return Styles.moderate;
-  else if (budget <= 0.75) return Styles.high;
-  else return Styles.excellent;
+  if (budget <= 0.25) return Styles.excellent;
+  else if (budget <= 0.5) return Styles.high;
+  else if (budget <= 0.75) return Styles.moderate;
+  else return Styles.low;
 }
 
 function formatDateName(name: string): string {
@@ -30,18 +32,22 @@ type Props = {
   name: string;
   budget?: number | null;
   totalSpent: number;
+  purchaseIds: { id: number }[];
   opened: Signal<boolean>;
 };
 
 export const LogbookEntryHeader = (props: Props) => {
   const dispatch = useDispatch();
 
+  const purchases = useSelector((state: Redux.ReduxStore) =>
+    Selectors.fetchEntryPurchases(state, props.purchaseIds)
+  );
+
   const name = useSignal(props.name);
   const budget = useSignal(props.budget ? Helpers.roundCost(props.budget) : "");
-  const spent = useSignal("");
   const nameError = useSignal("");
   const budgetError = useSignal("");
-  const spentError = useSignal("");
+  const totalSpent = useSignal(Helpers.roundCost(props.totalSpent));
 
   function toggleOpened(): void {
     props.opened.value = !props.opened.value;
@@ -92,17 +98,37 @@ export const LogbookEntryHeader = (props: Props) => {
       if (Helpers.userId) {
         dispatch(
           Sagas.updateEntryRequest({
-            budget: Helpers.roundCostToNumber(Number(budget.value)),
+            budget: !Number(budget.value)
+              ? null
+              : Helpers.roundCostToNumber(Number(budget.value)),
             entryId: props.entryId,
             userId: Helpers.userId,
             showNotification: true,
           })
         );
-        budget.value = Helpers.roundCost(Number(budget.value));
+        if (!Number(budget.value)) budget.value = "";
+        else budget.value = Helpers.roundCost(Number(budget.value));
       }
     }, 800),
     []
   );
+
+  const updateTotalSpent = useCallback(() => {
+    let totalPurchaseCosts = 0;
+    if (purchases) {
+      for (const purchase of purchases) {
+        if (purchase.cost) totalPurchaseCosts += purchase.cost;
+      }
+    }
+    dispatch(
+      Sagas.updateEntryRequest({
+        totalSpent: totalPurchaseCosts,
+        entryId: props.entryId,
+        userId: Helpers.userId,
+      })
+    );
+    totalSpent.value = Helpers.roundCost(totalPurchaseCosts);
+  }, [purchases]);
 
   effect(() => {
     if (name.value === "") {
@@ -118,7 +144,7 @@ export const LogbookEntryHeader = (props: Props) => {
     if (budget.value === "") {
       budgetError.value = "";
     } else {
-      if (!Number(budget.value)) {
+      if (Number(budget.value) !== 0 && !Number(budget.value)) {
         budgetError.value = "Budget must be a number!";
       } else {
         budgetError.value = "";
@@ -133,14 +159,20 @@ export const LogbookEntryHeader = (props: Props) => {
   }, [nameError.value, name.value]);
 
   useEffect(() => {
-    if (
-      !budgetError.value &&
-      Number(budget.value) &&
-      Number(budget.value) !== props.budget
-    ) {
+    if (!budgetError.value && Number(budget.value) !== Number(props.budget)) {
       updateBudget();
     }
   }, [budgetError.value, budget.value, props.budget]);
+
+  useEffect(() => {
+    if (
+      props.opened.value &&
+      Number(totalSpent.value) !== Number(props.totalSpent) &&
+      Helpers.userId
+    ) {
+      updateTotalSpent();
+    }
+  }, [props.opened.value, purchases, totalSpent.value, props.totalSpent]);
 
   return (
     <>
@@ -178,7 +210,13 @@ export const LogbookEntryHeader = (props: Props) => {
             `}
             >
               <Components.USD width={12} fill={8} />
-              {spent.value || "Spent"}
+              {props.totalSpent ? (
+                <span className={Styles.totalSpent}>
+                  {Helpers.roundCost(props.totalSpent)}
+                </span>
+              ) : (
+                "Spent"
+              )}
             </article>
           </div>
           <Components.ButtonIcon
@@ -205,7 +243,8 @@ export const LogbookEntryHeader = (props: Props) => {
               {" / "}${Helpers.formatRoundedCost(props.budget)}
             </p>
             <Components.ProgressBar
-              progression={props.totalSpent / Number(budget.value)}
+              progression={(props.totalSpent / Number(budget.value)) * 100}
+              reverseProgression
             />
           </section>
         )}

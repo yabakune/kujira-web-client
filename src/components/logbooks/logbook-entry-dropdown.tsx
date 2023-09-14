@@ -49,6 +49,7 @@ export const LogbookEntryDropdown = (props: Props) => {
         name={props.name}
         budget={props.budget}
         totalSpent={props.totalSpent}
+        purchaseIds={props.purchaseIds}
         opened={opened}
       />
 
