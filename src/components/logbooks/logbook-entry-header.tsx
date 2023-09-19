@@ -39,6 +39,9 @@ type Props = {
 export const LogbookEntryHeader = (props: Props) => {
   const dispatch = useDispatch();
 
+  const currentEntry = useSelector((state: Redux.ReduxStore) =>
+    Selectors.fetchEntry(state, props.entryId)
+  );
   const purchases = useSelector((state: Redux.ReduxStore) =>
     Selectors.fetchEntryPurchases(state, props.purchaseIds)
   );
@@ -47,7 +50,6 @@ export const LogbookEntryHeader = (props: Props) => {
   const budget = useSignal(props.budget ? Helpers.roundCost(props.budget) : "");
   const nameError = useSignal("");
   const budgetError = useSignal("");
-  const totalSpent = useSignal(Helpers.roundCost(props.totalSpent));
 
   function toggleOpened(): void {
     props.opened.value = !props.opened.value;
@@ -113,22 +115,22 @@ export const LogbookEntryHeader = (props: Props) => {
     []
   );
 
-  const updateTotalSpent = useCallback(() => {
-    let totalPurchaseCosts = 0;
-    if (purchases) {
-      for (const purchase of purchases) {
-        if (purchase.cost) totalPurchaseCosts += purchase.cost;
+  const updateTotalSpent = useCallback(
+    (roundedTotalPurchaseCosts: number, roundedTotalSpent: number) => {
+      if (currentEntry) {
+        if (roundedTotalPurchaseCosts !== roundedTotalSpent) {
+          dispatch(
+            Sagas.updateEntryRequest({
+              totalSpent: roundedTotalPurchaseCosts,
+              entryId: props.entryId,
+              userId: Helpers.userId,
+            })
+          );
+        }
       }
-    }
-    dispatch(
-      Sagas.updateEntryRequest({
-        totalSpent: totalPurchaseCosts,
-        entryId: props.entryId,
-        userId: Helpers.userId,
-      })
-    );
-    totalSpent.value = Helpers.roundCost(totalPurchaseCosts);
-  }, [purchases]);
+    },
+    [purchases, currentEntry]
+  );
 
   effect(() => {
     if (name.value === "") {
@@ -153,26 +155,35 @@ export const LogbookEntryHeader = (props: Props) => {
   });
 
   useEffect(() => {
-    if (!nameError.value && name.value !== "" && name.value !== props.name) {
-      updateName();
-    }
+    const validName = !nameError.value && name.value !== "";
+    const nameChanged = name.value !== props.name;
+    if (validName && nameChanged) updateName();
   }, [nameError.value, name.value]);
 
   useEffect(() => {
-    if (!budgetError.value && Number(budget.value) !== Number(props.budget)) {
-      updateBudget();
-    }
+    const budgetChanged = Number(budget.value) !== Number(props.budget);
+    if (!budgetError.value && budgetChanged) updateBudget();
   }, [budgetError.value, budget.value, props.budget]);
 
   useEffect(() => {
-    if (
-      props.opened.value &&
-      Number(totalSpent.value) !== Number(props.totalSpent) &&
-      Helpers.userId
-    ) {
-      updateTotalSpent();
+    if (props.opened.value && currentEntry && purchases && Helpers.userId) {
+      let totalPurchaseCosts = 0;
+      if (purchases) {
+        for (const purchase of purchases) {
+          if (purchase.cost) totalPurchaseCosts += purchase.cost;
+        }
+      }
+
+      const roundedTotalPurchaseCosts =
+        Helpers.roundCostToNumber(totalPurchaseCosts);
+
+      const roundedTotalSpent = Helpers.roundCostToNumber(
+        currentEntry.totalSpent
+      );
+
+      updateTotalSpent(roundedTotalPurchaseCosts, roundedTotalSpent);
     }
-  }, [props.opened.value, purchases, totalSpent.value, props.totalSpent]);
+  }, [props.opened.value, currentEntry, purchases]);
 
   return (
     <>
