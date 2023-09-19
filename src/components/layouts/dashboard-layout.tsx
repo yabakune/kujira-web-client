@@ -29,21 +29,26 @@ export const DashboardLayout = (props: Props) => {
       if (currentUser.theme === "violet") {
         document.body.classList.remove(ThemeStyles.themeLilac);
         document.body.classList.remove(ThemeStyles.systemTheme);
+        document.body.classList.add(ThemeStyles.themeViolet);
       } else if (currentUser.theme === "lilac") {
+        document.body.classList.remove(ThemeStyles.themeViolet);
         document.body.classList.remove(ThemeStyles.systemTheme);
         document.body.classList.add(ThemeStyles.themeLilac);
       } else if (currentUser.theme === "system") {
+        document.body.classList.remove(ThemeStyles.themeViolet);
         document.body.classList.remove(ThemeStyles.themeLilac);
         document.body.classList.add(ThemeStyles.systemTheme);
       } else {
         const date = new Date();
         const beforeSixPM = date.getHours() < 18;
         if (beforeSixPM) {
+          document.body.classList.remove(ThemeStyles.themeViolet);
           document.body.classList.remove(ThemeStyles.systemTheme);
           document.body.classList.add(ThemeStyles.themeLilac);
         } else {
           document.body.classList.remove(ThemeStyles.themeLilac);
           document.body.classList.remove(ThemeStyles.systemTheme);
+          document.body.classList.add(ThemeStyles.themeViolet);
         }
       }
     }

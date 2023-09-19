@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { useSignal } from "@preact/signals-react";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
 import * as Components from "@/components";
 import * as Constants from "@/constants";
+import * as Redux from "@/redux";
 import { signalsStore } from "@/signals/signals";
 
 import Styles from "./navbar.module.scss";
@@ -17,6 +19,9 @@ const { currentLogbookId, menuModalOpen } = signalsStore;
 
 export const Navbar = () => {
   const router = useRouter();
+  const { currentUser } = useSelector(
+    (state: Redux.ReduxStore) => state.entities
+  );
 
   const currentRoute = useSignal<Route>(LOGBOOKS);
 
@@ -39,12 +44,30 @@ export const Navbar = () => {
         </div>
       )}
 
-      <Image
-        src="/logo-full-horizontal-violet.svg"
-        width={103.65}
-        height={20}
-        alt="Full Horizontal Logo"
-      />
+      {currentUser ? (
+        currentUser.theme === "violet" ? (
+          <Image
+            src="/logo-full-horizontal-violet.svg"
+            width={103.65}
+            height={20}
+            alt="Full Horizontal Logo"
+          />
+        ) : (
+          <Image
+            src="/logo-full-horizontal-lilac.svg"
+            width={103.65}
+            height={20}
+            alt="Full Horizontal Logo"
+          />
+        )
+      ) : (
+        <Image
+          src="/logo-full-horizontal-violet.svg"
+          width={103.65}
+          height={20}
+          alt="Full Horizontal Logo"
+        />
+      )}
 
       <section className={Styles.navigationLinks}>
         <Components.ButtonIcon onClick={() => toPage(LOGBOOKS)}>
