@@ -175,7 +175,7 @@ export const LogbookEntryHeader = (props: Props) => {
         for (const purchase of purchases) {
           if (purchase.cost) {
             purchasesTotalSpent += purchase.cost;
-            if (purchase.category !== "monthly") {
+            if (purchase.category !== "monthly" || !purchase.category) {
               nonMonthlyPurchasesTotalSpent += purchase.cost;
             }
           }
@@ -234,6 +234,7 @@ export const LogbookEntryHeader = (props: Props) => {
               ${Styles.spent}
               ${Snippets.noInteraction}
             `}
+            tabIndex={-1}
           >
             <Components.USD width={12} fill={8} />
             {props.totalSpent ? (

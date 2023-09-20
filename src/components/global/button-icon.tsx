@@ -34,6 +34,7 @@ export const ButtonIcon = (props: Props) => {
       className={`${Styles.container} ${determineBackground()}`}
       style={{ borderRadius: Helpers.setBorderRadius(props.borderRadius) }}
       onClick={props.onClick}
+      tabIndex={-1}
     >
       {props.children}
     </button>
