@@ -71,9 +71,8 @@ const ExportedComponent = () => {
     (state: Redux.ReduxStore) =>
       Selectors.recurringOverviewEntryTotalSpent(state, currentLogbookId.value)
   );
-  const currentLogbookEntriesTotalSpent = useSelector(
-    (state: Redux.ReduxStore) =>
-      Selectors.calculateLogbookEntriesTotalSpent(state, currentLogbookId.value)
+  const logbookNonMonthlyTotalSpent = useSelector((state: Redux.ReduxStore) =>
+    Selectors.logbookNonMonthlyTotalSpent(state, currentLogbookId.value)
   );
 
   const remainingBudget = useSignal(0);
@@ -89,7 +88,7 @@ const ExportedComponent = () => {
         income -
         savedIncome -
         recurringOverviewEntryTotalSpent -
-        currentLogbookEntriesTotalSpent
+        logbookNonMonthlyTotalSpent
       );
     } else {
       return remainingBudget.value;
@@ -97,7 +96,7 @@ const ExportedComponent = () => {
   }, [
     currentOverview,
     recurringOverviewEntryTotalSpent,
-    currentLogbookEntriesTotalSpent,
+    logbookNonMonthlyTotalSpent,
   ]);
 
   function toggleLogbookSelector(): void {

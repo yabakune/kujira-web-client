@@ -113,12 +113,17 @@ export const LogbookEntryHeader = (props: Props) => {
   );
 
   const updateTotalSpent = useCallback(
-    (roundedTotalPurchaseCosts: number, roundedTotalSpent: number) => {
+    (
+      roundedPurchasesTotalSpent: number,
+      roundedNonMonthlyPurchasesTotalSpent: number,
+      roundedTotalSpent: number
+    ) => {
       if (currentEntry) {
-        if (roundedTotalPurchaseCosts !== roundedTotalSpent) {
+        if (roundedPurchasesTotalSpent !== roundedTotalSpent) {
           dispatch(
             Sagas.updateEntryRequest({
-              totalSpent: roundedTotalPurchaseCosts,
+              totalSpent: roundedPurchasesTotalSpent,
+              nonMonthlyTotalSpent: roundedNonMonthlyPurchasesTotalSpent,
               entryId: props.entryId,
               userId: Helpers.userId,
             })
@@ -164,21 +169,35 @@ export const LogbookEntryHeader = (props: Props) => {
 
   useEffect(() => {
     if (props.opened.value && currentEntry && purchases && Helpers.userId) {
-      let totalPurchaseCosts = 0;
+      let purchasesTotalSpent = 0;
+      let nonMonthlyPurchasesTotalSpent = 0;
       if (purchases) {
         for (const purchase of purchases) {
-          if (purchase.cost) totalPurchaseCosts += purchase.cost;
+          if (purchase.cost) {
+            purchasesTotalSpent += purchase.cost;
+            if (purchase.category !== "monthly") {
+              nonMonthlyPurchasesTotalSpent += purchase.cost;
+            }
+          }
         }
       }
 
-      const roundedTotalPurchaseCosts =
-        Helpers.roundCostToNumber(totalPurchaseCosts);
+      const roundedPurchasesTotalSpent =
+        Helpers.roundCostToNumber(purchasesTotalSpent);
+
+      const roundedNonMonthlyPurchasesTotalSpent = Helpers.roundCostToNumber(
+        nonMonthlyPurchasesTotalSpent
+      );
 
       const roundedTotalSpent = Helpers.roundCostToNumber(
         currentEntry.totalSpent
       );
 
-      updateTotalSpent(roundedTotalPurchaseCosts, roundedTotalSpent);
+      updateTotalSpent(
+        roundedPurchasesTotalSpent,
+        roundedNonMonthlyPurchasesTotalSpent,
+        roundedTotalSpent
+      );
     }
   }, [props.opened.value, currentEntry, purchases]);
 

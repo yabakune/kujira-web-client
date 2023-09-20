@@ -38,7 +38,7 @@ export const fetchCurrentLogbookEntries = createSelector(
   }
 );
 
-export const calculateLogbookEntriesTotalSpent = createSelector(
+export const logbookTotalSpent = createSelector(
   (state: ReduxStore) => state.entities.logbooks,
   (state: ReduxStore) => state.entities.entries,
   (state: ReduxStore, logbookId: number | null) => logbookId,
@@ -54,6 +54,28 @@ export const calculateLogbookEntriesTotalSpent = createSelector(
       }
 
       return entriesTotalSpent;
+    } else {
+      return 0;
+    }
+  }
+);
+
+export const logbookNonMonthlyTotalSpent = createSelector(
+  (state: ReduxStore) => state.entities.logbooks,
+  (state: ReduxStore) => state.entities.entries,
+  (state: ReduxStore, logbookId: number | null) => logbookId,
+  (logbooks, entries, logbookId) => {
+    if (logbooks && entries && logbookId && logbooks[logbookId]) {
+      let nonMonthlyTotalSpent = 0;
+      const logbookEntryIds = logbooks[logbookId].entries;
+
+      for (const { id: entryId } of logbookEntryIds) {
+        if (entries[entryId]) {
+          nonMonthlyTotalSpent += entries[entryId].nonMonthlyTotalSpent;
+        }
+      }
+
+      return nonMonthlyTotalSpent;
     } else {
       return 0;
     }

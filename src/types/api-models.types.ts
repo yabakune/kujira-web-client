@@ -46,6 +46,7 @@ export type EntryModel = {
   id: number;
   name: string;
   totalSpent: number;
+  nonMonthlyTotalSpent: number;
   budget?: number | null;
   createdAt: Date;
   updatedAt: Date;

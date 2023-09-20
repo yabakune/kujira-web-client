@@ -17,7 +17,12 @@ export type FetchLogbookEntriesPayload = {
 
 export type CreateEntryPayload = Omit<
   EntryModel,
-  "id" | "totalSpent" | "createdAt" | "updatedAt" | "purchases"
+  | "id"
+  | "totalSpent"
+  | "nonMonthlyTotalSpent"
+  | "createdAt"
+  | "updatedAt"
+  | "purchases"
 > &
   GatedRoutePayload;
 
