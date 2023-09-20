@@ -41,7 +41,6 @@ export const OverviewEntries = (props: Props) => {
             startOpened={
               entry.name === "Recurring" || entry.name === "Incoming"
             }
-            shadow
           />
         );
       }
