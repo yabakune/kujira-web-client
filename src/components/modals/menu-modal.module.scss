@@ -20,6 +20,10 @@
   gap: var(--sixteenPixels);
   padding: var(--sixteenPixels);
   background-color: var(--themeOne);
+
+  &.fillContent {
+    height: 100%;
+  }
 }
 
 .header {

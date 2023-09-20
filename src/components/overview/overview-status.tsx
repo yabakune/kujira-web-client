@@ -15,7 +15,7 @@ import { signalsStore } from "@/signals/signals";
 import Styles from "./overview-status.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
-const { currentLogbookId } = signalsStore;
+const { currentLogbookId, menuModalOpen } = signalsStore;
 
 function generateNewLogbookEntryName(): string {
   const today = new Date();
@@ -97,6 +97,11 @@ const ExportedComponent = () => {
     currentLogbookEntriesTotalSpent,
   ]);
 
+  function toggleLogbookSelector(): void {
+    currentLogbookId.value = null;
+    menuModalOpen.value = false;
+  }
+
   function createLogbookEntry(): void {
     if (currentLogbookId.value && Helpers.userId) {
       dispatch(
@@ -135,7 +140,7 @@ const ExportedComponent = () => {
         </div>
         <section className={Styles.headerButtons}>
           <Components.ButtonIcon
-            onClick={() => (currentLogbookId.value = null)}
+            onClick={toggleLogbookSelector}
             backgroundLevel={2}
           >
             <Components.Filter width={14} fill={8} />

@@ -13,6 +13,7 @@ type Props = {
   extraOpenConditional?: boolean;
   title: string;
   children: React.ReactNode;
+  fillContent?: true;
 };
 
 export const MenuModal = (props: Props) => {
@@ -33,7 +34,10 @@ export const MenuModal = (props: Props) => {
             transition={{ duration: 0.1 }}
           >
             <section
-              className={Styles.content}
+              className={`
+                ${Styles.content}
+                ${props.fillContent && Styles.fillContent}
+              `}
               onClick={Helpers.preventBubbling}
             >
               <header className={Styles.header}>

@@ -59,6 +59,7 @@ export const DashboardLayout = (props: Props) => {
       <Components.MenuModal
         extraOpenConditional={!!currentLogbookId.value}
         title="Logbook Overview"
+        fillContent
       >
         <Overview />
       </Components.MenuModal>
