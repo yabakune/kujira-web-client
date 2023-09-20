@@ -1,5 +1,5 @@
 import { Signal, effect, useSignal } from "@preact/signals-react";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
@@ -13,10 +13,11 @@ import { signalsStore } from "@/signals/signals";
 import Styles from "./logbook-entry-header.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
-function determineBudgetHealth(budget: number): string {
-  if (budget <= 0.25) return Snippets.excellent;
-  else if (budget <= 0.5) return Snippets.high;
-  else if (budget <= 0.75) return Snippets.moderate;
+function determineBudgetHealth(remainingBudget: number): string {
+  if (remainingBudget === 0) return Snippets.default;
+  else if (remainingBudget <= 0.25) return Snippets.excellent;
+  else if (remainingBudget <= 0.5) return Snippets.high;
+  else if (remainingBudget <= 0.75) return Snippets.moderate;
   else return Snippets.low;
 }
 
@@ -51,6 +52,11 @@ export const LogbookEntryHeader = (props: Props) => {
   const budget = useSignal(props.budget ? Helpers.roundCost(props.budget) : "");
   const nameError = useSignal("");
   const budgetError = useSignal("");
+
+  const remainingBudget = useMemo(() => {
+    if (props.budget) return props.totalSpent / props.budget;
+    else return 0;
+  }, [props.totalSpent, props.budget]);
 
   function toggleOpened(): void {
     props.opened.value = !props.opened.value;
@@ -215,9 +221,7 @@ export const LogbookEntryHeader = (props: Props) => {
               <span
                 className={`
                   ${Styles.totalSpent}
-                  ${determineBudgetHealth(
-                    props.totalSpent / Number(budget.value)
-                  )}
+                  ${determineBudgetHealth(remainingBudget)}
                 `}
               >
                 {Helpers.roundCost(props.totalSpent)}
@@ -240,10 +244,7 @@ export const LogbookEntryHeader = (props: Props) => {
           <p className={Styles.remainingBudget}>
             <span
               className={`
-                  ${Styles.remainingBudget}
-                  ${determineBudgetHealth(
-                    props.totalSpent / Number(budget.value)
-                  )}
+                  ${determineBudgetHealth(remainingBudget)}
                 `}
             >
               ${Helpers.formatRoundedCost(props.budget - props.totalSpent)}
@@ -251,7 +252,7 @@ export const LogbookEntryHeader = (props: Props) => {
             {" / "}${Helpers.formatRoundedCost(props.budget)}
           </p>
           <Components.ProgressBar
-            progression={props.totalSpent / Number(budget.value)}
+            progression={remainingBudget * 100}
             reverseProgression
           />
         </section>

@@ -40,7 +40,11 @@ export const ProgressBar = (props: Props) => {
               : determineProgression(props.progression)
           }
 				`}
-        style={{ width: `${Math.ceil(props.progression)}%` }}
+        style={{
+          width: `${
+            props.progression > 100 ? 100 : Math.ceil(props.progression)
+          }%`,
+        }}
       />
     </section>
   );
