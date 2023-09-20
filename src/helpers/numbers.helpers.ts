@@ -9,7 +9,8 @@ export function roundCostToNumber(cost: number): number {
 }
 
 export function formatRoundedCost(cost: number): string {
-  const roundedCost = roundCost(cost);
+  const roundedCost = cost < 0 ? roundCost(cost * -1) : roundCost(cost);
+
   const dollars = roundedCost.split(".")[0].split("");
   const cents = roundedCost.split(".")[1];
 
@@ -22,7 +23,10 @@ export function formatRoundedCost(cost: number): string {
     }
   }
 
-  return dollars.join("") + `.${cents}`;
+  const formattedRoundedCost = dollars.join("") + `.${cents}`;
+
+  if (cost < 0) return "-" + formattedRoundedCost;
+  else return formattedRoundedCost;
 }
 
 export function calculateSavedIncome(income: number, savings: number): number {

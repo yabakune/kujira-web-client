@@ -246,12 +246,12 @@ export const LogbookEntryHeader = (props: Props) => {
                   )}
                 `}
             >
-              ${Helpers.formatRoundedCost(props.totalSpent)}
+              ${Helpers.formatRoundedCost(props.budget - props.totalSpent)}
             </span>
             {" / "}${Helpers.formatRoundedCost(props.budget)}
           </p>
           <Components.ProgressBar
-            progression={(props.totalSpent / Number(budget.value)) * 100}
+            progression={props.totalSpent / Number(budget.value)}
             reverseProgression
           />
         </section>
