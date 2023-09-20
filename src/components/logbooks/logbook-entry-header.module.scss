@@ -34,6 +34,7 @@
 
 .totalSpent {
   color: var(--text);
+  font-weight: var(--bold);
 }
 
 .budgetHealth {
@@ -46,20 +47,4 @@
   font-size: var(--fourteenPixels);
   font-weight: var(--bold);
   color: var(--themeTen);
-
-  &.low {
-    color: var(--hpLow);
-  }
-
-  &.moderate {
-    color: var(--hpModerate);
-  }
-
-  &.high {
-    color: var(--hpHigh);
-  }
-
-  &.excellent {
-    color: var(--hpExcellent);
-  }
 }

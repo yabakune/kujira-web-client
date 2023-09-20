@@ -14,10 +14,10 @@ import Styles from "./logbook-entry-header.module.scss";
 import Snippets from "@/styles/snippets.module.scss";
 
 function determineBudgetHealth(budget: number): string {
-  if (budget <= 0.25) return Styles.excellent;
-  else if (budget <= 0.5) return Styles.high;
-  else if (budget <= 0.75) return Styles.moderate;
-  else return Styles.low;
+  if (budget <= 0.25) return Snippets.excellent;
+  else if (budget <= 0.5) return Snippets.high;
+  else if (budget <= 0.75) return Snippets.moderate;
+  else return Snippets.low;
 }
 
 function formatDateName(name: string): string {
@@ -222,7 +222,14 @@ export const LogbookEntryHeader = (props: Props) => {
             >
               <Components.USD width={12} fill={8} />
               {props.totalSpent ? (
-                <span className={Styles.totalSpent}>
+                <span
+                  className={`
+                  ${Styles.totalSpent}
+                  ${determineBudgetHealth(
+                    props.totalSpent / Number(budget.value)
+                  )}
+                `}
+                >
                   {Helpers.roundCost(props.totalSpent)}
                 </span>
               ) : (

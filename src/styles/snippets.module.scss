@@ -63,3 +63,19 @@
   pointer-events: none;
   user-select: none;
 }
+
+.low {
+  color: var(--hpLow);
+}
+
+.moderate {
+  color: var(--hpModerate);
+}
+
+.high {
+  color: var(--hpHigh);
+}
+
+.excellent {
+  color: var(--hpExcellent);
+}
