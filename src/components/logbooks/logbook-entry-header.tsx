@@ -1,5 +1,5 @@
 import { Signal, effect, useSignal } from "@preact/signals-react";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as Components from "@/components";
@@ -25,7 +25,7 @@ function formatDateName(name: string): string {
   return `${Number(month)}/${Number(day)}/${year}`;
 }
 
-const { currentLogbookId, confirmationModalOpen } = signalsStore;
+const { currentLogbookId } = signalsStore;
 
 type Props = {
   entryId: number;
@@ -34,6 +34,7 @@ type Props = {
   totalSpent: number;
   purchaseIds: { id: number }[];
   opened: Signal<boolean>;
+  confirmationOpen: Signal<boolean>;
 };
 
 export const LogbookEntryHeader = (props: Props) => {
@@ -59,18 +60,8 @@ export const LogbookEntryHeader = (props: Props) => {
     event: Types.OnClick<HTMLButtonElement>
   ): void {
     event.stopPropagation();
-    confirmationModalOpen.value = true;
-  }
-
-  function deleteEntry(): void {
-    if (Helpers.userId) {
-      dispatch(
-        Sagas.deleteEntryRequest({
-          entryId: props.entryId,
-          userId: Helpers.userId,
-        })
-      );
-    }
+    props.confirmationOpen.value = true;
+    props.opened.value = true;
   }
 
   const updateName = useCallback(
@@ -186,93 +177,85 @@ export const LogbookEntryHeader = (props: Props) => {
   }, [props.opened.value, currentEntry, purchases]);
 
   return (
-    <>
-      <header
-        className={`
+    <header
+      className={`
       ${Styles.container}
       ${Helpers.setBackgroundClickHover(2)}
     `}
-        onClick={toggleOpened}
-      >
-        <section className={Styles.headerContent}>
-          <div className={Styles.inputs}>
-            <Components.Input
-              type="text"
-              placeholder="MM/DD/YYYY"
-              userInput={name}
-              errorMessage={nameError}
-              icon={<Components.Calendar width={12} fill={8} />}
-              onClick={Helpers.preventBubbling}
-              required
-            />
-            <Components.Input
-              type="text"
-              placeholder="Budget"
-              userInput={budget}
-              errorMessage={budgetError}
-              icon={<Components.Wallet width={12} fill={8} />}
-              onClick={Helpers.preventBubbling}
-              required
-            />
-            <article
-              className={`
+      onClick={toggleOpened}
+    >
+      <section className={Styles.headerContent}>
+        <div className={Styles.inputs}>
+          <Components.Input
+            type="text"
+            placeholder="MM/DD/YYYY"
+            userInput={name}
+            errorMessage={nameError}
+            icon={<Components.Calendar width={12} fill={8} />}
+            onClick={Helpers.preventBubbling}
+            required
+          />
+          <Components.Input
+            type="text"
+            placeholder="Budget"
+            userInput={budget}
+            errorMessage={budgetError}
+            icon={<Components.Wallet width={12} fill={8} />}
+            onClick={Helpers.preventBubbling}
+            required
+          />
+          <article
+            className={`
               ${Styles.spent}
               ${Snippets.noInteraction}
             `}
-            >
-              <Components.USD width={12} fill={8} />
-              {props.totalSpent ? (
-                <span
-                  className={`
+          >
+            <Components.USD width={12} fill={8} />
+            {props.totalSpent ? (
+              <span
+                className={`
                   ${Styles.totalSpent}
                   ${determineBudgetHealth(
                     props.totalSpent / Number(budget.value)
                   )}
                 `}
-                >
-                  {Helpers.roundCost(props.totalSpent)}
-                </span>
-              ) : (
-                "Spent"
-              )}
-            </article>
-          </div>
-          <Components.ButtonIcon
-            onClick={openConfirmationModal}
-            backgroundLevel={2}
-          >
-            <Components.Close width={14} fill={8} />
-          </Components.ButtonIcon>
-        </section>
+              >
+                {Helpers.roundCost(props.totalSpent)}
+              </span>
+            ) : (
+              "Spent"
+            )}
+          </article>
+        </div>
+        <Components.ButtonIcon
+          onClick={openConfirmationModal}
+          backgroundLevel={2}
+        >
+          <Components.Close width={14} fill={8} />
+        </Components.ButtonIcon>
+      </section>
 
-        {props.budget && budgetError.value === "" && (
-          <section className={Styles.budgetHealth}>
-            <p className={Styles.remainingBudget}>
-              <span
-                className={`
+      {props.budget && budgetError.value === "" && (
+        <section className={Styles.budgetHealth}>
+          <p className={Styles.remainingBudget}>
+            <span
+              className={`
                   ${Styles.remainingBudget}
                   ${determineBudgetHealth(
                     props.totalSpent / Number(budget.value)
                   )}
                 `}
-              >
-                ${Helpers.formatRoundedCost(props.totalSpent)}
-              </span>
-              {" / "}${Helpers.formatRoundedCost(props.budget)}
-            </p>
-            <Components.ProgressBar
-              progression={(props.totalSpent / Number(budget.value)) * 100}
-              reverseProgression
-            />
-          </section>
-        )}
-      </header>
-
-      <Components.ConfirmationModal
-        title="Are you sure you want to delete this logbook entry?"
-        caption="Once deleted, it will be gone forever"
-        submit={deleteEntry}
-      />
-    </>
+            >
+              ${Helpers.formatRoundedCost(props.totalSpent)}
+            </span>
+            {" / "}${Helpers.formatRoundedCost(props.budget)}
+          </p>
+          <Components.ProgressBar
+            progression={(props.totalSpent / Number(budget.value)) * 100}
+            reverseProgression
+          />
+        </section>
+      )}
+    </header>
   );
 };

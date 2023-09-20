@@ -9,6 +9,7 @@ import * as Types from "@/types";
 import { LogbookEntryHeader } from "./logbook-entry-header";
 import { LogbookEntryPurchases } from "./logbook-entry-purchases";
 import { LogbookEntryDropdownButtons } from "./logbook-entry-dropdown-buttons";
+import { LogbookEntryDeleteConfirmationModal } from "./logbook-entry-delete-confirmation";
 
 import Styles from "./logbook-entry-dropdown.module.scss";
 
@@ -25,6 +26,7 @@ export const LogbookEntryDropdown = (props: Props) => {
 
   const opened = useSignal(false);
   const selectedPurchases = useSignal<Types.SelectedPurchases>({});
+  const confirmationOpen = useSignal(false);
 
   useEffect(() => {
     if (opened.value && Helpers.userId) {
@@ -51,6 +53,7 @@ export const LogbookEntryDropdown = (props: Props) => {
         totalSpent={props.totalSpent}
         purchaseIds={props.purchaseIds}
         opened={opened}
+        confirmationOpen={confirmationOpen}
       />
 
       {opened.value && (
@@ -66,6 +69,11 @@ export const LogbookEntryDropdown = (props: Props) => {
           />
         </>
       )}
+
+      <LogbookEntryDeleteConfirmationModal
+        confirmationOpen={confirmationOpen}
+        entryId={props.entryId}
+      />
     </section>
   );
 };
