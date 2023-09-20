@@ -31,7 +31,10 @@ function determineRemainingBudgetHealth(
   currentOverview?: Types.OverviewModel
 ): string {
   if (currentOverview) {
-    if (remainingBudget.value === 0) {
+    if (remainingBudget.value < 0) {
+      budgetStatusText.value = "You're cutting into next month's budget!";
+      return Styles.low;
+    } else if (remainingBudget.value === 0) {
       budgetStatusText.value = "You ran out of this month's budget!";
       return Styles.low;
     } else if (remainingBudget.value <= currentOverview.income * 0.25) {
