@@ -54,6 +54,7 @@ export const Button = (props: Props) => {
 			`}
       type={props.submit ? "submit" : "button"}
       onClick={props.onClick}
+      tabIndex={-1}
     >
       {props.leftIcon && (
         <div className={Snippets.iconContainer}>{props.leftIcon}</div>

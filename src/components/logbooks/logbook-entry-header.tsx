@@ -119,7 +119,14 @@ export const LogbookEntryHeader = (props: Props) => {
       roundedTotalSpent: number
     ) => {
       if (currentEntry) {
-        if (roundedPurchasesTotalSpent !== roundedTotalSpent) {
+        const totalSpentChanged =
+          roundedPurchasesTotalSpent !== roundedTotalSpent;
+
+        const nonMonthlyTotalSpentChanged =
+          roundedNonMonthlyPurchasesTotalSpent !==
+          Helpers.roundCostToNumber(currentEntry.nonMonthlyTotalSpent);
+
+        if (totalSpentChanged || nonMonthlyTotalSpentChanged) {
           dispatch(
             Sagas.updateEntryRequest({
               totalSpent: roundedPurchasesTotalSpent,
@@ -171,11 +178,17 @@ export const LogbookEntryHeader = (props: Props) => {
     if (props.opened.value && currentEntry && purchases && Helpers.userId) {
       let purchasesTotalSpent = 0;
       let nonMonthlyPurchasesTotalSpent = 0;
+
       if (purchases) {
         for (const purchase of purchases) {
           if (purchase.cost) {
             purchasesTotalSpent += purchase.cost;
-            if (purchase.category !== "monthly" || !purchase.category) {
+            if (
+              purchase.category === "need" ||
+              purchase.category === "planned" ||
+              purchase.category === "impulse" ||
+              purchase.category === "regret"
+            ) {
               nonMonthlyPurchasesTotalSpent += purchase.cost;
             }
           }
