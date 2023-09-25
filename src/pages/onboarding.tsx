@@ -9,6 +9,7 @@ import * as Sagas from "@/sagas";
 import * as Types from "@/types";
 
 import Styles from "@/styles/onboarding.module.scss";
+import Snippets from "@/styles/snippets.module.scss";
 
 const Onboarding = () => {
   const dispatch = useDispatch();
@@ -109,7 +110,7 @@ const Onboarding = () => {
     <>
       <Components.PageHead title="Onboarding" />
 
-      <main className={Styles.container}>
+      <main className={`${Styles.container} ${Snippets.responsiveSidePadding}`}>
         <form
           className={`${Styles.form} ${Helpers.setBackgroundLevel(2)}`}
           onSubmit={nextPage}
