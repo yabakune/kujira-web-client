@@ -43,28 +43,6 @@ type Props = {
 };
 
 const ExportedComponent = (props: Props) => {
-  const pageLoadedCache = useSignal<{ [key: string]: boolean }>({
-    2: false,
-    3: false,
-    4: false,
-    5: false,
-    6: false,
-  });
-
-  effect(() => {
-    if (props.page.value === 2 && !pageLoadedCache.value[2]) {
-      pageLoadedCache.value[2] = true;
-    } else if (props.page.value === 3 && !pageLoadedCache.value[3]) {
-      pageLoadedCache.value[3] = true;
-    } else if (props.page.value === 4 && !pageLoadedCache.value[4]) {
-      pageLoadedCache.value[4] = true;
-    } else if (props.page.value === 5 && !pageLoadedCache.value[5]) {
-      pageLoadedCache.value[5] = true;
-    } else if (props.page.value === 6 && !pageLoadedCache.value[6]) {
-      pageLoadedCache.value[6] = true;
-    }
-  });
-
   return (
     <>
       {props.page.value === 1 ? (
@@ -77,12 +55,12 @@ const ExportedComponent = (props: Props) => {
           savings={props.savings}
           disabled={props.disabled}
         />
-      ) : props.page.value === 3 ? (
+      ) : props.page.value === 4 ? (
         <DynamicRecurring
           recurringOverviewTotalCost={props.recurringOverviewTotalCost}
           disabled={props.disabled}
         />
-      ) : props.page.value === 4 ? (
+      ) : props.page.value === 5 ? (
         <DynamicIncoming disabled={props.disabled} />
       ) : (
         <DynamicFinal />
