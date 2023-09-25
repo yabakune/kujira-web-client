@@ -67,45 +67,25 @@ const ExportedComponent = (props: Props) => {
 
   return (
     <>
-      <Components.CachedDisplay show={props.page.value === 1}>
+      {props.page.value === 1 ? (
         <Components.OnboardingWelcome />
-      </Components.CachedDisplay>
-
-      {pageLoadedCache.value[2] && (
-        <Components.CachedDisplay show={props.page.value === 2}>
-          <DynamicIncome income={props.income} disabled={props.disabled} />
-        </Components.CachedDisplay>
-      )}
-
-      {pageLoadedCache.value[3] && (
-        <Components.CachedDisplay show={props.page.value === 3}>
-          <DynamicSavings
-            income={props.income}
-            savings={props.savings}
-            disabled={props.disabled}
-          />
-        </Components.CachedDisplay>
-      )}
-
-      {pageLoadedCache.value[4] && (
-        <Components.CachedDisplay show={props.page.value === 4}>
-          <DynamicRecurring
-            recurringOverviewTotalCost={props.recurringOverviewTotalCost}
-            disabled={props.disabled}
-          />
-        </Components.CachedDisplay>
-      )}
-
-      {pageLoadedCache.value[5] && (
-        <Components.CachedDisplay show={props.page.value === 5}>
-          <DynamicIncoming disabled={props.disabled} />
-        </Components.CachedDisplay>
-      )}
-
-      {pageLoadedCache.value[6] && (
-        <Components.CachedDisplay show={props.page.value === 6}>
-          <DynamicFinal />
-        </Components.CachedDisplay>
+      ) : props.page.value === 2 ? (
+        <DynamicIncome income={props.income} disabled={props.disabled} />
+      ) : props.page.value === 3 ? (
+        <DynamicSavings
+          income={props.income}
+          savings={props.savings}
+          disabled={props.disabled}
+        />
+      ) : props.page.value === 3 ? (
+        <DynamicRecurring
+          recurringOverviewTotalCost={props.recurringOverviewTotalCost}
+          disabled={props.disabled}
+        />
+      ) : props.page.value === 4 ? (
+        <DynamicIncoming disabled={props.disabled} />
+      ) : (
+        <DynamicFinal />
       )}
     </>
   );
