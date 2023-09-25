@@ -28,7 +28,6 @@ const ExportedComponent = (props: Props) => {
     if (Helpers.userId) {
       dispatch(
         Sagas.createPurchaseRequest({
-          description: "",
           entryId: props.entryId,
           userId: Helpers.userId,
         })
