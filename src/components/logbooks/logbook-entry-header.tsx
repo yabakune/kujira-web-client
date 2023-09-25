@@ -257,7 +257,7 @@ export const LogbookEntryHeader = (props: Props) => {
                   ${determineBudgetHealth(remainingBudget)}
                 `}
               >
-                {Helpers.roundCost(props.totalSpent)}
+                {Helpers.formatRoundedCost(props.totalSpent)}
               </span>
             ) : (
               "Spent"
