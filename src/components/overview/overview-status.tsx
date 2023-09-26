@@ -19,7 +19,7 @@ const { currentLogbookId, menuModalOpen } = signalsStore;
 
 function generateNewLogbookEntryName(): string {
   const today = new Date();
-  const month = today.getMonth();
+  const month = today.getMonth() + 1;
   const day = today.getDate();
   const year = today.getFullYear();
   return `${month}/${day}/${year}`;
