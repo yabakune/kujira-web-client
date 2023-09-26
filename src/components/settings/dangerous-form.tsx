@@ -29,7 +29,9 @@ const ExportedComponent = () => {
         title="Dangerous"
         submit={() => (confirmationModalOpen.value = true)}
         buttonText="Delete Account"
+        weak={true}
         inputs
+        border
       />
       <Components.ConfirmationModal
         title="Are you sure you want to delete your account?"

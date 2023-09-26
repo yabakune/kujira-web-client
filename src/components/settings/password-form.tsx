@@ -71,6 +71,7 @@ export const PasswordForm = () => {
       title="Password"
       submit={updatePassword}
       disabled={disabled}
+      primary
       inputs
     >
       <Components.AuthInput

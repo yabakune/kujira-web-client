@@ -13,6 +13,9 @@ type Props = {
   submit: () => void;
   disabled?: Signal<boolean>;
   buttonText?: string;
+  weak?: boolean;
+  primary?: true;
+  border?: true;
   inputs?: true;
 };
 
@@ -40,8 +43,10 @@ const ExportedComponent = (props: Props) => {
         <Components.Button
           text={props.buttonText || "Update"}
           disabled={props.disabled}
+          weak={props.weak}
+          border={props.border}
+          primary={props.primary}
           centered
-          primary
           submit
         />
       )}

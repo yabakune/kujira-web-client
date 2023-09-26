@@ -75,6 +75,7 @@ export const AccountForm = (props: Props) => {
       title="Account"
       submit={updateAccountDetails}
       disabled={disabled}
+      primary
       inputs
     >
       <Components.AuthInput

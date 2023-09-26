@@ -20,7 +20,13 @@ const ExportedComponent = () => {
   }
 
   return (
-    <SettingsForm title="Session" submit={logOut} buttonText="Log Out" inputs />
+    <SettingsForm
+      title="Session"
+      submit={logOut}
+      buttonText="Log Out"
+      primary
+      inputs
+    />
   );
 };
 
