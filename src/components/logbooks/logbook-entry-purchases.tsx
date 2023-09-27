@@ -14,6 +14,8 @@ type Props = {
 };
 
 export const LogbookEntryPurchases = (props: Props) => {
+  console.log("Logbook entry purchases rendered");
+
   const purchases = useSelector((state: Redux.ReduxStore) =>
     Selectors.fetchEntryPurchases(state, props.purchaseIds)
   );

@@ -1,4 +1,5 @@
 import { Signal } from "@preact/signals-react";
+import { memo } from "react";
 import { useDispatch } from "react-redux";
 
 import * as Components from "@/components";
@@ -13,7 +14,9 @@ type Props = {
   selectedPurchases: Signal<Types.SelectedPurchases>;
 };
 
-export const LogbookEntryDropdownButtons = (props: Props) => {
+const ExportedComponent = (props: Props) => {
+  console.log("Logbook entry dropdown buttons:", props.entryId);
+
   const dispatch = useDispatch();
 
   function deleteSelectedPurchases(): void {
@@ -81,3 +84,5 @@ export const LogbookEntryDropdownButtons = (props: Props) => {
     </section>
   );
 };
+
+export const LogbookEntryDropdownButtons = memo(ExportedComponent);
