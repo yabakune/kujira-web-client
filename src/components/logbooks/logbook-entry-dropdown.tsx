@@ -1,5 +1,5 @@
 import { useSignal } from "@preact/signals-react";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import * as Helpers from "@/helpers";
@@ -21,7 +21,9 @@ type Props = {
   purchaseIds: { id: number }[];
 };
 
-export const LogbookEntryDropdown = (props: Props) => {
+const ExportedComponent = (props: Props) => {
+  console.log("Logbook entry dropdown rendered");
+
   const dispatch = useDispatch();
 
   const opened = useSignal(false);
@@ -77,3 +79,5 @@ export const LogbookEntryDropdown = (props: Props) => {
     </section>
   );
 };
+
+export const LogbookEntryDropdown = memo(ExportedComponent);
