@@ -39,8 +39,6 @@ type Props = {
 };
 
 export const LogbookEntryHeader = (props: Props) => {
-  console.log("Logbook entry header:", props.entryId);
-
   const dispatch = useDispatch();
 
   const currentEntry = useSelector((state: Redux.ReduxStore) =>

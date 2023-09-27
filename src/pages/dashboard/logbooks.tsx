@@ -13,8 +13,6 @@ import Styles from "@/styles/logbooks.module.scss";
 const { currentLogbookId } = signalsStore;
 
 const Logbooks: NextPageWithLayout = () => {
-  console.log("Logbooks page rendered");
-
   const logbookEntries = useSelector((state: Redux.ReduxStore) =>
     Selectors.fetchCurrentLogbookEntries(state, currentLogbookId.value)
   );

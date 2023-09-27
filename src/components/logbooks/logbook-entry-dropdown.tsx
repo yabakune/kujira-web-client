@@ -22,8 +22,6 @@ type Props = {
 };
 
 const ExportedComponent = (props: Props) => {
-  console.log("Logbook entry dropdown rendered");
-
   const dispatch = useDispatch();
 
   const opened = useSignal(false);

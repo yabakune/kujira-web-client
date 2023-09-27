@@ -15,8 +15,6 @@ type Props = {
 };
 
 const ExportedComponent = (props: Props) => {
-  console.log("Logbook entry dropdown buttons:", props.entryId);
-
   const dispatch = useDispatch();
 
   function deleteSelectedPurchases(): void {
