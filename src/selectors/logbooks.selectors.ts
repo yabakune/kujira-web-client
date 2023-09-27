@@ -29,11 +29,9 @@ export const fetchCurrentLogbookEntries = createSelector(
   (state: ReduxStore, logbookId: number | null) => logbookId,
   (logbooks, entries, logbookId) => {
     if (logbooks && entries && logbookId && logbooks[logbookId]) {
-      return logbooks[logbookId].entries.map(
-        ({ id: entryId }: { id: number }) => {
-          if (entries[entryId]) return entries[entryId];
-        }
-      );
+      return logbooks[logbookId].entries
+        .filter(({ id: entryId }: { id: number }) => !!entries[entryId])
+        .map(({ id: entryId }: { id: number }) => entries[entryId]);
     }
   }
 );

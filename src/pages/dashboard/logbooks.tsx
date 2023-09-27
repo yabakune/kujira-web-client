@@ -13,6 +13,8 @@ import Styles from "@/styles/logbooks.module.scss";
 const { currentLogbookId } = signalsStore;
 
 const Logbooks: NextPageWithLayout = () => {
+  console.log("Logbooks page rendered");
+
   const logbookEntries = useSelector((state: Redux.ReduxStore) =>
     Selectors.fetchCurrentLogbookEntries(state, currentLogbookId.value)
   );
@@ -23,19 +25,17 @@ const Logbooks: NextPageWithLayout = () => {
 
       <section className={Styles.logbookEntries}>
         {logbookEntries ? (
-          logbookEntries.map((logbookEntry: Types.EntryModel | undefined) => {
-            if (logbookEntry) {
-              return (
-                <Components.LogbookEntryDropdown
-                  key={`Dashboard Logbook Entry ${logbookEntry.id}`}
-                  entryId={logbookEntry.id}
-                  name={logbookEntry.name}
-                  budget={logbookEntry.budget}
-                  totalSpent={logbookEntry.totalSpent}
-                  purchaseIds={logbookEntry.purchases}
-                />
-              );
-            }
+          logbookEntries.map((logbookEntry: Types.EntryModel) => {
+            return (
+              <Components.LogbookEntryDropdown
+                key={`Dashboard Logbook Entry ${logbookEntry.id}`}
+                entryId={logbookEntry.id}
+                name={logbookEntry.name}
+                budget={logbookEntry.budget}
+                totalSpent={logbookEntry.totalSpent}
+                purchaseIds={logbookEntry.purchases}
+              />
+            );
           })
         ) : (
           <>
