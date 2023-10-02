@@ -10,7 +10,7 @@ import * as Hooks from "@/hooks";
 if (process.env.NODE_ENV === "development") {
   axios.defaults.baseURL = "http://localhost:8000";
 } else if (process.env.NODE_ENV === "production") {
-  axios.defaults.baseURL = "http://localhost:8000";
+  axios.defaults.baseURL = "https://kujira-api.netlify.app/";
 }
 
 type Props = {
