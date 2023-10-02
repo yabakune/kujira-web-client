@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <>
       <Components.PageHead title="Home" />
-      <main className={styles.main}>Home</main>
+      {/* <main className={styles.main}>Home</main> */}
     </>
   );
 }
