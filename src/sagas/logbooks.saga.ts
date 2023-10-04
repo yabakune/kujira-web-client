@@ -127,6 +127,7 @@ function* fetchUserLogbooks(
     const { data } = yield Saga.call(axios.post, endpoint, {
       ownerId: action.payload.userId,
     });
+
     const normalizedData = normalize(data.response, logbooksSchemaList);
 
     yield Saga.put(
@@ -144,11 +145,19 @@ function* createLogbook(action: Types.SagaPayload<Types.CreateLogbookPayload>) {
     const endpoint = Helpers.generateGatedEndpoint(
       Constants.APIRoutes.LOGBOOKS,
       `/`,
-      action.payload.userId
+      action.payload.ownerId
     );
-    const { userId, ...createPayload } = action.payload;
-    const { data } = yield Saga.call(axios.post, endpoint, createPayload);
-    // yield Saga.put(Redux.entitiesActions.updateLogbook(data.response));
+
+    const { data } = yield Saga.call(axios.post, endpoint, action.payload);
+    const normalizedData = normalize(data.response, logbooksSchema);
+    yield Saga.put(
+      Redux.entitiesActions.setLogbooks(
+        normalizedData.entities.logbooks as Types.NormalizedLogbooks
+      )
+    );
+    yield Saga.put(
+      Redux.entitiesActions.updateUserLogbooks({ id: data.response.id })
+    );
 
     yield Saga.put(
       Redux.uiActions.setNotification({

@@ -11,6 +11,14 @@ export const usersReducers = {
   ) => {
     state.currentUser = action.payload;
   },
+  updateUserLogbooks: (
+    state: EntitiesState,
+    action: PayloadAction<{ id: number }>
+  ) => {
+    if (state.currentUser) {
+      state.currentUser.logbooks.unshift(action.payload);
+    }
+  },
   logoutUser: (state: EntitiesState) => {
     state.currentUser = null;
   },

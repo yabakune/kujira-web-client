@@ -1,5 +1,5 @@
 import { GatedRoutePayload } from "./sagas.types";
-import { OverviewModel } from "../api-models.types";
+import { LogbookModel, OverviewModel } from "../api-models.types";
 
 export type FetchLogbooksPayload = {} & GatedRoutePayload;
 
@@ -10,14 +10,13 @@ export type FetchLogbookPayload = {
 export type FetchUserLogbooksPayload = {} & GatedRoutePayload;
 
 export type CreateLogbookPayload = Omit<
-  OverviewModel,
-  "id" | "createdAt" | "updatedAt" | "overview" | "entries"
-> &
-  GatedRoutePayload;
+  LogbookModel,
+  "id" | "name" | "createdAt" | "updatedAt" | "overview" | "entries"
+>;
 
 export type UpdateLogbookPayload = Partial<
   Omit<
-    OverviewModel,
+    LogbookModel,
     "id" | "createdAt" | "updatedAt" | "ownerId" | "overview" | "entries"
   >
 > & { logbookId: number } & GatedRoutePayload;

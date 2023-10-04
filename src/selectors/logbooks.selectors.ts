@@ -3,6 +3,20 @@ import { createSelector } from "@reduxjs/toolkit";
 
 import { ReduxStore } from "@/redux";
 
+export const fetchCurrentUserLogbooks = createSelector(
+  (state: ReduxStore) => state.entities.currentUser,
+  (state: ReduxStore) => state.entities.logbooks,
+  (currentUser, logbooks) => {
+    if (currentUser && logbooks) {
+      return currentUser.logbooks
+        .filter(({ id: logbookId }: { id: number }) => !!logbooks[logbookId])
+        .map(({ id: logbookId }: { id: number }) => {
+          return logbooks[logbookId];
+        });
+    }
+  }
+);
+
 export const fetchLogbook = createCachedSelector(
   (state: ReduxStore) => state.entities.logbooks,
   (state: ReduxStore, logbookId: number | null) => logbookId,

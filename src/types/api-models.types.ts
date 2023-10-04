@@ -14,6 +14,7 @@ export type UserModel = {
   createdAt: Date;
   updatedAt: Date;
   // Has Many
+  logbooks: { id: number }[];
   bugReports: { id: number }[];
 };
 
